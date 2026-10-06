@@ -13,6 +13,10 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from server.app import dispatch  # noqa: E402
 
+WEB = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "web")
+TYPES = {".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".png": "image/png",
+         ".svg": "image/svg+xml", ".ico": "image/x-icon", ".json": "application/json"}
+
 ALLOWED = [o.strip().rstrip("/") for o in (os.environ.get("ALLOWED_ORIGIN") or "").split(",") if o.strip()]
 
 
@@ -45,7 +49,29 @@ class handler(BaseHTTPRequestHandler):
     def _ip(self) -> str:
         return (self.headers.get("x-forwarded-for") or self.client_address[0]).split(",")[0].strip()
 
+    def _static(self) -> None:
+        """화면 파일(web/)을 내준다. Vercel이 모든 주소를 이 함수로 보내는 경우에도 화면이 열리게."""
+        rel = self.path.split("?")[0].lstrip("/") or "index.html"
+        f = os.path.realpath(os.path.join(WEB, rel))
+        if not f.startswith(os.path.realpath(WEB) + os.sep) or not os.path.isfile(f):
+            self.send_response(404)
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
+            self.end_headers()
+            self.wfile.write("없는 페이지예요".encode("utf-8"))
+            return
+        ext = os.path.splitext(f)[1].lower()
+        ctype = TYPES.get(ext, "application/octet-stream")
+        with open(f, "rb") as fh:
+            data = fh.read()
+        self.send_response(200)
+        self.send_header("Content-Type", ctype + ("; charset=utf-8" if ctype.startswith("text") else ""))
+        self.send_header("Cache-Control", "no-cache")
+        self.end_headers()
+        self.wfile.write(data)
+
     def do_GET(self):
+        if not self.path.startswith("/api/"):
+            return self._static()
         self._send(*dispatch("GET", self.path, b"", dict(self.headers), self._ip()))
 
     def do_POST(self):

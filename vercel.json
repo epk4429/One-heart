@@ -4,12 +4,16 @@
     {
       "source": "/api/(.*)",
       "destination": "/api/index"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
     }
   ],
   "functions": {
     "api/index.py": {
       "maxDuration": 300,
-      "includeFiles": "{data/assumptions.json,data/presets/*.json,ontology/*.json}"
+      "includeFiles": "{data/assumptions.json,data/presets/*.json,ontology/*.json,web/**}"
     }
   },
   "outputDirectory": "web"
