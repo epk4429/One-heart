@@ -1,0 +1,12 @@
+{
+  "_note": "제약 → 속성 조건(docs/08_온톨로지.md 2절). field는 attributes의 키 또는 features / requires_home_sale / kind. 통과 못 하면 reason으로 제외 사유를 남긴다.",
+  "rules": {
+    "C_principal_protected": {"field": "risk", "in": ["원금보장"], "reason": "원금 보장이 아니라서"},
+    "C_until_event": {"field": "term", "in": ["6~36개월"], "reason": "정해진 때까지 기간을 정해 모으는 상품이 아니라서"},
+    "C_instant_access": {"field": "liquidity", "in": ["수시"], "reason": "필요할 때 바로 꺼낼 수 없어서"},
+    "C_keep_residence": {"field": "requires_home_sale", "equals": false, "reason": "지금 집을 팔아야 해서"},
+    "C_risk_cap_20": {"field": "risk", "in": ["원금보장", "중간"], "reason": "위험이 커서"},
+    "C_shared_visibility": {"field": "features", "contains": "공동 조회", "reason": "가족이 함께 볼 수 없어서"},
+    "C_no_direct_advice": {"field": "kind", "in": ["consult"], "reason": "직접 자문 대신 상담 연결만 해서"}
+  }
+}

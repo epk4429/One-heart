@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# 비밀값
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel/
+
+# OS·에디터
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+data/usage/

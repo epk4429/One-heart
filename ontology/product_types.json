@@ -1,0 +1,232 @@
+{
+ "_note": "상품 유형(docs/08_온톨로지.md 3절). 특정 금융회사 상품이 아니다(기획안 15쪽). 금리 숫자는 지어내지 않고 가정값·공시 스냅샷을 참조한다. '확인 필요'는 공시·제도 안내로 확인 전.",
+ "product_types": [
+  {
+   "id": "P_housing_subscription",
+   "label": "주택청약 저축",
+   "kind": "product",
+   "attributes": {
+    "rate": "가정값 참조",
+    "term": "장기",
+    "risk": "원금보장",
+    "liquidity": "제한",
+    "tax": "확인 필요",
+    "eligibility": "확인 필요"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "새로 짓는 아파트를 신청할 자격을 쌓는 통장이에요."
+  },
+  {
+   "id": "PP_first_home_loan",
+   "label": "첫집 구입 자금 대출(정책금융)",
+   "kind": "policy",
+   "attributes": {
+    "rate": "가정값 참조",
+    "term": "장기",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "무주택·소득 기준 등 확인 필요"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "처음 집을 살 때 받을 수 있는 정책 대출 유형이에요. 미리 한도를 확인해 둘 수 있어요."
+  },
+  {
+   "id": "P_installment_savings",
+   "label": "적금(원금 보장)",
+   "kind": "product",
+   "attributes": {
+    "rate": "가정값 참조",
+    "term": "6~36개월",
+    "risk": "원금보장",
+    "liquidity": "만기",
+    "tax": "해당 없음",
+    "eligibility": "누구나"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "매달 정해진 돈을 넣고 만기에 찾는 상품이에요. 원금이 줄지 않아요."
+  },
+  {
+   "id": "P_balanced_fund",
+   "label": "혼합형 투자 상품",
+   "kind": "product",
+   "attributes": {
+    "rate": "변동",
+    "term": "자유",
+    "risk": "중간",
+    "liquidity": "단기",
+    "tax": "해당 없음",
+    "eligibility": "누구나"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "예금과 주식에 나눠 투자하는 상품이에요. 오를 수도 내릴 수도 있어요."
+  },
+  {
+   "id": "P_joint_account",
+   "label": "모임통장",
+   "kind": "product",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "자유",
+    "risk": "원금보장",
+    "liquidity": "수시",
+    "tax": "해당 없음",
+    "eligibility": "구성원 동의"
+   },
+   "features": [
+    "공동 조회",
+    "자동이체"
+   ],
+   "requires_home_sale": false,
+   "summary": "여러 사람이 함께 넣고 쓰면서 누가 얼마나 넣었는지 같이 보는 통장이에요."
+  },
+  {
+   "id": "P_child_insurance",
+   "label": "태아·어린이 보험",
+   "kind": "product",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "장기",
+    "risk": "보장성",
+    "liquidity": "해당 없음",
+    "tax": "확인 필요",
+    "eligibility": "출생 전 가입 시 보장 범위가 넓음"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "아이가 아프거나 다칠 때 보장받는 보험이에요."
+  },
+  {
+   "id": "PP_reverse_mortgage",
+   "label": "주택연금(공적 제도)",
+   "kind": "policy",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "평생",
+    "risk": "해당 없음",
+    "liquidity": "월 지급",
+    "tax": "확인 필요",
+    "eligibility": "연령·주택 가격 기준 확인 필요"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "집을 담보로 맡기고, 그 집에 계속 살면서 매달 생활비를 받는 제도예요."
+  },
+  {
+   "id": "P_home_downsize",
+   "label": "주택 매도 후 소형 주택 매수",
+   "kind": "action",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "해당 없음",
+    "risk": "해당 없음",
+    "liquidity": "일시금",
+    "tax": "확인 필요",
+    "eligibility": "해당 없음"
+   },
+   "features": [],
+   "requires_home_sale": true,
+   "summary": "지금 집을 팔고 작은 집으로 옮겨 남는 돈을 쓰는 방법이에요."
+  },
+  {
+   "id": "P_parking_account",
+   "label": "수시입출금 통장",
+   "kind": "product",
+   "attributes": {
+    "rate": "가정값 참조",
+    "term": "자유",
+    "risk": "원금보장",
+    "liquidity": "수시",
+    "tax": "해당 없음",
+    "eligibility": "누구나"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "언제든 넣고 뺄 수 있는 통장이에요."
+  },
+  {
+   "id": "P_care_insurance",
+   "label": "간병 보험",
+   "kind": "product",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "장기",
+    "risk": "보장성",
+    "liquidity": "해당 없음",
+    "tax": "확인 필요",
+    "eligibility": "연령·건강 심사 확인 필요"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "간병이 필요해졌을 때 비용을 보장하는 보험이에요."
+  },
+  {
+   "id": "P_family_trust_consult",
+   "label": "가족 신탁 상담 연결",
+   "kind": "consult",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "해당 없음",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "확인 필요",
+    "eligibility": "상담"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "재산을 나중에 어떻게 나눌지 전문가와 상담하는 창구예요."
+  },
+  {
+   "id": "P_prepay_plan",
+   "label": "대출 미리 갚기(중도상환) 계획",
+   "kind": "action",
+   "attributes": {
+    "rate": "해당 없음",
+    "term": "해당 없음",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "중도상환 수수료 확인 필요"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "매달 정한 만큼 대출을 더 갚아 이자를 줄이는 방법이에요."
+  },
+  {
+   "id": "P_refinance_consult",
+   "label": "대출 갈아타기 상담(금리 비교)",
+   "kind": "consult",
+   "attributes": {
+    "rate": "비교 필요",
+    "term": "해당 없음",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "확인 필요"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "지금보다 금리가 낮은 대출로 바꿀 수 있는지 상담받는 방법이에요."
+  },
+  {
+   "id": "P_pension_savings",
+   "label": "연금저축",
+   "kind": "product",
+   "attributes": {
+    "rate": "변동",
+    "term": "장기",
+    "risk": "중간",
+    "liquidity": "제한",
+    "tax": "세액공제(확인 필요)",
+    "eligibility": "누구나"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "노후에 연금으로 받으려고 오래 모으는 상품이에요. 세금 혜택이 있어요."
+  }
+ ]
+}

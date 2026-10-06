@@ -1,0 +1,108 @@
+{
+ "_note": "예시 가족(기획안 사용 예시 1: 신혼부부). 체험자가 그대로 쓰거나 고쳐 쓸 수 있다. 금액은 만원, 모두 가상값.",
+ "preset_id": "newly",
+ "today": "2026-10",
+ "room": {
+  "name": "우리 둘의 5년 계획",
+  "reason": "집을 먼저 살지, 아이를 먼저 가질지 이야기할 때마다 결론 없이 끝났어요. 이번엔 숫자를 놓고 같이 정해보고 싶어요.",
+  "host_member_id": "m1"
+ },
+ "members": [
+  {
+   "member_id": "m0",
+   "name": "민준",
+   "role": "남편",
+   "age": 32,
+   "easy_mode": false
+  },
+  {
+   "member_id": "m1",
+   "name": "서연",
+   "role": "아내",
+   "age": 30,
+   "easy_mode": false
+  }
+ ],
+ "story": {
+  "author_id": "m1",
+  "text": "결혼 1년 차 부부예요. 성남 전세에 살고 있고 전세 만기가 내년 4월이에요. 둘 다 회사에 다니고 있고, 2년 안에 아이를 갖고 싶어요. 5년 안에는 작은 아파트라도 우리 집을 사고 싶은데, 남편은 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요. 양가에 드리는 용돈도 기준이 없어서 가끔 서운할 때가 있어요."
+ },
+ "finance": [
+  {
+   "item_id": "f1",
+   "owner_id": "m1",
+   "kind": "deposit",
+   "label": "가온은행 예금",
+   "amount": 2800
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m0",
+   "kind": "investment",
+   "label": "나래증권 주식",
+   "amount": 1200
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "joint",
+   "kind": "lease_deposit",
+   "label": "전세 보증금",
+   "amount": 25000
+  },
+  {
+   "item_id": "f4",
+   "owner_id": "joint",
+   "kind": "loan",
+   "loan_type": "lease",
+   "label": "가온은행 전세대출",
+   "amount": 15000,
+   "rate": 4.1
+  },
+  {
+   "item_id": "f5",
+   "owner_id": "joint",
+   "kind": "income",
+   "label": "둘이 버는 돈",
+   "amount": 700
+  },
+  {
+   "item_id": "f6",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비(카드 월평균)",
+   "amount": 300
+  },
+  {
+   "item_id": "f7",
+   "owner_id": "joint",
+   "kind": "transfer_out",
+   "label": "양가 용돈(각 20만원)",
+   "amount": 40
+  }
+ ],
+ "disclosure": {},
+ "scripts": {
+  "answers": {
+   "m0": [
+    "우리 집에서 아이랑 사는 거요. 전세 계약 연장할 때마다 불안하거든요.",
+    "집값이 계속 오르면 영영 못 살까 봐요.",
+    "투자 비중은 줄일 수 있어요. 대신 집 사는 시기를 너무 늦추고 싶진 않아요."
+   ],
+   "m1": [
+    "아이가 있고, 제가 육아휴직을 마음 편히 쓸 수 있으면 좋겠어요.",
+    "휴직하면 제 월급이 절반 이하로 줄어요. 그때 대출 이자까지 내면 빠듯할 것 같아요.",
+    "집은 1~2년 늦어져도 괜찮아요. 그런데 양가 용돈은 똑같이 했으면 해요."
+   ]
+  },
+  "replies": {
+   "m0": "조건이 빨리 채워지면 그만큼 빨리 사는 거니까, 괜찮은 것 같아요.",
+   "m1": "그러면 아이 계획을 미루지 않아도 되겠네요. 좋아요."
+  },
+  "goal_form": {
+   "type": "reach_target",
+   "target_amount": 30000,
+   "within_months": 60,
+   "label": "집 살 때 필요한 우리 돈"
+  }
+ }
+}

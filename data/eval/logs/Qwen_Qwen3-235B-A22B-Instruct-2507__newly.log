@@ -1,0 +1,12 @@
+  [1a] ok (1.9s)
+  [1b] 0/2 ok (0.4s)
+  [2a] 탐지 0/0, 오탐 0 (0.5s)
+  [2b] 해당 없음 (0.0s)
+  [3+4a] 칸 일치 0/6, 제안 키워드 [] (0.2s)
+  [4b] FAIL (0.2s)
+  [5+6a] FAIL (0.2s)
+  [6b] ok (6.3s)
+  [5r] from=B levers={'option_id': 'B_adj', 'label': '둘 다 챙기기 · 주식 비중 조정안', 'discretionary': -75, 'return_assumption_id': 'newly_B_stock20', 'life_event': 0} → 약 4.8년 (기대 B, newly_B_stock20, 약 4.8년) (4.2s)
+  [7] FAIL 검증=None 위반=0 (0.3s)
+  [8] 약속별 기대 상품 포함 0/5 (0.2s)
+→ data\eval\Qwen_Qwen3-235B-A22B-Instruct-2507__newly.json  tokens={'input_tokens': 5402, 'output_tokens': 643}

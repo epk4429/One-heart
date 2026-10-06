@@ -1,0 +1,6368 @@
+{
+ "model": "claude-sonnet-5-5",
+ "family": "mortgage_couple",
+ "started": "2026-10-07 00:13:22",
+ "steps": {
+  "story": {
+   "seconds": 2.4,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 2.39,
+     "usage": {
+      "input_tokens": 1116,
+      "output_tokens": 154,
+      "cost_usd": 0.004328
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_ff2f9cfbb0",
+    "run_id": null,
+    "role": "1a",
+    "checked_numbers": 1,
+    "facts_used": [],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "family_stage": "결혼 6년 차 · 맞벌이 · 자녀 계획 없음",
+    "living": "자가 아파트 · 주택담보대출 상환 중",
+    "shared_goal": "대출을 갚아 나가기",
+    "differences": [
+     "남는 돈을 대출 상환에 모두 쓸지 여부",
+     "비상금·노후 준비를 함께 할지 여부",
+     "대출을 갚는 기간과 속도"
+    ]
+   },
+   "error": null
+  },
+  "review.m0": {
+   "seconds": 1.7,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 1.65,
+     "usage": {
+      "input_tokens": 1748,
+      "output_tokens": 102,
+      "cost_usd": 0.005388
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_974f81eff3",
+    "run_id": null,
+    "role": "1b",
+    "checked_numbers": 0,
+    "facts_used": [],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "keep": "빚 없는 우리 집에서 사는 것",
+    "flexible": "외식이나 여행 줄이기",
+    "worry": "금리가 또 올라 이자가 감당 안 될까 봐",
+    "ambiguous": [],
+    "question": "",
+    "easy_question": "",
+    "choices": []
+   },
+   "error": null
+  },
+  "review.m1": {
+   "seconds": 1.9,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 1.86,
+     "usage": {
+      "input_tokens": 1780,
+      "output_tokens": 112,
+      "cost_usd": 0.005568
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_90ad155911",
+    "run_id": null,
+    "role": "1b",
+    "checked_numbers": 1,
+    "facts_used": [],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "keep": "비상금 6개월치는 꼭 남겨 두기",
+    "flexible": "대출 갚는 속도가 조금 늦어지는 것",
+    "worry": "큰돈 들 일에 비상금이 없을까 봐",
+    "ambiguous": [],
+    "question": "",
+    "easy_question": "",
+    "choices": []
+   },
+   "error": null
+  },
+  "goal": {
+   "seconds": 12.2,
+   "runs": {
+    "analysis_run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 4.33,
+     "usage": {
+      "input_tokens": 1436,
+      "output_tokens": 533,
+      "cost_usd": 0.008918
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    },
+    "proposal_run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 7.85,
+     "usage": {
+      "input_tokens": 2323,
+      "output_tokens": 876,
+      "cost_usd": 0.014566
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_1b0397945d",
+    "run_id": null,
+    "role": "3+4a",
+    "checked_numbers": 7,
+    "facts_used": [
+     "fin.expense_total",
+     "fin.income_total",
+     "fin.liquid_total",
+     "fin.loan"
+    ],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "headline": "대출을 갚아 나가고 싶은 마음은 같아요. 남는 돈을 어디에 먼저 쓸지가 다를 뿐이에요.",
+    "agreed_points": [
+     "대출을 갚아 나가는 것이 두 분 모두에게 중요한 목표예요.",
+     "지금보다 더 안정적인 살림을 만들고 싶은 마음이 같아요.",
+     "두 분 모두 앞날의 불안(금리 상승, 큰돈 들 일)을 걱정하고 있어요."
+    ],
+    "issues": [
+     {
+      "title": "남는 돈을 어디에 먼저 쓸까요",
+      "left_label": "대출 상환을 먼저",
+      "right_label": "비상금을 먼저",
+      "positions": {
+       "m0": 0.2,
+       "m1": 0.8
+      },
+      "note": "대출 상환과 비상금 중 무엇을 먼저 채울지",
+      "gap_level": "large"
+     },
+     {
+      "title": "대출을 갚는 속도",
+      "left_label": "빠르게 갚기",
+      "right_label": "여유 있게 갚기",
+      "positions": {
+       "m0": 0.15,
+       "m1": 0.75
+      },
+      "note": "준호 님은 빨리 갚고 싶고, 지현 님은 조금 늦어져도 괜찮다고 해요.",
+      "gap_level": "large"
+     },
+     {
+      "title": "비상금·노후 준비를 함께 할지",
+      "left_label": "대출 상환에 집중",
+      "right_label": "상환과 준비를 함께",
+      "positions": {
+       "m0": 0.3,
+       "m1": 0.8
+      },
+      "note": "대출 외의 준비를 얼마나 병행할지",
+      "gap_level": "medium"
+     }
+    ],
+    "proposal": {
+     "text": "두 분 모두 대출을 갚아 나가고, 앞날의 불안을 줄이고 싶어 하세요. 그래서 남는 돈을 '비상금이 먼저, 그다음 대출 상환'이라는 순서로 나누어 보면 어떨까요? 먼저 지현 님이 꼭 지키고 싶다고 하신 비상금 6개월치가 모일 때까지는 남는 돈의 일부로 비상금을 채우고, 나머지는 바로 대출 갚는 데 쓰는 거예요. 지금 매달 들어오는 돈 월 720만원에서 나가는 돈 월 370만원을 뺀 만큼이 남는 돈이고, 이미 모아 둔 예금·투자 4,000만원도 비상금을 채우는 데 함께 헤아려 볼 수 있어요. 비상금 6개월치가 채워지면 남는 돈은 모두 3억 2,000만원의 대출을 갚는 데 쓰고, 준호 님이 말씀하신 외식·여행 줄이기로 생긴 돈도 상환에 보태는 거예요. 이렇게 하면 어떨까요?",
+     "to": [
+      "m0",
+      "m1"
+     ],
+     "bridges": [
+      {
+       "issue_title": "남는 돈을 어디에 먼저 쓸까요",
+       "how": "비상금과 대출 상환 중 하나만 고르지 않고, 비상금 6개월치가 찰 때까지는 둘을 나눠서 채우고 그 뒤에는 상환에 모으는 순서를 정해서 두 분이 지키고 싶은 것을 모두 지켜요."
+      },
+      {
+       "issue_title": "대출을 갚는 속도",
+       "how": "준호 님이 줄일 수 있다고 한 외식·여행비를 상환에 보태면 속도를 어느 정도 지킬 수 있고, 지현 님이 괜찮다고 한 만큼 비상금을 채우는 동안에는 속도가 조금 늦어지는 것을 받아들여요."
+      },
+      {
+       "issue_title": "비상금·노후 준비를 함께 할지",
+       "how": "처음에는 비상금이라는 가장 급한 준비만 함께 하고, 그 목표가 이뤄지면 대출 상환에 집중하는 단계로 넘어가서 병행의 부담을 줄여요. 노후 준비는 그다음에 다시 이야기해 볼 수 있어요."
+      }
+     ]
+    }
+   },
+   "error": null
+  },
+  "criterion": {
+   "seconds": 1.8,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 1.79,
+     "usage": {
+      "input_tokens": 2584,
+      "output_tokens": 155,
+      "cost_usd": 0.008008
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_3a63f8fa3c",
+    "run_id": null,
+    "role": "4b",
+    "checked_numbers": 2,
+    "facts_used": [
+     "fin.loan"
+    ],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "criterion": "비상금 6개월치는 꼭 지키면서, 남는 돈으로 3억 2,000만원의 대출을 갚아 나가고, 매달 더 갚는 돈은 금액을 딱 정해 두기로 해요.",
+    "criterion_raw": "비상금 6개월치는 꼭 지키면서, 남는 돈으로 {{fact:fin.loan}}의 대출을 갚아 나가고, 매달 더 갚는 돈은 금액을 딱 정해 두기로 해요.",
+    "goal": {
+     "type": "debt_free",
+     "label": "대출 모두 갚기",
+     "within_months": null,
+     "base_member_id": null,
+     "target_amount": null,
+     "target_note": null
+    }
+   },
+   "error": null
+  },
+  "design": {
+   "seconds": 27.5,
+   "runs": {
+    "design_run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 21.45,
+     "usage": {
+      "input_tokens": 21690,
+      "output_tokens": 3093,
+      "cost_usd": 0.059073
+     },
+     "tool_calls": 2,
+     "model": "claude-sonnet-5-5"
+    },
+    "interpret_run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 5.97,
+     "usage": {
+      "input_tokens": 3943,
+      "output_tokens": 796,
+      "cost_usd": 0.017816
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_2c23bf2f88",
+    "run_id": "run_b8337d5659a5",
+    "role": "5+6a",
+    "checked_numbers": 12,
+    "facts_used": [
+     "A.age_at_hit",
+     "A.cashflow.4",
+     "A.goal_hit_years",
+     "A.loan_payment",
+     "B.age_at_hit",
+     "B.cashflow.4",
+     "B.goal_hit_years",
+     "C.age_at_hit",
+     "C.goal_hit_years",
+     "C.loan_payment"
+    ],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "options": [
+     {
+      "option_id": "A",
+      "label": "외식·여행을 줄여 빨리 갚기",
+      "description": "외식과 여행을 줄인 돈까지 모아 대출을 가장 빨리 갚는 방법이에요.",
+      "changes": [
+       "돈을 불리는 방식: 예금·적금 위주(연 3.8% 가정)",
+       "외식·여행 줄이기 월 +30만원 (준호 님이 외식이나 여행 줄이기는 양보할 수 있다고 했어요. 줄이는 정도는 가정이에요.)",
+       "주택담보대출 한 달 200만원 더 갚기"
+      ],
+      "hit": "약 8.7년",
+      "monthly_flow": 10.0,
+      "range": null,
+      "basis": [
+       [
+        "출발 금액",
+        "4,000만원",
+        "예금·투자 4,000만원"
+       ],
+       [
+        "한 달에 늘거나 줄어드는 돈",
+        "+10만원",
+        "준호 월급 420 + 지현 월급 300 − 생활비(카드 월평균·보험 포함) 340 − 양가 용돈 30 + 외식·여행 줄이기 30 − 대출 상환 370"
+       ],
+       [
+        "1년에 불어나는 비율",
+        "연 3.8%",
+        ""
+       ],
+       [
+        "물가 오름(생활비에 반영)",
+        "연 2%",
+        ""
+       ],
+       [
+        "주택담보대출",
+        "-3억 2,000만원",
+        "연 4.2% · 한 달 170만원씩 갚아요"
+       ],
+       [
+        "주택담보대출 더 갚기",
+        "-200만원 / 한 달",
+        "1개월째부터"
+       ],
+       [
+        "가족이 정한 기준",
+        "대출 모두 갚기",
+        ""
+       ]
+      ]
+     },
+     {
+      "option_id": "B",
+      "label": "비상금 지키며 꾸준히 갚기",
+      "description": "비상금과 빚 없는 우리 집을 함께 지키면서 무리 없이 갚아 나가는 방법이에요.",
+      "changes": [
+       "돈을 불리는 방식: 예금·적금 위주(연 3.8% 가정)",
+       "외식·여행 조금 줄이기 월 +15만원 (준호 님이 외식이나 여행 줄이기는 양보할 수 있다고 했어요. 줄이는 정도는 가정이에요.)",
+       "주택담보대출 한 달 160만원 더 갚기"
+      ],
+      "hit": "약 9.9년",
+      "monthly_flow": 35.0,
+      "range": null,
+      "basis": [
+       [
+        "출발 금액",
+        "4,000만원",
+        "예금·투자 4,000만원"
+       ],
+       [
+        "한 달에 늘거나 줄어드는 돈",
+        "+35만원",
+        "준호 월급 420 + 지현 월급 300 − 생활비(카드 월평균·보험 포함) 340 − 양가 용돈 30 + 외식·여행 조금 줄이기 15 − 대출 상환 330"
+       ],
+       [
+        "1년에 불어나는 비율",
+        "연 3.8%",
+        ""
+       ],
+       [
+        "물가 오름(생활비에 반영)",
+        "연 2%",
+        ""
+       ],
+       [
+        "주택담보대출",
+        "-3억 2,000만원",
+        "연 4.2% · 한 달 170만원씩 갚아요"
+       ],
+       [
+        "주택담보대출 더 갚기",
+        "-160만원 / 한 달",
+        "1개월째부터"
+       ],
+       [
+        "가족이 정한 기준",
+        "대출 모두 갚기",
+        ""
+       ]
+      ]
+     },
+     {
+      "option_id": "C",
+      "label": "지금 생활 여유 우선",
+      "description": "생활은 그대로 두고 대출은 천천히 더 갚는 방법이에요.",
+      "changes": [
+       "돈을 불리는 방식: 예금·적금 위주(연 3.8% 가정)",
+       "주택담보대출 한 달 50만원 더 갚기"
+      ],
+      "hit": "약 17.0년",
+      "monthly_flow": 130.0,
+      "range": null,
+      "basis": [
+       [
+        "출발 금액",
+        "4,000만원",
+        "예금·투자 4,000만원"
+       ],
+       [
+        "한 달에 늘거나 줄어드는 돈",
+        "+130만원",
+        "준호 월급 420 + 지현 월급 300 − 생활비(카드 월평균·보험 포함) 340 − 양가 용돈 30 − 대출 상환 220"
+       ],
+       [
+        "1년에 불어나는 비율",
+        "연 3.8%",
+        ""
+       ],
+       [
+        "물가 오름(생활비에 반영)",
+        "연 2%",
+        ""
+       ],
+       [
+        "주택담보대출",
+        "-3억 2,000만원",
+        "연 4.2% · 한 달 170만원씩 갚아요"
+       ],
+       [
+        "주택담보대출 더 갚기",
+        "-50만원 / 한 달",
+        "1개월째부터"
+       ],
+       [
+        "가족이 정한 기준",
+        "대출 모두 갚기",
+        ""
+       ]
+      ]
+     }
+    ],
+    "design_notes": [
+     {
+      "option_id": "A",
+      "intent": "목표 기간 안에 대출을 가장 빨리 갚는 데 집중했어요. 준호 님이 양보할 수 있다고 한 외식·여행 줄이기를 활용했고, 집은 팔지 않아 빚 없는 우리 집은 지켜요. 다만 매달 남는 돈이 적어서 비상금 6개월치는 처음 모아 둔 돈으로 지키는 방식이에요."
+     },
+     {
+      "option_id": "B",
+      "intent": "지현 님의 비상금 6개월치와 준호 님의 빚 없는 우리 집을 함께 지키는 균형 방법이에요. 지현 님이 속도가 조금 늦어져도 된다고 한 점을 반영해 A보다 덜 갚되, 대출을 다 갚는 때가 {{fact:B.debt_free_years}}이라 목표인 10년 안에 들어오도록 맞췄어요."
+     },
+     {
+      "option_id": "C",
+      "intent": "지금의 생활 여유를 우선해서 생활비는 그대로 두고 더 갚는 돈을 적게 잡았어요. 그만큼 대출을 다 갚는 때가 {{fact:C.debt_free_years}}으로 늦어져서 목표인 10년 안에는 들어오지 않아요. 지현 님이 속도가 늦어지는 것은 괜찮다고 한 점을 반영했어요."
+     }
+    ],
+    "interpretation": {
+     "A": {
+      "easy": "이 방법은 대출을 다 갚는 데 약 8.7년이 걸리고, 그때 나이는 47세쯤이에요.",
+      "per_member": {
+       "m0": "준호 님이 줄일 수 있다고 한 외식과 여행을 줄여 한 달 30만원을 보태면, 빚 없는 우리 집에 가장 빨리 가까워져요.",
+       "m1": "대출을 가장 빨리 갚는 만큼 한 달 대출 상환이 370만원으로 커지니, 지현 님이 꼭 지키고 싶은 비상금 6개월치를 남길 수 있는지 함께 확인해 보면 좋아요."
+      }
+     },
+     "B": {
+      "easy": "이 방법은 대출을 다 갚는 데 약 9.9년이 걸리고, 그때 나이는 48세쯤이에요.",
+      "per_member": {
+       "m0": "외식과 여행을 조금만 줄여 한 달 15만원을 보태면서도 빚 없는 우리 집에 가까워지니, 금리 걱정도 조금씩 줄여 갈 수 있어요.",
+       "m1": "대출 갚는 속도는 A보다 조금 늦어지지만, 지현 님이 양보할 수 있다고 한 부분이라 비상금 6개월치를 남길 여지가 더 생겨요."
+      }
+     },
+     "C": {
+      "easy": "이 방법은 대출을 다 갚는 데 약 17.0년이 걸리고, 그때 나이는 56세쯤이에요.",
+      "per_member": {
+       "m0": "외식과 여행은 그대로 두지만 빚 없는 집까지 시간이 오래 걸려서, 그동안 금리가 오를까 하는 걱정이 더 오래 갈 수 있어요.",
+       "m1": "한 달 대출 상환이 220만원으로 가장 작아 비상금을 지키기에는 여유가 있지만, 대출 갚는 속도는 가장 느려져요."
+      }
+     }
+    }
+   },
+   "error": null
+  },
+  "check": {
+   "seconds": 5.2,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 5.14,
+     "usage": {
+      "input_tokens": 3743,
+      "output_tokens": 697,
+      "cost_usd": 0.016325
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_fb577983a7",
+    "run_id": "run_b8337d5659a5",
+    "role": "6b",
+    "checked_numbers": 11,
+    "facts_used": [
+     "A.debt_free_years",
+     "A.end_debt",
+     "A.monthly_flow",
+     "B.debt_free_years",
+     "B.end_debt",
+     "B.monthly_flow",
+     "C.debt_free_years",
+     "C.monthly_flow"
+    ],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "keep_check": {
+     "A": {
+      "m0": {
+       "ok": true,
+       "reason": "대출을 다 갚는 때가 약 8.7년이고 기간 끝 대출 잔액이 0만원라서 빚 없는 집에 가장 빨리 가까워져요."
+      },
+      "m1": {
+       "ok": false,
+       "reason": "매달 남는 돈이 10만원뿐이고 비상금 6개월치를 따로 남기는 계산이 없어서, 지켜지는지 확인할 수 없어요."
+      }
+     },
+     "B": {
+      "m0": {
+       "ok": true,
+       "reason": "대출을 다 갚는 때가 약 9.9년이고 기간 끝 대출 잔액이 0만원라서 빚 없는 집이 이루어져요."
+      },
+      "m1": {
+       "ok": true,
+       "reason": "매달 35만원가 남아 A보다 여유가 있어요. 다만 비상금 6개월치를 따로 떼어 두는 계산은 없어서, 가족이 직접 확인해 보셔야 해요."
+      }
+     },
+     "C": {
+      "m0": {
+       "ok": true,
+       "reason": "대출을 끝내기는 하지만 약 17.0년가 걸려서 빚 없는 집이 가장 늦어져요."
+      },
+      "m1": {
+       "ok": true,
+       "reason": "매달 130만원가 남아 세 방법 중 여유가 가장 커요. 비상금 6개월치를 따로 떼어 두는 계산은 없어서 확인이 필요해요."
+      }
+     }
+    },
+    "note": "준호 님의 바람은 세 방법 모두 이루어지지만 시기가 달라요. 지현 님의 비상금은 세 방법 모두 계산에 직접 들어 있지 않으니, 어떤 방법이 좋을지는 두 분이 함께 이야기해서 정해 주세요."
+   },
+   "error": null
+  },
+  "revise": {
+   "seconds": 17.5,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 17.46,
+     "usage": {
+      "input_tokens": 6984,
+      "output_tokens": 2245,
+      "cost_usd": 0.039908
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_d0e4a876a2",
+    "run_id": "run_377240c9b8ad",
+    "role": "5r",
+    "checked_numbers": 4,
+    "facts_used": [],
+    "violations": [
+     {
+      "type": "raw_number_mismatch",
+      "text": "180만원",
+      "severity": "error",
+      "path": "c1.after"
+     }
+    ],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "fail"
+   },
+   "result": {
+    "from_option_id": "B",
+    "label": "비상금 지키며 꾸준히 갚기 · 상환 속도 높인 안",
+    "spec": {
+     "option_id": "B2",
+     "label": "비상금 지키며 꾸준히 갚기 · 상환 속도 높인 안",
+     "description": "비상금은 그대로 지키면서 외식·여행을 더 줄여 대출을 조금 더 빨리 갚는 방법이에요.",
+     "return_id": "deposit_heavy",
+     "monthly_changes": [],
+     "adjustments": [
+      {
+       "label": "외식·여행 줄이기",
+       "amount": 30.0,
+       "reason": "준호 님이 외식이나 여행 줄이기는 양보할 수 있다고 했어요. 줄이는 정도는 가정이에요.",
+       "member_id": "m0"
+      }
+     ],
+     "events": [],
+     "lump_sums": [],
+     "policies": [
+      {
+       "policy": "extra_repayment",
+       "item_id": "f8",
+       "amount": 180.0
+      }
+     ]
+    },
+    "changes": [
+     {
+      "field": "외식·여행 줄이기",
+      "before": "월 15만원",
+      "after": "월 30만원",
+      "reason_member_id": "m0"
+     },
+     {
+      "field": "주택담보대출 더 갚기",
+      "before": "월 160만원 더 갚기",
+      "after": "월 180만원 더 갚기",
+      "reason_member_id": "m0"
+     }
+    ],
+    "why": "빚 없는 집에서 살고 싶다는 준호 님의 마음에 맞춰, 양보할 수 있다고 한 외식·여행을 더 줄여 대출을 더 빨리 갚도록 했어요. 매달 모이는 돈은 남겨 두어 지현 님이 꼭 지키고 싶어 하는 비상금은 건드리지 않았어요.",
+    "simulation": {
+     "run_id": "run_377240c9b8ad",
+     "engine_version": "0.2.0",
+     "scenario_id": "custom",
+     "goal": {
+      "type": "debt_free",
+      "target_amount": 0.0,
+      "label": "대출 모두 갚기"
+     },
+     "horizon_months": 360,
+     "inflation": 2.0,
+     "results": [
+      {
+       "option_id": "B2",
+       "label": "비상금 지키며 꾸준히 갚기 · 상환 속도 높인 안",
+       "goal_hit_month": 111,
+       "goal_hit_years": 9.25,
+       "goal_hit_display": "약 9.3년",
+       "end_pool": 99209.9,
+       "monthly_flow": 30.0,
+       "debt_free_month": 111,
+       "start_debt": 32000.0,
+       "yearly": [
+        {
+         "year": 1,
+         "start": 4000.0,
+         "net_flow": 322.7,
+         "interest": 160.6,
+         "end": 4483.4,
+         "net_worth_end": 35395.0,
+         "loan_payment": 4200.0,
+         "debt_end": 29088.4
+        },
+        {
+         "year": 2,
+         "start": 4483.4,
+         "net_flow": 240.4,
+         "interest": 177.9,
+         "end": 4901.6,
+         "net_worth_end": 38849.5,
+         "loan_payment": 4200.0,
+         "debt_end": 26052.1
+        },
+        {
+         "year": 3,
+         "start": 4901.6,
+         "net_flow": 156.4,
+         "interest": 192.6,
+         "end": 5250.6,
+         "net_worth_end": 42364.8,
+         "loan_payment": 4200.0,
+         "debt_end": 22885.8
+        },
+        {
+         "year": 4,
+         "start": 5250.6,
+         "net_flow": 70.7,
+         "interest": 204.6,
+         "end": 5525.8,
+         "net_worth_end": 45941.9,
+         "loan_payment": 4200.0,
+         "debt_end": 19583.9
+        },
+        {
+         "year": 5,
+         "start": 5525.8,
+         "net_flow": -16.7,
+         "interest": 213.7,
+         "end": 5722.8,
+         "net_worth_end": 49582.2,
+         "loan_payment": 4200.0,
+         "debt_end": 16140.6
+        },
+        {
+         "year": 6,
+         "start": 5722.8,
+         "net_flow": -105.8,
+         "interest": 219.7,
+         "end": 5836.8,
+         "net_worth_end": 53286.8,
+         "loan_payment": 4200.0,
+         "debt_end": 12550.0
+        },
+        {
+         "year": 7,
+         "start": 5836.8,
+         "net_flow": -196.7,
+         "interest": 222.5,
+         "end": 5862.6,
+         "net_worth_end": 57057.1,
+         "loan_payment": 4200.0,
+         "debt_end": 8805.5
+        },
+        {
+         "year": 8,
+         "start": 5862.6,
+         "net_flow": -289.4,
+         "interest": 221.9,
+         "end": 5795.1,
+         "net_worth_end": 60894.3,
+         "loan_payment": 4200.0,
+         "debt_end": 4900.8
+        },
+        {
+         "year": 9,
+         "start": 5795.1,
+         "net_flow": -384.0,
+         "interest": 217.6,
+         "end": 5628.7,
+         "net_worth_end": 64799.9,
+         "loan_payment": 4200.0,
+         "debt_end": 828.8
+        },
+        {
+         "year": 10,
+         "start": 5628.7,
+         "net_flow": 2885.6,
+         "interest": 255.9,
+         "end": 8770.2,
+         "net_worth_end": 68770.2,
+         "loan_payment": 833.8,
+         "debt_end": 0.0
+        },
+        {
+         "year": 11,
+         "start": 8770.2,
+         "net_flow": 3621.1,
+         "interest": 403.2,
+         "end": 12794.5,
+         "net_worth_end": 72794.5,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 12,
+         "start": 12794.5,
+         "net_flow": 3520.7,
+         "interest": 557.0,
+         "end": 16872.2,
+         "net_worth_end": 76872.2,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 13,
+         "start": 16872.2,
+         "net_flow": 3418.3,
+         "interest": 712.9,
+         "end": 21003.5,
+         "net_worth_end": 81003.5,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 14,
+         "start": 21003.5,
+         "net_flow": 3313.9,
+         "interest": 870.8,
+         "end": 25188.2,
+         "net_worth_end": 85188.2,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 15,
+         "start": 25188.2,
+         "net_flow": 3207.4,
+         "interest": 1030.8,
+         "end": 29426.4,
+         "net_worth_end": 89426.4,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 16,
+         "start": 29426.4,
+         "net_flow": 3098.7,
+         "interest": 1192.8,
+         "end": 33717.8,
+         "net_worth_end": 93717.8,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 17,
+         "start": 33717.8,
+         "net_flow": 2987.9,
+         "interest": 1356.8,
+         "end": 38062.5,
+         "net_worth_end": 98062.5,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 18,
+         "start": 38062.5,
+         "net_flow": 2874.8,
+         "interest": 1522.8,
+         "end": 42460.1,
+         "net_worth_end": 102460.1,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 19,
+         "start": 42460.1,
+         "net_flow": 2759.5,
+         "interest": 1690.8,
+         "end": 46910.5,
+         "net_worth_end": 106910.5,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 20,
+         "start": 46910.5,
+         "net_flow": 2641.9,
+         "interest": 1860.9,
+         "end": 51413.3,
+         "net_worth_end": 111413.3,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 21,
+         "start": 51413.3,
+         "net_flow": 2522.0,
+         "interest": 2032.9,
+         "end": 55968.1,
+         "net_worth_end": 115968.1,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 22,
+         "start": 55968.1,
+         "net_flow": 2399.6,
+         "interest": 2206.9,
+         "end": 60574.6,
+         "net_worth_end": 120574.6,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 23,
+         "start": 60574.6,
+         "net_flow": 2274.8,
+         "interest": 2382.8,
+         "end": 65232.1,
+         "net_worth_end": 125232.1,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 24,
+         "start": 65232.1,
+         "net_flow": 2147.5,
+         "interest": 2560.7,
+         "end": 69940.3,
+         "net_worth_end": 129940.3,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 25,
+         "start": 69940.3,
+         "net_flow": 2017.6,
+         "interest": 2740.4,
+         "end": 74698.4,
+         "net_worth_end": 134698.4,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 26,
+         "start": 74698.4,
+         "net_flow": 1885.2,
+         "interest": 2922.1,
+         "end": 79505.7,
+         "net_worth_end": 139505.7,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 27,
+         "start": 79505.7,
+         "net_flow": 1750.1,
+         "interest": 3105.6,
+         "end": 84361.4,
+         "net_worth_end": 144361.4,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 28,
+         "start": 84361.4,
+         "net_flow": 1612.3,
+         "interest": 3291.0,
+         "end": 89264.7,
+         "net_worth_end": 149264.7,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 29,
+         "start": 89264.7,
+         "net_flow": 1471.7,
+         "interest": 3478.1,
+         "end": 94214.5,
+         "net_worth_end": 154214.5,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        },
+        {
+         "year": 30,
+         "start": 94214.5,
+         "net_flow": 1328.4,
+         "interest": 3667.0,
+         "end": 99209.9,
+         "net_worth_end": 159209.9,
+         "loan_payment": 0.0,
+         "debt_end": 0.0
+        }
+       ],
+       "net_worth": [
+        {
+         "m": 0,
+         "value": 32000.0
+        },
+        {
+         "m": 12,
+         "value": 35395.0
+        },
+        {
+         "m": 24,
+         "value": 38849.5
+        },
+        {
+         "m": 36,
+         "value": 42364.8
+        },
+        {
+         "m": 48,
+         "value": 45941.9
+        },
+        {
+         "m": 60,
+         "value": 49582.2
+        },
+        {
+         "m": 72,
+         "value": 53286.8
+        },
+        {
+         "m": 84,
+         "value": 57057.1
+        },
+        {
+         "m": 96,
+         "value": 60894.3
+        },
+        {
+         "m": 108,
+         "value": 64799.9
+        },
+        {
+         "m": 120,
+         "value": 68770.2
+        },
+        {
+         "m": 132,
+         "value": 72794.5
+        },
+        {
+         "m": 144,
+         "value": 76872.2
+        },
+        {
+         "m": 156,
+         "value": 81003.5
+        },
+        {
+         "m": 168,
+         "value": 85188.2
+        },
+        {
+         "m": 180,
+         "value": 89426.4
+        },
+        {
+         "m": 192,
+         "value": 93717.8
+        },
+        {
+         "m": 204,
+         "value": 98062.5
+        },
+        {
+         "m": 216,
+         "value": 102460.1
+        },
+        {
+         "m": 228,
+         "value": 106910.5
+        },
+        {
+         "m": 240,
+         "value": 111413.3
+        },
+        {
+         "m": 252,
+         "value": 115968.1
+        },
+        {
+         "m": 264,
+         "value": 120574.6
+        },
+        {
+         "m": 276,
+         "value": 125232.1
+        },
+        {
+         "m": 288,
+         "value": 129940.3
+        },
+        {
+         "m": 300,
+         "value": 134698.4
+        },
+        {
+         "m": 312,
+         "value": 139505.7
+        },
+        {
+         "m": 324,
+         "value": 144361.4
+        },
+        {
+         "m": 336,
+         "value": 149264.7
+        },
+        {
+         "m": 348,
+         "value": 154214.5
+        },
+        {
+         "m": 360,
+         "value": 159209.9
+        }
+       ],
+       "range": null,
+       "basis": [
+        {
+         "key": "start",
+         "label": "출발 금액",
+         "value": 4000.0,
+         "display": "4,000만원",
+         "detail": "예금·투자 4,000만원",
+         "source": "financial_snapshot"
+        },
+        {
+         "key": "monthly_flow",
+         "label": "한 달에 늘거나 줄어드는 돈",
+         "value": 30.0,
+         "display": "+30만원",
+         "detail": "준호 월급 420 + 지현 월급 300 − 생활비(카드 월평균·보험 포함) 340 − 양가 용돈 30 + 외식·여행 줄이기 30 − 대출 상환 350",
+         "source": "option"
+        },
+        {
+         "key": "return",
+         "label": "1년에 불어나는 비율",
+         "value": 3.8,
+         "display": "연 3.8%",
+         "source": "assumption:deposit_heavy"
+        },
+        {
+         "key": "inflation",
+         "label": "물가 오름(생활비에 반영)",
+         "value": 2.0,
+         "display": "연 2%",
+         "source": "assumption:inflation"
+        },
+        {
+         "key": "loan:f8",
+         "label": "주택담보대출",
+         "value": -32000.0,
+         "display": "-3억 2,000만원",
+         "detail": "연 4.2% · 한 달 170만원씩 갚아요",
+         "source": "financial_snapshot"
+        },
+        {
+         "key": "extra:f8",
+         "label": "주택담보대출 더 갚기",
+         "value": -180.0,
+         "display": "-180만원 / 한 달",
+         "detail": "1개월째부터",
+         "source": "option"
+        },
+        {
+         "key": "goal",
+         "label": "가족이 정한 기준",
+         "value": 0.0,
+         "display": "대출 모두 갚기",
+         "source": "goal_setting"
+        }
+       ],
+       "facts": [
+        {
+         "fact_id": "B2.goal_hit_month",
+         "value": 111,
+         "unit": "month",
+         "display": "111개월"
+        },
+        {
+         "fact_id": "B2.goal_hit_years",
+         "value": 9.25,
+         "unit": "year",
+         "display": "약 9.3년"
+        },
+        {
+         "fact_id": "B2.monthly_flow",
+         "value": 30.0,
+         "unit": "만원/월",
+         "display": "30만원"
+        },
+        {
+         "fact_id": "B2.return",
+         "value": 3.8,
+         "unit": "%/년",
+         "display": "연 3.8%"
+        },
+        {
+         "fact_id": "B2.end_pool",
+         "value": 99209.9,
+         "unit": "만원",
+         "display": "9억 9,210만원"
+        },
+        {
+         "fact_id": "B2.end_net_worth",
+         "value": 159209.9,
+         "unit": "만원",
+         "display": "15억 9,210만원"
+        },
+        {
+         "fact_id": "goal.target_amount",
+         "value": 0.0,
+         "unit": "만원",
+         "display": "0만원"
+        },
+        {
+         "fact_id": "start.pool",
+         "value": 4000.0,
+         "unit": "만원",
+         "display": "4,000만원"
+        },
+        {
+         "fact_id": "horizon.years",
+         "value": 30.0,
+         "unit": "year",
+         "display": "30년"
+        },
+        {
+         "fact_id": "B2.age_at_hit",
+         "value": 48,
+         "unit": "세",
+         "display": "48세쯤"
+        },
+        {
+         "fact_id": "B2.cashflow.0",
+         "value": 420.0,
+         "unit": "만원/월",
+         "display": "420만원",
+         "label": "준호 월급"
+        },
+        {
+         "fact_id": "B2.cashflow.1",
+         "value": 300.0,
+         "unit": "만원/월",
+         "display": "300만원",
+         "label": "지현 월급"
+        },
+        {
+         "fact_id": "B2.cashflow.2",
+         "value": -340.0,
+         "unit": "만원/월",
+         "display": "340만원",
+         "label": "생활비(카드 월평균·보험 포함)"
+        },
+        {
+         "fact_id": "B2.cashflow.3",
+         "value": -30.0,
+         "unit": "만원/월",
+         "display": "30만원",
+         "label": "양가 용돈"
+        },
+        {
+         "fact_id": "B2.cashflow.4",
+         "value": 30.0,
+         "unit": "만원/월",
+         "display": "30만원",
+         "label": "외식·여행 줄이기"
+        },
+        {
+         "fact_id": "B2.loan_payment",
+         "value": 350.0,
+         "unit": "만원/월",
+         "display": "350만원",
+         "label": "한 달 대출 상환"
+        },
+        {
+         "fact_id": "B2.debt_free_years",
+         "value": 9.25,
+         "unit": "year",
+         "display": "약 9.3년",
+         "label": "대출을 다 갚는 때"
+        },
+        {
+         "fact_id": "B2.end_debt",
+         "value": 0.0,
+         "unit": "만원",
+         "display": "0만원",
+         "label": "기간 끝 대출 잔액"
+        }
+       ],
+       "age_at_hit": 48,
+       "monthly": [
+        {
+         "m": 1,
+         "start": 4000.0,
+         "interest": 12.7,
+         "inflow": 750.0,
+         "outflow": -720.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 31762.0,
+         "end": 4042.7,
+         "net_worth": 32280.7
+        },
+        {
+         "m": 2,
+         "start": 4042.7,
+         "interest": 12.8,
+         "inflow": 750.0,
+         "outflow": -720.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 31523.2,
+         "end": 4084.9,
+         "net_worth": 32561.7
+        },
+        {
+         "m": 3,
+         "start": 4084.9,
+         "interest": 12.9,
+         "inflow": 750.0,
+         "outflow": -721.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 31283.5,
+         "end": 4126.7,
+         "net_worth": 32843.2
+        },
+        {
+         "m": 4,
+         "start": 4126.7,
+         "interest": 13.1,
+         "inflow": 750.0,
+         "outflow": -721.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 31043.0,
+         "end": 4168.1,
+         "net_worth": 33125.1
+        },
+        {
+         "m": 5,
+         "start": 4168.1,
+         "interest": 13.2,
+         "inflow": 750.0,
+         "outflow": -722.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 30801.6,
+         "end": 4209.0,
+         "net_worth": 33407.4
+        },
+        {
+         "m": 6,
+         "start": 4209.0,
+         "interest": 13.3,
+         "inflow": 750.0,
+         "outflow": -722.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 30559.4,
+         "end": 4249.6,
+         "net_worth": 33690.1
+        },
+        {
+         "m": 7,
+         "start": 4249.6,
+         "interest": 13.5,
+         "inflow": 750.0,
+         "outflow": -723.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 30316.4,
+         "end": 4289.6,
+         "net_worth": 33973.2
+        },
+        {
+         "m": 8,
+         "start": 4289.6,
+         "interest": 13.6,
+         "inflow": 750.0,
+         "outflow": -724.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 30072.5,
+         "end": 4329.3,
+         "net_worth": 34256.8
+        },
+        {
+         "m": 9,
+         "start": 4329.3,
+         "interest": 13.7,
+         "inflow": 750.0,
+         "outflow": -724.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 29827.8,
+         "end": 4368.5,
+         "net_worth": 34540.7
+        },
+        {
+         "m": 10,
+         "start": 4368.5,
+         "interest": 13.8,
+         "inflow": 750.0,
+         "outflow": -725.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 29582.2,
+         "end": 4407.2,
+         "net_worth": 34825.0
+        },
+        {
+         "m": 11,
+         "start": 4407.2,
+         "interest": 14.0,
+         "inflow": 750.0,
+         "outflow": -725.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 29335.7,
+         "end": 4445.5,
+         "net_worth": 35109.8
+        },
+        {
+         "m": 12,
+         "start": 4445.5,
+         "interest": 14.1,
+         "inflow": 750.0,
+         "outflow": -726.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 29088.4,
+         "end": 4483.4,
+         "net_worth": 35395.0
+        },
+        {
+         "m": 13,
+         "start": 4483.4,
+         "interest": 14.2,
+         "inflow": 750.0,
+         "outflow": -726.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 28840.2,
+         "end": 4520.7,
+         "net_worth": 35680.6
+        },
+        {
+         "m": 14,
+         "start": 4520.7,
+         "interest": 14.3,
+         "inflow": 750.0,
+         "outflow": -727.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 28591.1,
+         "end": 4557.7,
+         "net_worth": 35966.6
+        },
+        {
+         "m": 15,
+         "start": 4557.7,
+         "interest": 14.4,
+         "inflow": 750.0,
+         "outflow": -727.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 28341.2,
+         "end": 4594.2,
+         "net_worth": 36253.0
+        },
+        {
+         "m": 16,
+         "start": 4594.2,
+         "interest": 14.5,
+         "inflow": 750.0,
+         "outflow": -728.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 28090.4,
+         "end": 4630.2,
+         "net_worth": 36539.8
+        },
+        {
+         "m": 17,
+         "start": 4630.2,
+         "interest": 14.7,
+         "inflow": 750.0,
+         "outflow": -729.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 27838.7,
+         "end": 4665.8,
+         "net_worth": 36827.1
+        },
+        {
+         "m": 18,
+         "start": 4665.8,
+         "interest": 14.8,
+         "inflow": 750.0,
+         "outflow": -729.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 27586.1,
+         "end": 4700.9,
+         "net_worth": 37114.7
+        },
+        {
+         "m": 19,
+         "start": 4700.9,
+         "interest": 14.9,
+         "inflow": 750.0,
+         "outflow": -730.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 27332.7,
+         "end": 4735.5,
+         "net_worth": 37402.8
+        },
+        {
+         "m": 20,
+         "start": 4735.5,
+         "interest": 15.0,
+         "inflow": 750.0,
+         "outflow": -730.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 27078.4,
+         "end": 4769.7,
+         "net_worth": 37691.3
+        },
+        {
+         "m": 21,
+         "start": 4769.7,
+         "interest": 15.1,
+         "inflow": 750.0,
+         "outflow": -731.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 26823.1,
+         "end": 4803.4,
+         "net_worth": 37980.2
+        },
+        {
+         "m": 22,
+         "start": 4803.4,
+         "interest": 15.2,
+         "inflow": 750.0,
+         "outflow": -732.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 26567.0,
+         "end": 4836.6,
+         "net_worth": 38269.6
+        },
+        {
+         "m": 23,
+         "start": 4836.6,
+         "interest": 15.3,
+         "inflow": 750.0,
+         "outflow": -732.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 26310.0,
+         "end": 4869.3,
+         "net_worth": 38559.3
+        },
+        {
+         "m": 24,
+         "start": 4869.3,
+         "interest": 15.4,
+         "inflow": 750.0,
+         "outflow": -733.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 26052.1,
+         "end": 4901.6,
+         "net_worth": 38849.5
+        },
+        {
+         "m": 25,
+         "start": 4901.6,
+         "interest": 15.5,
+         "inflow": 750.0,
+         "outflow": -733.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 25793.3,
+         "end": 4933.4,
+         "net_worth": 39140.1
+        },
+        {
+         "m": 26,
+         "start": 4933.4,
+         "interest": 15.6,
+         "inflow": 750.0,
+         "outflow": -734.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 25533.5,
+         "end": 4964.7,
+         "net_worth": 39431.1
+        },
+        {
+         "m": 27,
+         "start": 4964.7,
+         "interest": 15.7,
+         "inflow": 750.0,
+         "outflow": -734.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 25272.9,
+         "end": 4995.5,
+         "net_worth": 39722.6
+        },
+        {
+         "m": 28,
+         "start": 4995.5,
+         "interest": 15.8,
+         "inflow": 750.0,
+         "outflow": -735.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 25011.4,
+         "end": 5025.8,
+         "net_worth": 40014.5
+        },
+        {
+         "m": 29,
+         "start": 5025.8,
+         "interest": 15.9,
+         "inflow": 750.0,
+         "outflow": -736.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 24748.9,
+         "end": 5055.7,
+         "net_worth": 40306.8
+        },
+        {
+         "m": 30,
+         "start": 5055.7,
+         "interest": 16.0,
+         "inflow": 750.0,
+         "outflow": -736.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 24485.5,
+         "end": 5085.0,
+         "net_worth": 40599.5
+        },
+        {
+         "m": 31,
+         "start": 5085.0,
+         "interest": 16.1,
+         "inflow": 750.0,
+         "outflow": -737.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 24221.2,
+         "end": 5113.9,
+         "net_worth": 40892.6
+        },
+        {
+         "m": 32,
+         "start": 5113.9,
+         "interest": 16.2,
+         "inflow": 750.0,
+         "outflow": -737.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 23956.0,
+         "end": 5142.2,
+         "net_worth": 41186.2
+        },
+        {
+         "m": 33,
+         "start": 5142.2,
+         "interest": 16.3,
+         "inflow": 750.0,
+         "outflow": -738.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 23689.8,
+         "end": 5170.1,
+         "net_worth": 41480.2
+        },
+        {
+         "m": 34,
+         "start": 5170.1,
+         "interest": 16.4,
+         "inflow": 750.0,
+         "outflow": -739.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 23422.8,
+         "end": 5197.4,
+         "net_worth": 41774.6
+        },
+        {
+         "m": 35,
+         "start": 5197.4,
+         "interest": 16.5,
+         "inflow": 750.0,
+         "outflow": -739.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 23154.7,
+         "end": 5224.2,
+         "net_worth": 42069.5
+        },
+        {
+         "m": 36,
+         "start": 5224.2,
+         "interest": 16.5,
+         "inflow": 750.0,
+         "outflow": -740.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 22885.8,
+         "end": 5250.6,
+         "net_worth": 42364.8
+        },
+        {
+         "m": 37,
+         "start": 5250.6,
+         "interest": 16.6,
+         "inflow": 750.0,
+         "outflow": -740.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 22615.9,
+         "end": 5276.4,
+         "net_worth": 42660.5
+        },
+        {
+         "m": 38,
+         "start": 5276.4,
+         "interest": 16.7,
+         "inflow": 750.0,
+         "outflow": -741.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 22345.0,
+         "end": 5301.7,
+         "net_worth": 42956.6
+        },
+        {
+         "m": 39,
+         "start": 5301.7,
+         "interest": 16.8,
+         "inflow": 750.0,
+         "outflow": -742.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 22073.2,
+         "end": 5326.5,
+         "net_worth": 43253.2
+        },
+        {
+         "m": 40,
+         "start": 5326.5,
+         "interest": 16.9,
+         "inflow": 750.0,
+         "outflow": -742.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 21800.5,
+         "end": 5350.7,
+         "net_worth": 43550.2
+        },
+        {
+         "m": 41,
+         "start": 5350.7,
+         "interest": 16.9,
+         "inflow": 750.0,
+         "outflow": -743.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 21526.8,
+         "end": 5374.5,
+         "net_worth": 43847.7
+        },
+        {
+         "m": 42,
+         "start": 5374.5,
+         "interest": 17.0,
+         "inflow": 750.0,
+         "outflow": -743.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 21252.1,
+         "end": 5397.7,
+         "net_worth": 44145.5
+        },
+        {
+         "m": 43,
+         "start": 5397.7,
+         "interest": 17.1,
+         "inflow": 750.0,
+         "outflow": -744.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 20976.5,
+         "end": 5420.4,
+         "net_worth": 44443.9
+        },
+        {
+         "m": 44,
+         "start": 5420.4,
+         "interest": 17.2,
+         "inflow": 750.0,
+         "outflow": -745.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 20699.9,
+         "end": 5442.5,
+         "net_worth": 44742.6
+        },
+        {
+         "m": 45,
+         "start": 5442.5,
+         "interest": 17.2,
+         "inflow": 750.0,
+         "outflow": -745.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 20422.4,
+         "end": 5464.2,
+         "net_worth": 45041.8
+        },
+        {
+         "m": 46,
+         "start": 5464.2,
+         "interest": 17.3,
+         "inflow": 750.0,
+         "outflow": -746.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 20143.9,
+         "end": 5485.3,
+         "net_worth": 45341.4
+        },
+        {
+         "m": 47,
+         "start": 5485.3,
+         "interest": 17.4,
+         "inflow": 750.0,
+         "outflow": -746.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 19864.4,
+         "end": 5505.8,
+         "net_worth": 45641.4
+        },
+        {
+         "m": 48,
+         "start": 5505.8,
+         "interest": 17.4,
+         "inflow": 750.0,
+         "outflow": -747.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 19583.9,
+         "end": 5525.8,
+         "net_worth": 45941.9
+        },
+        {
+         "m": 49,
+         "start": 5525.8,
+         "interest": 17.5,
+         "inflow": 750.0,
+         "outflow": -748.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 19302.4,
+         "end": 5545.3,
+         "net_worth": 46242.9
+        },
+        {
+         "m": 50,
+         "start": 5545.3,
+         "interest": 17.6,
+         "inflow": 750.0,
+         "outflow": -748.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 19020.0,
+         "end": 5564.2,
+         "net_worth": 46544.2
+        },
+        {
+         "m": 51,
+         "start": 5564.2,
+         "interest": 17.6,
+         "inflow": 750.0,
+         "outflow": -749.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 18736.6,
+         "end": 5582.6,
+         "net_worth": 46846.0
+        },
+        {
+         "m": 52,
+         "start": 5582.6,
+         "interest": 17.7,
+         "inflow": 750.0,
+         "outflow": -749.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 18452.2,
+         "end": 5600.4,
+         "net_worth": 47148.3
+        },
+        {
+         "m": 53,
+         "start": 5600.4,
+         "interest": 17.7,
+         "inflow": 750.0,
+         "outflow": -750.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 18166.7,
+         "end": 5617.7,
+         "net_worth": 47451.0
+        },
+        {
+         "m": 54,
+         "start": 5617.7,
+         "interest": 17.8,
+         "inflow": 750.0,
+         "outflow": -751.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 17880.3,
+         "end": 5634.4,
+         "net_worth": 47754.1
+        },
+        {
+         "m": 55,
+         "start": 5634.4,
+         "interest": 17.8,
+         "inflow": 750.0,
+         "outflow": -751.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 17592.9,
+         "end": 5650.6,
+         "net_worth": 48057.7
+        },
+        {
+         "m": 56,
+         "start": 5650.6,
+         "interest": 17.9,
+         "inflow": 750.0,
+         "outflow": -752.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 17304.5,
+         "end": 5666.2,
+         "net_worth": 48361.7
+        },
+        {
+         "m": 57,
+         "start": 5666.2,
+         "interest": 17.9,
+         "inflow": 750.0,
+         "outflow": -752.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 17015.0,
+         "end": 5681.2,
+         "net_worth": 48666.2
+        },
+        {
+         "m": 58,
+         "start": 5681.2,
+         "interest": 18.0,
+         "inflow": 750.0,
+         "outflow": -753.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 16724.6,
+         "end": 5695.6,
+         "net_worth": 48971.1
+        },
+        {
+         "m": 59,
+         "start": 5695.6,
+         "interest": 18.0,
+         "inflow": 750.0,
+         "outflow": -754.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 16433.1,
+         "end": 5709.5,
+         "net_worth": 49276.4
+        },
+        {
+         "m": 60,
+         "start": 5709.5,
+         "interest": 18.1,
+         "inflow": 750.0,
+         "outflow": -754.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 16140.6,
+         "end": 5722.8,
+         "net_worth": 49582.2
+        },
+        {
+         "m": 61,
+         "start": 5722.8,
+         "interest": 18.1,
+         "inflow": 750.0,
+         "outflow": -755.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 15847.1,
+         "end": 5735.6,
+         "net_worth": 49888.4
+        },
+        {
+         "m": 62,
+         "start": 5735.6,
+         "interest": 18.2,
+         "inflow": 750.0,
+         "outflow": -756.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 15552.6,
+         "end": 5747.7,
+         "net_worth": 50195.1
+        },
+        {
+         "m": 63,
+         "start": 5747.7,
+         "interest": 18.2,
+         "inflow": 750.0,
+         "outflow": -756.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 15257.0,
+         "end": 5759.3,
+         "net_worth": 50502.3
+        },
+        {
+         "m": 64,
+         "start": 5759.3,
+         "interest": 18.2,
+         "inflow": 750.0,
+         "outflow": -757.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 14960.4,
+         "end": 5770.3,
+         "net_worth": 50809.9
+        },
+        {
+         "m": 65,
+         "start": 5770.3,
+         "interest": 18.3,
+         "inflow": 750.0,
+         "outflow": -757.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 14662.8,
+         "end": 5780.7,
+         "net_worth": 51117.9
+        },
+        {
+         "m": 66,
+         "start": 5780.7,
+         "interest": 18.3,
+         "inflow": 750.0,
+         "outflow": -758.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 14364.1,
+         "end": 5790.5,
+         "net_worth": 51426.4
+        },
+        {
+         "m": 67,
+         "start": 5790.5,
+         "interest": 18.3,
+         "inflow": 750.0,
+         "outflow": -759.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 14064.4,
+         "end": 5799.7,
+         "net_worth": 51735.3
+        },
+        {
+         "m": 68,
+         "start": 5799.7,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -759.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 13763.6,
+         "end": 5808.3,
+         "net_worth": 52044.7
+        },
+        {
+         "m": 69,
+         "start": 5808.3,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -760.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 13461.8,
+         "end": 5816.3,
+         "net_worth": 52354.6
+        },
+        {
+         "m": 70,
+         "start": 5816.3,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -761.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 13158.9,
+         "end": 5823.8,
+         "net_worth": 52664.9
+        },
+        {
+         "m": 71,
+         "start": 5823.8,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -761.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 12855.0,
+         "end": 5830.6,
+         "net_worth": 52975.6
+        },
+        {
+         "m": 72,
+         "start": 5830.6,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -762.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 12550.0,
+         "end": 5836.8,
+         "net_worth": 53286.8
+        },
+        {
+         "m": 73,
+         "start": 5836.8,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -762.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 12243.9,
+         "end": 5842.4,
+         "net_worth": 53598.5
+        },
+        {
+         "m": 74,
+         "start": 5842.4,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -763.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 11936.7,
+         "end": 5847.3,
+         "net_worth": 53910.6
+        },
+        {
+         "m": 75,
+         "start": 5847.3,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -764.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 11628.5,
+         "end": 5851.7,
+         "net_worth": 54223.2
+        },
+        {
+         "m": 76,
+         "start": 5851.7,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -764.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 11319.2,
+         "end": 5855.4,
+         "net_worth": 54536.2
+        },
+        {
+         "m": 77,
+         "start": 5855.4,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -765.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 11008.8,
+         "end": 5858.5,
+         "net_worth": 54849.7
+        },
+        {
+         "m": 78,
+         "start": 5858.5,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -766.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 10697.4,
+         "end": 5861.0,
+         "net_worth": 55163.7
+        },
+        {
+         "m": 79,
+         "start": 5861.0,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -766.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 10384.8,
+         "end": 5862.9,
+         "net_worth": 55478.1
+        },
+        {
+         "m": 80,
+         "start": 5862.9,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -767.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 10071.1,
+         "end": 5864.1,
+         "net_worth": 55792.9
+        },
+        {
+         "m": 81,
+         "start": 5864.1,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -768.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 9756.4,
+         "end": 5864.7,
+         "net_worth": 56108.3
+        },
+        {
+         "m": 82,
+         "start": 5864.7,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -768.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 9440.5,
+         "end": 5864.6,
+         "net_worth": 56424.1
+        },
+        {
+         "m": 83,
+         "start": 5864.6,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -769.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 9123.6,
+         "end": 5863.9,
+         "net_worth": 56740.3
+        },
+        {
+         "m": 84,
+         "start": 5863.9,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -769.9,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 8805.5,
+         "end": 5862.6,
+         "net_worth": 57057.1
+        },
+        {
+         "m": 85,
+         "start": 5862.6,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -770.6,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 8486.3,
+         "end": 5860.6,
+         "net_worth": 57374.3
+        },
+        {
+         "m": 86,
+         "start": 5860.6,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -771.2,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 8166.0,
+         "end": 5858.0,
+         "net_worth": 57691.9
+        },
+        {
+         "m": 87,
+         "start": 5858.0,
+         "interest": 18.6,
+         "inflow": 750.0,
+         "outflow": -771.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 7844.6,
+         "end": 5854.7,
+         "net_worth": 58010.1
+        },
+        {
+         "m": 88,
+         "start": 5854.7,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -772.5,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 7522.1,
+         "end": 5850.7,
+         "net_worth": 58328.6
+        },
+        {
+         "m": 89,
+         "start": 5850.7,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -773.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 7198.4,
+         "end": 5846.1,
+         "net_worth": 58647.7
+        },
+        {
+         "m": 90,
+         "start": 5846.1,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -773.8,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 6873.6,
+         "end": 5840.8,
+         "net_worth": 58967.2
+        },
+        {
+         "m": 91,
+         "start": 5840.8,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -774.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 6547.7,
+         "end": 5834.9,
+         "net_worth": 59287.2
+        },
+        {
+         "m": 92,
+         "start": 5834.9,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -775.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 6220.6,
+         "end": 5828.3,
+         "net_worth": 59607.7
+        },
+        {
+         "m": 93,
+         "start": 5828.3,
+         "interest": 18.5,
+         "inflow": 750.0,
+         "outflow": -775.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 5892.3,
+         "end": 5821.0,
+         "net_worth": 59928.6
+        },
+        {
+         "m": 94,
+         "start": 5821.0,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -776.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 5563.0,
+         "end": 5813.0,
+         "net_worth": 60250.1
+        },
+        {
+         "m": 95,
+         "start": 5813.0,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -777.1,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 5232.4,
+         "end": 5804.4,
+         "net_worth": 60571.9
+        },
+        {
+         "m": 96,
+         "start": 5804.4,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -777.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 4900.8,
+         "end": 5795.1,
+         "net_worth": 60894.3
+        },
+        {
+         "m": 97,
+         "start": 5795.1,
+         "interest": 18.4,
+         "inflow": 750.0,
+         "outflow": -778.4,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 4567.9,
+         "end": 5785.0,
+         "net_worth": 61217.1
+        },
+        {
+         "m": 98,
+         "start": 5785.0,
+         "interest": 18.3,
+         "inflow": 750.0,
+         "outflow": -779.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 4233.9,
+         "end": 5774.3,
+         "net_worth": 61540.4
+        },
+        {
+         "m": 99,
+         "start": 5774.3,
+         "interest": 18.3,
+         "inflow": 750.0,
+         "outflow": -779.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 3898.7,
+         "end": 5762.9,
+         "net_worth": 61864.2
+        },
+        {
+         "m": 100,
+         "start": 5762.9,
+         "interest": 18.2,
+         "inflow": 750.0,
+         "outflow": -780.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 3562.4,
+         "end": 5750.8,
+         "net_worth": 62188.5
+        },
+        {
+         "m": 101,
+         "start": 5750.8,
+         "interest": 18.2,
+         "inflow": 750.0,
+         "outflow": -781.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 3224.8,
+         "end": 5738.1,
+         "net_worth": 62513.2
+        },
+        {
+         "m": 102,
+         "start": 5738.1,
+         "interest": 18.2,
+         "inflow": 750.0,
+         "outflow": -781.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 2886.1,
+         "end": 5724.6,
+         "net_worth": 62838.5
+        },
+        {
+         "m": 103,
+         "start": 5724.6,
+         "interest": 18.1,
+         "inflow": 750.0,
+         "outflow": -782.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 2546.2,
+         "end": 5710.4,
+         "net_worth": 63164.2
+        },
+        {
+         "m": 104,
+         "start": 5710.4,
+         "interest": 18.1,
+         "inflow": 750.0,
+         "outflow": -783.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 2205.1,
+         "end": 5695.5,
+         "net_worth": 63490.3
+        },
+        {
+         "m": 105,
+         "start": 5695.5,
+         "interest": 18.0,
+         "inflow": 750.0,
+         "outflow": -783.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 1862.8,
+         "end": 5679.8,
+         "net_worth": 63817.0
+        },
+        {
+         "m": 106,
+         "start": 5679.8,
+         "interest": 18.0,
+         "inflow": 750.0,
+         "outflow": -784.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 1519.4,
+         "end": 5663.5,
+         "net_worth": 64144.1
+        },
+        {
+         "m": 107,
+         "start": 5663.5,
+         "interest": 17.9,
+         "inflow": 750.0,
+         "outflow": -785.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 1174.7,
+         "end": 5646.4,
+         "net_worth": 64471.8
+        },
+        {
+         "m": 108,
+         "start": 5646.4,
+         "interest": 17.9,
+         "inflow": 750.0,
+         "outflow": -785.7,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 828.8,
+         "end": 5628.7,
+         "net_worth": 64799.9
+        },
+        {
+         "m": 109,
+         "start": 5628.7,
+         "interest": 17.8,
+         "inflow": 750.0,
+         "outflow": -786.3,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 481.7,
+         "end": 5610.1,
+         "net_worth": 65128.5
+        },
+        {
+         "m": 110,
+         "start": 5610.1,
+         "interest": 17.8,
+         "inflow": 750.0,
+         "outflow": -787.0,
+         "lump": 0,
+         "loan_payment": 350.0,
+         "debt": 133.4,
+         "end": 5590.9,
+         "net_worth": 65457.5
+        },
+        {
+         "m": 111,
+         "start": 5590.9,
+         "interest": 17.7,
+         "inflow": 750.0,
+         "outflow": -571.5,
+         "lump": 0,
+         "loan_payment": 133.8,
+         "debt": 0.0,
+         "end": 5787.1,
+         "net_worth": 65787.1
+        },
+        {
+         "m": 112,
+         "start": 5787.1,
+         "interest": 18.3,
+         "inflow": 750.0,
+         "outflow": -438.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 6117.1,
+         "net_worth": 66117.1
+        },
+        {
+         "m": 113,
+         "start": 6117.1,
+         "interest": 19.4,
+         "inflow": 750.0,
+         "outflow": -439.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 6447.4,
+         "net_worth": 66447.4
+        },
+        {
+         "m": 114,
+         "start": 6447.4,
+         "interest": 20.4,
+         "inflow": 750.0,
+         "outflow": -439.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 6778.1,
+         "net_worth": 66778.1
+        },
+        {
+         "m": 115,
+         "start": 6778.1,
+         "interest": 21.5,
+         "inflow": 750.0,
+         "outflow": -440.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 7109.2,
+         "net_worth": 67109.2
+        },
+        {
+         "m": 116,
+         "start": 7109.2,
+         "interest": 22.5,
+         "inflow": 750.0,
+         "outflow": -441.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 7440.7,
+         "net_worth": 67440.7
+        },
+        {
+         "m": 117,
+         "start": 7440.7,
+         "interest": 23.6,
+         "inflow": 750.0,
+         "outflow": -441.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 7772.5,
+         "net_worth": 67772.5
+        },
+        {
+         "m": 118,
+         "start": 7772.5,
+         "interest": 24.6,
+         "inflow": 750.0,
+         "outflow": -442.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 8104.7,
+         "net_worth": 68104.7
+        },
+        {
+         "m": 119,
+         "start": 8104.7,
+         "interest": 25.7,
+         "inflow": 750.0,
+         "outflow": -443.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 8437.3,
+         "net_worth": 68437.3
+        },
+        {
+         "m": 120,
+         "start": 8437.3,
+         "interest": 26.7,
+         "inflow": 750.0,
+         "outflow": -443.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 8770.2,
+         "net_worth": 68770.2
+        },
+        {
+         "m": 121,
+         "start": 8770.2,
+         "interest": 27.8,
+         "inflow": 750.0,
+         "outflow": -444.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 9103.6,
+         "net_worth": 69103.6
+        },
+        {
+         "m": 122,
+         "start": 9103.6,
+         "interest": 28.8,
+         "inflow": 750.0,
+         "outflow": -445.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 9437.2,
+         "net_worth": 69437.2
+        },
+        {
+         "m": 123,
+         "start": 9437.2,
+         "interest": 29.9,
+         "inflow": 750.0,
+         "outflow": -445.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 9771.3,
+         "net_worth": 69771.3
+        },
+        {
+         "m": 124,
+         "start": 9771.3,
+         "interest": 30.9,
+         "inflow": 750.0,
+         "outflow": -446.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 10105.7,
+         "net_worth": 70105.7
+        },
+        {
+         "m": 125,
+         "start": 10105.7,
+         "interest": 32.0,
+         "inflow": 750.0,
+         "outflow": -447.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 10440.5,
+         "net_worth": 70440.5
+        },
+        {
+         "m": 126,
+         "start": 10440.5,
+         "interest": 33.1,
+         "inflow": 750.0,
+         "outflow": -447.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 10775.7,
+         "net_worth": 70775.7
+        },
+        {
+         "m": 127,
+         "start": 10775.7,
+         "interest": 34.1,
+         "inflow": 750.0,
+         "outflow": -448.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 11111.2,
+         "net_worth": 71111.2
+        },
+        {
+         "m": 128,
+         "start": 11111.2,
+         "interest": 35.2,
+         "inflow": 750.0,
+         "outflow": -449.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 11447.1,
+         "net_worth": 71447.1
+        },
+        {
+         "m": 129,
+         "start": 11447.1,
+         "interest": 36.2,
+         "inflow": 750.0,
+         "outflow": -450.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 11783.4,
+         "net_worth": 71783.4
+        },
+        {
+         "m": 130,
+         "start": 11783.4,
+         "interest": 37.3,
+         "inflow": 750.0,
+         "outflow": -450.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 12120.1,
+         "net_worth": 72120.1
+        },
+        {
+         "m": 131,
+         "start": 12120.1,
+         "interest": 38.4,
+         "inflow": 750.0,
+         "outflow": -451.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 12457.1,
+         "net_worth": 72457.1
+        },
+        {
+         "m": 132,
+         "start": 12457.1,
+         "interest": 39.4,
+         "inflow": 750.0,
+         "outflow": -452.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 12794.5,
+         "net_worth": 72794.5
+        },
+        {
+         "m": 133,
+         "start": 12794.5,
+         "interest": 40.5,
+         "inflow": 750.0,
+         "outflow": -452.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 13132.3,
+         "net_worth": 73132.3
+        },
+        {
+         "m": 134,
+         "start": 13132.3,
+         "interest": 41.6,
+         "inflow": 750.0,
+         "outflow": -453.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 13470.4,
+         "net_worth": 73470.4
+        },
+        {
+         "m": 135,
+         "start": 13470.4,
+         "interest": 42.7,
+         "inflow": 750.0,
+         "outflow": -454.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 13808.9,
+         "net_worth": 73808.9
+        },
+        {
+         "m": 136,
+         "start": 13808.9,
+         "interest": 43.7,
+         "inflow": 750.0,
+         "outflow": -454.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 14147.8,
+         "net_worth": 74147.8
+        },
+        {
+         "m": 137,
+         "start": 14147.8,
+         "interest": 44.8,
+         "inflow": 750.0,
+         "outflow": -455.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 14487.1,
+         "net_worth": 74487.1
+        },
+        {
+         "m": 138,
+         "start": 14487.1,
+         "interest": 45.9,
+         "inflow": 750.0,
+         "outflow": -456.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 14826.7,
+         "net_worth": 74826.7
+        },
+        {
+         "m": 139,
+         "start": 14826.7,
+         "interest": 47.0,
+         "inflow": 750.0,
+         "outflow": -457.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 15166.7,
+         "net_worth": 75166.7
+        },
+        {
+         "m": 140,
+         "start": 15166.7,
+         "interest": 48.0,
+         "inflow": 750.0,
+         "outflow": -457.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 15507.1,
+         "net_worth": 75507.1
+        },
+        {
+         "m": 141,
+         "start": 15507.1,
+         "interest": 49.1,
+         "inflow": 750.0,
+         "outflow": -458.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 15847.8,
+         "net_worth": 75847.8
+        },
+        {
+         "m": 142,
+         "start": 15847.8,
+         "interest": 50.2,
+         "inflow": 750.0,
+         "outflow": -459.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 16188.9,
+         "net_worth": 76188.9
+        },
+        {
+         "m": 143,
+         "start": 16188.9,
+         "interest": 51.3,
+         "inflow": 750.0,
+         "outflow": -459.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 16530.4,
+         "net_worth": 76530.4
+        },
+        {
+         "m": 144,
+         "start": 16530.4,
+         "interest": 52.3,
+         "inflow": 750.0,
+         "outflow": -460.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 16872.2,
+         "net_worth": 76872.2
+        },
+        {
+         "m": 145,
+         "start": 16872.2,
+         "interest": 53.4,
+         "inflow": 750.0,
+         "outflow": -461.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 17214.5,
+         "net_worth": 77214.5
+        },
+        {
+         "m": 146,
+         "start": 17214.5,
+         "interest": 54.5,
+         "inflow": 750.0,
+         "outflow": -461.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 17557.1,
+         "net_worth": 77557.1
+        },
+        {
+         "m": 147,
+         "start": 17557.1,
+         "interest": 55.6,
+         "inflow": 750.0,
+         "outflow": -462.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 17900.0,
+         "net_worth": 77900.0
+        },
+        {
+         "m": 148,
+         "start": 17900.0,
+         "interest": 56.7,
+         "inflow": 750.0,
+         "outflow": -463.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 18243.4,
+         "net_worth": 78243.4
+        },
+        {
+         "m": 149,
+         "start": 18243.4,
+         "interest": 57.8,
+         "inflow": 750.0,
+         "outflow": -464.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 18587.1,
+         "net_worth": 78587.1
+        },
+        {
+         "m": 150,
+         "start": 18587.1,
+         "interest": 58.9,
+         "inflow": 750.0,
+         "outflow": -464.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 18931.2,
+         "net_worth": 78931.2
+        },
+        {
+         "m": 151,
+         "start": 18931.2,
+         "interest": 59.9,
+         "inflow": 750.0,
+         "outflow": -465.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 19275.6,
+         "net_worth": 79275.6
+        },
+        {
+         "m": 152,
+         "start": 19275.6,
+         "interest": 61.0,
+         "inflow": 750.0,
+         "outflow": -466.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 19620.5,
+         "net_worth": 79620.5
+        },
+        {
+         "m": 153,
+         "start": 19620.5,
+         "interest": 62.1,
+         "inflow": 750.0,
+         "outflow": -466.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 19965.7,
+         "net_worth": 79965.7
+        },
+        {
+         "m": 154,
+         "start": 19965.7,
+         "interest": 63.2,
+         "inflow": 750.0,
+         "outflow": -467.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 20311.2,
+         "net_worth": 80311.2
+        },
+        {
+         "m": 155,
+         "start": 20311.2,
+         "interest": 64.3,
+         "inflow": 750.0,
+         "outflow": -468.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 20657.2,
+         "net_worth": 80657.2
+        },
+        {
+         "m": 156,
+         "start": 20657.2,
+         "interest": 65.4,
+         "inflow": 750.0,
+         "outflow": -469.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 21003.5,
+         "net_worth": 81003.5
+        },
+        {
+         "m": 157,
+         "start": 21003.5,
+         "interest": 66.5,
+         "inflow": 750.0,
+         "outflow": -469.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 21350.2,
+         "net_worth": 81350.2
+        },
+        {
+         "m": 158,
+         "start": 21350.2,
+         "interest": 67.6,
+         "inflow": 750.0,
+         "outflow": -470.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 21697.2,
+         "net_worth": 81697.2
+        },
+        {
+         "m": 159,
+         "start": 21697.2,
+         "interest": 68.7,
+         "inflow": 750.0,
+         "outflow": -471.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 22044.7,
+         "net_worth": 82044.7
+        },
+        {
+         "m": 160,
+         "start": 22044.7,
+         "interest": 69.8,
+         "inflow": 750.0,
+         "outflow": -472.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 22392.5,
+         "net_worth": 82392.5
+        },
+        {
+         "m": 161,
+         "start": 22392.5,
+         "interest": 70.9,
+         "inflow": 750.0,
+         "outflow": -472.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 22740.6,
+         "net_worth": 82740.6
+        },
+        {
+         "m": 162,
+         "start": 22740.6,
+         "interest": 72.0,
+         "inflow": 750.0,
+         "outflow": -473.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 23089.2,
+         "net_worth": 83089.2
+        },
+        {
+         "m": 163,
+         "start": 23089.2,
+         "interest": 73.1,
+         "inflow": 750.0,
+         "outflow": -474.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 23438.1,
+         "net_worth": 83438.1
+        },
+        {
+         "m": 164,
+         "start": 23438.1,
+         "interest": 74.2,
+         "inflow": 750.0,
+         "outflow": -474.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 23787.4,
+         "net_worth": 83787.4
+        },
+        {
+         "m": 165,
+         "start": 23787.4,
+         "interest": 75.3,
+         "inflow": 750.0,
+         "outflow": -475.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 24137.0,
+         "net_worth": 84137.0
+        },
+        {
+         "m": 166,
+         "start": 24137.0,
+         "interest": 76.4,
+         "inflow": 750.0,
+         "outflow": -476.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 24487.0,
+         "net_worth": 84487.0
+        },
+        {
+         "m": 167,
+         "start": 24487.0,
+         "interest": 77.5,
+         "inflow": 750.0,
+         "outflow": -477.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 24837.4,
+         "net_worth": 84837.4
+        },
+        {
+         "m": 168,
+         "start": 24837.4,
+         "interest": 78.7,
+         "inflow": 750.0,
+         "outflow": -477.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 25188.2,
+         "net_worth": 85188.2
+        },
+        {
+         "m": 169,
+         "start": 25188.2,
+         "interest": 79.8,
+         "inflow": 750.0,
+         "outflow": -478.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 25539.3,
+         "net_worth": 85539.3
+        },
+        {
+         "m": 170,
+         "start": 25539.3,
+         "interest": 80.9,
+         "inflow": 750.0,
+         "outflow": -479.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 25890.9,
+         "net_worth": 85890.9
+        },
+        {
+         "m": 171,
+         "start": 25890.9,
+         "interest": 82.0,
+         "inflow": 750.0,
+         "outflow": -480.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 26242.7,
+         "net_worth": 86242.7
+        },
+        {
+         "m": 172,
+         "start": 26242.7,
+         "interest": 83.1,
+         "inflow": 750.0,
+         "outflow": -480.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 26595.0,
+         "net_worth": 86595.0
+        },
+        {
+         "m": 173,
+         "start": 26595.0,
+         "interest": 84.2,
+         "inflow": 750.0,
+         "outflow": -481.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 26947.6,
+         "net_worth": 86947.6
+        },
+        {
+         "m": 174,
+         "start": 26947.6,
+         "interest": 85.3,
+         "inflow": 750.0,
+         "outflow": -482.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 27300.6,
+         "net_worth": 87300.6
+        },
+        {
+         "m": 175,
+         "start": 27300.6,
+         "interest": 86.5,
+         "inflow": 750.0,
+         "outflow": -483.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 27654.0,
+         "net_worth": 87654.0
+        },
+        {
+         "m": 176,
+         "start": 27654.0,
+         "interest": 87.6,
+         "inflow": 750.0,
+         "outflow": -483.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 28007.7,
+         "net_worth": 88007.7
+        },
+        {
+         "m": 177,
+         "start": 28007.7,
+         "interest": 88.7,
+         "inflow": 750.0,
+         "outflow": -484.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 28361.8,
+         "net_worth": 88361.8
+        },
+        {
+         "m": 178,
+         "start": 28361.8,
+         "interest": 89.8,
+         "inflow": 750.0,
+         "outflow": -485.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 28716.3,
+         "net_worth": 88716.3
+        },
+        {
+         "m": 179,
+         "start": 28716.3,
+         "interest": 90.9,
+         "inflow": 750.0,
+         "outflow": -486.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 29071.1,
+         "net_worth": 89071.1
+        },
+        {
+         "m": 180,
+         "start": 29071.1,
+         "interest": 92.1,
+         "inflow": 750.0,
+         "outflow": -486.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 29426.4,
+         "net_worth": 89426.4
+        },
+        {
+         "m": 181,
+         "start": 29426.4,
+         "interest": 93.2,
+         "inflow": 750.0,
+         "outflow": -487.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 29781.9,
+         "net_worth": 89781.9
+        },
+        {
+         "m": 182,
+         "start": 29781.9,
+         "interest": 94.3,
+         "inflow": 750.0,
+         "outflow": -488.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 30137.9,
+         "net_worth": 90137.9
+        },
+        {
+         "m": 183,
+         "start": 30137.9,
+         "interest": 95.4,
+         "inflow": 750.0,
+         "outflow": -489.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 30494.2,
+         "net_worth": 90494.2
+        },
+        {
+         "m": 184,
+         "start": 30494.2,
+         "interest": 96.6,
+         "inflow": 750.0,
+         "outflow": -489.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 30850.9,
+         "net_worth": 90850.9
+        },
+        {
+         "m": 185,
+         "start": 30850.9,
+         "interest": 97.7,
+         "inflow": 750.0,
+         "outflow": -490.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 31208.0,
+         "net_worth": 91208.0
+        },
+        {
+         "m": 186,
+         "start": 31208.0,
+         "interest": 98.8,
+         "inflow": 750.0,
+         "outflow": -491.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 31565.4,
+         "net_worth": 91565.4
+        },
+        {
+         "m": 187,
+         "start": 31565.4,
+         "interest": 100.0,
+         "inflow": 750.0,
+         "outflow": -492.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 31923.3,
+         "net_worth": 91923.3
+        },
+        {
+         "m": 188,
+         "start": 31923.3,
+         "interest": 101.1,
+         "inflow": 750.0,
+         "outflow": -492.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 32281.4,
+         "net_worth": 92281.4
+        },
+        {
+         "m": 189,
+         "start": 32281.4,
+         "interest": 102.2,
+         "inflow": 750.0,
+         "outflow": -493.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 32640.0,
+         "net_worth": 92640.0
+        },
+        {
+         "m": 190,
+         "start": 32640.0,
+         "interest": 103.4,
+         "inflow": 750.0,
+         "outflow": -494.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 32998.9,
+         "net_worth": 92998.9
+        },
+        {
+         "m": 191,
+         "start": 32998.9,
+         "interest": 104.5,
+         "inflow": 750.0,
+         "outflow": -495.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 33358.2,
+         "net_worth": 93358.2
+        },
+        {
+         "m": 192,
+         "start": 33358.2,
+         "interest": 105.6,
+         "inflow": 750.0,
+         "outflow": -496.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 33717.8,
+         "net_worth": 93717.8
+        },
+        {
+         "m": 193,
+         "start": 33717.8,
+         "interest": 106.8,
+         "inflow": 750.0,
+         "outflow": -496.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 34077.9,
+         "net_worth": 94077.9
+        },
+        {
+         "m": 194,
+         "start": 34077.9,
+         "interest": 107.9,
+         "inflow": 750.0,
+         "outflow": -497.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 34438.3,
+         "net_worth": 94438.3
+        },
+        {
+         "m": 195,
+         "start": 34438.3,
+         "interest": 109.1,
+         "inflow": 750.0,
+         "outflow": -498.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 34799.0,
+         "net_worth": 94799.0
+        },
+        {
+         "m": 196,
+         "start": 34799.0,
+         "interest": 110.2,
+         "inflow": 750.0,
+         "outflow": -499.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 35160.2,
+         "net_worth": 95160.2
+        },
+        {
+         "m": 197,
+         "start": 35160.2,
+         "interest": 111.3,
+         "inflow": 750.0,
+         "outflow": -499.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 35521.7,
+         "net_worth": 95521.7
+        },
+        {
+         "m": 198,
+         "start": 35521.7,
+         "interest": 112.5,
+         "inflow": 750.0,
+         "outflow": -500.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 35883.5,
+         "net_worth": 95883.5
+        },
+        {
+         "m": 199,
+         "start": 35883.5,
+         "interest": 113.6,
+         "inflow": 750.0,
+         "outflow": -501.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 36245.8,
+         "net_worth": 96245.8
+        },
+        {
+         "m": 200,
+         "start": 36245.8,
+         "interest": 114.8,
+         "inflow": 750.0,
+         "outflow": -502.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 36608.4,
+         "net_worth": 96608.4
+        },
+        {
+         "m": 201,
+         "start": 36608.4,
+         "interest": 115.9,
+         "inflow": 750.0,
+         "outflow": -502.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 36971.4,
+         "net_worth": 96971.4
+        },
+        {
+         "m": 202,
+         "start": 36971.4,
+         "interest": 117.1,
+         "inflow": 750.0,
+         "outflow": -503.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 37334.7,
+         "net_worth": 97334.7
+        },
+        {
+         "m": 203,
+         "start": 37334.7,
+         "interest": 118.2,
+         "inflow": 750.0,
+         "outflow": -504.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 37698.4,
+         "net_worth": 97698.4
+        },
+        {
+         "m": 204,
+         "start": 37698.4,
+         "interest": 119.4,
+         "inflow": 750.0,
+         "outflow": -505.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 38062.5,
+         "net_worth": 98062.5
+        },
+        {
+         "m": 205,
+         "start": 38062.5,
+         "interest": 120.5,
+         "inflow": 750.0,
+         "outflow": -506.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 38426.9,
+         "net_worth": 98426.9
+        },
+        {
+         "m": 206,
+         "start": 38426.9,
+         "interest": 121.7,
+         "inflow": 750.0,
+         "outflow": -506.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 38791.8,
+         "net_worth": 98791.8
+        },
+        {
+         "m": 207,
+         "start": 38791.8,
+         "interest": 122.8,
+         "inflow": 750.0,
+         "outflow": -507.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 39156.9,
+         "net_worth": 99156.9
+        },
+        {
+         "m": 208,
+         "start": 39156.9,
+         "interest": 124.0,
+         "inflow": 750.0,
+         "outflow": -508.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 39522.5,
+         "net_worth": 99522.5
+        },
+        {
+         "m": 209,
+         "start": 39522.5,
+         "interest": 125.2,
+         "inflow": 750.0,
+         "outflow": -509.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 39888.4,
+         "net_worth": 99888.4
+        },
+        {
+         "m": 210,
+         "start": 39888.4,
+         "interest": 126.3,
+         "inflow": 750.0,
+         "outflow": -510.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 40254.7,
+         "net_worth": 100254.7
+        },
+        {
+         "m": 211,
+         "start": 40254.7,
+         "interest": 127.5,
+         "inflow": 750.0,
+         "outflow": -510.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 40621.4,
+         "net_worth": 100621.4
+        },
+        {
+         "m": 212,
+         "start": 40621.4,
+         "interest": 128.6,
+         "inflow": 750.0,
+         "outflow": -511.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 40988.4,
+         "net_worth": 100988.4
+        },
+        {
+         "m": 213,
+         "start": 40988.4,
+         "interest": 129.8,
+         "inflow": 750.0,
+         "outflow": -512.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 41355.8,
+         "net_worth": 101355.8
+        },
+        {
+         "m": 214,
+         "start": 41355.8,
+         "interest": 131.0,
+         "inflow": 750.0,
+         "outflow": -513.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 41723.5,
+         "net_worth": 101723.5
+        },
+        {
+         "m": 215,
+         "start": 41723.5,
+         "interest": 132.1,
+         "inflow": 750.0,
+         "outflow": -514.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 42091.6,
+         "net_worth": 102091.6
+        },
+        {
+         "m": 216,
+         "start": 42091.6,
+         "interest": 133.3,
+         "inflow": 750.0,
+         "outflow": -514.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 42460.1,
+         "net_worth": 102460.1
+        },
+        {
+         "m": 217,
+         "start": 42460.1,
+         "interest": 134.5,
+         "inflow": 750.0,
+         "outflow": -515.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 42829.0,
+         "net_worth": 102829.0
+        },
+        {
+         "m": 218,
+         "start": 42829.0,
+         "interest": 135.6,
+         "inflow": 750.0,
+         "outflow": -516.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 43198.2,
+         "net_worth": 103198.2
+        },
+        {
+         "m": 219,
+         "start": 43198.2,
+         "interest": 136.8,
+         "inflow": 750.0,
+         "outflow": -517.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 43567.8,
+         "net_worth": 103567.8
+        },
+        {
+         "m": 220,
+         "start": 43567.8,
+         "interest": 138.0,
+         "inflow": 750.0,
+         "outflow": -518.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 43937.7,
+         "net_worth": 103937.7
+        },
+        {
+         "m": 221,
+         "start": 43937.7,
+         "interest": 139.1,
+         "inflow": 750.0,
+         "outflow": -518.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 44308.1,
+         "net_worth": 104308.1
+        },
+        {
+         "m": 222,
+         "start": 44308.1,
+         "interest": 140.3,
+         "inflow": 750.0,
+         "outflow": -519.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 44678.7,
+         "net_worth": 104678.7
+        },
+        {
+         "m": 223,
+         "start": 44678.7,
+         "interest": 141.5,
+         "inflow": 750.0,
+         "outflow": -520.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 45049.8,
+         "net_worth": 105049.8
+        },
+        {
+         "m": 224,
+         "start": 45049.8,
+         "interest": 142.7,
+         "inflow": 750.0,
+         "outflow": -521.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 45421.2,
+         "net_worth": 105421.2
+        },
+        {
+         "m": 225,
+         "start": 45421.2,
+         "interest": 143.8,
+         "inflow": 750.0,
+         "outflow": -522.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 45793.0,
+         "net_worth": 105793.0
+        },
+        {
+         "m": 226,
+         "start": 45793.0,
+         "interest": 145.0,
+         "inflow": 750.0,
+         "outflow": -522.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 46165.1,
+         "net_worth": 106165.1
+        },
+        {
+         "m": 227,
+         "start": 46165.1,
+         "interest": 146.2,
+         "inflow": 750.0,
+         "outflow": -523.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 46537.6,
+         "net_worth": 106537.6
+        },
+        {
+         "m": 228,
+         "start": 46537.6,
+         "interest": 147.4,
+         "inflow": 750.0,
+         "outflow": -524.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 46910.5,
+         "net_worth": 106910.5
+        },
+        {
+         "m": 229,
+         "start": 46910.5,
+         "interest": 148.5,
+         "inflow": 750.0,
+         "outflow": -525.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 47283.7,
+         "net_worth": 107283.7
+        },
+        {
+         "m": 230,
+         "start": 47283.7,
+         "interest": 149.7,
+         "inflow": 750.0,
+         "outflow": -526.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 47657.3,
+         "net_worth": 107657.3
+        },
+        {
+         "m": 231,
+         "start": 47657.3,
+         "interest": 150.9,
+         "inflow": 750.0,
+         "outflow": -527.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 48031.3,
+         "net_worth": 108031.3
+        },
+        {
+         "m": 232,
+         "start": 48031.3,
+         "interest": 152.1,
+         "inflow": 750.0,
+         "outflow": -527.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 48405.6,
+         "net_worth": 108405.6
+        },
+        {
+         "m": 233,
+         "start": 48405.6,
+         "interest": 153.3,
+         "inflow": 750.0,
+         "outflow": -528.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 48780.3,
+         "net_worth": 108780.3
+        },
+        {
+         "m": 234,
+         "start": 48780.3,
+         "interest": 154.5,
+         "inflow": 750.0,
+         "outflow": -529.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 49155.3,
+         "net_worth": 109155.3
+        },
+        {
+         "m": 235,
+         "start": 49155.3,
+         "interest": 155.7,
+         "inflow": 750.0,
+         "outflow": -530.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 49530.8,
+         "net_worth": 109530.8
+        },
+        {
+         "m": 236,
+         "start": 49530.8,
+         "interest": 156.8,
+         "inflow": 750.0,
+         "outflow": -531.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 49906.5,
+         "net_worth": 109906.5
+        },
+        {
+         "m": 237,
+         "start": 49906.5,
+         "interest": 158.0,
+         "inflow": 750.0,
+         "outflow": -531.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 50282.7,
+         "net_worth": 110282.7
+        },
+        {
+         "m": 238,
+         "start": 50282.7,
+         "interest": 159.2,
+         "inflow": 750.0,
+         "outflow": -532.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 50659.2,
+         "net_worth": 110659.2
+        },
+        {
+         "m": 239,
+         "start": 50659.2,
+         "interest": 160.4,
+         "inflow": 750.0,
+         "outflow": -533.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 51036.0,
+         "net_worth": 111036.0
+        },
+        {
+         "m": 240,
+         "start": 51036.0,
+         "interest": 161.6,
+         "inflow": 750.0,
+         "outflow": -534.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 51413.3,
+         "net_worth": 111413.3
+        },
+        {
+         "m": 241,
+         "start": 51413.3,
+         "interest": 162.8,
+         "inflow": 750.0,
+         "outflow": -535.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 51790.9,
+         "net_worth": 111790.9
+        },
+        {
+         "m": 242,
+         "start": 51790.9,
+         "interest": 164.0,
+         "inflow": 750.0,
+         "outflow": -536.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 52168.8,
+         "net_worth": 112168.8
+        },
+        {
+         "m": 243,
+         "start": 52168.8,
+         "interest": 165.2,
+         "inflow": 750.0,
+         "outflow": -536.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 52547.1,
+         "net_worth": 112547.1
+        },
+        {
+         "m": 244,
+         "start": 52547.1,
+         "interest": 166.4,
+         "inflow": 750.0,
+         "outflow": -537.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 52925.8,
+         "net_worth": 112925.8
+        },
+        {
+         "m": 245,
+         "start": 52925.8,
+         "interest": 167.6,
+         "inflow": 750.0,
+         "outflow": -538.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 53304.8,
+         "net_worth": 113304.8
+        },
+        {
+         "m": 246,
+         "start": 53304.8,
+         "interest": 168.8,
+         "inflow": 750.0,
+         "outflow": -539.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 53684.2,
+         "net_worth": 113684.2
+        },
+        {
+         "m": 247,
+         "start": 53684.2,
+         "interest": 170.0,
+         "inflow": 750.0,
+         "outflow": -540.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 54064.0,
+         "net_worth": 114064.0
+        },
+        {
+         "m": 248,
+         "start": 54064.0,
+         "interest": 171.2,
+         "inflow": 750.0,
+         "outflow": -541.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 54444.1,
+         "net_worth": 114444.1
+        },
+        {
+         "m": 249,
+         "start": 54444.1,
+         "interest": 172.4,
+         "inflow": 750.0,
+         "outflow": -541.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 54824.5,
+         "net_worth": 114824.5
+        },
+        {
+         "m": 250,
+         "start": 54824.5,
+         "interest": 173.6,
+         "inflow": 750.0,
+         "outflow": -542.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 55205.4,
+         "net_worth": 115205.4
+        },
+        {
+         "m": 251,
+         "start": 55205.4,
+         "interest": 174.8,
+         "inflow": 750.0,
+         "outflow": -543.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 55586.6,
+         "net_worth": 115586.6
+        },
+        {
+         "m": 252,
+         "start": 55586.6,
+         "interest": 176.0,
+         "inflow": 750.0,
+         "outflow": -544.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 55968.1,
+         "net_worth": 115968.1
+        },
+        {
+         "m": 253,
+         "start": 55968.1,
+         "interest": 177.2,
+         "inflow": 750.0,
+         "outflow": -545.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 56350.0,
+         "net_worth": 116350.0
+        },
+        {
+         "m": 254,
+         "start": 56350.0,
+         "interest": 178.4,
+         "inflow": 750.0,
+         "outflow": -546.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 56732.3,
+         "net_worth": 116732.3
+        },
+        {
+         "m": 255,
+         "start": 56732.3,
+         "interest": 179.7,
+         "inflow": 750.0,
+         "outflow": -547.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 57114.9,
+         "net_worth": 117114.9
+        },
+        {
+         "m": 256,
+         "start": 57114.9,
+         "interest": 180.9,
+         "inflow": 750.0,
+         "outflow": -547.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 57497.9,
+         "net_worth": 117497.9
+        },
+        {
+         "m": 257,
+         "start": 57497.9,
+         "interest": 182.1,
+         "inflow": 750.0,
+         "outflow": -548.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 57881.2,
+         "net_worth": 117881.2
+        },
+        {
+         "m": 258,
+         "start": 57881.2,
+         "interest": 183.3,
+         "inflow": 750.0,
+         "outflow": -549.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 58264.9,
+         "net_worth": 118264.9
+        },
+        {
+         "m": 259,
+         "start": 58264.9,
+         "interest": 184.5,
+         "inflow": 750.0,
+         "outflow": -550.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 58649.0,
+         "net_worth": 118649.0
+        },
+        {
+         "m": 260,
+         "start": 58649.0,
+         "interest": 185.7,
+         "inflow": 750.0,
+         "outflow": -551.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 59033.4,
+         "net_worth": 119033.4
+        },
+        {
+         "m": 261,
+         "start": 59033.4,
+         "interest": 186.9,
+         "inflow": 750.0,
+         "outflow": -552.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 59418.1,
+         "net_worth": 119418.1
+        },
+        {
+         "m": 262,
+         "start": 59418.1,
+         "interest": 188.2,
+         "inflow": 750.0,
+         "outflow": -553.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 59803.2,
+         "net_worth": 119803.2
+        },
+        {
+         "m": 263,
+         "start": 59803.2,
+         "interest": 189.4,
+         "inflow": 750.0,
+         "outflow": -553.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 60188.7,
+         "net_worth": 120188.7
+        },
+        {
+         "m": 264,
+         "start": 60188.7,
+         "interest": 190.6,
+         "inflow": 750.0,
+         "outflow": -554.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 60574.6,
+         "net_worth": 120574.6
+        },
+        {
+         "m": 265,
+         "start": 60574.6,
+         "interest": 191.8,
+         "inflow": 750.0,
+         "outflow": -555.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 60960.7,
+         "net_worth": 120960.7
+        },
+        {
+         "m": 266,
+         "start": 60960.7,
+         "interest": 193.0,
+         "inflow": 750.0,
+         "outflow": -556.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 61347.3,
+         "net_worth": 121347.3
+        },
+        {
+         "m": 267,
+         "start": 61347.3,
+         "interest": 194.3,
+         "inflow": 750.0,
+         "outflow": -557.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 61734.2,
+         "net_worth": 121734.2
+        },
+        {
+         "m": 268,
+         "start": 61734.2,
+         "interest": 195.5,
+         "inflow": 750.0,
+         "outflow": -558.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 62121.4,
+         "net_worth": 122121.4
+        },
+        {
+         "m": 269,
+         "start": 62121.4,
+         "interest": 196.7,
+         "inflow": 750.0,
+         "outflow": -559.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 62509.0,
+         "net_worth": 122509.0
+        },
+        {
+         "m": 270,
+         "start": 62509.0,
+         "interest": 197.9,
+         "inflow": 750.0,
+         "outflow": -560.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 62897.0,
+         "net_worth": 122897.0
+        },
+        {
+         "m": 271,
+         "start": 62897.0,
+         "interest": 199.2,
+         "inflow": 750.0,
+         "outflow": -560.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 63285.3,
+         "net_worth": 123285.3
+        },
+        {
+         "m": 272,
+         "start": 63285.3,
+         "interest": 200.4,
+         "inflow": 750.0,
+         "outflow": -561.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 63674.0,
+         "net_worth": 123674.0
+        },
+        {
+         "m": 273,
+         "start": 63674.0,
+         "interest": 201.6,
+         "inflow": 750.0,
+         "outflow": -562.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 64063.0,
+         "net_worth": 124063.0
+        },
+        {
+         "m": 274,
+         "start": 64063.0,
+         "interest": 202.9,
+         "inflow": 750.0,
+         "outflow": -563.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 64452.3,
+         "net_worth": 124452.3
+        },
+        {
+         "m": 275,
+         "start": 64452.3,
+         "interest": 204.1,
+         "inflow": 750.0,
+         "outflow": -564.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 64842.1,
+         "net_worth": 124842.1
+        },
+        {
+         "m": 276,
+         "start": 64842.1,
+         "interest": 205.3,
+         "inflow": 750.0,
+         "outflow": -565.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 65232.1,
+         "net_worth": 125232.1
+        },
+        {
+         "m": 277,
+         "start": 65232.1,
+         "interest": 206.6,
+         "inflow": 750.0,
+         "outflow": -566.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 65622.6,
+         "net_worth": 125622.6
+        },
+        {
+         "m": 278,
+         "start": 65622.6,
+         "interest": 207.8,
+         "inflow": 750.0,
+         "outflow": -567.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 66013.3,
+         "net_worth": 126013.3
+        },
+        {
+         "m": 279,
+         "start": 66013.3,
+         "interest": 209.0,
+         "inflow": 750.0,
+         "outflow": -567.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 66404.5,
+         "net_worth": 126404.5
+        },
+        {
+         "m": 280,
+         "start": 66404.5,
+         "interest": 210.3,
+         "inflow": 750.0,
+         "outflow": -568.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 66795.9,
+         "net_worth": 126795.9
+        },
+        {
+         "m": 281,
+         "start": 66795.9,
+         "interest": 211.5,
+         "inflow": 750.0,
+         "outflow": -569.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 67187.8,
+         "net_worth": 127187.8
+        },
+        {
+         "m": 282,
+         "start": 67187.8,
+         "interest": 212.8,
+         "inflow": 750.0,
+         "outflow": -570.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 67579.9,
+         "net_worth": 127579.9
+        },
+        {
+         "m": 283,
+         "start": 67579.9,
+         "interest": 214.0,
+         "inflow": 750.0,
+         "outflow": -571.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 67972.4,
+         "net_worth": 127972.4
+        },
+        {
+         "m": 284,
+         "start": 67972.4,
+         "interest": 215.2,
+         "inflow": 750.0,
+         "outflow": -572.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 68365.3,
+         "net_worth": 128365.3
+        },
+        {
+         "m": 285,
+         "start": 68365.3,
+         "interest": 216.5,
+         "inflow": 750.0,
+         "outflow": -573.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 68758.5,
+         "net_worth": 128758.5
+        },
+        {
+         "m": 286,
+         "start": 68758.5,
+         "interest": 217.7,
+         "inflow": 750.0,
+         "outflow": -574.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 69152.1,
+         "net_worth": 129152.1
+        },
+        {
+         "m": 287,
+         "start": 69152.1,
+         "interest": 219.0,
+         "inflow": 750.0,
+         "outflow": -575.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 69546.0,
+         "net_worth": 129546.0
+        },
+        {
+         "m": 288,
+         "start": 69546.0,
+         "interest": 220.2,
+         "inflow": 750.0,
+         "outflow": -576.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 69940.3,
+         "net_worth": 129940.3
+        },
+        {
+         "m": 289,
+         "start": 69940.3,
+         "interest": 221.5,
+         "inflow": 750.0,
+         "outflow": -576.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 70334.9,
+         "net_worth": 130334.9
+        },
+        {
+         "m": 290,
+         "start": 70334.9,
+         "interest": 222.7,
+         "inflow": 750.0,
+         "outflow": -577.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 70729.8,
+         "net_worth": 130729.8
+        },
+        {
+         "m": 291,
+         "start": 70729.8,
+         "interest": 224.0,
+         "inflow": 750.0,
+         "outflow": -578.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 71125.1,
+         "net_worth": 131125.1
+        },
+        {
+         "m": 292,
+         "start": 71125.1,
+         "interest": 225.2,
+         "inflow": 750.0,
+         "outflow": -579.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 71520.8,
+         "net_worth": 131520.8
+        },
+        {
+         "m": 293,
+         "start": 71520.8,
+         "interest": 226.5,
+         "inflow": 750.0,
+         "outflow": -580.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 71916.8,
+         "net_worth": 131916.8
+        },
+        {
+         "m": 294,
+         "start": 71916.8,
+         "interest": 227.7,
+         "inflow": 750.0,
+         "outflow": -581.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 72313.1,
+         "net_worth": 132313.1
+        },
+        {
+         "m": 295,
+         "start": 72313.1,
+         "interest": 229.0,
+         "inflow": 750.0,
+         "outflow": -582.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 72709.8,
+         "net_worth": 132709.8
+        },
+        {
+         "m": 296,
+         "start": 72709.8,
+         "interest": 230.2,
+         "inflow": 750.0,
+         "outflow": -583.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 73106.8,
+         "net_worth": 133106.8
+        },
+        {
+         "m": 297,
+         "start": 73106.8,
+         "interest": 231.5,
+         "inflow": 750.0,
+         "outflow": -584.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 73504.2,
+         "net_worth": 133504.2
+        },
+        {
+         "m": 298,
+         "start": 73504.2,
+         "interest": 232.8,
+         "inflow": 750.0,
+         "outflow": -585.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 73901.9,
+         "net_worth": 133901.9
+        },
+        {
+         "m": 299,
+         "start": 73901.9,
+         "interest": 234.0,
+         "inflow": 750.0,
+         "outflow": -586.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 74300.0,
+         "net_worth": 134300.0
+        },
+        {
+         "m": 300,
+         "start": 74300.0,
+         "interest": 235.3,
+         "inflow": 750.0,
+         "outflow": -586.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 74698.4,
+         "net_worth": 134698.4
+        },
+        {
+         "m": 301,
+         "start": 74698.4,
+         "interest": 236.5,
+         "inflow": 750.0,
+         "outflow": -587.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 75097.1,
+         "net_worth": 135097.1
+        },
+        {
+         "m": 302,
+         "start": 75097.1,
+         "interest": 237.8,
+         "inflow": 750.0,
+         "outflow": -588.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 75496.2,
+         "net_worth": 135496.2
+        },
+        {
+         "m": 303,
+         "start": 75496.2,
+         "interest": 239.1,
+         "inflow": 750.0,
+         "outflow": -589.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 75895.6,
+         "net_worth": 135895.6
+        },
+        {
+         "m": 304,
+         "start": 75895.6,
+         "interest": 240.3,
+         "inflow": 750.0,
+         "outflow": -590.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 76295.4,
+         "net_worth": 136295.4
+        },
+        {
+         "m": 305,
+         "start": 76295.4,
+         "interest": 241.6,
+         "inflow": 750.0,
+         "outflow": -591.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 76695.5,
+         "net_worth": 136695.5
+        },
+        {
+         "m": 306,
+         "start": 76695.5,
+         "interest": 242.9,
+         "inflow": 750.0,
+         "outflow": -592.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 77095.9,
+         "net_worth": 137095.9
+        },
+        {
+         "m": 307,
+         "start": 77095.9,
+         "interest": 244.1,
+         "inflow": 750.0,
+         "outflow": -593.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 77496.7,
+         "net_worth": 137496.7
+        },
+        {
+         "m": 308,
+         "start": 77496.7,
+         "interest": 245.4,
+         "inflow": 750.0,
+         "outflow": -594.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 77897.8,
+         "net_worth": 137897.8
+        },
+        {
+         "m": 309,
+         "start": 77897.8,
+         "interest": 246.7,
+         "inflow": 750.0,
+         "outflow": -595.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 78299.3,
+         "net_worth": 138299.3
+        },
+        {
+         "m": 310,
+         "start": 78299.3,
+         "interest": 247.9,
+         "inflow": 750.0,
+         "outflow": -596.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 78701.1,
+         "net_worth": 138701.1
+        },
+        {
+         "m": 311,
+         "start": 78701.1,
+         "interest": 249.2,
+         "inflow": 750.0,
+         "outflow": -597.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 79103.2,
+         "net_worth": 139103.2
+        },
+        {
+         "m": 312,
+         "start": 79103.2,
+         "interest": 250.5,
+         "inflow": 750.0,
+         "outflow": -598.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 79505.7,
+         "net_worth": 139505.7
+        },
+        {
+         "m": 313,
+         "start": 79505.7,
+         "interest": 251.8,
+         "inflow": 750.0,
+         "outflow": -599.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 79908.5,
+         "net_worth": 139908.5
+        },
+        {
+         "m": 314,
+         "start": 79908.5,
+         "interest": 253.0,
+         "inflow": 750.0,
+         "outflow": -599.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 80311.6,
+         "net_worth": 140311.6
+        },
+        {
+         "m": 315,
+         "start": 80311.6,
+         "interest": 254.3,
+         "inflow": 750.0,
+         "outflow": -600.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 80715.1,
+         "net_worth": 140715.1
+        },
+        {
+         "m": 316,
+         "start": 80715.1,
+         "interest": 255.6,
+         "inflow": 750.0,
+         "outflow": -601.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 81118.9,
+         "net_worth": 141118.9
+        },
+        {
+         "m": 317,
+         "start": 81118.9,
+         "interest": 256.9,
+         "inflow": 750.0,
+         "outflow": -602.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 81523.0,
+         "net_worth": 141523.0
+        },
+        {
+         "m": 318,
+         "start": 81523.0,
+         "interest": 258.2,
+         "inflow": 750.0,
+         "outflow": -603.7,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 81927.5,
+         "net_worth": 141927.5
+        },
+        {
+         "m": 319,
+         "start": 81927.5,
+         "interest": 259.4,
+         "inflow": 750.0,
+         "outflow": -604.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 82332.3,
+         "net_worth": 142332.3
+        },
+        {
+         "m": 320,
+         "start": 82332.3,
+         "interest": 260.7,
+         "inflow": 750.0,
+         "outflow": -605.6,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 82737.5,
+         "net_worth": 142737.5
+        },
+        {
+         "m": 321,
+         "start": 82737.5,
+         "interest": 262.0,
+         "inflow": 750.0,
+         "outflow": -606.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 83143.0,
+         "net_worth": 143143.0
+        },
+        {
+         "m": 322,
+         "start": 83143.0,
+         "interest": 263.3,
+         "inflow": 750.0,
+         "outflow": -607.5,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 83548.8,
+         "net_worth": 143548.8
+        },
+        {
+         "m": 323,
+         "start": 83548.8,
+         "interest": 264.6,
+         "inflow": 750.0,
+         "outflow": -608.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 83954.9,
+         "net_worth": 143954.9
+        },
+        {
+         "m": 324,
+         "start": 83954.9,
+         "interest": 265.9,
+         "inflow": 750.0,
+         "outflow": -609.4,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 84361.4,
+         "net_worth": 144361.4
+        },
+        {
+         "m": 325,
+         "start": 84361.4,
+         "interest": 267.1,
+         "inflow": 750.0,
+         "outflow": -610.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 84768.2,
+         "net_worth": 144768.2
+        },
+        {
+         "m": 326,
+         "start": 84768.2,
+         "interest": 268.4,
+         "inflow": 750.0,
+         "outflow": -611.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 85175.3,
+         "net_worth": 145175.3
+        },
+        {
+         "m": 327,
+         "start": 85175.3,
+         "interest": 269.7,
+         "inflow": 750.0,
+         "outflow": -612.3,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 85582.8,
+         "net_worth": 145582.8
+        },
+        {
+         "m": 328,
+         "start": 85582.8,
+         "interest": 271.0,
+         "inflow": 750.0,
+         "outflow": -613.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 85990.6,
+         "net_worth": 145990.6
+        },
+        {
+         "m": 329,
+         "start": 85990.6,
+         "interest": 272.3,
+         "inflow": 750.0,
+         "outflow": -614.2,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 86398.7,
+         "net_worth": 146398.7
+        },
+        {
+         "m": 330,
+         "start": 86398.7,
+         "interest": 273.6,
+         "inflow": 750.0,
+         "outflow": -615.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 86807.1,
+         "net_worth": 146807.1
+        },
+        {
+         "m": 331,
+         "start": 86807.1,
+         "interest": 274.9,
+         "inflow": 750.0,
+         "outflow": -616.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 87215.9,
+         "net_worth": 147215.9
+        },
+        {
+         "m": 332,
+         "start": 87215.9,
+         "interest": 276.2,
+         "inflow": 750.0,
+         "outflow": -617.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 87625.0,
+         "net_worth": 147625.0
+        },
+        {
+         "m": 333,
+         "start": 87625.0,
+         "interest": 277.5,
+         "inflow": 750.0,
+         "outflow": -618.1,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 88034.4,
+         "net_worth": 148034.4
+        },
+        {
+         "m": 334,
+         "start": 88034.4,
+         "interest": 278.8,
+         "inflow": 750.0,
+         "outflow": -619.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 88444.2,
+         "net_worth": 148444.2
+        },
+        {
+         "m": 335,
+         "start": 88444.2,
+         "interest": 280.1,
+         "inflow": 750.0,
+         "outflow": -620.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 88854.3,
+         "net_worth": 148854.3
+        },
+        {
+         "m": 336,
+         "start": 88854.3,
+         "interest": 281.4,
+         "inflow": 750.0,
+         "outflow": -621.0,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 89264.7,
+         "net_worth": 149264.7
+        },
+        {
+         "m": 337,
+         "start": 89264.7,
+         "interest": 282.7,
+         "inflow": 750.0,
+         "outflow": -621.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 89675.4,
+         "net_worth": 149675.4
+        },
+        {
+         "m": 338,
+         "start": 89675.4,
+         "interest": 284.0,
+         "inflow": 750.0,
+         "outflow": -622.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 90086.4,
+         "net_worth": 150086.4
+        },
+        {
+         "m": 339,
+         "start": 90086.4,
+         "interest": 285.3,
+         "inflow": 750.0,
+         "outflow": -623.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 90497.8,
+         "net_worth": 150497.8
+        },
+        {
+         "m": 340,
+         "start": 90497.8,
+         "interest": 286.6,
+         "inflow": 750.0,
+         "outflow": -624.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 90909.5,
+         "net_worth": 150909.5
+        },
+        {
+         "m": 341,
+         "start": 90909.5,
+         "interest": 287.9,
+         "inflow": 750.0,
+         "outflow": -625.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 91321.5,
+         "net_worth": 151321.5
+        },
+        {
+         "m": 342,
+         "start": 91321.5,
+         "interest": 289.2,
+         "inflow": 750.0,
+         "outflow": -626.9,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 91733.8,
+         "net_worth": 151733.8
+        },
+        {
+         "m": 343,
+         "start": 91733.8,
+         "interest": 290.5,
+         "inflow": 750.0,
+         "outflow": -627.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 92146.5,
+         "net_worth": 152146.5
+        },
+        {
+         "m": 344,
+         "start": 92146.5,
+         "interest": 291.8,
+         "inflow": 750.0,
+         "outflow": -628.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 92559.5,
+         "net_worth": 152559.5
+        },
+        {
+         "m": 345,
+         "start": 92559.5,
+         "interest": 293.1,
+         "inflow": 750.0,
+         "outflow": -629.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 92972.8,
+         "net_worth": 152972.8
+        },
+        {
+         "m": 346,
+         "start": 92972.8,
+         "interest": 294.4,
+         "inflow": 750.0,
+         "outflow": -630.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 93386.4,
+         "net_worth": 153386.4
+        },
+        {
+         "m": 347,
+         "start": 93386.4,
+         "interest": 295.7,
+         "inflow": 750.0,
+         "outflow": -631.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 93800.3,
+         "net_worth": 153800.3
+        },
+        {
+         "m": 348,
+         "start": 93800.3,
+         "interest": 297.0,
+         "inflow": 750.0,
+         "outflow": -632.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 94214.5,
+         "net_worth": 154214.5
+        },
+        {
+         "m": 349,
+         "start": 94214.5,
+         "interest": 298.3,
+         "inflow": 750.0,
+         "outflow": -633.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 94629.1,
+         "net_worth": 154629.1
+        },
+        {
+         "m": 350,
+         "start": 94629.1,
+         "interest": 299.7,
+         "inflow": 750.0,
+         "outflow": -634.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 95044.0,
+         "net_worth": 155044.0
+        },
+        {
+         "m": 351,
+         "start": 95044.0,
+         "interest": 301.0,
+         "inflow": 750.0,
+         "outflow": -635.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 95459.2,
+         "net_worth": 155459.2
+        },
+        {
+         "m": 352,
+         "start": 95459.2,
+         "interest": 302.3,
+         "inflow": 750.0,
+         "outflow": -636.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 95874.7,
+         "net_worth": 155874.7
+        },
+        {
+         "m": 353,
+         "start": 95874.7,
+         "interest": 303.6,
+         "inflow": 750.0,
+         "outflow": -637.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 96290.5,
+         "net_worth": 156290.5
+        },
+        {
+         "m": 354,
+         "start": 96290.5,
+         "interest": 304.9,
+         "inflow": 750.0,
+         "outflow": -638.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 96706.6,
+         "net_worth": 156706.6
+        },
+        {
+         "m": 355,
+         "start": 96706.6,
+         "interest": 306.2,
+         "inflow": 750.0,
+         "outflow": -639.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 97123.0,
+         "net_worth": 157123.0
+        },
+        {
+         "m": 356,
+         "start": 97123.0,
+         "interest": 307.6,
+         "inflow": 750.0,
+         "outflow": -640.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 97539.8,
+         "net_worth": 157539.8
+        },
+        {
+         "m": 357,
+         "start": 97539.8,
+         "interest": 308.9,
+         "inflow": 750.0,
+         "outflow": -641.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 97956.9,
+         "net_worth": 157956.9
+        },
+        {
+         "m": 358,
+         "start": 97956.9,
+         "interest": 310.2,
+         "inflow": 750.0,
+         "outflow": -642.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 98374.2,
+         "net_worth": 158374.2
+        },
+        {
+         "m": 359,
+         "start": 98374.2,
+         "interest": 311.5,
+         "inflow": 750.0,
+         "outflow": -643.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 98791.9,
+         "net_worth": 158791.9
+        },
+        {
+         "m": 360,
+         "start": 98791.9,
+         "interest": 312.8,
+         "inflow": 750.0,
+         "outflow": -644.8,
+         "lump": 0,
+         "loan_payment": 0.0,
+         "debt": 0.0,
+         "end": 99209.9,
+         "net_worth": 159209.9
+        }
+       ]
+      }
+     ]
+    },
+    "view_changes": [
+     "돈을 불리는 방식: 예금·적금 위주(연 3.8% 가정)",
+     "외식·여행 줄이기 월 +30만원 (준호 님이 외식이나 여행 줄이기는 양보할 수 있다고 했어요. 줄이는 정도는 가정이에요.)",
+     "주택담보대출 한 달 180만원 더 갚기"
+    ]
+   },
+   "error": null
+  },
+  "draft": {
+   "seconds": 11.0,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 10.93,
+     "usage": {
+      "input_tokens": 5250,
+      "output_tokens": 1678,
+      "cost_usd": 0.029903
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_b7897f78e2",
+    "run_id": null,
+    "role": "7",
+    "checked_numbers": 18,
+    "facts_used": [
+     "B2.age_at_hit",
+     "B2.end_debt",
+     "B2.goal_hit_month",
+     "B2.goal_hit_years",
+     "agree.adj.0",
+     "agree.extra.f8",
+     "fin.loan",
+     "goal.within"
+    ],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "goal": "비상금 6개월치는 지키면서 주택담보대출을 모두 갚고, 빚 없는 우리 집 만들기",
+    "method": {
+     "display_label": "비상금 지키며 꾸준히 갚기 · 상환 속도 높인 안",
+     "monthly_flow": 30.0
+    },
+    "target_amount": {
+     "label": "대출 잔액 3억 2,000만원을 모두 갚아 0만원로 만들기"
+    },
+    "contribution": [
+     {
+      "label": "매달 모이는 돈",
+      "amount": 30.0,
+      "fact_id": "agree.monthly_saving"
+     },
+     {
+      "label": "주택담보대출 더 갚기",
+      "amount": 180.0,
+      "fact_id": "agree.extra.f8"
+     }
+    ],
+    "timing": {
+     "text": "2026년 10월부터 시작해 약 9.3년 안에 대출을 모두 갚는 것이 목표예요. 개월로는 111개월이고, 그때 준호 님은 48세쯤이에요."
+    },
+    "review": {
+     "interval_months": 6,
+     "interval_label": "6개월마다",
+     "next": "2027년 4월",
+     "events": [
+      "두 분 중 한 분의 월급이나 일자리에 큰 변화가 생겼을 때",
+      "대출 금리가 크게 올라 이자 부담이 늘었을 때",
+      "병원비나 집 수리처럼 큰돈 들 일이 생겨 비상금을 써야 할 때",
+      "양가 부모님 용돈이나 생활비에 큰 변화가 생겼을 때"
+     ]
+    },
+    "change_conditions": [
+     "6개월마다 점검할 때 두 분이 함께 이야기해서 바꿔요.",
+     "비상금 6개월치가 줄어들면 대출 더 갚기를 잠시 멈추고 비상금부터 채워요.",
+     "금리가 오르거나 수입이 달라지면 매달 더 갚는 돈을 다시 정해요."
+    ],
+    "commitments": [
+     {
+      "commitment_id": "c1",
+      "text": "6개월마다 두 사람이 꼭 같이 모여 계획을 다시 살펴봐요.",
+      "source": {
+       "type": "condition",
+       "member_id": "m0"
+      }
+     },
+     {
+      "commitment_id": "c2",
+      "text": "비상금 6개월치는 어떤 경우에도 먼저 지키고, 남는 돈으로만 대출을 갚아요.",
+      "source": {
+       "type": "goal_setting"
+      }
+     },
+     {
+      "commitment_id": "c3",
+      "text": "매달 대출을 더 갚는 돈은 월 180만원으로 딱 정해 두고 꾸준히 이어가요.",
+      "source": {
+       "type": "goal_setting"
+      }
+     },
+     {
+      "commitment_id": "c4",
+      "text": "외식과 여행을 줄여서 월 30만원을 더 마련해요.",
+      "source": {
+       "type": "revision",
+       "member_id": "m0"
+      }
+     },
+     {
+      "commitment_id": "c5",
+      "text": "큰돈 들 일에 대비해 비상금을 건드리지 않아요.",
+      "source": {
+       "type": "keep",
+       "member_id": "m1"
+      }
+     }
+    ],
+    "report": {
+     "reasons": [
+      "비상금 6개월치는 꼭 지키면서 대출도 갚고 싶다는 두 분의 기준에 맞는 방법이에요.",
+      "빚 없는 집에서 살고 싶다는 준호 님의 마음에 맞춰, 양보할 수 있다고 한 외식·여행을 더 줄여 대출을 조금 더 빨리 갚도록 했어요.",
+      "큰돈 들 일에 비상금이 없을까 걱정하는 지현 님의 마음을 지키기 위해 비상금은 그대로 두었어요.",
+      "대출을 갚는 속도가 조금 늦어져도 괜찮다는 지현 님의 뜻도 있어서, 상황이 어려워지면 속도를 조절할 여지가 있어요.",
+      "목표 기한 10년 안에 대출을 다 갚을 수 있는 계획이에요."
+     ],
+     "outcomes": [
+      {
+       "label": "대출을 다 갚는 때",
+       "display": "약 9.3년"
+      },
+      {
+       "label": "기간 끝 대출 잔액",
+       "display": "0만원"
+      },
+      {
+       "label": "돈을 불리는 가정 수익률",
+       "display": "연 3.8%"
+      },
+      {
+       "label": "{{fact:horizon.years}} 뒤 예상 순자산",
+       "display": "15억 9,210만원"
+      }
+     ],
+     "action_plan": [
+      {
+       "when": "2026년 10월",
+       "what": "매달 대출을 월 180만원 더 갚도록 자동이체를 설정하고, 외식·여행 줄이기도 시작해요."
+      },
+      {
+       "when": "매달",
+       "what": "비상금 6개월치가 그대로 남아 있는지 함께 확인해요."
+      },
+      {
+       "when": "6개월마다",
+       "what": "두 분이 함께 모여 대출 잔액, 금리, 생활비 변화를 보고 계획을 점검해요."
+      },
+      {
+       "when": "큰 변화가 생겼을 때",
+       "what": "정해 둔 일이 생기면 6개월을 기다리지 않고 바로 모여 이야기해요."
+      },
+      {
+       "when": "{{fact:B2.goal_hit_years}} 뒤",
+       "what": "대출을 모두 갚고, 빚 없는 우리 집을 함께 축하해요."
+      }
+     ]
+    },
+    "version": 1
+   },
+   "error": null
+  },
+  "recommend": {
+   "seconds": 5.3,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 5.3,
+     "usage": {
+      "input_tokens": 2197,
+      "output_tokens": 717,
+      "cost_usd": 0.01266
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_c0495287db",
+    "run_id": null,
+    "role": "8",
+    "checked_numbers": 0,
+    "facts_used": [],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "mappings": [
+     {
+      "commitment_id": "c1",
+      "need_ids": [],
+      "constraint_ids": [
+       "C_shared_visibility"
+      ],
+      "why": "두 사람이 정기적으로 모여 함께 계획을 확인하는 약속이라 '가족이 함께 확인' 제약과 맞아요. 맞는 필요는 목록에 없어요."
+     },
+     {
+      "commitment_id": "c2",
+      "need_ids": [
+       "N_emergency_fund"
+      ],
+      "constraint_ids": [
+       "C_instant_access"
+      ],
+      "why": "비상금을 먼저 지키는 약속이라 비상금 따로 두기와 맞고, 비상금은 필요할 때 바로 꺼내 쓸 수 있어야 해요."
+     },
+     {
+      "commitment_id": "c3",
+      "need_ids": [
+       "N_debt_repayment"
+      ],
+      "constraint_ids": [],
+      "why": "매달 정해진 금액으로 대출을 더 갚는 약속이라 대출 상환 필요와 맞아요. 주택담보대출이 있다고 했으니 조건도 맞아요."
+     },
+     {
+      "commitment_id": "c4",
+      "need_ids": [
+       "N_goal_saving"
+      ],
+      "constraint_ids": [],
+      "why": "지출을 줄여 매달 일정 금액을 더 마련하는 약속이라 목표를 위해 꾸준히 모으는 필요와 맞아요."
+     },
+     {
+      "commitment_id": "c5",
+      "need_ids": [
+       "N_emergency_fund"
+      ],
+      "constraint_ids": [
+       "C_instant_access"
+      ],
+      "why": "큰돈 들 일에 대비해 비상금을 지키는 약속이라 비상금 따로 두기와 맞고, 급할 때 바로 꺼낼 수 있어야 해요."
+     },
+     {
+      "commitment_id": "goal",
+      "need_ids": [
+       "N_debt_repayment",
+       "N_emergency_fund"
+      ],
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
+      "why": "목표가 대출을 모두 갚고 비상금 6개월치를 지키는 것이라 두 필요가 바로 나와요. 지금 집을 빚 없는 집으로 만드는 것이므로 계속 살아야 한다는 제약도 있어요."
+     }
+    ],
+    "recommendations": [
+     {
+      "commitment_id": "c2",
+      "need_id": "N_emergency_fund",
+      "need_label": "갑자기 필요한 돈(비상금) 따로 두기",
+      "constraint_ids": [
+       "C_instant_access",
+       "C_principal_protected"
+      ],
+      "product_type_id": "P_parking_account",
+      "product_label": "수시입출금 통장",
+      "kind": "product",
+      "summary": "언제든 넣고 뺄 수 있는 통장이에요.",
+      "attributes": {
+       "rate": "가정값 참조",
+       "term": "자유",
+       "risk": "원금보장",
+       "liquidity": "수시",
+       "tax": "해당 없음",
+       "eligibility": "누구나"
+      },
+      "path": [
+       [
+        "c2",
+        "requires",
+        "N_emergency_fund"
+       ],
+       [
+        "c2",
+        "constrainedBy",
+        "C_instant_access"
+       ],
+       [
+        "c2",
+        "constrainedBy",
+        "C_principal_protected"
+       ],
+       [
+        "N_emergency_fund",
+        "satisfiedBy",
+        "P_parking_account"
+       ],
+       [
+        "P_parking_account",
+        "hasAttribute",
+        "liquidity=수시"
+       ],
+       [
+        "P_parking_account",
+        "hasAttribute",
+        "risk=원금보장"
+       ]
+      ],
+      "excluded": [
+       {
+        "product_type_id": "P_installment_savings",
+        "label": "적금(원금 보장)",
+        "constraint_id": "C_instant_access",
+        "reason": "필요할 때 바로 꺼낼 수 없어서"
+       }
+      ],
+      "reason_text": "약속 2 '비상금 6개월치는 어떤 경우에도 먼저 지키고, 남는 돈으로만 대출을 갚아요.' → 갑자기 필요한 돈(비상금) 따로 두기 (필요할 때 바로 꺼내야 해요 · 원금이 줄면 안 돼요) → 수시입출금 통장을 연결했어요."
+     },
+     {
+      "commitment_id": "c3",
+      "need_id": "N_debt_repayment",
+      "need_label": "대출을 계획대로 빨리 갚기",
+      "constraint_ids": [],
+      "product_type_id": "P_prepay_plan",
+      "product_label": "대출 미리 갚기(중도상환) 계획",
+      "kind": "action",
+      "summary": "매달 정한 만큼 대출을 더 갚아 이자를 줄이는 방법이에요.",
+      "attributes": {
+       "rate": "해당 없음",
+       "term": "해당 없음",
+       "risk": "해당 없음",
+       "liquidity": "해당 없음",
+       "tax": "해당 없음",
+       "eligibility": "중도상환 수수료 확인 필요"
+      },
+      "path": [
+       [
+        "c3",
+        "requires",
+        "N_debt_repayment"
+       ],
+       [
+        "N_debt_repayment",
+        "satisfiedBy",
+        "P_prepay_plan"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 3 '매달 대출을 더 갚는 돈은 월 180만원으로 딱 정해 두고 꾸준히 이어가요.' → 대출을 계획대로 빨리 갚기 → 대출 미리 갚기(중도상환) 계획을 연결했어요."
+     },
+     {
+      "commitment_id": "c3",
+      "need_id": "N_debt_repayment",
+      "need_label": "대출을 계획대로 빨리 갚기",
+      "constraint_ids": [],
+      "product_type_id": "P_refinance_consult",
+      "product_label": "대출 갈아타기 상담(금리 비교)",
+      "kind": "consult",
+      "summary": "지금보다 금리가 낮은 대출로 바꿀 수 있는지 상담받는 방법이에요.",
+      "attributes": {
+       "rate": "비교 필요",
+       "term": "해당 없음",
+       "risk": "해당 없음",
+       "liquidity": "해당 없음",
+       "tax": "해당 없음",
+       "eligibility": "확인 필요"
+      },
+      "path": [
+       [
+        "c3",
+        "requires",
+        "N_debt_repayment"
+       ],
+       [
+        "N_debt_repayment",
+        "satisfiedBy",
+        "P_refinance_consult"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 3 '매달 대출을 더 갚는 돈은 월 180만원으로 딱 정해 두고 꾸준히 이어가요.' → 대출을 계획대로 빨리 갚기 → 대출 갈아타기 상담(금리 비교)을 연결했어요."
+     },
+     {
+      "commitment_id": "c4",
+      "need_id": "N_goal_saving",
+      "need_label": "목표 금액을 정해 꾸준히 함께 모으기",
+      "constraint_ids": [],
+      "product_type_id": "P_installment_savings",
+      "product_label": "적금(원금 보장)",
+      "kind": "product",
+      "summary": "매달 정해진 돈을 넣고 만기에 찾는 상품이에요. 원금이 줄지 않아요.",
+      "attributes": {
+       "rate": "가정값 참조",
+       "term": "6~36개월",
+       "risk": "원금보장",
+       "liquidity": "만기",
+       "tax": "해당 없음",
+       "eligibility": "누구나"
+      },
+      "path": [
+       [
+        "c4",
+        "requires",
+        "N_goal_saving"
+       ],
+       [
+        "N_goal_saving",
+        "satisfiedBy",
+        "P_installment_savings"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 4 '외식과 여행을 줄여서 월 30만원을 더 마련해요.' → 목표 금액을 정해 꾸준히 함께 모으기 → 적금(원금 보장)을 연결했어요."
+     },
+     {
+      "commitment_id": "c4",
+      "need_id": "N_goal_saving",
+      "need_label": "목표 금액을 정해 꾸준히 함께 모으기",
+      "constraint_ids": [],
+      "product_type_id": "P_balanced_fund",
+      "product_label": "혼합형 투자 상품",
+      "kind": "product",
+      "summary": "예금과 주식에 나눠 투자하는 상품이에요. 오를 수도 내릴 수도 있어요.",
+      "attributes": {
+       "rate": "변동",
+       "term": "자유",
+       "risk": "중간",
+       "liquidity": "단기",
+       "tax": "해당 없음",
+       "eligibility": "누구나"
+      },
+      "path": [
+       [
+        "c4",
+        "requires",
+        "N_goal_saving"
+       ],
+       [
+        "N_goal_saving",
+        "satisfiedBy",
+        "P_balanced_fund"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 4 '외식과 여행을 줄여서 월 30만원을 더 마련해요.' → 목표 금액을 정해 꾸준히 함께 모으기 → 혼합형 투자 상품을 연결했어요."
+     },
+     {
+      "commitment_id": "c4",
+      "need_id": "N_goal_saving",
+      "need_label": "목표 금액을 정해 꾸준히 함께 모으기",
+      "constraint_ids": [],
+      "product_type_id": "P_joint_account",
+      "product_label": "모임통장",
+      "kind": "product",
+      "summary": "여러 사람이 함께 넣고 쓰면서 누가 얼마나 넣었는지 같이 보는 통장이에요.",
+      "attributes": {
+       "rate": "해당 없음",
+       "term": "자유",
+       "risk": "원금보장",
+       "liquidity": "수시",
+       "tax": "해당 없음",
+       "eligibility": "구성원 동의"
+      },
+      "path": [
+       [
+        "c4",
+        "requires",
+        "N_goal_saving"
+       ],
+       [
+        "N_goal_saving",
+        "satisfiedBy",
+        "P_joint_account"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 4 '외식과 여행을 줄여서 월 30만원을 더 마련해요.' → 목표 금액을 정해 꾸준히 함께 모으기 → 모임통장을 연결했어요."
+     },
+     {
+      "commitment_id": "goal",
+      "need_id": "N_emergency_fund",
+      "need_label": "갑자기 필요한 돈(비상금) 따로 두기",
+      "constraint_ids": [
+       "C_keep_residence",
+       "C_principal_protected"
+      ],
+      "product_type_id": "P_installment_savings",
+      "product_label": "적금(원금 보장)",
+      "kind": "product",
+      "summary": "매달 정해진 돈을 넣고 만기에 찾는 상품이에요. 원금이 줄지 않아요.",
+      "attributes": {
+       "rate": "가정값 참조",
+       "term": "6~36개월",
+       "risk": "원금보장",
+       "liquidity": "만기",
+       "tax": "해당 없음",
+       "eligibility": "누구나"
+      },
+      "path": [
+       [
+        "goal",
+        "requires",
+        "N_emergency_fund"
+       ],
+       [
+        "goal",
+        "constrainedBy",
+        "C_keep_residence"
+       ],
+       [
+        "goal",
+        "constrainedBy",
+        "C_principal_protected"
+       ],
+       [
+        "N_emergency_fund",
+        "satisfiedBy",
+        "P_installment_savings"
+       ],
+       [
+        "P_installment_savings",
+        "hasAttribute",
+        "requires_home_sale=False"
+       ],
+       [
+        "P_installment_savings",
+        "hasAttribute",
+        "risk=원금보장"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "함께 정한 목표 → 갑자기 필요한 돈(비상금) 따로 두기 (지금 집에 계속 살아야 해요 · 원금이 줄면 안 돼요) → 적금(원금 보장)을 연결했어요."
+     }
+    ],
+    "dropped_needs": []
+   },
+   "error": null
+  }
+ },
+ "note": [
+  "AI가 비워 둔 within_months를 가족 예시 값(120)으로 채움"
+ ],
+ "goal": {
+  "type": "debt_free",
+  "label": "대출 모두 갚기",
+  "within_months": 120,
+  "base_member_id": "m0",
+  "horizon_months": 360,
+  "base_age": 39,
+  "pool_includes_lease": false,
+  "start_pool": 4000.0,
+  "pool_label": "예금·투자 4,000만원"
+ },
+ "options": [
+  {
+   "option_id": "A",
+   "hit": "약 8.7년",
+   "flow": 10.0
+  },
+  {
+   "option_id": "B",
+   "hit": "약 9.9년",
+   "flow": 35.0
+  },
+  {
+   "option_id": "C",
+   "hit": "약 17.0년",
+   "flow": 130.0
+  }
+ ],
+ "inputs": {
+  "family": {
+   "_note": "평가용 가상 가족(예시 아님): 주택담보대출을 갚으려는 맞벌이 부부. 빨리 갚기(남편) vs 비상금·노후 함께(아내). 금액은 만원, 모두 가상값.",
+   "today": "2026-10",
+   "room": {
+    "name": "우리 집 대출 졸업 계획",
+    "reason": "대출을 얼마나 빨리 갚을지 이야기할 때마다 서로 서운해져요. 숫자를 같이 보고 정하고 싶어요.",
+    "host_member_id": "m1"
+   },
+   "members": [
+    {
+     "member_id": "m0",
+     "name": "준호",
+     "role": "남편",
+     "age": 39,
+     "easy_mode": false
+    },
+    {
+     "member_id": "m1",
+     "name": "지현",
+     "role": "아내",
+     "age": 37,
+     "easy_mode": false
+    }
+   ],
+   "story": {
+    "author_id": "m1",
+    "text": "결혼 6년 차 맞벌이 부부예요. 3년 전에 지금 사는 아파트를 사면서 주택담보대출을 받았고, 아직 3억 2천만원이 남아 있어요. 아이는 아직 없고 당분간 계획도 없어요. 남편은 이자가 아깝다며 남는 돈은 전부 대출 갚는 데 넣어서 10년 안에 다 갚자고 하고, 저는 대출도 갚되 비상금이랑 노후 준비도 같이 하고 싶어요. 요즘 금리가 오를까 봐 둘 다 신경이 쓰여요."
+   },
+   "finance": [
+    {
+     "item_id": "f1",
+     "owner_id": "m0",
+     "kind": "income",
+     "label": "준호 월급",
+     "amount": 420
+    },
+    {
+     "item_id": "f2",
+     "owner_id": "m1",
+     "kind": "income",
+     "label": "지현 월급",
+     "amount": 300
+    },
+    {
+     "item_id": "f3",
+     "owner_id": "joint",
+     "kind": "expense",
+     "label": "생활비(카드 월평균·보험 포함)",
+     "amount": 340
+    },
+    {
+     "item_id": "f4",
+     "owner_id": "joint",
+     "kind": "transfer_out",
+     "label": "양가 용돈",
+     "amount": 30
+    },
+    {
+     "item_id": "f5",
+     "owner_id": "joint",
+     "kind": "deposit",
+     "label": "예금",
+     "amount": 2500
+    },
+    {
+     "item_id": "f6",
+     "owner_id": "m1",
+     "kind": "investment",
+     "label": "지현 ETF",
+     "amount": 1500
+    },
+    {
+     "item_id": "f7",
+     "owner_id": "joint",
+     "kind": "home",
+     "label": "사는 아파트(시세 추정)",
+     "amount": 60000
+    },
+    {
+     "item_id": "f8",
+     "owner_id": "joint",
+     "kind": "loan",
+     "loan_type": "mortgage",
+     "label": "주택담보대출",
+     "amount": 32000,
+     "rate": 4.2,
+     "payment": 170
+    }
+   ],
+   "disclosure": {},
+   "scripts": {
+    "answers": {
+     "m0": [
+      "빚 없는 우리 집에서 사는 거요. 10년 안에는 대출을 다 갚고 싶어요.",
+      "금리가 또 오르면 이자가 감당이 안 될까 봐요.",
+      "외식이나 여행은 줄일 수 있어요. 대출 빨리 갚는 건 양보하기 어려워요."
+     ],
+     "m1": [
+      "대출도 갚으면서 우리 노후도 같이 챙기는 거요. 너무 빠듯하게 살고 싶진 않아요.",
+      "갑자기 큰돈 들 일이 생겼는데 비상금이 없을까 봐 걱정돼요.",
+      "대출 갚는 속도는 조금 늦어져도 괜찮아요. 비상금 6개월치는 꼭 남겨 두고 싶어요."
+     ]
+    },
+    "replies": {
+     "m0": "좋아요. 대신 매달 더 갚는 돈은 금액을 딱 정해 두고 싶어요.",
+     "m1": "좋아요. 비상금만 지켜진다면 찬성이에요."
+    },
+    "goal_form": {
+     "type": "debt_free",
+     "label": "주택담보대출 다 갚기",
+     "within_months": 120
+    }
+   }
+  },
+  "summaries": {
+   "m0": {
+    "keep": "빚 없는 우리 집에서 사는 것",
+    "flexible": "외식이나 여행 줄이기",
+    "worry": "금리가 또 올라 이자가 감당 안 될까 봐"
+   },
+   "m1": {
+    "keep": "비상금 6개월치는 꼭 남겨 두기",
+    "flexible": "대출 갚는 속도가 조금 늦어지는 것",
+    "worry": "큰돈 들 일에 비상금이 없을까 봐"
+   }
+  },
+  "replies": {
+   "m0": "좋아요. 대신 매달 더 갚는 돈은 금액을 딱 정해 두고 싶어요.",
+   "m1": "좋아요. 비상금만 지켜진다면 찬성이에요."
+  }
+ },
+ "stances": {
+  "m0": {
+   "A": {
+    "v": "no",
+    "text": "지키고 싶은 것이 깨져서 어려워요"
+   },
+   "B": {
+    "v": "no",
+    "text": "지키고 싶은 것이 깨져서 어려워요"
+   },
+   "C": {
+    "v": "no",
+    "text": "지키고 싶은 것이 깨져서 어려워요"
+   }
+  },
+  "m1": {
+   "A": {
+    "v": "good",
+    "text": ""
+   },
+   "B": {
+    "v": "good",
+    "text": ""
+   },
+   "C": {
+    "v": "good",
+    "text": ""
+   }
+  }
+ },
+ "status": "done",
+ "cost_usd": 0.2225
+}

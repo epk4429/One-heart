@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>디자인 시안 A+C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sunflower:wght@500;700&family=Nanum+Gothic:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css">
+<style>
+:root{
+  --desk:#F1E8DA; --paper:#FFFBF4; --ink:#3B2F27; --ink2:#6B5A4D; --mut:#9C8A7A; --line:#E2D3BF;
+  --terra:#BE5C36; --mus:#D6A03C; --mus-soft:#F6E5BC; --m0:#5B83A0; --m1:#BE5C36;
+  /* 글씨체 세트 (아래 도구에서 전환) */
+  --fh:"Pretendard",sans-serif; --fhw:700; --fb:"Pretendard",sans-serif; --fu:"Pretendard",sans-serif;
+}
+:root[data-font="2"]{--fh:"Spoqa Han Sans Neo",sans-serif;--fhw:700;--fb:"Spoqa Han Sans Neo",sans-serif;--fu:"Spoqa Han Sans Neo",sans-serif}
+:root[data-font="3"]{--fh:"Nanum Gothic",sans-serif;--fhw:800;--fb:"Nanum Gothic",sans-serif;--fu:"Nanum Gothic",sans-serif}
+:root[data-font="4"]{--fh:"Sunflower",sans-serif;--fhw:700;--fb:"Nanum Gothic",sans-serif;--fu:"Nanum Gothic",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--fb);padding-bottom:90px;
+  background:radial-gradient(1100px 520px at 50% -8%,#FBF4E8,transparent 70%),var(--desk)}
+button{font:inherit;color:inherit;cursor:pointer}
+.num{font-variant-numeric:tabular-nums}
+svg text{font-family:var(--fu)}
+
+/* 시안 도구 (디자인 밖) */
+.sw{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:99;display:flex;align-items:center;gap:4px;padding:4px 4px 4px 12px;background:#222;border-radius:10px;font:600 13px system-ui,sans-serif;color:#999;white-space:nowrap}
+.sw button{border:0;background:none;color:#bbb;padding:8px 12px;border-radius:7px}
+.sw button[aria-pressed="true"]{background:#fff;color:#111}
+
+.bar{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:18px 40px;border-bottom:1px solid var(--line);font-family:var(--fu);font-size:13px;color:var(--ink2)}
+.brand{font-family:var(--fh);font-weight:var(--fhw);font-size:17px;color:var(--ink)}
+.grid{display:grid;grid-template-columns:190px minmax(0,760px) 230px;gap:0 36px;justify-content:center;padding:44px 24px 0}
+
+.toc{position:sticky;top:24px;align-self:start;font-family:var(--fu);font-size:13.5px}
+.toc h3{font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--mut);margin:0 0 14px}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.toc li{display:flex;align-items:baseline;gap:6px;color:var(--mut);position:relative}
+.toc li.done{color:var(--ink2)}
+.toc li.cur{color:var(--ink);font-weight:700}
+.toc li.cur::before{content:"";position:absolute;left:-14px;top:3px;bottom:3px;width:3px;background:var(--terra)}
+.toc .dots{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px)}
+
+.sheet{background:var(--paper);border:1px solid var(--line);padding:56px 64px 40px;box-shadow:7px 7px 0 -1px var(--paper),7px 7px 0 0 var(--line),0 24px 40px -30px rgba(59,47,39,.35)}
+.chap{font-family:var(--fu);font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--terra)}
+h1{font-family:var(--fh);font-weight:var(--fhw);font-size:36px;line-height:1.35;letter-spacing:-.02em;margin:12px 0 26px}
+.basis{border-left:3px solid var(--mus);padding:4px 0 4px 18px;font-size:16px;line-height:1.8}
+.basis small{display:block;font-family:var(--fu);font-size:12px;color:var(--mut);margin-bottom:2px}
+h2{font-family:var(--fh);font-weight:var(--fhw);font-size:20px;margin:46px 0 14px;padding-top:14px;border-top:1.5px solid var(--ink);display:flex;gap:12px;align-items:baseline}
+h2 i{font-style:normal;font-family:var(--fu);font-size:13px;font-weight:400;color:var(--mut)}
+
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-family:var(--fu);font-size:12px;font-weight:400;color:var(--mut);text-align:left;padding:8px;border-bottom:1.5px solid var(--ink);white-space:nowrap}
+td{padding:13px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#FBF2E2}
+tr.on{background:var(--mus-soft)}
+tr.on:hover{background:var(--mus-soft)}
+td.mk{width:28px;color:var(--mut)}
+tr.on td.mk{color:var(--terra)}
+tr.on td{font-weight:700}
+td .d{display:block;font-weight:400;font-size:13px;color:var(--ink2);margin-top:3px;line-height:1.65}
+td.n{font-family:var(--fh);font-weight:var(--fhw);font-size:16px;white-space:nowrap;font-variant-numeric:tabular-nums}
+sup.ref{color:var(--terra);font-family:var(--fu);font-size:10.5px;font-weight:700;margin-left:1px}
+
+figure{margin:6px 0 0}
+figcaption{font-family:var(--fu);font-size:12.5px;line-height:1.65;color:var(--mut);margin-top:6px}
+figcaption b{color:var(--ink)}
+.easy{margin:30px 0 0;padding:22px 0;border-top:3px double var(--ink);border-bottom:3px double var(--ink)}
+.easy small{font-family:var(--fu);font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--terra)}
+.easy p{font-family:var(--fh);font-weight:var(--fhw);font-size:24px;line-height:1.6;margin:6px 0 0;letter-spacing:-.01em}
+.easy p b{color:var(--terra);font-weight:inherit}
+
+.people{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.people h4{font-family:var(--fh);font-weight:var(--fhw);font-size:19px;margin:0;display:flex;align-items:center;gap:8px}
+.people h4 .chip{width:12px;height:12px;border-radius:50%}
+.people h4 span.r{font-family:var(--fu);font-size:12.5px;font-weight:400;color:var(--mut)}
+.people p{font-size:15px;line-height:1.85;margin:8px 0 0;color:var(--ink2)}
+.sigline{margin-top:18px;border-bottom:1px solid var(--ink2);height:26px;font-family:var(--fu);font-size:11.5px;color:var(--mut);display:flex;align-items:flex-end;padding-bottom:3px}
+
+.pfoot{display:flex;justify-content:space-between;align-items:center;margin-top:52px;font-family:var(--fu);font-size:12.5px;color:var(--mut)}
+.go{border:0;background:var(--ink);color:var(--paper);font-family:var(--fh);font-weight:var(--fhw);font-size:16px;padding:13px 22px}
+.go b{color:var(--mus);font-weight:inherit}
+
+aside{font-family:var(--fu);font-size:12.5px;line-height:1.75;color:var(--ink2);padding-top:150px}
+.note{padding-top:8px;border-top:1px solid var(--line);margin-bottom:26px}
+.note b{color:var(--ink)}
+.note sup{color:var(--terra);font-weight:700;margin-right:3px}
+.note ul{margin:4px 0 0;padding-left:14px}
+.note.ai{border-top:2px solid var(--terra);background:#FBEDE4;padding:10px 12px 12px;color:var(--ink)}
+.note.ai b{color:var(--terra)}
+@media (max-width:1180px){.grid{grid-template-columns:170px minmax(0,1fr)}aside{grid-column:2;padding-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:0 24px}}
+@media (max-width:860px){.grid{grid-template-columns:1fr;padding-top:24px}.toc{position:static;margin-bottom:24px}aside{grid-column:1;grid-template-columns:1fr}.sheet{padding:36px 26px}.people{grid-template-columns:1fr}.bar{flex-wrap:wrap;padding:16px 20px}}
+</style>
+</head>
+<body>
+
+<div class="sw" role="toolbar" aria-label="글씨체 전환">글씨체
+  <button data-f="1" aria-pressed="true">프리텐다드</button>
+  <button data-f="2" aria-pressed="false">스포카 한 산스</button>
+  <button data-f="3" aria-pressed="false">나눔고딕</button>
+  <button data-f="4" aria-pressed="false">선플라워+나눔고딕</button>
+</div>
+
+<div class="bar"><span class="brand">가족금융목표합의서비스</span><span>우리 둘의 5년 계획 · 합의 기록</span><span>민준 · 서연 &nbsp;|&nbsp; 2026. 10. 5. 작성</span></div>
+<div class="grid">
+  <nav class="toc"><h3>목차</h3><ol id="toc"></ol></nav>
+  <main class="sheet">
+    <div class="chap">제5장 · 미래 계산</div>
+    <h1>세 가지 방법으로<br>앞으로 5년을 계산했어요</h1>
+    <div class="basis"><small>두 분이 동의한 기준 (제4장)</small>집 사는 시기는 날짜가 아니라, 우리 돈 3억과 육아휴직 준비금 1,800만원이 모두 모였을 때로 해요.</div>
+
+    <h2><i>5.1</i>세 가지 방법</h2>
+    <table>
+      <thead><tr><th></th><th>방법</th><th>한 달에 모으는 돈</th><th>아이 계획</th><th>보통일 때</th><th>5년 안 가능성<sup class="ref">2</sup></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+
+    <h2><i>5.2</i>계산 결과</h2>
+    <figure><div id="chart"></div><figcaption id="cap"></figcaption></figure>
+    <div class="easy"><small>쉽게 말하면</small><p id="easy"></p></div>
+
+    <h2><i>5.3</i>한 사람 한 사람에게</h2>
+    <div class="people" id="people"></div>
+
+    <div class="pfoot"><span>— 5 —</span><button class="go">제6장 · 가족이 함께 고르기 <b>→</b></button></div>
+  </main>
+  <aside>
+    <div class="note"><sup>1</sup><b>수익률</b> 맡긴 돈이 1년에 몇 % 불어나는지예요. 5%면 100만원이 1년 뒤 105만원이 돼요.</div>
+    <div class="note"><sup>2</sup><b>5년 안 가능성</b> 같은 계획을 800번, 매번 다른 경기 상황을 가정해 돌려 봤어요. 그중 5년 안에 3억이 모인 비율이에요.</div>
+    <div class="note"><sup>3</sup><b>계산에 쓴 가정</b><ul id="ass"></ul></div>
+    <div class="note ai" id="ai"></div>
+  </aside>
+</div>
+
+<script>
+/* ---------- 가상 몬테카를로 계산 (시안용) ---------- */
+const START=14000, GOAL=30000, MONTHS=96, N=800;
+const MEM=[{nm:"민준",role:"남편",c:"var(--m0)"},{nm:"서연",role:"아내",c:"var(--m1)"}];
+const OPTS=[
+ {k:"A",nm:"집 먼저",d:"아이 계획을 1년 미루고 최대한 모아요. 여윳돈의 30%는 주식에 넣어요.",save:260,r:5.0,sig:.075,ev:[[36,47,-150]],kid:["3년 차","1년 미룸"],
+  imp:["집 살 돈이 가장 빨리 모여요. 대신 주식 비중이 커서 운에 따라 차이가 커요.","아이 계획을 1년 미뤄야 해요. 꼭 지키고 싶다고 한 '2년 안에 아이'와 부딪혀요."]},
+ {k:"B",nm:"둘 다 챙기기",d:"계획대로 2년 차에 아이를 가져요. 휴직 동안 쓸 돈 1,800만원을 먼저 따로 모아요.",save:235,r:4.2,sig:.045,ev:[[20,31,-150]],kid:["2년 차","계획대로"],
+  imp:["A보다 조금 늦지만, 보통이면 5년 안에 집 살 돈이 모여요.","계획대로 2년 차에 아이를 갖고, 휴직 동안 쓸 돈도 따로 지킬 수 있어요."]},
+ {k:"C",nm:"지금을 여유 있게",d:"모으는 돈을 줄이고, 더 불어날 수 있는(대신 손해 볼 수도 있는) 곳에 넣어요.",save:130,r:6.5,sig:.14,ev:[[20,31,-150]],kid:["2년 차","계획대로"],
+  imp:["5년 안에 집을 사기 어려워요. 투자 결과에 따라 더 늦어질 수 있어요.","생활은 여유롭지만, 휴직 중에 투자에서 손해가 나면 부담이 커요."]}];
+const STEPS=["가족 초대","우리 가족 이야기","각자의 생각","합의 리포트","미래 계산","합의안","상품 추천","가족 홈"], CUR=4;
+
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function simulate(o,seed){
+ const R=rng(seed),cols=Array.from({length:MONTHS+1},()=>new Float64Array(N)),hits=[];
+ for(let p=0;p<N;p++){
+  let b=START,hit=Infinity;cols[0][p]=b;
+  for(let m=1;m<=MONTHS;m++){
+   const z=Math.sqrt(-2*Math.log(R()||1e-9))*Math.cos(2*Math.PI*R());
+   b*=1+o.r/100/12+o.sig/Math.sqrt(12)*z;
+   let add=o.save;o.ev.forEach(e=>{if(m>=e[0]&&m<=e[1])add+=e[2]});b+=add;
+   cols[m][p]=b;if(hit===Infinity&&b>=GOAL)hit=m;
+  }
+  hits.push(hit);
+ }
+ const q=(arr,x)=>arr[Math.min(arr.length-1,Math.floor(x*(arr.length-1)))];
+ const P=x=>cols.map(c=>q(Float64Array.from(c).sort(),x));
+ hits.sort((a,b)=>a-b);
+ return {p10:P(.1),p50:P(.5),p90:P(.9),prob:hits.filter(h=>h<=60).length/N,med:q(hits,.5),good:q(hits,.1),bad:q(hits,.9)};
+}
+const RES=OPTS.map((o,i)=>simulate(o,1000+i*17));
+const yr=m=>m===Infinity?null:(m/12).toFixed(1);
+const eok=v=>(Math.round(v/1000)/10).toString()+"억";
+const assumptions=o=>[`지금 가진 돈 1억 4,000만원에서 출발`,`한 달에 ${o.save}만원씩 모으기`,`1년 평균 수익률 ${o.r}%, 오르내림 폭 ${Math.round(o.sig*100)}%`,`육아휴직 12개월 동안 한 달 150만원 덜 모음`,`물가와 세금은 이 시안에서 빼고 계산`];
+
+/* ---------- 그래프 ---------- */
+function chart(sel){
+ const r=RES[sel],o=OPTS[sel],W=680,H=300,L=50,RR=52,T=22,B=30;
+ let lo=Math.min(10000,...r.p10),hi=Math.max(GOAL+2000,...r.p90,...RES.map(x=>Math.max(...x.p50)));
+ lo=Math.floor(lo/5000)*5000;hi=Math.ceil(hi/5000)*5000;
+ const X=m=>L+(W-L-RR)*m/MONTHS,Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
+ const c={ink:"#3B2F27",mut:"#9C8A7A",grid:"#EADFCF",terra:"#BE5C36",other:"#C9B9A6"};
+ let s=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;overflow:visible" role="img" aria-label="${o.nm}의 계산 결과 범위">
+  <defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#BE5C36" stroke-width="1.1" opacity=".55"/></pattern></defs>`;
+ for(let v=lo;v<=hi;v+=5000) s+=`<line x1="${L}" x2="${W-RR}" y1="${Y(v)}" y2="${Y(v)}" stroke="${c.grid}"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end" font-size="11" fill="${c.mut}">${eok(v)}</text>`;
+ for(let y=0;y<=8;y++) s+=`<text x="${X(y*12)}" y="${H-8}" text-anchor="middle" font-size="11" fill="${c.mut}">${y?y+"년":"지금"}</text>`;
+ o.ev.forEach(e=>{s+=`<rect x="${X(e[0])}" y="${T}" width="${X(e[1])-X(e[0])}" height="${H-T-B}" fill="#D6A03C" opacity=".14"/><text x="${X(e[0])+5}" y="${T+13}" font-size="11" fill="#9A7020">육아휴직</text>`});
+ const line=a=>a.map((v,m)=>`${m?"L":"M"}${X(m).toFixed(1)},${Y(v).toFixed(1)}`).join("");
+ const band=line(r.p90)+r.p10.slice().reverse().map((v,k)=>`L${X(MONTHS-k).toFixed(1)},${Y(v).toFixed(1)}`).join("")+"Z";
+ s+=`<path d="${band}" fill="#BE5C36" opacity=".08"/><path d="${band}" fill="url(#hatch)"/>`;
+ RES.forEach((x,j)=>{if(j!==sel)s+=`<path d="${line(x.p50)}" fill="none" stroke="${c.other}" stroke-width="1.3" stroke-dasharray="1 3"/>`});
+ s+=`<path d="${line(r.p50)}" fill="none" stroke="${c.ink}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+ const gy=Y(GOAL);
+ s+=`<line x1="${L}" x2="${W-RR}" y1="${gy}" y2="${gy}" stroke="${c.terra}" stroke-width="1.4" stroke-dasharray="6 4"/><text x="${L+6}" y="${gy-7}" font-size="11.5" font-weight="700" fill="${c.terra}">집 살 때 필요한 우리 돈 3억</text>`;
+ const e=MONTHS;
+ s+=`<text x="${X(e)+5}" y="${Y(r.p90[e])+4}" font-size="10.5" fill="${c.mut}">좋을 때</text><text x="${X(e)+5}" y="${Y(r.p50[e])+4}" font-size="10.5" fill="${c.ink}" font-weight="700">보통</text><text x="${X(e)+5}" y="${Y(r.p10[e])+4}" font-size="10.5" fill="${c.mut}">나쁠 때</text>`;
+ if(r.med!==Infinity){const hx=X(r.med);s+=`<circle cx="${hx}" cy="${gy}" r="5" fill="#FFFBF4" stroke="${c.terra}" stroke-width="2.2"/><text x="${hx}" y="${gy+19}" text-anchor="middle" font-size="11.5" font-weight="700" fill="${c.terra}">${yr(r.med)}년</text>`}
+ return s+"</svg>";
+}
+
+/* ---------- 화면 ---------- */
+let sel=1;
+document.getElementById("toc").innerHTML=STEPS.map((t,i)=>`<li class="${i<CUR?"done":i===CUR?"cur":""}"><span>${t}</span><span class="dots"></span><span class="num">${i+1}</span></li>`).join("");
+function render(){
+ const o=OPTS[sel],r=RES[sel];
+ document.getElementById("rows").innerHTML=OPTS.map((x,i)=>{const ri=RES[i];return `<tr class="${i===sel?"on":""}" data-o="${i}"><td class="mk">${i===sel?"◉":"○"}</td><td>${x.k}. ${x.nm}<span class="d">${x.d}</span></td><td class="n">${x.save}만원</td><td style="white-space:nowrap">${x.kid[0]}<span class="d" style="margin:0">(${x.kid[1]})</span></td><td class="n">${yr(ri.med)?yr(ri.med)+"년 뒤":"8년 넘게"}</td><td class="n">${Math.round(ri.prob*100)}%</td></tr>`}).join("");
+ document.getElementById("chart").innerHTML=chart(sel);
+ document.getElementById("cap").innerHTML=`<b>그림 5-1.</b> ${o.k}. ${o.nm}를 골랐을 때 모인 돈의 범위. 빗금은 800번 계산 중 좋을 때(상위 10%)부터 나쁠 때(하위 10%)까지, 점선은 다른 두 방법의 보통 결과예요.<sup class="ref">3</sup>`;
+ const med=yr(r.med),good=yr(r.good),bad=yr(r.bad);
+ document.getElementById("easy").innerHTML=med?`${o.k}. ${o.nm}를 고르면 보통 <b>${med}년 뒤</b>에 집 살 돈 3억이 모여요. 운이 좋으면 ${good}년, 운이 나쁘면 ${bad?bad+"년":"8년이 넘게"} 걸려요.`:`${o.k}. ${o.nm}를 고르면 보통은 <b>8년 안에 3억이 다 모이지 않아요.</b>`;
+ document.getElementById("people").innerHTML=MEM.map((m,i)=>`<div><h4><span class="chip" style="background:${m.c}"></span>${m.nm}<span class="r">${m.role}</span></h4><p>${o.imp[i]}</p><div class="sigline">확인 · 서명은 제6장에서</div></div>`).join("");
+ document.getElementById("ass").innerHTML=assumptions(o).map(a=>`<li>${a}</li>`).join("");
+ document.getElementById("ai").innerHTML=`<b>AI 서기의 메모</b><br>${r.prob>=.5?`${o.k}의 보통 결과는 5년 안이지만, 5번 중 ${Math.round((1-r.prob)*5)}번 정도는 5년을 넘겨요. 운이 나쁜 경우를 대비한 약속이 함께 있으면 좋겠어요.`:`${o.k}는 5년 안에 모일 가능성이 ${Math.round(r.prob*100)}%예요. 두 분이 정한 '5년 안'과는 거리가 있어요.`}`;
+ document.querySelectorAll("#rows tr").forEach(tr=>tr.onclick=()=>{sel=+tr.dataset.o;render()});
+}
+render();
+document.querySelectorAll(".sw button").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll(".sw button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+ document.documentElement.dataset.font=b.dataset.f;
+});
+</script>
+</body>
+</html>

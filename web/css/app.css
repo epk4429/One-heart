@@ -1,0 +1,117 @@
+/* 실제 API 연결 화면에 새로 필요한 조각(v3 디자인 규칙: 선 두 종류, 강조 상자 두 종류, 초록 하나). */
+.stat3 .statn{font-size:30px;font-weight:800;color:var(--green);letter-spacing:-.02em;margin:0 0 4px}
+.srcline{font-size:12.5px;color:var(--muted);margin-top:14px}
+.dock .prov{font-size:11.5px;color:#CDBFAE;padding:0 8px;border-left:1px solid rgba(255,255,255,.15);white-space:nowrap}
+.dock .prov.replay{color:#F2C14E}
+
+/* AI 처리 중 · 오류 */
+.pending{display:flex;align-items:center;gap:12px;color:var(--ink2);font-size:14.5px;padding:16px 0}
+.pending .spin{width:18px;height:18px}
+.failbox{border:1.5px solid var(--bad);padding:14px 16px;margin:10px 0;font-size:14px;color:var(--ink)}
+.failbox b{color:var(--bad);display:block;margin-bottom:4px}
+.failbox .btn{margin-top:10px}
+
+/* 숫자 검증 표시 (docs/07 7절) */
+.vbadge{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--green);
+  border:1px solid var(--green);background:transparent;padding:2px 9px;cursor:pointer}
+.vbadge.warn{color:var(--warm);border-color:var(--warm)}
+.vbadge.fail{color:var(--bad);border-color:var(--bad)}
+.vdetail{margin-top:8px;font-size:12.5px;color:var(--ink2);border-left:2px solid var(--line);padding:6px 0 6px 12px}
+.vdetail li{margin:2px 0}
+.calls{font-size:11.5px;color:var(--muted);margin-top:6px}
+
+/* 공개 범위 선택 */
+.disc{display:flex;gap:4px;margin-left:auto}
+.disc button{border:1px solid var(--line);background:#fff;font-size:12px;padding:2px 8px;color:var(--ink2)}
+.disc button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.arow.hidden-item .an,.arow.hidden-item .amt{color:var(--muted)}
+
+/* 채팅방 보조 */
+.chatwin .sysnote{align-self:center;font-size:12px;color:var(--ink2);background:rgba(31,42,36,.06);padding:3px 12px;border-radius:99px}
+.sumcard{margin-top:14px}
+.sumcard dl{display:grid;grid-template-columns:112px 1fr;gap:6px 10px;margin:8px 0 0;font-size:14.5px}
+.sumcard dt{color:var(--muted)}
+.sumcard dd{margin:0;font-weight:600}
+
+/* 추천 경로 */
+.pathbox{font-size:12.5px;color:var(--ink2);margin-top:6px}
+.pathbox code{font-family:inherit;background:var(--paper2);padding:0 4px}
+.excl{font-size:12.5px;color:var(--muted);margin-top:4px}
+.prod .kindtag{font-size:11.5px;font-weight:700;color:var(--green);border:1px solid var(--green);padding:0 6px;margin-left:auto}
+.attrs{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12.5px;color:var(--ink2)}
+.attrs dt{color:var(--muted)}
+.attrs dd{margin:0}
+
+/* 체험판: 입력 양식 */
+.onedev{border-left:3px solid var(--green);background:rgba(47,93,74,.06);padding:10px 14px;margin:0 0 18px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.onedev span{color:var(--ink2)}
+.warnbox{border:1.5px solid var(--warm);padding:10px 14px;margin:0 0 18px;font-size:14px;line-height:1.7;color:var(--ink)}
+.warnbox b{color:var(--warm)}
+.fgrid{display:grid;gap:12px}
+.fgrid label,.gform label{display:flex;flex-direction:column;gap:6px;font-size:13.5px;font-weight:600;color:var(--ink2)}
+.ftab-wrap{overflow-x:auto}
+.ftab{width:100%;border-collapse:collapse;font-size:14px}
+.ftab th{font-size:12.5px;font-weight:600;color:var(--muted);text-align:left;padding:6px 6px;border-bottom:1.5px solid var(--ink)}
+.ftab td{padding:6px;border-bottom:1px solid var(--line);vertical-align:top}
+.ftab input,.ftab select,.gform input,.gform select,.inl select{padding:8px 10px;font-size:14px}
+.ftab select,.gform select,.inl select{font:inherit;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.ftab.fin td:nth-child(3){min-width:140px}
+.amt-in{display:flex;align-items:center;gap:6px}
+.amt-in input{width:110px}
+.amt-in span{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.loanx{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:6px;font-size:12.5px;color:var(--ink2);align-items:center}
+.loanx label{display:flex;align-items:center;gap:4px}
+.loanx input{padding:5px 6px}
+.chkl{display:flex;align-items:center;gap:6px;font-size:13.5px;white-space:nowrap}
+.chkl input{width:auto}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.inl{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink2);margin-left:auto}
+.turn{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;padding:10px 12px;border:1px dashed var(--line);font-size:13.5px;color:var(--ink2)}
+.turn span{flex:1}
+.gform{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:8px}
+.st3{font-size:15px;font-weight:700;margin:18px 0 4px}
+.chg2{margin:14px 0 4px;font-size:14px;border-left:2px solid var(--line);padding:4px 0 4px 12px}
+.chg2 ul{margin:4px 0 0;padding-left:18px;color:var(--ink2)}
+.chatwin .composer.col{flex-direction:column;align-items:stretch;gap:8px}
+.chatwin .composer .crow{display:flex;gap:8px;justify-content:flex-end}
+.chatwin .composer input{border:1px solid var(--line);border-radius:20px;padding:8px 14px}
+.dock .roomlbl{font-size:12px;color:#CDBFAE;padding:0 8px;white-space:nowrap}
+.dock .rst{border:0;background:rgba(255,255,255,.08);color:#EFE6D8;padding:6px 10px;font-size:12.5px;white-space:nowrap}
+
+/* 가족 홈: 2단 + 캘린더 (v3의 '한 줄기' 규칙에서 가족 홈만 예외, 2026-10-06 사용자 요청) */
+.homegrid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px}
+@media (max-width:1100px){.homegrid{grid-template-columns:minmax(0,1fr)}}
+.cal .calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal .calh b{font-size:15px}
+.calg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.calg .cw{font-size:11.5px;color:var(--muted);padding:4px 0}
+.calg .cd{position:relative;border:1px solid transparent;background:none;padding:6px 0 10px;font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink);cursor:pointer}
+.calg .cd.empty{cursor:default}
+.calg .cd:hover:not(.empty){border-color:var(--line)}
+.calg .cd.today span{font-weight:800;color:var(--green)}
+.calg .cd.sel{background:var(--ink);color:var(--paper)}
+.calg .cd.sel span{color:var(--paper)}
+.calg .cd i{position:absolute;left:50%;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--warm);transform:translateX(-50%)}
+.calg .cd i.rv{background:var(--green)}
+.calsel{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.calsel .evt{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rvform{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.rvform .amt-in input{width:100%}
+.next .btn[data-act="prev"]{margin-right:auto}
+
+/* 기획안 로고(one heart) */
+.logo img{height:30px;width:auto;display:block}
+.aimark img{width:20px;height:20px;object-fit:contain;display:block}
+.chatbar .aimark img{width:22px;height:22px}
+
+/* 답변 추천 문구 */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chip{border:1px solid var(--line);background:var(--paper2);padding:5px 12px;font-size:13.5px;color:var(--ink2);border-radius:99px;cursor:pointer}
+.chip:hover{border-color:var(--green);color:var(--green)}
+
+/* 화면 안 확인창 */
+.modal{position:fixed;inset:0;background:rgba(31,42,36,.35);display:grid;place-items:center;z-index:50;padding:16px}
+.modal .mbox{background:var(--paper);border:1.5px solid var(--ink);max-width:440px;width:100%;padding:22px 24px}
+.modal h3{font-size:17px;margin:0 0 8px}
+.modal p{font-size:14px;color:var(--ink2);line-height:1.7;margin:0 0 16px}
+.modal .mrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}

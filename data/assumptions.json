@@ -1,0 +1,42 @@
+{
+  "_note": "계산 가정값 표(docs/05·04). 역할 5는 수익률을 이 표의 id로만 고른다. 숫자는 모두 체험용 가정값이며 화면에 공개한다. 출처가 있는 값은 source에 적었다.",
+  "version": "2026-10-06",
+  "returns": [
+    {"id": "safe", "label": "예금·적금만", "expected_return": 2.5, "volatility": 2.0, "note": "원금 보장 상품만"},
+    {"id": "deposit_heavy", "label": "예금·적금 위주", "expected_return": 3.8, "volatility": 4.5, "note": "일부 채권형 포함"},
+    {"id": "stock20", "label": "여윳돈의 주식 20%까지", "expected_return": 4.2, "volatility": 5.5, "note": ""},
+    {"id": "stock30", "label": "여윳돈의 주식 30%", "expected_return": 5.0, "volatility": 7.5, "note": ""},
+    {"id": "stock_heavy", "label": "주식 위주", "expected_return": 6.5, "volatility": 14.0, "note": "오를 때도 내릴 때도 커요"}
+  ],
+  "inflation": {"rate": 2.0, "label": "물가 오름 연 2%", "source": "한국은행 물가안정목표(소비자물가 상승률 2%)", "applies_to": "생활비 같은 지출"},
+  "reverse_mortgage": {
+    "label": "주택연금 월 수령액(가정)",
+    "min_age": 55,
+    "max_home_value": 120000,
+    "monthly_ratio_by_age": [
+      {"from_age": 55, "ratio": 0.0012},
+      {"from_age": 65, "ratio": 0.0020},
+      {"from_age": 75, "ratio": 0.0028},
+      {"from_age": 85, "ratio": 0.0036}
+    ],
+    "debt_rate": 3.0,
+    "source": "체험용 가정값. 실제 금액은 한국주택금융공사 주택연금 월지급금표로 확인해야 해요"
+  },
+  "sell_home": {
+    "label": "집을 팔고 작은 집으로 옮기기(가정)",
+    "cost_ratio": 0.04,
+    "new_home_ratios": [0.5, 0.6, 0.7],
+    "source": "체험용 가정값. 이사·세금·중개 비용을 집값의 4%로 가정"
+  },
+  "limits": {
+    "_note": "역할 5가 정하는 조정값의 상한. 한 달 수입 합계(income_total)에 대한 비율.",
+    "adjustment_ratio": 0.5,
+    "adjustment_floor": 100,
+    "event_ratio": 1.0,
+    "lump_months_of_income": 36,
+    "max_adjustments": 4,
+    "max_events": 3,
+    "max_lumps": 3
+  },
+  "horizon_months": {"reach_target": 240, "runway_until_age": 100, "debt_free": 360, "max": 360}
+}

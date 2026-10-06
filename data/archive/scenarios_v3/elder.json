@@ -1,0 +1,473 @@
+{
+  "_note": "노인 가족 시나리오(가상). 원본은 v3 프로토타입 DATA.elder, 정리는 docs/04_시나리오데이터.md. 단위 만원.",
+  "room": {
+    "room_id": "elder",
+    "name": "엄마 아빠 노후 계획",
+    "scenario_type": "elder",
+    "host_member_id": "m3",
+    "reason": "지난달 엄마가 입원하고 나서 병원비랑 생활비 이야기를 더는 미룰 수 없게 됐어요. 오빠랑 저, 부모님이 한 번은 같은 숫자를 보고 이야기했으면 해요.",
+    "invite_link": "one-heart.example/r/K3P9-JIEUN"
+  },
+  "members": [
+    {
+      "member_id": "m0",
+      "name": "김영호",
+      "initial": "영",
+      "role": "아버지",
+      "age": 72,
+      "easy_mode": true,
+      "identity_verified": true
+    },
+    {
+      "member_id": "m1",
+      "name": "박순자",
+      "initial": "순",
+      "role": "어머니",
+      "age": 69,
+      "easy_mode": true,
+      "identity_verified": true
+    },
+    {
+      "member_id": "m2",
+      "name": "김태윤",
+      "initial": "태",
+      "role": "장남",
+      "age": 45,
+      "easy_mode": false
+    },
+    {
+      "member_id": "m3",
+      "name": "김지은",
+      "initial": "지",
+      "role": "장녀",
+      "age": 41,
+      "easy_mode": false
+    }
+  ],
+  "viewer_default": "m3",
+  "story": {
+    "author_id": "m3",
+    "text": "부모님 두 분은 대전 서구 아파트에 사세요. 아버지가 은퇴하신 지 12년 됐어요. 대출은 없고 예금이 조금 있어요. 아버지 연금이랑 어머니 연금으로는 생활비가 모자라서 오빠랑 제가 매달 조금씩 보태고 있어요. 지난달 어머니가 입원하시면서 병원비가 생각보다 많이 나왔고, 앞으로 간병이 필요해지면 어떻게 할지가 제일 걱정이에요. 아버지는 집은 꼭 지키고 싶어 하세요."
+  },
+  "financial_items": [
+    {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "deposit",
+      "label": "가온은행 정기예금",
+      "amount": 12000,
+      "period": "once",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f2",
+      "owner_id": "m0",
+      "kind": "pension",
+      "label": "매달 받는 연금(아버지)",
+      "amount": 110,
+      "period": "monthly",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f3",
+      "owner_id": "m1",
+      "kind": "pension",
+      "label": "매달 받는 연금(어머니)",
+      "amount": 30,
+      "period": "monthly",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f4",
+      "owner_id": "m0",
+      "kind": "real_estate",
+      "label": "사시는 아파트(시세 추정)",
+      "amount": 55000,
+      "period": "once",
+      "source": "manual"
+    },
+    {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비(카드 월평균)",
+      "amount": -260,
+      "period": "monthly",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "transfer",
+      "label": "자녀가 보태는 돈",
+      "amount": 80,
+      "period": "monthly",
+      "source": "manual"
+    }
+  ],
+  "disclosure_default": {
+    "m0": {
+      "f1": "summary_only"
+    }
+  },
+  "planning_inputs": {
+    "_note": "역할 5(선택지 설계)가 고를 수 있는 값. 주택연금 110만원·작은 집 차액은 가상값.",
+    "start_pool": 12000,
+    "start_pool_label": "부모님 예금",
+    "base_age": 72,
+    "pension_income": 140,
+    "monthly_living": -260,
+    "monthly_living_small_home": -250,
+    "child_support_options": [
+      80,
+      40,
+      50
+    ],
+    "reverse_mortgage_monthly": 110,
+    "downsize": {
+      "month": 6,
+      "net_cash": 23000,
+      "new_home_value": 30000,
+      "label": "작은 집으로 옮기고 남는 돈(이사·세금 비용 뺀 가상값)"
+    },
+    "return_assumptions": [
+      {
+        "assumption_id": "elder_deposit",
+        "label": "예금 위주",
+        "expected_return": 2.5,
+        "volatility": 2.0
+      }
+    ],
+    "life_events": [
+      {
+        "label": "병원비·간병비 증가",
+        "from_month": 96,
+        "to_month": 300,
+        "monthly_delta": -80
+      }
+    ],
+    "aux_accounts": [
+      {
+        "id": "home",
+        "kind": "asset",
+        "value": 55000,
+        "label": "지금 집(시세 추정)"
+      },
+      {
+        "id": "reverse_mortgage",
+        "kind": "debt",
+        "value": 0,
+        "label": "주택연금 누적 잔액"
+      }
+    ],
+    "reverse_mortgage_rate_assumption": 3.0,
+    "goal": {
+      "type": "runway",
+      "target_amount": 0,
+      "label": "예금을 다 쓰는 선",
+      "within_months": 300
+    },
+    "horizon_months": 300,
+    "child_support_ratio": {
+      "m2": 0.55,
+      "m3": 0.45
+    },
+    "medical_fund": 3000,
+    "review": {
+      "interval_label": "1년마다",
+      "interval_months": 12,
+      "next": "2027년 9월",
+      "events": [
+        "입원",
+        "요양 등급"
+      ]
+    },
+    "today": "2026년 10월"
+  },
+  "interviews": [
+    {
+      "member_id": "m0",
+      "date": "9월 23일 오후 2:40 · 음성",
+      "voice": true,
+      "qa": [
+        [
+          "앞으로 가장 지키고 싶은 게 뭔가요?",
+          "이 집이지. 애들한테 물려줄 거라곤 이거 하나야."
+        ],
+        [
+          "요즘 제일 걱정되시는 건요?",
+          "돈 걱정은 별로 없어. 아프면 그게 문제지."
+        ],
+        [
+          "바꿔도 괜찮은 건 뭐가 있을까요?",
+          "집 말고는 다 괜찮다."
+        ]
+      ],
+      "clarify_script": {
+        "confused": "그게 그거 아니야? 무슨 말인지 잘 모르겠는데.",
+        "answer": "내가 살아 있는 동안 여기서 사는 게 제일이지. 물려주는 건… 애들이 괜찮다면야.",
+        "yes": "그래, 맞아."
+      }
+    },
+    {
+      "member_id": "m1",
+      "date": "9월 23일 오후 3:05 · 음성",
+      "voice": true,
+      "qa": [
+        [
+          "앞으로 가장 지키고 싶은 게 뭔가요?",
+          "애들한테 짐 안 되는 거요."
+        ],
+        [
+          "요즘 제일 걱정되시는 건요?",
+          "병원비요. 이번에 입원해 보니 생각보다 많이 나오더라고요."
+        ],
+        [
+          "바꿔도 괜찮은 건 뭐가 있을까요?",
+          "집이야 작은 데로 가도 되고요. 애들 아빠가 싫어해서 그렇지."
+        ]
+      ]
+    },
+    {
+      "member_id": "m2",
+      "date": "9월 22일 오후 11:18",
+      "voice": false,
+      "qa": [
+        [
+          "부모님 노후에서 가장 중요하게 생각하는 건요?",
+          "두 분이 돈 걱정 없이 지내시는 거요."
+        ],
+        [
+          "지금 가장 부담되는 부분은요?",
+          "저도 아이 둘 학원비가 커서 지금보다 더 보태긴 어렵습니다."
+        ],
+        [
+          "양보할 수 있는 것과 없는 것을 말해 주세요.",
+          "집을 꼭 물려받아야 한다고는 생각 안 해요. 주택연금 같은 걸 쓰시는 게 낫다고 봐요."
+        ]
+      ]
+    },
+    {
+      "member_id": "m3",
+      "date": "9월 22일 오후 9:30",
+      "voice": false,
+      "qa": [
+        [
+          "부모님 노후에서 가장 중요하게 생각하는 건요?",
+          "두 분 다 편하시고, 나중에 형제끼리 서운한 일 없는 거요."
+        ],
+        [
+          "지금 가장 부담되는 부분은요?",
+          "간병이 필요해지면 가까이 사는 제가 다 맡게 될까 봐 걱정돼요."
+        ],
+        [
+          "양보할 수 있는 것과 없는 것을 말해 주세요.",
+          "돈은 오빠가 더 내도 되고, 시간은 제가 더 낼 수 있어요. 대신 그걸 서로 인정했으면 해요."
+        ]
+      ]
+    }
+  ],
+  "golden": {
+    "story_understanding": {
+      "family_stage": "은퇴 12년 차 · 돌봄이 필요해지기 전",
+      "living": "부모님 소유 아파트 · 빚 없음",
+      "shared_goal": "지금처럼 생활하기 · 병원비와 간병 대비",
+      "differences": [
+        "집을 어떻게 할지",
+        "자녀 지원",
+        "간병 나누기"
+      ]
+    },
+    "summaries": {
+      "m0": {
+        "keep": "이 집",
+        "flexible": "집 말고 다른 것",
+        "worry": "건강이 나빠지는 것",
+        "keep_after_clarify": "살아 계신 동안 이 집에 살기"
+      },
+      "m1": {
+        "keep": "자식에게 부담 주지 않기",
+        "flexible": "집 크기",
+        "worry": "병원비"
+      },
+      "m2": {
+        "keep": "부모님 생활 안정",
+        "flexible": "집 물려받기",
+        "worry": "보태는 돈이 늘어나는 것"
+      },
+      "m3": {
+        "keep": "형제끼리 공평하게 나누기",
+        "flexible": "보태는 돈의 비율",
+        "worry": "간병이 한 사람에게 몰리는 것"
+      }
+    },
+    "clarification": {
+      "member_id": "m0",
+      "word": "집을 지킨다",
+      "choices": [
+        "내가 살아 있는 동안 이 집에서 살고 싶다",
+        "자식에게 이 집을 꼭 물려주고 싶다",
+        "지금은 잘 모르겠다 (나중에 답하기)"
+      ],
+      "resolved_meaning": "살아 계신 동안 이 집에 사시는 것"
+    },
+    "goal_setting": {
+      "headline": "네 분 모두 부모님의 편안한 노후를 원해요. 갈리는 건 '집'에 대한 생각이에요.",
+      "agreed_points": [
+        "지금처럼 생활하시는 게 가장 중요",
+        "병원비와 간병비가 가장 큰 걱정",
+        "자녀 모두 도울 마음은 있지만 지금보다 크게 늘리기는 어려움"
+      ],
+      "issues": [
+        {
+          "title": "집을 어떻게 할까",
+          "left_label": "그대로 물려준다",
+          "right_label": "생활비로 쓴다",
+          "positions": {
+            "m0": 0.34,
+            "m1": 0.58,
+            "m2": 0.9,
+            "m3": 0.66
+          },
+          "note": "확인해 보니 생각이 가까움"
+        },
+        {
+          "title": "자녀가 보태는 돈",
+          "left_label": "그때그때",
+          "right_label": "규칙을 정해서",
+          "positions": {
+            "m0": 0.28,
+            "m1": 0.44,
+            "m2": 0.74,
+            "m3": 0.9
+          },
+          "note": "어떻게 나눌지가 쟁점"
+        },
+        {
+          "title": "간병",
+          "left_label": "가족이 직접",
+          "right_label": "외부 도움",
+          "positions": {
+            "m0": 0.22,
+            "m1": 0.86,
+            "m2": 0.7,
+            "m3": 0.4
+          },
+          "note": "시간과 돈을 모두 기여로"
+        }
+      ],
+      "proposal_keywords": [
+        "이 집",
+        "사시는"
+      ],
+      "criterion": "아버님이 끝까지 지금 집에 사시는 것을 가장 먼저 지킨다. 이 약속 안에서 생활비와 병원비를 마련할 방법을 비교하고, 작은 집으로 옮기는 경우는 비교용으로만 함께 계산한다."
+    },
+    "replies": {
+      "m0": "내가 이 집에 살 수만 있으면 됐다. 비교해 보는 건 괜찮아.",
+      "m1": "좋아요. 병원비 걱정이 좀 덜어졌으면 해요.",
+      "m2": "좋습니다. 숫자로 보시면 아버지도 편하실 것 같아요.",
+      "m3": "좋아요. 간병이 필요할 때 누가 뭘 맡을지도 같이 봤으면 해요."
+    },
+    "options_expect": {
+      "A": {
+        "goal_hit_display": "약 15.9년",
+        "monthly_flow": -40
+      },
+      "B": {
+        "goal_hit_display": "25년 이상",
+        "monthly_flow": 30
+      },
+      "C": {
+        "goal_hit_display": "25년 이상",
+        "monthly_flow": -60
+      }
+    },
+    "consent_round1": {
+      "m0": {
+        "A": [
+          "good",
+          ""
+        ],
+        "B": [
+          "cond",
+          "물려주는 건 나중에 다시 이야기하자."
+        ],
+        "C": [
+          "no",
+          "이 집을 떠나긴 싫다."
+        ]
+      },
+      "m1": {
+        "A": [
+          "no",
+          "애들한테 계속 짐이 돼요."
+        ],
+        "B": [
+          "good",
+          ""
+        ],
+        "C": [
+          "cond",
+          "애들 아빠가 원하면요."
+        ]
+      },
+      "m2": {
+        "A": [
+          "no",
+          "지금보다 더 보태기는 어렵습니다."
+        ],
+        "B": [
+          "good",
+          ""
+        ],
+        "C": [
+          "cond",
+          "아버지가 원하실 때만 검토했으면 합니다."
+        ]
+      },
+      "m3": {
+        "A": [
+          "cond",
+          "간병하는 시간도 기여로 인정해 주세요."
+        ],
+        "B": [
+          "cond",
+          "간병이 필요해지면 시간을 내는 사람은 돈을 덜 내기로 해요."
+        ],
+        "C": [
+          "no",
+          "이사 준비가 저한테 몰릴 것 같아요."
+        ]
+      }
+    },
+    "agreement": {
+      "goal": "부모님이 지금 집에서 지금처럼 생활하시고, 병원비와 간병비를 미리 준비하며, 자녀가 보태는 돈과 돌보는 시간을 공평하게 나눈다.",
+      "method_label": "B. 살면서 연금 받기",
+      "target_amount": {
+        "label": "병원비·간병비 따로 3,000만원 + 예금이 25년 이상 버티는 상태"
+      },
+      "contribution": [
+        {
+          "label": "김태윤 보태는 돈",
+          "amount": 22
+        },
+        {
+          "label": "김지은 보태는 돈",
+          "amount": 18
+        }
+      ],
+      "timing": "주택연금 신청 즉시, 병원비 통장은 이번 달 분리",
+      "change_conditions": [
+        "1년마다",
+        "입원·요양 등급 등 변화 시"
+      ],
+      "commitments": [
+        "주택연금을 신청하고, 지금 집에 계속 살기",
+        "자녀가 보태는 돈은 월 40만원, 버는 만큼 나누기(태윤 22만원 · 지은 18만원)",
+        "예금 중 3,000만원은 병원비·간병비로 따로",
+        "간병이 필요해지면 시간을 내는 사람은 돈을 덜 내기",
+        "집을 어떻게 물려줄지는 전문가 상담 후 다시 정하기"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+  [1a] FAIL (0.3s)
+  [1b] 0/4 ok (0.9s)
+  [2a] 탐지 0/1, 오탐 0 (0.9s)
+  [2b] FAIL / 요약 keep=None (0.5s)
+  [3+4a] 칸 일치 0/12, 제안 키워드 [] (0.2s)
+  [4b] FAIL (0.2s)
+  [5+6a] FAIL (0.2s)
+  [6b] FAIL (0.8s)
+  [5r] 해당 없음 (0.0s)
+  [7] FAIL 검증=None 위반=0 (0.5s)
+  [8] 약속별 기대 상품 포함 0/5 (0.2s)
+→ data\eval\Qwen_Qwen3.6-35B-A3B__elder.json  tokens={'input_tokens': 0, 'output_tokens': 0}

@@ -1,0 +1,33 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "oneheart-replay",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "dev_server.py",
+        "8765",
+        "--replay"
+      ],
+      "port": 8765
+    },
+    {
+      "name": "oneheart-hf",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "dev_server.py",
+        "8766"
+      ],
+      "port": 8766
+    },
+    {
+      "name": "oneheart-claude",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "dev_server.py",
+        "8767"
+      ],
+      "port": 8767
+    }
+  ]
+}

@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>가족금융목표합의서비스</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  color-scheme:light;
+  --desk:#EFEEE7; --paper:#FCFBF7; --paper2:#F4F3ED; --surface:#FCFBF7; --bg:#EFEEE7; --soft:#F3F2EC;
+  --ink:#1F2A24; --ink2:#4D5953; --muted:#848E88; --line:#DFE0D7;
+  --green:#2F5D4A; --green-d:#234838; --green-soft:#E6EFE8;
+  --terra:var(--green); --terra-d:var(--green-d); --terra-soft:var(--green-soft);
+  --mus:var(--green); --mus-d:var(--green); --mus-soft:var(--green-soft);
+  --sage:var(--green); --sage-soft:var(--green-soft);
+  --brand:var(--green); --warm:#9A7A3A; --good:var(--green); --bad:#A9533C; --slate:#4F7A93;
+  --m0:#4F7A93; --m1:#B0674A; --m2:#6C8A5A; --m3:#9A7A3A;
+  --sans:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.7;letter-spacing:-.005em;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;
+  background:var(--desk);min-height:100vh}
+body.app{padding-bottom:110px}
+[hidden]{display:none!important}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--terra);outline-offset:2px}
+input,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:0;padding:12px 14px;width:100%}
+textarea{resize:vertical;line-height:1.75}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:28px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- 머리글 ---------- */
+.site{position:sticky;top:0;z-index:25;background:rgba(239,238,231,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;max-width:1400px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:-.02em;white-space:nowrap;border:0;background:none;padding:0}
+.logo svg{width:24px;height:24px}
+.beta{font-size:11px;font-weight:700;color:var(--terra);border:1px solid var(--terra);padding:0 6px;letter-spacing:0}
+.gnb{display:flex;gap:26px;font-size:14px;font-weight:500;color:var(--ink2)}
+.gnb button{border:0;background:none;padding:6px 0}
+.gnb button:hover{color:var(--terra)}
+.hright{display:flex;align-items:center;gap:12px}
+.stack{display:flex}
+.stack .av{margin-left:-6px;box-shadow:0 0 0 2px var(--paper)}
+.stack .av:first-child{margin-left:0}
+.roomtxt{font-size:13.5px;color:var(--ink2);font-weight:500}
+@media (max-width:960px){.gnb{display:none}}
+
+/* ---------- 버튼 · 공통 조각 ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;flex:0 0 auto;border:1px solid var(--ink2);background:transparent;padding:10px 18px;border-radius:0;font-weight:600;font-size:14.5px;transition:background .15s,color .15s}
+.btn:hover{background:var(--paper2)}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary:hover{background:#241C17}
+.btn.lg{padding:14px 26px;font-size:16px}
+.btn.sm{padding:6px 12px;font-size:13px}
+.btn[disabled]{opacity:.35;cursor:not-allowed}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex:0 0 auto;color:#fff}
+.av.sm{width:26px;height:26px;font-size:11.5px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:1px 8px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap;background:transparent}
+.pill.brand{border-color:var(--terra);color:var(--terra)}
+.pill.warm{border-color:var(--mus-d);color:var(--mus-d)}
+.pill.good{border-color:var(--sage);color:var(--sage)}
+.pill.slate{border-color:var(--m0);color:var(--m0)}
+.chk{width:18px;height:18px;border-radius:50%;background:var(--sage);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 auto}
+.aimark{width:26px;height:26px;display:grid;place-items:center;flex:0 0 auto}
+.aimark svg{width:20px;height:20px}
+.term{border-bottom:1px dotted var(--terra);white-space:nowrap}
+.term sup{color:var(--terra);font-size:10.5px;font-weight:700;margin-left:1px}
+
+/* ================= 소개 페이지 ================= */
+.lpage{max-width:1120px;margin:0 auto;padding:44px 28px 0}
+.sheet{background:var(--paper);border:1px solid var(--line);box-shadow:7px 7px 0 -1px var(--paper),7px 7px 0 0 var(--line),0 26px 44px -34px rgba(59,47,39,.4)}
+.cover{padding:60px 64px 56px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center}
+@media (max-width:920px){.cover{grid-template-columns:1fr;padding:40px 30px}}
+.chap{font-size:12.5px;font-weight:700;letter-spacing:.1em;color:var(--terra)}
+.cover h1{font-weight:800;font-size:clamp(32px,4.4vw,48px);line-height:1.28;letter-spacing:-.035em;margin-top:16px}
+.cover h1 em{font-style:normal;color:var(--terra)}
+.cover .sub{font-size:17px;color:var(--ink2);margin-top:20px;max-width:32em;line-height:1.8}
+.cover .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.cover .fine{font-size:13px;color:var(--muted);margin-top:14px}
+.mini{background:#fff;border:1px solid var(--line);border-top:4px double var(--ink);padding:24px 26px}
+.mini .mt{font-size:12px;color:var(--muted);font-weight:600}
+.mini .mh{font-size:21px;font-weight:700;margin-top:2px}
+.mini .mr{display:flex;justify-content:space-between;gap:12px;padding-block:11px;border-top:1px solid var(--line);font-size:14px}
+.mini .mr:first-of-type{margin-top:12px}
+.mini .mr span:first-child{color:var(--muted)}
+.mini .sg{display:flex;gap:8px;margin-top:6px}
+.mini .sg span{flex:1;border-bottom:1px solid var(--ink2);font-size:12px;color:var(--ink2);padding:14px 0 3px;display:flex;align-items:center;gap:6px}
+.mini .sg i{font-style:normal;color:var(--sage);font-weight:700}
+.memo{display:grid;grid-template-columns:26px 1fr;gap:8px;margin-top:16px;background:var(--terra-soft);border-left:2px solid var(--terra);padding:10px 12px;font-size:13.5px;line-height:1.65}
+.memo b{display:block;color:var(--terra);font-size:12px}
+.doc{margin-top:40px;padding:20px 64px 56px}
+@media (max-width:920px){.doc{padding:10px 30px 40px}}
+.doc>section{padding-top:30px}
+.doc h2.sh{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--terra);padding-top:14px;border-top:1.5px solid var(--ink);display:flex;gap:10px}
+.doc h2.sh i{font-style:normal;color:var(--muted)}
+.sec-h{font-weight:800;font-size:clamp(24px,3vw,32px);line-height:1.35;letter-spacing:-.03em;margin-top:12px;max-width:24em}
+.sec-p{color:var(--ink2);margin-top:14px;max-width:46em;font-size:16px;line-height:1.85}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);margin-top:30px}
+.cols3>div{padding:0 26px;border-left:1px solid var(--line)}
+.cols3>div:first-child{padding-left:0;border-left:0}
+.cols3 h3{font-size:17px;letter-spacing:-.02em}
+.cols3 p{color:var(--ink2);margin-top:8px;font-size:14.5px;line-height:1.8}
+@media (max-width:860px){.cols3{grid-template-columns:1fr;gap:20px}.cols3>div{padding:0;border:0}}
+.cmp{width:100%;border-collapse:collapse;margin-top:26px;font-size:15px}
+.cmp th{text-align:left;font-size:12.5px;font-weight:600;color:var(--muted);padding:8px 0;border-bottom:1.5px solid var(--ink)}
+.cmp th:last-child{color:var(--terra)}
+.cmp td{padding:12px 0;border-bottom:1px solid var(--line);width:50%}
+.cmp td:last-child{font-weight:600}
+.steps{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);counter-reset:s}
+.steps li{counter-increment:s;padding:0 22px;border-left:1px solid var(--line)}
+.steps li:first-child{padding-left:0;border-left:0}
+.steps li::before{content:counter(s);display:block;font-size:28px;font-weight:800;color:var(--terra);line-height:1}
+.steps h3{font-size:16.5px;margin-top:12px}
+.steps p{font-size:14px;color:var(--ink2);margin-top:6px;line-height:1.75}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr;gap:24px}.steps li{padding:0;border:0}}
+.cases{display:grid;grid-template-columns:1fr 1fr;margin-top:30px}
+.case{padding:0 0 0 32px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.case:first-child{padding:0 32px 0 0;border-left:0}
+.case .tag{font-size:12.5px;font-weight:700;color:var(--mus-d)}
+.case h3{font-size:23px;letter-spacing:-.02em}
+.case p{color:var(--ink2);font-size:14.5px;line-height:1.8}
+.case .foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px}
+@media (max-width:820px){.cases{grid-template-columns:1fr;gap:28px}.case,.case:first-child{padding:0;border:0}}
+.gets{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin:26px 0 0}
+.gets div{padding:14px 0;border-top:1px solid var(--line)}
+.gets dt{font-weight:700;font-size:16px}
+.gets dd{margin:4px 0 0;font-size:14.5px;color:var(--ink2)}
+@media (max-width:700px){.gets{grid-template-columns:1fr}}
+.faq{margin-top:22px;max-width:780px}
+.faq details{border-top:1px solid var(--line);padding-block:16px}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--muted);font-weight:400;font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin-top:10px;color:var(--ink2);line-height:1.85}
+.final{margin-top:50px;padding:28px 0 0;border-top:3px double var(--ink);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.final h2{font-size:clamp(22px,2.8vw,28px);font-weight:800;letter-spacing:-.03em}
+.final p{color:var(--ink2);margin-top:6px}
+footer.site-foot{padding:36px 28px 44px;font-size:12.5px;color:var(--muted);max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ================= 서비스 화면 ================= */
+.appgrid{display:grid;grid-template-columns:180px minmax(0,900px) 220px;gap:0 34px;justify-content:center;padding:40px 24px 0}
+@media (max-width:1260px){.appgrid{grid-template-columns:170px minmax(0,1fr)}.margin{grid-column:2;padding-top:24px}}
+@media (max-width:860px){.appgrid{grid-template-columns:1fr}.margin{grid-column:1}}
+.rail{position:sticky;top:84px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:13.5px}
+.rail h3{font-size:11.5px;font-weight:700;letter-spacing:.12em;color:var(--muted);margin:0 0 12px}
+.rail button{display:flex;align-items:baseline;gap:6px;width:100%;border:0;background:none;padding:4px 0;text-align:left;color:var(--muted);position:relative}
+.rail button:hover{color:var(--ink)}
+.rail button.done{color:var(--ink2)}
+.rail button[aria-current="step"]{color:var(--ink);font-weight:700}
+.rail button[aria-current="step"]::before{content:"";position:absolute;left:-14px;top:7px;bottom:7px;width:3px;background:var(--terra)}
+.rail .dots{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px)}
+@media (max-width:860px){.rail{position:static;margin-bottom:20px}}
+main.sheet{padding:52px 60px 36px;min-width:0}
+@media (max-width:860px){main.sheet{padding:32px 24px}}
+.margin{font-size:12.5px;line-height:1.75;color:var(--ink2);padding-top:120px}
+.side{padding-top:8px;border-top:1px solid var(--line);margin-bottom:22px}
+.side b{color:var(--ink)}
+.side sup{color:var(--terra);font-weight:700;margin-right:3px}
+.side.ai{border-top:2px solid var(--terra);background:var(--terra-soft);padding:10px 12px}
+.side.ai b{color:var(--terra)}
+
+.screen{animation:in .35s ease both}
+@keyframes in{from{opacity:.001;transform:translateY(5px)}to{opacity:1;transform:none}}
+.head{margin-bottom:30px}
+.eyebrow{font-size:12.5px;font-weight:700;color:var(--terra);letter-spacing:.1em;margin-bottom:10px}
+.h1{font-size:clamp(26px,3vw,34px);font-weight:800;line-height:1.35;letter-spacing:-.03em}
+.lead{color:var(--ink2);margin-top:12px;max-width:62ch;font-size:16px}
+.big{font-size:clamp(22px,2.6vw,28px);line-height:1.5;font-weight:800;letter-spacing:-.025em}
+.cols{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:start}
+.cols.vote-cols{grid-template-columns:minmax(0,1fr) minmax(0,1.45fr)}
+@media (max-width:1000px){.cols,.cols.vote-cols{grid-template-columns:1fr}}
+.stackv{display:flex;flex-direction:column;gap:34px}
+.card{border-top:1.5px solid var(--ink);padding-top:16px}
+.card.flat{border-top:1px solid var(--line);background:var(--paper2);padding:18px 20px}
+.ct{font-size:17px;font-weight:700;margin-bottom:4px}
+.cs{font-size:13px;color:var(--muted);font-weight:400}
+.next{display:flex;align-items:center;gap:14px;margin-top:44px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.next .pno{font-size:12.5px;color:var(--muted);margin-right:auto}
+.next .hint{font-size:13.5px;color:var(--muted)}
+.quote{font-size:18px;line-height:1.7;font-weight:600;padding-left:16px;border-left:3px solid var(--mus);margin-block:12px 6px}
+.qby{font-size:13px;color:var(--muted);padding-left:19px}
+
+/* 0 초대 */
+.plist{display:flex;flex-direction:column;margin-top:6px}
+.prow{display:flex;align-items:center;gap:12px;padding-block:12px;border-top:1px solid var(--line)}
+.prow:first-child{border-top:0}
+.prow .who{flex:1;min-width:0}
+.prow .nm{font-weight:600}
+.prow .rl{font-size:13px;color:var(--muted)}
+.linkbox{display:flex;gap:8px;align-items:center;background:var(--paper2);border:1px solid var(--line);padding:7px 7px 7px 14px;margin-top:14px;font-size:14px}
+.linkbox code{flex:1;font-family:inherit;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.how{display:flex;flex-direction:column;gap:14px;margin:12px 0 0;padding:0;counter-reset:h}
+.how li{list-style:none;display:grid;grid-template-columns:22px 1fr;gap:10px;counter-increment:h}
+.how li::before{content:counter(h);font-weight:800;color:var(--terra);font-size:15px}
+.how b{display:block;font-size:14.5px}
+.how span{font-size:13.5px;color:var(--ink2)}
+
+/* 1 이야기 */
+.urow{display:flex;justify-content:space-between;gap:12px;padding-block:10px;border-top:1px solid var(--line);font-size:14.5px}
+.urow:first-child{border-top:0}
+.urow span:first-child{color:var(--muted)}
+.urow b{font-weight:600;text-align:right}
+.arow{display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;padding-block:10px;border-top:1px solid var(--line)}
+.arow:first-child{border-top:0}
+.inst{width:30px;height:30px;display:grid;place-items:center;font-size:12.5px;font-weight:800;color:#fff;flex:0 0 auto}
+.arow .an{font-weight:600;font-size:14px}
+.arow .ao{font-size:12.5px;color:var(--muted)}
+.arow .amt{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.amt.neg{color:var(--terra)}
+.consent{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;padding:12px 14px;background:var(--sage-soft);border-left:3px solid var(--sage)}
+.consent div{display:flex;align-items:center;gap:8px;font-size:13.5px}
+.loading{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px;padding-block:18px}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--terra);animation:sp .8s linear infinite;flex:0 0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* 2 각자의 생각: 대화는 회의록처럼 */
+.privacy{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;background:var(--paper2);border-left:3px solid var(--mus);padding:12px 16px;font-size:14px;margin-bottom:28px}
+.privacy svg{stroke:var(--mus-d)}
+.privacy b{display:block;font-size:14.5px}
+.privacy span{color:var(--ink2)}
+.chathead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:2px;flex-wrap:wrap}
+.chatsub{font-size:13px;color:var(--muted);margin-bottom:14px}
+.easy{display:inline-flex;align-items:center;font-size:12px;color:var(--mus-d);font-weight:700;border:1px solid var(--mus-d);padding:0 8px}
+.chat{display:flex;flex-direction:column}
+.msg{display:block;padding:10px 0;border-top:1px dotted var(--line)}
+.msg:first-child{border-top:0}
+.msg>.aimark,.msg>.av{display:none}
+.msg>div{display:grid;grid-template-columns:84px 1fr;gap:0 14px}
+.who-l{grid-column:1;grid-row:1/span 2;font-size:13px;font-weight:700;color:var(--ink2);padding-top:1px}
+.msg.ai .who-l{color:var(--terra)}
+.bub{grid-column:2;font-size:15px;line-height:1.75}
+.msg.me .bub{font-weight:500}
+.voice{grid-column:2;font-size:12px;color:var(--muted);margin-top:2px}
+.chat.big .bub{font-size:17.5px;line-height:1.7}
+.choices{display:flex;flex-direction:column;gap:8px;margin:6px 0 4px 98px}
+.choice{text-align:left;border:1.5px solid var(--ink2);background:#fff;padding:13px 16px;font-size:17px;font-weight:600;display:flex;gap:12px;align-items:center}
+.choice:hover{border-color:var(--terra)}
+.choice .n{width:26px;height:26px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:14px;font-weight:800;flex:0 0 auto}
+.choice.on{border-color:var(--terra);background:var(--terra-soft)}
+.choice.on .n{background:var(--terra)}
+.choice.muted{color:var(--muted)}
+.helpers{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px 98px}
+.composer{display:flex;gap:10px;align-items:flex-end;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.composer textarea{min-height:52px;font-size:14.5px}
+.fam{display:flex;flex-direction:column}
+.fm{padding-block:14px;border-top:1px solid var(--line)}
+.fm:first-child{border-top:0;padding-top:4px}
+.fm .fh{display:flex;align-items:center;gap:10px}
+.fm .fh .nm{font-weight:700;font-size:15px}
+.fm .fh .rl{font-size:12.5px;color:var(--muted)}
+.fm .fh .me{font-size:11px;font-weight:700;color:var(--terra);border:1px solid var(--terra);padding:0 6px}
+.fm dl{display:grid;grid-template-columns:112px 1fr;gap:4px 10px;margin:10px 0 0 44px;font-size:13.5px}
+.fm dt{color:var(--muted);white-space:nowrap}
+.fm dd{margin:0}
+.fm .meta{margin:8px 0 0 44px;font-size:12px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.pend{color:var(--mus-d);font-weight:700}
+
+/* 3 공동 목표 설정 (구 합의 리포트) */
+.agree{display:flex;flex-direction:column;gap:10px;margin:6px 0 0;padding:0}
+.agree li{list-style:none;display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14.5px}
+.issue{padding-block:18px;border-top:1px solid var(--line)}
+.issue:first-of-type{border-top:0;padding-top:4px}
+.issue h4{font-size:15.5px;font-weight:700}
+.spec{position:relative;height:50px;margin-top:8px}
+.spec .track{position:absolute;left:0;right:0;top:24px;height:2px;background:var(--line)}
+.spec .track::before,.spec .track::after{content:"";position:absolute;top:-4px;width:1.5px;height:10px;background:var(--ink2)}
+.spec .track::before{left:0}.spec .track::after{right:0}
+.spec .dot{position:absolute;top:11px;transform:translateX(-50%)}
+.spec .dot .av{box-shadow:0 0 0 3px var(--paper)}
+.ends{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:2px}
+.medi{margin-top:12px;font-size:14px;color:var(--ink);display:grid;grid-template-columns:24px 1fr;gap:8px;align-items:start;background:var(--terra-soft);border-left:2px solid var(--terra);padding:10px 12px}
+.medi .aimark{width:22px;height:22px}
+.clar{padding:20px 22px;background:var(--mus-soft);border-left:3px solid var(--mus)}
+.clar.ok{background:var(--sage-soft);border-color:var(--sage)}
+.clar .eyebrow{color:var(--mus-d)}
+.clar .q{font-size:16.5px;font-weight:700;line-height:1.6;margin-top:2px}
+.clar p{font-size:14px;color:var(--ink2);margin-top:8px}
+.ask{border:1.5px solid var(--ink);background:#fff;padding:24px 24px 22px}
+.ask .eyebrow{color:var(--terra)}
+.ask .q{font-size:19px;line-height:1.65;font-weight:700}
+.ask .to{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;color:var(--ink2)}
+.ask .reply{margin-top:12px;border-left:2px solid var(--line);padding:4px 0 4px 12px;font-size:14.5px;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;animation:in .3s ease both}
+.ask .reply b{display:block;font-size:12.5px;color:var(--ink2)}
+.respond{margin-top:16px;background:var(--paper2);border:1px solid var(--line);padding:14px}
+.respond .rl{font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.respond textarea{min-height:64px;font-size:14.5px}
+.respond .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.respond .quick{border:1px solid var(--line);background:#fff;padding:5px 12px;font-size:13px;font-weight:600;color:var(--ink2)}
+.wait{font-size:13px;color:var(--ink2);margin-top:10px;display:flex;align-items:center;gap:8px}
+.demo{display:flex;flex-direction:column;gap:8px;margin-top:16px;padding:12px 14px;border:1.5px dashed var(--muted);background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(156,138,122,.06) 10px 20px)}
+.demo .dt{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;color:var(--ink2)}
+.demo .dt i{font-style:normal;background:var(--ink);color:var(--paper);padding:0 7px;font-size:11px}
+.demo p{font-size:13px;color:var(--ink2);line-height:1.65}
+.demo .btn{align-self:flex-start;border-style:dashed}
+.basis{border-left:3px solid var(--terra);padding:6px 0 6px 20px;animation:in .35s ease both}
+.basis .bt{font-size:17.5px;font-weight:700;margin-top:6px;line-height:1.6}
+.agreelist{display:flex;flex-direction:column;margin-top:14px}
+.agr{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding-block:10px;border-top:1px solid var(--line)}
+.agr:first-child{border-top:0}
+.agr .nm{font-weight:600;font-size:14px}
+.agr .cm{font-size:13px;color:var(--muted)}
+.agbtn{border:1px dashed var(--line);background:none;padding:3px 10px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.agbtn.on{border-style:solid;border-color:var(--sage);background:var(--sage-soft);color:var(--sage)}
+.agbtn[disabled],.sig[disabled]{cursor:default}
+.okband{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:12px 16px;background:var(--sage-soft);border-left:3px solid var(--sage);font-size:14.5px}
+.okband b{color:var(--sage);display:block}
+
+/* 4 미래 계산 */
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1.5px solid var(--ink)}
+@media (max-width:760px){.opts{grid-template-columns:1fr}}
+.opt{text-align:left;border:0;border-bottom:1px solid var(--line);border-left:1px solid var(--line);background:transparent;padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;position:relative}
+.opt:first-child{border-left:0}
+.opt:hover{background:var(--paper2)}
+.opt[aria-pressed="true"]{background:var(--mus-soft)}
+.opt[aria-pressed="true"]::before{content:"";position:absolute;left:0;right:0;top:-1.5px;height:4px;background:var(--c)}
+.opt .ol{display:flex;align-items:center;gap:8px;font-weight:700;font-size:15px}
+.opt .ol i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.opt .od{font-size:13.5px;color:var(--ink2);line-height:1.65}
+.easybox{display:block;padding:16px 0;border-top:3px double var(--ink);border-bottom:3px double var(--ink);font-size:18px;font-weight:600;line-height:1.65;letter-spacing:-.01em}
+.easybox .aimark{display:none}
+.easybox b{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--terra);margin-bottom:2px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media (max-width:620px){.kpis{grid-template-columns:1fr}}
+.kpi{padding:14px 16px;border-left:1px solid var(--line)}
+.kpi:first-child{border-left:0;padding-left:0}
+.kpi .kl{font-size:12.5px;color:var(--muted);font-weight:600}
+.kpi .kv{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.kpi .kv small{font-size:14px;font-weight:600;color:var(--ink2);margin-left:2px}
+.kpi .kn{font-size:12.5px;color:var(--muted)}
+.kpi.good .kv{color:var(--sage)} .kpi.bad .kv{color:var(--terra)}
+.chart-wrap{overflow-x:auto;margin-top:16px}
+svg.chart{width:100%;height:auto;display:block;min-width:520px}
+svg.chart text{font-family:var(--sans)}
+.readme{font-size:12.5px;color:var(--muted);margin-top:8px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink2);margin-top:6px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:3px;background:var(--c)}
+.irow{display:grid;grid-template-columns:34px 1fr;gap:12px;padding-block:12px;border-top:1px solid var(--line);align-items:start}
+.irow:first-child{border-top:0}
+.irow .nm{font-weight:700;font-size:14px}
+.irow p{font-size:14px;color:var(--ink2)}
+details.tune{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+details.tune summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--terra)}
+.sliders{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+@media (max-width:620px){.sliders{grid-template-columns:1fr}}
+.sl label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.sl label b{color:var(--ink);font-variant-numeric:tabular-nums}
+input[type=range]{padding:0;border:0;background:none;accent-color:var(--terra)}
+
+/* 5 합의안 */
+.vrow{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding-block:10px;border-top:1px solid var(--line)}
+.vrow:first-child{border-top:0}
+.vrow .nm{font-weight:600}
+.rank{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tally{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.tbar{display:grid;grid-template-columns:110px 1fr 34px;gap:10px;align-items:center;font-size:13.5px}
+.tbar .tr{height:8px;background:var(--line);overflow:hidden}
+.tbar .tr i{display:block;height:100%;background:var(--c);transition:width .8s ease}
+.paper{background:#fff;border:1px solid var(--line);border-top:4px double var(--ink);padding:clamp(22px,3vw,36px);position:relative}
+.paper .ptitle{font-size:clamp(21px,2.4vw,26px);font-weight:800;letter-spacing:-.025em}
+.paper .pmeta{font-size:13px;color:var(--muted);margin-top:4px}
+.psec{display:grid;grid-template-columns:120px 1fr;gap:16px;padding-block:16px;border-top:1px solid var(--line)}
+.psec:first-of-type{margin-top:20px}
+@media (max-width:620px){.psec{grid-template-columns:1fr;gap:6px}}
+.psec h4{font-size:13px;color:var(--muted);font-weight:600;padding-top:2px}
+.psec ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px}
+.psec p,.psec li{font-size:14.5px}
+.sigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.sig{display:flex;align-items:center;gap:10px;border:0;border-bottom:1.5px solid var(--ink2);padding:12px 4px 8px;background:none;text-align:left;transition:all .25s}
+.sig .st{font-size:12px;color:var(--muted)}
+.sig.on{border-bottom-color:var(--sage);background:var(--sage-soft)}
+.sig.on .st{color:var(--sage);font-weight:600}
+.sealed{display:flex;align-items:center;gap:10px;margin-top:18px;padding:12px 16px;background:var(--sage-soft);border-left:3px solid var(--sage);color:var(--sage);font-weight:700}
+
+/* 6 상품 */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.fchip{border:1px solid var(--line);background:transparent;padding:6px 14px;font-size:13.5px;font-weight:600;color:var(--ink2)}
+.fchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0;border-top:1.5px solid var(--ink)}
+.prod{padding:18px 18px 18px 0;margin-right:18px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.prod .top{display:flex;align-items:center;gap:10px}
+.prod .inm{font-size:13px;color:var(--muted);font-weight:600}
+.prod .pn{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.prod .what{font-size:13.5px;color:var(--ink2)}
+.prod .fig{font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.prod .fig small{font-size:13px;font-weight:600;color:var(--muted);margin-left:4px}
+.why2{font-size:13.5px;color:var(--ink);background:var(--terra-soft);border-left:2px solid var(--terra);padding:9px 12px}
+.why2 b{color:var(--terra);font-weight:700}
+.trail{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.prod .foot{display:flex;justify-content:flex-start;margin-top:auto}
+.disc{font-size:12.5px;color:var(--muted);margin-top:18px}
+
+/* 7 가족 홈 */
+.homegrid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:1000px){.homegrid{grid-template-columns:1fr}}
+.goalcard .gv{font-size:clamp(28px,3.6vw,38px);font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:6px}
+.goalcard .gv small{font-size:16px;color:var(--muted);font-weight:600;margin-left:4px}
+.pbar{height:10px;background:var(--line);overflow:hidden;margin-top:14px}
+.pbar i{display:block;height:100%;background:var(--terra)}
+.pmeta2{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px}
+.trow{display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding-block:11px;border-top:1px solid var(--line);font-size:14px}
+.trow:first-child{border-top:0}
+.trow .c{width:18px;height:18px;border:1.5px solid var(--ink2);display:grid;place-items:center;font-size:11px;font-weight:800}
+.trow.done .c{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.trow.done .tt{color:var(--muted)}
+.trow .ta{font-weight:700;font-variant-numeric:tabular-nums}
+.tli{display:grid;grid-template-columns:78px 1fr;gap:12px;padding-block:10px;border-top:1px solid var(--line);font-size:14px}
+.tli:first-child{border-top:0}
+.tli .d{font-weight:700;color:var(--terra);font-variant-numeric:tabular-nums}
+.note{display:grid;grid-template-columns:26px 1fr;gap:10px;background:var(--terra-soft);border-left:3px solid var(--terra);padding:14px 16px;font-size:14px}
+.note b{display:block}
+
+/* 바닥 · 시연 도구 */
+.appfoot{max-width:1380px;margin:56px auto 0;padding:20px 28px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:30;display:flex;align-items:center;gap:6px;background:var(--ink);color:#EFE6D8;padding:6px;box-shadow:0 10px 30px -10px rgba(0,0,0,.45);max-width:calc(100vw - 24px)}
+.dock .tag{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--mus);padding:0 8px 0 10px;white-space:nowrap}
+.dock .sw{display:flex;background:rgba(255,255,255,.08);padding:3px}
+.dock .sw button{border:0;background:none;color:#CDBFAE;padding:6px 12px;font-size:13px;font-weight:600;white-space:nowrap}
+.dock .sw button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.dock .vw{display:flex;align-items:center;gap:6px;font-size:12px;color:#CDBFAE;padding-inline:4px;white-space:nowrap}
+.dock select{background:rgba(255,255,255,.1);color:#EFE6D8;border:0;padding:6px 8px;font:inherit;font-size:13px;font-weight:600}
+.dock select option{color:var(--ink)}
+.dock .nav{border:0;background:rgba(255,255,255,.08);color:#EFE6D8;width:34px;height:32px;font-size:16px}
+.dock .nav:disabled{opacity:.35}
+.dock .pos{font-size:12.5px;font-variant-numeric:tabular-nums;color:#CDBFAE;min-width:34px;text-align:center}
+.toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,10px);background:var(--ink);color:var(--paper);padding:10px 16px;font-size:13.5px;opacity:0;pointer-events:none;transition:all .25s;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ================= v3: 초록 · 한 줄기 읽기 ================= */
+body{font-size:16px}
+.sheet{box-shadow:6px 6px 0 -1px var(--paper),6px 6px 0 0 var(--line)}
+.appgrid{grid-template-columns:200px minmax(0,820px);gap:0 40px}
+@media (max-width:1100px){.appgrid{grid-template-columns:170px minmax(0,1fr)}}
+@media (max-width:860px){.appgrid{grid-template-columns:1fr}}
+main.sheet{padding:56px 64px 40px}
+.amt.neg,.kpi.bad .kv{color:var(--bad)}
+
+/* 선은 두 종류: 섹션 구분(진한 선) · 항목 구분(옅은 선) */
+.sec{margin-top:48px;padding-top:18px;border-top:1px solid var(--ink)}
+.head+.sec{margin-top:36px}
+h2.st{font-size:18px;font-weight:700;letter-spacing:-.015em;margin-bottom:14px}
+.msg{border-top:1px solid var(--line)}
+.final{border-top:1px solid var(--ink)}
+.mini,.paper{border-top:2px solid var(--ink)}
+
+/* 강조 상자는 두 종류: AI가 하는 말(초록 바탕) · 내가 할 일(흰 바탕 테두리) */
+.aibox{background:var(--green-soft);border-left:3px solid var(--green);padding:18px 20px}
+.aibox .q{font-size:17.5px;font-weight:700;line-height:1.65}
+.aibox .sub{font-size:14.5px;color:var(--ink2);margin-top:8px}
+.aibox .to{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13.5px;color:var(--ink2)}
+.act{margin-top:16px;border:1.5px solid var(--ink);background:#fff;padding:16px}
+.act .rl{font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.act textarea{min-height:68px}
+.act .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.act .quick{border:1px solid var(--line);background:var(--paper2);padding:5px 12px;font-size:13.5px;font-weight:600;color:var(--ink2)}
+.actrow{margin-top:14px}
+.replies{margin-top:14px;display:flex;flex-direction:column}
+.reply{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;padding:10px 0;border-top:1px solid var(--line);font-size:15px;animation:in .3s ease both}
+.reply:first-child{border-top:0}
+.reply b{display:block;font-size:13px;color:var(--ink2)}
+.ailine{margin-top:10px;font-size:14.5px;color:var(--ink2);padding-left:14px;border-left:2px solid var(--green)}
+.okline{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:15px}
+.okline b{color:var(--green)}
+
+/* 합의 리포트 */
+.agree li{font-size:15.5px}
+.issue{padding-block:20px}
+.issue h4{font-size:16px}
+.agr{padding-block:12px}
+
+/* 미래 계산 */
+.optlist{display:flex;flex-direction:column}
+.optlist .opt{display:grid;grid-template-columns:20px 1fr;gap:14px;text-align:left;border:0;border-top:1px solid var(--line);background:transparent;padding:14px 10px}
+.optlist .opt:first-child{border-top:0}
+.optlist .opt::before{display:none}
+.optlist .opt[aria-pressed="true"]{background:var(--green-soft)}
+.optlist .radio{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ink2);margin-top:3px;background:#fff}
+.optlist .opt[aria-pressed="true"] .radio{border-color:var(--green);background:var(--green);box-shadow:inset 0 0 0 4px #fff}
+.optlist .ol{font-size:16px}
+.optlist .od{display:block;margin-top:2px;font-size:14.5px}
+.easybox{border:0;border-left:3px solid var(--green);background:var(--green-soft);padding:16px 20px;font-size:18px}
+.easybox b{color:var(--green)}
+.kpis{margin-top:22px}
+.chart-wrap{margin-top:22px}
+.irow p{font-size:15px}
+
+/* 용어: 누르면 그 자리에서 풀이 */
+.term{border:0;background:none;padding:0;font:inherit;color:inherit;border-bottom:1.5px dotted var(--green);cursor:help;position:relative;line-height:inherit;white-space:nowrap}
+.term:hover::after,.term:focus::after{content:attr(data-def);position:absolute;left:50%;top:calc(100% + 8px);transform:translateX(-50%);width:max-content;max-width:260px;background:var(--ink);color:#fff;font-size:13px;line-height:1.6;padding:9px 12px;z-index:40;white-space:normal;font-weight:500;text-align:left;letter-spacing:0}
+
+/* 배치: 기본은 한 줄기, 각자의 생각만 2단 */
+.cols,.cols.vote-cols,.homegrid{grid-template-columns:minmax(0,1fr)}
+.cols.keep2{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:28px}
+@media (max-width:1000px){.cols.keep2{grid-template-columns:1fr}}
+.card.flat{background:none;padding:16px 0 0;border-top:1.5px solid var(--ink)}
+.card .ct{font-size:18px}
+
+/* 각자의 생각: 채팅방 */
+.chatwin{border:1px solid var(--line);background:#fff;display:flex;flex-direction:column;align-self:start;min-width:0}
+.chatbar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.chatbar .aimark{width:36px;height:36px;border-radius:50%;background:var(--green-soft)}
+.chatbar .cb b{display:block;font-size:15px;line-height:1.3}
+.chatbar .cb span{font-size:12.5px;color:var(--muted)}
+.chatbar .easy{margin-left:auto;white-space:nowrap}
+.chatwin .chat{background:#ECEFEA;padding:14px 14px 18px;display:flex;flex-direction:column;gap:10px;height:600px;overflow-y:auto}
+.daysep{text-align:center;margin:0 0 4px}
+.daysep span{display:inline-block;font-size:12px;color:var(--ink2);background:rgba(31,42,36,.07);padding:2px 12px;border-radius:99px}
+.chatwin .msg{display:flex;gap:8px;max-width:84%;padding:0;border:0;align-items:flex-start}
+.chatwin .msg.me{align-self:flex-end;flex-direction:row-reverse}
+.chatwin .msg>.aimark{display:grid;width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--line)}
+.chatwin .msg>.aimark svg{width:20px;height:20px}
+.chatwin .msg>.av{display:none}
+.chatwin .msg>div{display:block;min-width:0}
+.chatwin .who-l{font-size:12px;font-weight:600;color:var(--ink2);margin:0 0 3px 2px;padding:0}
+.chatwin .msg.ai .who-l{color:var(--ink2)}
+.chatwin .msg.me .who-l{display:none}
+.chatwin .bub{background:#fff;border-radius:4px 16px 16px 16px;padding:9px 14px;font-size:15px;line-height:1.6;font-weight:400;box-shadow:0 1px 1px rgba(31,42,36,.06)}
+.chatwin .msg.me .bub{background:var(--green);color:#fff;border-radius:16px 4px 16px 16px;font-weight:400}
+.chatwin .voice{font-size:11.5px;color:var(--muted);margin-top:3px;text-align:right}
+.chatwin .chat.big .bub{font-size:17.5px;line-height:1.6}
+.chatwin .choices{margin:0 0 0 42px;max-width:84%}
+.chatwin .choice{border-radius:14px;border:1.5px solid var(--line);font-size:16.5px}
+.chatwin .choice .n{border-radius:50%;background:var(--green-soft);color:var(--green)}
+.chatwin .choice.on{border-color:var(--green);background:var(--green-soft)}
+.chatwin .choice.on .n{background:var(--green);color:#fff}
+.chatwin .helpers{margin:0 0 0 42px}
+.chatwin .helpers .btn{border-radius:99px;background:#fff;border-color:var(--line)}
+.chatwin .composer{margin:0;padding:10px 12px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:flex-end}
+.chatwin .composer textarea{border:1px solid var(--line);border-radius:20px;min-height:44px;padding:10px 16px;resize:none;background:var(--paper)}
+.chatwin .composer .btn{border-radius:20px;background:var(--green);border-color:var(--green)}
+
+/* 합의 리포트: 구성원별 입장 위치 (한 사람에 한 줄) */
+.pos{margin-top:10px}
+.pos-h,.pos-r{display:grid;grid-template-columns:76px minmax(0,1fr) 168px;gap:14px;align-items:center}
+.pos-h .ends{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2);font-weight:600;margin:0 0 2px}
+.pos-r{padding:7px 0}
+.pn{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600;white-space:nowrap}
+.pn i{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.pt{position:relative;height:14px;background:linear-gradient(var(--line),var(--line)) center/100% 2px no-repeat}
+.pt::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 25%) left center/100% 8px no-repeat;opacity:.55;right:-1px}
+.pt::after{content:"";position:absolute;right:0;top:3px;width:1px;height:8px;background:var(--muted);opacity:.55}
+.pd{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px var(--paper)}
+.pl{font-size:13.5px;color:var(--ink2)}
+
+/* 합의 리포트: 세 칸 나누기 */
+.camp-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.gap{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.gap .sq{display:inline-flex;gap:3px}
+.gap .sq i{width:9px;height:9px;background:var(--line)}
+.gap .sq i.on{background:var(--ink2)}
+.camps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cp{padding:12px 14px 14px;border-left:1px solid var(--line)}
+.cp:first-child{border-left:0;padding-left:0}
+.cl{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.cp.mid .cl{color:var(--muted)}
+.cw{display:flex;flex-direction:column;gap:6px}
+.nmv{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:15px;font-weight:600}
+.nmv i{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.moved{font-size:11.5px;font-weight:600;color:var(--green);background:var(--green-soft);padding:1px 7px}
+.none{color:var(--line);font-size:15px}
+
+/* 미래 계산: 방법 목록에 결과 함께 · 그래프 단순화 · 계산 근거 */
+.optlist .opt,.opt-h{grid-template-columns:20px minmax(0,1fr) 150px}
+.opt-h{display:grid;gap:14px;padding:0 10px 8px;font-size:13px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line)}
+.opt-h span:last-child,.optlist .res{text-align:right}
+.optlist .opt:first-of-type{border-top:0}
+.optlist .res{font-size:19px;font-weight:800;color:var(--ink);align-self:center;letter-spacing:-.02em}
+.optlist .opt[aria-pressed="true"] .res{color:var(--green)}
+.easybox p{margin:0}
+svg.chart{min-width:600px}
+.readme{font-size:14.5px;color:var(--ink2);margin-top:10px}
+.btab{width:100%;border-collapse:collapse;font-size:15px}
+.btab th{text-align:left;font-size:13px;font-weight:600;color:var(--muted);padding:6px 10px 8px 0;border-bottom:1px solid var(--ink)}
+.btab td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.btab .bk{font-weight:700;white-space:nowrap;width:150px}
+.btab .bv{font-weight:800;white-space:nowrap;width:130px}
+.btab .bd{color:var(--ink2);font-size:14.5px;line-height:1.7}
+.btab .src{display:inline-block;margin-left:8px;font-size:12px;font-weight:600;color:var(--green);border:1px solid var(--green);padding:0 6px;white-space:nowrap}
+.how2{margin-top:16px;font-size:14.5px;color:var(--ink2);line-height:1.8}
+.how2 b{color:var(--ink);margin-right:6px}
+.ytab-wrap{max-height:420px;overflow:auto;margin-top:12px;border-top:1px solid var(--ink)}
+.ytab{width:100%;border-collapse:collapse;font-size:14.5px}
+.ytab th{position:sticky;top:0;background:var(--paper);text-align:right;font-size:13px;font-weight:600;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line)}
+.ytab td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--line)}
+.ytab th:first-child,.ytab td:first-child{text-align:left}
+.ytab tr.hit td{background:var(--green-soft)}
+
+/* 합의안: 반대 없는 방법 찾기 */
+.src{display:inline-block;margin-left:6px;font-size:12px;font-weight:600;color:var(--green);border:1px solid var(--green);padding:0 6px;white-space:nowrap;vertical-align:1px}
+.famtab-wrap{overflow-x:auto}
+.famtab{width:100%;border-collapse:collapse;font-size:14px}
+.famtab th{text-align:left;font-size:13px;font-weight:700;padding:8px 10px 10px 0;border-bottom:1px solid var(--ink);vertical-align:bottom}
+.famtab th .av{display:inline-grid;vertical-align:middle;margin-right:4px}
+.famtab th .kp{display:block;font-weight:500;color:var(--muted);font-size:12.5px;margin-top:4px}
+.famtab td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.famtab .ol2{font-weight:700;white-space:nowrap;width:150px}
+.kv2,.rv{display:flex;flex-direction:column;gap:2px;font-size:13.5px;color:var(--ink2)}
+.kv2 b,.rv b{font-size:13.5px}
+.kv2.ok b,.v-good b{color:var(--green)}
+.kv2.ng b,.v-no b{color:var(--bad)}
+.v-cond b{color:var(--warm)}
+.wait-v{color:var(--muted);font-size:13px}
+.myrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.myrow:first-of-type{border-top:0}
+.myrow .mo b{display:block;font-size:15px}
+.myrow .mo span{font-size:13px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--ink2)}
+.seg button{border:0;border-left:1px solid var(--ink2);background:#fff;padding:7px 12px;font-size:13.5px;font-weight:600;color:var(--ink2);white-space:nowrap}
+.seg button:first-child{border-left:0}
+.seg button.on.v-good{background:var(--green);color:#fff}
+.seg button.on.v-cond{background:var(--warm);color:#fff}
+.seg button.on.v-no{background:var(--bad);color:#fff}
+.myrow .tx{grid-column:1/-1;padding:9px 12px;font-size:14.5px}
+.chg{margin-top:14px;border-collapse:collapse;font-size:14.5px;width:100%}
+.chg th{text-align:left;font-weight:700;padding:7px 14px 7px 0;white-space:nowrap;vertical-align:top;width:100px}
+.chg td{padding:7px 0;color:var(--ink)}
+.chg tr+tr th,.chg tr+tr td{border-top:1px solid rgba(47,93,74,.18)}
+.conds{list-style:none;margin:0;padding:0}
+.conds li{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.conds li:first-child{border-top:0}
+.conds b{display:block;font-size:13px;color:var(--warm)}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <button class="logo" id="logo" aria-label="가족금융목표합의서비스 홈">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="9.5" cy="13" r="7.5" fill="none" stroke="var(--brand)" stroke-width="2.4"/><circle cx="16.5" cy="13" r="7.5" fill="none" stroke="var(--warm)" stroke-width="2.4"/></svg>
+      가족금융목표합의서비스 <span class="beta">가제</span>
+    </button>
+    <nav class="gnb" id="gnb" aria-label="주요 메뉴">
+      <button data-scroll="why">왜 필요한가요</button>
+      <button data-scroll="how">이용 방법</button>
+      <button data-scroll="stories">가족 이야기</button>
+      <button data-scroll="faq">자주 묻는 질문</button>
+    </nav>
+    <div class="hright">
+      <div id="hLanding"><button class="btn primary sm" data-start="newly">서비스 이용하기</button></div>
+      <div id="hApp" hidden style="display:flex;align-items:center;gap:12px"><span class="roomtxt" id="roomName"></span><div class="stack" id="stack"></div><button class="btn sm" id="exit">나가기</button></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= LANDING ================= -->
+<div id="landing">
+  <div class="lpage">
+    <section class="sheet cover">
+      <div>
+        <div class="chap">서비스 소개서 · 누구나 쓰는 우리 가족 재무 상담실</div>
+        <h1>돈 이야기, 이제<br><em>가족이 같은 숫자</em>를 보고 정해요</h1>
+        <p class="sub">가족 한 사람 한 사람이 AI 상담사에게 각자의 생각을 이야기하면, 서로 같은 점과 다른 점을 정리하고 선택지마다 결과를 계산해 드려요. 그리고 가족 모두가 동의하는 계획을 함께 만들어요.</p>
+        <div class="cta">
+          <button class="btn primary lg" data-start="newly">서비스 이용하기 →</button>
+          <button class="btn lg" data-scroll="stories">예시 가족 이야기 보기</button>
+        </div>
+        <p class="fine">금융을 잘 몰라도 괜찮아요. 모든 내용을 쉬운 말로 설명해 드려요.</p>
+      </div>
+      <div aria-hidden="true">
+        <div class="mini">
+          <div class="mt">우리 가족 합의안</div>
+          <div class="mh">엄마 아빠 노후 계획</div>
+          <div class="mr"><span>함께 정한 목표</span><b>지금 집에서, 지금처럼</b></div>
+          <div class="mr"><span>고른 방법</span><b>살면서 연금 받기</b></div>
+          <div class="mr"><span>예금이 버티는 기간</span><b style="color:var(--sage)">25년 이상</b></div>
+          <div class="sg"><span><i>✓</i>영호</span><span><i>✓</i>순자</span><span><i>✓</i>태윤</span><span><i>✓</i>지은</span></div>
+        </div>
+        <div class="memo"><span class="aimark" id="aimk"></span><span><b>AI 상담사가 아버님께 1:1로</b>'집을 지킨다'는 건, 이 집에 사시는 건가요 물려주시는 건가요?</span></div>
+      </div>
+    </section>
+
+    <div class="sheet doc">
+      <section id="why">
+        <h2 class="sh"><i>1</i>왜 필요한가요</h2>
+        <p class="sec-h">가족의 돈 문제는 혼자 정할 수 없는데, 함께 이야기하기는 가장 어려워요</p>
+        <div class="cols3">
+          <div><h3>꺼내기부터 어려워요</h3><p>집, 아이, 부모님 병원비처럼 큰 이야기일수록 말을 꺼내면 다툼이 되거나, 서로 눈치를 보다 미루게 돼요.</p></div>
+          <div><h3>보는 숫자가 서로 달라요</h3><p>같은 가족이어도 각자 자기 통장과 자기 걱정만 알아요. 같은 숫자를 보지 않으니 대화가 감정으로 흘러가요.</p></div>
+          <div><h3>금융 서비스는 한 사람 기준이에요</h3><p>가계부와 자산관리 앱은 대부분 개인 한 명을 위해 만들어져 있어요. 가족 여럿의 생각을 모아 주는 곳은 찾기 어려워요.</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="sh"><i>2</i>우리가 만든 것</h2>
+        <p class="sec-h">자산가 가족에게만 있던 '패밀리 오피스'를, 모든 가족에게</p>
+        <p class="sec-p">큰 자산을 가진 가족은 가족 전체의 돈 계획을 함께 짜 주는 전문가 조직, 패밀리 오피스를 둬요. 이 서비스는 그 역할을 AI로 옮겨, 신혼부부와 부모님을 모시는 평범한 가족도 같은 도움을 받을 수 있게 했어요.</p>
+        <table class="cmp">
+          <thead><tr><th>지금까지</th><th>이 서비스와 함께</th></tr></thead>
+          <tbody>
+            <tr><td>각자 알아보고 각자 걱정</td><td>각자 이야기하고 함께 확인</td></tr>
+            <tr><td>말하면 다툼, 미루면 불안</td><td>같은 숫자로 선택지 비교</td></tr>
+            <tr><td>상품은 광고를 보고 고름</td><td>합의한 약속에 맞는 상품만 추천</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="how">
+        <h2 class="sh"><i>3</i>이용 방법</h2>
+        <p class="sec-h">네 단계면 가족의 돈 계획이 정해져요</p>
+        <ol class="steps">
+          <li><h3>가족방 만들기</h3><p>한 사람이 가족방을 만들고 카카오톡으로 초대해요. 부모님은 큰 글씨와 음성으로 참여할 수 있어요.</p></li>
+          <li><h3>각자 AI와 이야기하기</h3><p>가족마다 AI 상담사와 따로 대화해요. 바라는 것, 걱정되는 것, 양보할 수 있는 것을 편하게 말하면 돼요.</p></li>
+          <li><h3>함께 보고 비교하기</h3><p>AI가 같은 생각과 다른 생각을 정리하고, 선택지마다 몇 년 뒤 어떻게 되는지 그래프로 보여 드려요.</p></li>
+          <li><h3>모두 동의하고 실천하기</h3><p>가족 모두가 동의하면 합의안이 확정돼요. 약속에 맞는 금융상품을 추천하고, 매달 잘 지키고 있는지 함께 봐요.</p></li>
+        </ol>
+      </section>
+
+      <section id="stories">
+        <h2 class="sh"><i>4</i>가족 이야기</h2>
+        <p class="sec-h">두 가족의 예시로 처음부터 끝까지 체험해 보세요</p>
+        <div class="cases">
+          <div class="case">
+            <span class="tag">사례 1 · 신혼부부 · 결혼 1년 차</span>
+            <h3>"집이 먼저일까, 아이가 먼저일까"</h3>
+            <p>민준 씨는 집값이 더 오르기 전에 빨리 사고 싶고, 서연 씨는 아이가 먼저라고 생각해요. 이야기할 때마다 결론 없이 끝나던 두 사람이 같은 숫자를 놓고 5년 계획을 정해요.</p>
+            <div class="foot"><span class="stack"><span class="av sm" style="background:var(--m0)">민</span><span class="av sm" style="background:var(--m1)">서</span></span><button class="btn primary" data-start="newly">이 이야기로 체험하기 →</button></div>
+          </div>
+          <div class="case">
+            <span class="tag">사례 2 · 부모님과 자녀 · 은퇴 12년 차</span>
+            <h3>"병원비, 생활비, 그리고 집"</h3>
+            <p>어머니가 입원하신 뒤 남매는 더 미룰 수 없다고 느꼈어요. 집은 꼭 지키고 싶은 아버지, 자식에게 짐이 되기 싫은 어머니, 그리고 남매가 함께 노후 계획을 정해요.</p>
+            <div class="foot"><span class="stack"><span class="av sm" style="background:var(--m0)">영</span><span class="av sm" style="background:var(--m1)">순</span><span class="av sm" style="background:var(--m2)">태</span><span class="av sm" style="background:var(--m3)">지</span></span><button class="btn primary" data-start="elder">이 이야기로 체험하기 →</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="sh"><i>5</i>받게 되는 것</h2>
+        <p class="sec-h">대화가 끝나면 손에 남는 것들</p>
+        <dl class="gets">
+          <div><dt>가족 합의안</dt><dd>함께 정한 목표, 고른 방법, 지킬 약속, 다시 모일 날짜를 한 장에 정리해요.</dd></div>
+          <div><dt>선택지별 미래 계산</dt><dd>"이렇게 하면 몇 년 뒤 어떻게 되나요?"를 그래프와 쉬운 문장으로 보여 드려요.</dd></div>
+          <div><dt>약속에 맞는 금융상품</dt><dd>합의안의 약속 하나하나와 이어지는 상품만 골라, 왜 필요한지 함께 설명해요.</dd></div>
+          <div><dt>가족 홈</dt><dd>약속을 잘 지키고 있는지, 다음에 챙길 일은 무엇인지 가족 모두 같은 화면으로 봐요.</dd></div>
+        </dl>
+      </section>
+
+      <section id="faq">
+        <h2 class="sh"><i>6</i>자주 묻는 질문</h2>
+        <div class="faq">
+          <details open><summary>AI가 우리 가족 대신 결정을 내리나요?</summary><p>아니요. AI는 가족의 생각을 정리하고, 필요한 질문을 던지고, 선택지별 결과를 계산해요. 어떤 길을 고를지는 점수나 다수결이 아니라, 가족 누구도 반대하지 않는 방법을 함께 찾아서 정해요. 모두 서명해야 합의안이 확정돼요.</p></details>
+          <details><summary>가족 모두가 가입해야 하나요?</summary><p>한 사람이 가족방을 만들고 초대 링크를 보내면 돼요. 스마트폰이 익숙하지 않은 부모님은 큰 글씨와 음성으로 답하는 간편 모드로 참여할 수 있어요.</p></details>
+          <details><summary>금융 지식이 없어도 쓸 수 있나요?</summary><p>네. 어려운 금융 용어에는 점선 밑줄이 있고, 누르면 그 자리에서 쉬운 설명이 나와요. 그래프에는 항상 "쉽게 말하면" 한 줄 요약을 붙여요.</p></details>
+          <details><summary>다른 가족이 제 대화를 볼 수 있나요?</summary><p>아니요. 각자 AI 상담사와 나눈 대화는 본인만 볼 수 있어요. 가족에게는 본인이 확인한 요약만 공유돼요.</p></details>
+          <details><summary>우리 가족의 금융 정보는 어떻게 보호되나요?</summary><p>금융 정보는 본인이 동의한 경우에만 불러오고, 가족방 안에서만 보여요. 부모님의 정보는 부모님 본인 인증을 거쳐야 연결돼요.</p></details>
+        </div>
+      </section>
+
+      <div class="final">
+        <div><h2>우리 가족의 첫 돈 이야기를 시작해 보세요</h2><p>가족방을 만들고 초대하는 데 1분이면 충분해요.</p></div>
+        <button class="btn primary lg" data-start="newly">서비스 이용하기 →</button>
+      </div>
+    </div>
+  </div>
+  <footer class="site-foot"><span>© 2026 가족금융목표합의서비스(가제) · 공모전 시연용 프로토타입</span><span>화면의 인물, 금융사, 상품, 금액은 모두 가상의 예시예요.</span></footer>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app" hidden>
+  <div class="appgrid">
+    <nav class="rail" id="rail" aria-label="진행 단계"></nav>
+    <main id="main" class="sheet"></main>
+  </div>
+  <div class="appfoot"><span>© 2026 가족금융목표합의서비스(가제) · 시연용 프로토타입</span><span>화면의 인물, 금융사, 상품, 금액은 모두 가상의 예시예요.</span></div>
+  <div class="dock" role="toolbar" aria-label="시연 컨트롤">
+    <span class="tag">시연</span>
+    <div class="sw">
+      <button id="sc-newly" data-sc="newly" aria-pressed="true">신혼부부</button>
+      <button id="sc-elder" data-sc="elder" aria-pressed="false">노인 가족</button>
+    </div>
+    <label class="vw"><span>보는 사람</span><select id="viewer" aria-label="보는 사람"></select></label>
+    <button class="nav" id="prev" aria-label="이전 화면">‹</button>
+    <span class="pos" id="pos"></span>
+    <button class="nav" id="nextBtn" aria-label="다음 화면">›</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const AIMARK='<svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="9.5" cy="13" r="7" fill="none" stroke="var(--brand)" stroke-width="2.6"/><circle cx="16.5" cy="13" r="7" fill="none" stroke="var(--warm)" stroke-width="2.6"/></svg>';
+document.getElementById("aimk").innerHTML=AIMARK;
+const OC=["var(--m0)","var(--green)","var(--m3)"];
+const STEPS=["가족 초대","우리 가족 이야기","각자의 생각","공동 목표 설정","미래 계산","합의안","상품 추천","가족 홈"];
+
+/* 쉬운 용어 풀이 */
+const G={
+ 전세:"집주인에게 큰돈(보증금)을 맡기고 사는 방식이에요. 이사 나갈 때 그 돈을 돌려받아요.",
+ 전세대출:"전세 보증금을 내려고 은행에서 빌린 돈이에요. 매달 이자를 내요.",
+ 순자산:"가진 재산에서 빚을 뺀 금액이에요. 실제로 우리 가족 몫인 돈이에요.",
+ 비상금:"갑자기 일이 생길 때 쓰려고 따로 떼어 두는 돈이에요. 보통 생활비 몇 달 치를 둬요.",
+ 육아휴직:"아이를 돌보려고 회사를 잠시 쉬는 기간이에요. 그동안 월급이 크게 줄어요.",
+ 마이데이터:"여러 은행·카드사에 흩어진 내 금융 정보를 내 동의로 한곳에 모아 보는 방법이에요.",
+ 주택연금:"집을 담보로 맡기고, 그 집에 계속 살면서 매달 생활비를 받는 제도예요.",
+ 수익률:"맡긴 돈이 1년에 몇 % 불어나는지예요. 5%면 100만원이 1년 뒤 105만원이 돼요.",
+ 청약:"새로 짓는 아파트를 분양받으려고 신청하는 것이에요. 청약통장이 있어야 해요.",
+ 신탁:"내 재산을 금융회사에 맡기고, 내가 정한 방식대로 관리하고 나눠 주게 하는 계약이에요.",
+ 모임통장:"여러 사람이 함께 돈을 넣고 쓰면서, 누가 얼마나 넣었는지 같이 볼 수 있는 통장이에요.",
+ 주식형:"주식에 투자하는 상품이에요. 많이 오를 수도 있지만 내려갈 수도 있어요.",
+ 담보대출:"집을 담보로 맡기고 돈을 빌리는 대출이에요.",
+ 상속:"돌아가신 뒤 재산이 가족에게 넘어가는 것이에요."
+};
+/* 용어는 누르면 그 자리에서 풀이가 나온다 */
+const T=(w,k)=>`<button type="button" class="term" data-def="${G[k||w]}">${w}</button>`;
+
+const DATA={
+newly:{
+ room:"우리 둘의 5년 계획", me:1,
+ members:[{nm:"민준",ini:"민",role:"남편",age:32},{nm:"서연",ini:"서",role:"아내",age:30}],
+ reason:"집을 먼저 살지, 아이를 먼저 가질지 이야기할 때마다 결론 없이 끝났어요. 이번엔 숫자를 놓고 같이 정해보고 싶어요.",
+ invites:[{st:"참여 완료",note:"카카오톡 초대로 참여 · 9월 24일"},{st:"방장",note:"가족방을 만들었어요"}],
+ link:"family-goal.kr/r/7Q2K-MNSY",
+ story:"결혼 1년 차 부부예요. 성남 전세에 살고 있고 전세 만기가 내년 4월이에요. 둘 다 회사에 다니고 있고, 2년 안에 아이를 갖고 싶어요. 5년 안에는 작은 아파트라도 우리 집을 사고 싶은데, 남편은 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요. 양가에 드리는 용돈도 기준이 없어서 가끔 서운할 때가 있어요.",
+ understood:[["가족 단계","결혼 1년 차 · 2년 안에 아이 계획"],["사는 곳",()=>T("전세")+" · 2027년 4월 계약 끝"],["함께 이루고 싶은 것","5년 안에 우리 집 사기"],["생각이 다른 부분","집 사는 시기 · 아이 시기 · 양가 용돈"]],
+ consent:null,
+ accounts:[
+  {i:"가",c:"#0F5A4A",nm:"가온은행 예금",o:"서연",a:2800},
+  {i:"나",c:"#4F6E9C",nm:"나래증권 주식",o:"민준",a:1200},
+  {i:"가",c:"#0F5A4A",nm:()=>"가온은행 "+T("전세대출"),o:"함께 갚는 빚 · 이자 연 4.1%",a:-15000},
+  {i:"다",c:"#8A6A3A",nm:"다솜카드 한 달 평균 지출",o:"최근 3개월 평균",a:-350}],
+ acctSum:[["둘이 버는 돈 (한 달)","700만원"],["한 달에 모을 수 있는 돈","약 350만원"],[()=>T("순자산"),"1억 4,000만원"]],
+ interviews:[
+  {date:"9월 24일 오후 9:12",qa:[["5년 뒤, 두 분의 모습을 어떻게 그리고 계세요?","우리 집에서 아이랑 사는 거요. 전세 계약 연장할 때마다 불안하거든요."],["돈과 관련해서 가장 걱정되는 건 뭔가요?","집값이 계속 오르면 영영 못 살까 봐요."],["양보할 수 있는 것과 없는 것을 하나씩 말해 주세요.","투자 비중은 줄일 수 있어요. 대신 집 사는 시기를 너무 늦추고 싶진 않아요."]],
+   keep:"5년 안에 집 사기",flex:"주식 투자 비중",worry:"집값이 올라서 집을 못 사게 되는 것"},
+  {date:"9월 24일 오후 10:05",qa:[["5년 뒤, 두 분의 모습을 어떻게 그리고 계세요?","아이가 있고, 제가 육아휴직을 마음 편히 쓸 수 있으면 좋겠어요."],["돈과 관련해서 가장 걱정되는 건 뭔가요?","휴직하면 제 월급이 절반 이하로 줄어요. 그때 대출 이자까지 내면 빠듯할 것 같아요."],["양보할 수 있는 것과 없는 것을 하나씩 말해 주세요.","집은 1~2년 늦어져도 괜찮아요. 그런데 양가 용돈은 똑같이 했으면 해요."]],
+   keep:"2년 안에 아이 · 양가 용돈 똑같이",flex:"집 사는 시기 1~2년",worry:"육아휴직 동안 줄어드는 월급"}],
+ report:{
+  headline:"두 분은 가고 싶은 곳이 같아요. 가는 순서가 다를 뿐이에요.",
+  agree:["5년 안에 우리 집을 마련하자는 목표는 두 분 모두 같아요.","갑자기 필요한 돈(비상금)은 늘 6개월 생활비만큼 두자는 데 이견이 없어요.","민준님은 투자 비중을, 서연님은 집 사는 시기를 양보할 수 있다고 했어요."],
+  issues:[
+   {t:"집은 언제 살까",l:"최대한 빨리",r:"여건이 갖춰지면",p:[.18,.72],m:"두 분 모두 '5년 안'은 같아요. 차이는 1~2년뿐이라, 날짜 대신 조건으로 정하면 좁힐 수 있어요."},
+   {t:"아이는 언제",l:"집 산 다음에",r:"2년 안에",p:[.3,.9],m:"서연님에게 더 중요한 문제예요. 아이 시기에 따라 집 사는 시기가 얼마나 달라지는지 계산해서 보여 드릴게요."},
+   {t:"양가 용돈",l:"그때그때",r:"같은 금액으로 고정",p:[.38,.92],m:"민준님도 반대하지 않았어요. 금액을 똑같이 정하고, 경조사비는 따로 두면 서운함이 줄어요."}],
+  ask:"집 사는 시기를 '2029년'처럼 날짜로 정하지 말고, '집 살 때 필요한 우리 돈 3억과 육아휴직 동안 쓸 돈이 모이면'처럼 조건으로 정해 보면 어떨까요?",
+  askTo:[0,1],
+  replies:[[0,"조건이 빨리 채워지면 그만큼 빨리 사는 거니까, 괜찮은 것 같아요."],[1,"그러면 아이 계획을 미루지 않아도 되겠네요. 좋아요."]],
+  basis:"집 사는 시기 = 우리 돈 3억과 육아휴직 준비금 1,800만원이 모두 모였을 때",
+  agreeCm:["좋아요, 이 기준으로 해요","동의해요"],
+  after:"이 기준으로 세 가지 방법을 계산해 볼게요."},
+ sim:{mode:"goal",months:96,start:14000,goal:30000,goalLabel:"집 살 때 필요한 우리 돈 3억",
+  note:"지금 가진 우리 돈 1억 4,000만원(예금 4,000만원 + 전세 보증금 중 대출이 아닌 우리 돈 1억원)에서 출발해요.",
+  read:"선이 위로 올라갈수록 모인 돈이 많아요. 초록 점선에 닿는 때가 집 살 조건이 채워지는 때예요."},
+ options:[
+  {nm:"A. 집 먼저",d:"아이 계획을 1년 미루고 최대한 많이 모아요. 여윳돈의 30%는 주식처럼 오르내림이 있는 곳에 넣어요.",save:260,r:5.0,ev:[{f:36,t:47,v:-150,lab:"육아휴직"}],k2:["아이 계획","3년 차 (1년 미룸)"],k3:["한 달에 쓸 수 있는 여유","50만원"],
+   imp:["집 살 조건이 가장 빨리 채워져요.","아이 계획을 1년 미뤄야 해요. 꼭 지키고 싶다고 한 것과 부딪혀요."]},
+  {nm:"B. 둘 다 챙기기",d:"계획대로 2년 차에 아이를 가져요. 육아휴직 동안 쓸 돈 1,800만원을 먼저 따로 모아요.",save:235,r:3.8,ev:[{f:20,t:31,v:-150,lab:"육아휴직"}],k2:["아이 계획","2년 차 (계획대로)"],k3:["한 달에 쓸 수 있는 여유","75만원"],
+   imp:["A보다 조금 늦지만 5년 안에 집 살 조건이 채워져요.","아이 계획도, 휴직 동안 쓸 돈도 지킬 수 있어요."]},
+  {nm:"C. 지금을 여유 있게",d:"모으는 돈을 줄이고, 더 많이 불어날 수 있는 곳(대신 손해 볼 수도 있는 곳)에 넣어요.",save:130,r:6.5,ev:[{f:20,t:31,v:-150,lab:"육아휴직"}],k2:["아이 계획","2년 차 (계획대로)"],k3:["한 달에 쓸 수 있는 여유","180만원"],
+   imp:["5년 안에 집을 사기 어려워요. 투자 결과에 따라 더 늦어질 수도 있어요.","생활은 여유롭지만, 휴직할 때 투자에서 손해가 나면 부담이 커요."]}],
+ votes:[[0,1],[1,2]],
+ final:{base:1,save:235,r:4.2,why:"두 분 모두 B를 1순위나 2순위로 골랐어요. 민준님 의견을 반영해 여윳돈 중 주식 비중을 20%까지 넣기로 조정했어요."},
+ goal:"5년 안에 집 살 때 필요한 우리 돈 3억을 모아 우리 집을 마련하고, 그 사이 첫아이와 육아휴직을 무리 없이 지나간다.",
+ rules:["집은 날짜가 아니라 '우리 돈 3억과 비상금 6개월분이 모였을 때' 사기 시작해요.","육아휴직 동안 쓸 돈 1,800만원은 아이가 태어나기 전까지 따로 모으고, 투자하지 않아요.","그 밖의 여윳돈은 주식에 20%까지만 넣어요.","양가 용돈은 각각 월 20만원으로 똑같이 하고, 경조사비는 비상금에서 써요."],
+ review:"6개월마다, 그리고 출산·이직·전세 계약 만료처럼 큰 일이 있을 때 다시 모여요.",
+ nextReview:"2027년 3월",
+ products:[
+  {g:"우리 집 마련",need:"새 아파트 신청 자격 지키기",i:"가",c:"#0F5A4A",inst:"가온은행",nm:"가온 신혼 주택청약 저축",what:()=>T("청약")+"에 필요한 통장이에요.",fig:"월 25만원",figs:"씩 넣기",why:"약속 1 '조건이 되면 집 사기'를 위해 청약 자격을 미리 챙겨요"},
+  {g:"우리 집 마련",need:"집 살 때 빌릴 수 있는 돈 확인",i:"라",c:"#6A4F8A",inst:"라움은행",nm:"라움 신혼 첫집 대출",what:()=>"집을 살 때 받는 "+T("담보대출")+"이에요.",fig:"연 3.6%",figs:"이자부터",why:"우리 돈 3억이 모일 때쯤 얼마나 빌릴 수 있는지 미리 알아둘 수 있어요"},
+  {g:"육아휴직 준비",need:"휴직 동안 쓸 돈 안전하게 모으기",i:"가",c:"#0F5A4A",inst:"가온은행",nm:"가온 우리아이 준비 적금",what:()=>"매달 정해진 돈을 넣는 적금이에요. 원금은 줄지 않아요.",fig:"연 3.8%",figs:"12개월",why:"약속 2 '휴직 준비금은 투자하지 않고 따로'에 딱 맞아요"},
+  {g:"육아휴직 준비",need:"아이가 아플 때 대비",i:"다",c:"#8A6A3A",inst:"다솜생명",nm:"다솜 첫아이 태아보험",what:()=>"태어나기 전 가입해서 아이가 아프거나 다칠 때 보장받는 보험이에요.",fig:"월 4만원",figs:"대",why:"아이가 태어나기 전에 가입해야 보장받을 수 있는 범위가 넓어요"},
+  {g:"함께 관리",need:"용돈과 공동 지출 투명하게",i:"나",c:"#4F6E9C",inst:"나래뱅크",nm:"나래 부부 모임통장",what:()=>T("모임통장")+"이에요.",fig:"수수료 0원",figs:"",why:"약속 4 '양가 용돈 똑같이'를 자동이체로 기록해 서로 확인하기 쉬워요"}],
+ home:{title:"집 살 때 필요한 우리 돈",cur:14855,goal:30000,sub:"합의 후 3개월 · 이대로면 4.8년 뒤에 모여요",
+  todo:[[1,"함께 모으는 돈 이체","175만원"],[1,"육아휴직 준비 적금","60만원"],[1,"양가 용돈 (각 20만원)","40만원"],[0,"비상금 6개월분 확인","2,100만원"]],
+  tl:[["10.15","함께 모으는 돈 자동이체"],["2027.03","6개월 정기 점검"],["2027.04","전세 계약 끝 — 연장할지 이사할지 결정"],["2027 하반기","첫아이 계획"]],
+  alert:["전세 계약이 끝나기까지 7개월 남았어요","3월 점검 때 연장과 이사를 같이 비교해 드릴게요. 보증금이 오르면 비상금이 아니라 함께 모으는 돈에서 먼저 계산해요."]}
+},
+elder:{
+ room:"엄마 아빠 노후 계획", me:3,
+ members:[{nm:"김영호",ini:"영",role:"아버지",age:72,easy:1},{nm:"박순자",ini:"순",role:"어머니",age:69,easy:1},{nm:"김태윤",ini:"태",role:"장남",age:45},{nm:"김지은",ini:"지",role:"장녀",age:41}],
+ reason:"지난달 엄마가 입원하고 나서 병원비랑 생활비 이야기를 더는 미룰 수 없게 됐어요. 오빠랑 저, 부모님이 한 번은 같은 숫자를 보고 이야기했으면 해요.",
+ invites:[{st:"간편 모드",note:"큰 글씨·음성으로 참여 · 지은님이 함께 설치"},{st:"간편 모드",note:"큰 글씨·음성으로 참여"},{st:"참여 완료",note:"카카오톡 초대로 참여 · 9월 22일"},{st:"방장",note:"가족방을 만들었어요"}],
+ link:"family-goal.kr/r/K3P9-JIEUN",
+ story:"부모님 두 분은 대전 서구 아파트에 사세요. 대출은 없고 예금이 조금 있어요. 아버지 연금이랑 어머니 연금으로는 생활비가 모자라서 오빠랑 제가 매달 조금씩 보태고 있어요. 지난달 어머니가 입원하시면서 병원비가 생각보다 많이 나왔고, 앞으로 간병이 필요해지면 어떻게 할지가 제일 걱정이에요. 아버지는 집은 꼭 지키고 싶어 하세요.",
+ understood:[["가족 단계","은퇴 12년 차 · 돌봄이 필요해지기 전"],["사는 곳","부모님 소유 아파트 · 빚 없음"],["함께 이루고 싶은 것","지금처럼 생활하기 · 병원비와 간병 대비"],["생각이 다른 부분","집을 어떻게 할지 · 자녀 지원 · 간병 나누기"]],
+ consent:["김영호님 본인 인증 완료 · 9월 23일","박순자님 본인 인증 완료 · 9월 23일"],
+ accounts:[
+  {i:"가",c:"#0F5A4A",nm:"가온은행 정기예금",o:"김영호",a:12000},
+  {i:"연",c:"#6B7A74",nm:"매달 받는 연금",o:"김영호 · 한 달",a:110},
+  {i:"연",c:"#6B7A74",nm:"매달 받는 연금",o:"박순자 · 한 달",a:30},
+  {i:"집",c:"#8A6A3A",nm:"사시는 아파트 (시세 추정)",o:"김영호 · 두 분 거주",a:55000},
+  {i:"다",c:"#8A6A3A",nm:"다솜카드 한 달 평균 지출",o:"최근 3개월 평균",a:-260}],
+ acctSum:[["부모님 연금 합계 (한 달)","140만원"],["자녀가 보태는 돈 (한 달)","80만원"],["매달 예금에서 꺼내 쓰는 돈","약 40만원"]],
+ interviews:[
+  {date:"9월 23일 오후 2:40 · 음성",qa:[["앞으로 가장 지키고 싶은 게 뭔가요?","이 집이지. 애들한테 물려줄 거라곤 이거 하나야."],["요즘 제일 걱정되시는 건요?","돈 걱정은 별로 없어. 아프면 그게 문제지."],["바꿔도 괜찮은 건 뭐가 있을까요?","집 말고는 다 괜찮다."]],
+   keep:"이 집",flex:"집 말고 다른 것",worry:"건강이 나빠지는 것",
+   clarify:{intro:"아버님, 마지막으로 하나만 더 여쭤볼게요. 처음에 '집을 지킨다'고 하셨는데, 이 집에 계속 사시는 것과 자녀분들께 물려주시는 것 중 어느 쪽에 더 가까우세요?",
+    confused:"그게 그거 아니야? 무슨 말인지 잘 모르겠는데.",
+    rephrase:"제가 어렵게 여쭤봤네요. 아래에서 마음에 가장 가까운 것을 하나만 눌러 주세요. 말로 하셔도 괜찮아요.",
+    choices:["내가 살아 있는 동안 이 집에서 살고 싶다","자식에게 이 집을 꼭 물려주고 싶다","지금은 잘 모르겠다 (나중에 답하기)"],
+    answer:"내가 살아 있는 동안 여기서 사는 게 제일이지. 물려주는 건… 애들이 괜찮다면야.",
+    confirm:"알겠습니다. '살아 계신 동안 이 집에 사시는 것'이 가장 중요하다고 정리할게요. 맞으신가요?",
+    yes:"그래, 맞아.",
+    later:"괜찮아요, 아버님. 편하실 때 다시 여쭤볼게요. 원하시면 지은님께 함께 봐 달라고 알려 드릴게요.",
+    keepAfter:"살아 계신 동안 이 집에 살기"}},
+  {date:"9월 23일 오후 3:05 · 음성",qa:[["앞으로 가장 지키고 싶은 게 뭔가요?","애들한테 짐 안 되는 거요."],["요즘 제일 걱정되시는 건요?","병원비요. 이번에 입원해 보니 생각보다 많이 나오더라고요."],["바꿔도 괜찮은 건 뭐가 있을까요?","집이야 작은 데로 가도 되고요. 애들 아빠가 싫어해서 그렇지."]],
+   keep:"자식에게 부담 주지 않기",flex:"집 크기",worry:"병원비"},
+  {date:"9월 22일 오후 11:18",qa:[["부모님 노후에서 가장 중요하게 생각하는 건요?","두 분이 돈 걱정 없이 지내시는 거요."],["지금 가장 부담되는 부분은요?","저도 아이 둘 학원비가 커서 지금보다 더 보태긴 어렵습니다."],["양보할 수 있는 것과 없는 것을 말해 주세요.","집을 꼭 물려받아야 한다고는 생각 안 해요. 주택연금 같은 걸 쓰시는 게 낫다고 봐요."]],
+   keep:"부모님 생활 안정",flex:"집 물려받기",worry:"보태는 돈이 늘어나는 것"},
+  {date:"9월 22일 오후 9:30",qa:[["부모님 노후에서 가장 중요하게 생각하는 건요?","두 분 다 편하시고, 나중에 형제끼리 서운한 일 없는 거요."],["지금 가장 부담되는 부분은요?","간병이 필요해지면 가까이 사는 제가 다 맡게 될까 봐 걱정돼요."],["양보할 수 있는 것과 없는 것을 말해 주세요.","돈은 오빠가 더 내도 되고, 시간은 제가 더 낼 수 있어요. 대신 그걸 서로 인정했으면 해요."]],
+   keep:"형제끼리 공평하게 나누기",flex:"보태는 돈의 비율",worry:"간병이 한 사람에게 몰리는 것"}],
+ report:{
+  headline:"네 분 모두 부모님의 편안한 노후를 원해요. 갈리는 건 '집'에 대한 생각이에요.",
+  agree:["지금처럼 생활하시는 게 가장 중요하다는 데 모두 같은 생각이에요.","병원비와 간병비가 가장 큰 걱정이라는 점이 네 분 답에 모두 나왔어요.","자녀 두 분 모두 도울 마음은 있지만, 지금보다 크게 늘리기는 어렵다고 했어요."],
+  issues:[
+   {t:"집을 어떻게 할까",l:"그대로 물려준다",r:"생활비로 쓴다",p:[.06,.58,.9,.66],m:"아버님과 장남의 생각이 가장 멀어 보여요. 다만 아버님이 '집을 지킨다'고 하신 뜻을 아직 확인하지 못해서, AI가 짐작해서 판단하지 않았어요.",
+    pDone:[.34,.58,.9,.66],mDone:"아버님은 '살아 계신 동안 이 집에 사시는 것'이 가장 중요하다고 확인해 주셨어요. 물려주는 건 자녀들 뜻에 맡기셔서, 보기보다 생각이 가까워요."},
+   {t:"자녀가 보태는 돈",l:"그때그때",r:"규칙을 정해서",p:[.28,.44,.74,.9],m:"금액보다 '어떻게 나눌지'에 대한 생각이 많아요. 버는 만큼 나누는 방법과 똑같이 나누는 방법을 함께 올릴게요."},
+   {t:"간병",l:"가족이 직접",r:"외부 도움",p:[.22,.86,.7,.4],m:"어머님은 자식 부담을 원하지 않으시고, 지은님은 시간은 낼 수 있다고 했어요. 시간과 돈을 모두 '기여'로 인정하는 규칙을 제안해요."}],
+  clarified:{who:0,word:"집을 지킨다",meaning:"살아 계신 동안 이 집에 사시는 것"},
+  ask:"아버님이 끝까지 이 집에 사시는 것을 가장 먼저 지키기로 하고, 그 안에서 생활비와 병원비를 마련할 방법을 함께 찾아보면 어떨까요? 집을 그대로 두는 방법, 집에 살면서 생활비를 받는 방법, 비교를 위해 작은 집으로 옮기는 방법까지 같은 숫자로 보여 드릴게요.",
+  askTo:[0,1,2,3],
+  replies:[[0,"내가 이 집에 살 수만 있으면 됐다. 비교해 보는 건 괜찮아."],[1,"좋아요. 병원비 걱정이 좀 덜어졌으면 해요."],[2,"좋습니다. 숫자로 보시면 아버지도 편하실 것 같아요."],[3,"좋아요. 간병이 필요할 때 누가 뭘 맡을지도 같이 봤으면 해요."]],
+  basis:"아버님이 끝까지 지금 집에 사시는 것을 가장 먼저 지킨다. 이 약속 안에서 생활비와 병원비를 마련할 방법을 비교하고, 작은 집으로 옮기는 경우는 비교용으로만 함께 계산한다.",
+  agreeCm:["그렇게 하자","좋아요","동의합니다","좋아요, 이 기준으로 봐요"],
+  after:"이 기준으로 세 가지 방법을 계산해 볼게요."},
+ sim:{mode:"runway",months:300,start:12000,goal:0,goalLabel:"예금을 다 쓰는 선",baseAge:72,
+  note:"부모님 예금 1억 2,000만원에서 출발해, 매달 모자라는 생활비를 예금에서 꺼내 써요. 8년 뒤부터는 병원비·간병비가 한 달에 80만원 늘어난다고 가정했어요.",
+  read:"선이 빨간 점선 아래로 내려가면 예금을 다 쓴 거예요. 선이 오른쪽 끝까지 점선 위에 있을수록 좋아요."},
+ options:[
+  {nm:"A. 지금처럼",d:"집은 그대로 두고, 자녀가 보태는 돈 월 80만원과 예금으로 생활해요.",save:-40,r:2.5,ev:[{f:96,t:300,v:-80,lab:"병원비·간병비 증가"}],k2:["자녀가 보태는 돈","한 달 80만원"],k3:["집","그대로 물려줄 수 있어요"],
+   imp:["집을 그대로 지킬 수 있어요.","예금이 계속 줄어서 병원비 걱정은 그대로예요.","한 달 50만원을 계속 보태야 해요.","간병이 시작되면 예금이 빨리 줄고, 부담이 커져요."]},
+  {nm:"B. 살면서 연금 받기",d:"지금 집에 계속 사시면서 주택연금(집에 살면서 매달 생활비를 받는 제도)으로 생활비를 받아요. 자녀가 보태는 돈은 월 40만원으로 줄여요.",save:30,r:2.5,ev:[{f:96,t:300,v:-80,lab:"병원비·간병비 증가"}],k2:["자녀가 보태는 돈","한 달 40만원"],k3:["집","끝까지 사시고, 물려줄 몫은 줄어요"],
+   imp:["끝까지 이 집에 사실 수 있어요. 대신 물려줄 몫은 줄어요.","병원비로 쓸 돈이 따로 생겨 걱정이 줄어요.","보태는 돈이 한 달 22만원으로 줄어요.","한 달 18만원을 보태고, 간병하는 시간도 기여로 인정받아요."]},
+  {nm:"C. 작은 집으로",d:"3억원대 아파트로 옮기고 남는 돈을 생활비로 써요. 자녀가 보태는 돈은 월 50만원이에요.",save:-60,r:2.5,ev:[{f:96,t:300,v:-80,lab:"병원비·간병비 증가"}],lump:[{m:6,v:23000}],k2:["자녀가 보태는 돈","한 달 50만원"],k3:["집","작은 집을 물려줄 수 있어요"],
+   imp:["살던 집을 떠나셔야 해서 가장 받아들이기 어려운 방법이에요.","생활비와 병원비 여유가 가장 커요.","보태는 돈이 한 달 30만원으로 줄어요.","이사 준비를 가까이 사는 지은님이 맡게 될 가능성이 커요."]}],
+ votes:[[0,1],[1,2],[1,2],[1,0]],
+ final:{base:1,save:30,r:2.5,why:"네 분 중 세 분이 B를 1순위로, 아버님은 2순위로 고르셨어요. 집을 누구에게 어떻게 물려줄지는 이번에 정하지 않고, 전문가와 상담한 뒤 다시 모이기로 했어요."},
+ goal:"부모님이 지금 집에서 지금처럼 생활하시고, 병원비와 간병비를 미리 준비하며, 자녀가 보태는 돈과 돌보는 시간을 공평하게 나눈다.",
+ rules:["주택연금을 신청하고, 부모님은 지금 집에 계속 사세요.","자녀가 보태는 돈은 월 40만원으로 하고, 버는 만큼 나눠요 (태윤 22만원 · 지은 18만원).","예금 중 3,000만원은 병원비·간병비로 따로 두고 생활비로 쓰지 않아요.","간병이 필요해지면 시간을 내는 사람은 돈을 덜 내도록 다시 조정해요.","집을 어떻게 물려줄지는 전문가 상담 후 가족이 다시 모여 정해요."],
+ review:"1년마다, 그리고 입원이나 요양 등급을 받는 등 변화가 생기면 바로 다시 모여요.",
+ nextReview:"2027년 9월",
+ products:[
+  {g:"생활비 마련",need:"집에 살면서 매달 생활비 받기",i:"공",c:"#6B7A74",inst:"공적 보증기관",nm:"주택연금 (평생 받는 방식)",what:()=>T("주택연금")+"이에요.",fig:"월 110만원",figs:"예상",why:"약속 1 '지금 집에 계속 사시면서'를 지킬 수 있는 방법이에요"},
+  {g:"병원비·간병 준비",need:"병원비를 따로 두고 바로 꺼내 쓰기",i:"가",c:"#0F5A4A",inst:"가온은행",nm:"가온 부모님 안심 통장",what:()=>"언제든 넣고 뺄 수 있는 통장이에요. 병원비 전용으로 써요.",fig:"연 2.9%",figs:"이자",why:"약속 3 '병원비 3,000만원은 따로'에 맞춘 통장이에요"},
+  {g:"병원비·간병 준비",need:"간병 비용 보장",i:"다",c:"#8A6A3A",inst:"다솜생명",nm:"다솜 시니어 간병 보험",what:()=>"간병이 필요해졌을 때 비용을 보장해 주는 보험이에요.",fig:"월 9만원",figs:"대",why:"간병이 필요해질 때 지은님 한 사람에게 부담이 몰리지 않게 해요"},
+  {g:"함께 관리",need:"자녀가 보태는 돈 약속대로",i:"나",c:"#4F6E9C",inst:"나래뱅크",nm:"나래 가족 모임통장",what:()=>T("모임통장")+"이에요.",fig:"수수료 0원",figs:"",why:"약속 2 '버는 만큼 나누기'를 자동이체로 기록해 남매가 서로 확인하기 쉬워요"},
+  {g:"물려주기 준비",need:"나중에 재산 나누는 방법 정해두기",i:"라",c:"#6A4F8A",inst:"라움은행",nm:"라움 가족 신탁 상담",what:()=>T("신탁")+"으로 "+T("상속")+" 방법을 미리 정해 둘 수 있어요.",fig:"상담 후",figs:"결정",why:"약속 5 '전문가 상담 후 결정'의 첫 상담 창구로 연결해요"}],
+ home:{title:"예금으로 버틸 수 있는 기간",cur:25,goal:25,runway:1,sub:"합의 후 3개월 · 25년 넘게 버틸 수 있어요 (아버님 97세 이후까지)",
+  todo:[[1,"주택연금 받음","110만원"],[1,"김태윤 보태는 돈","22만원"],[1,"김지은 보태는 돈","18만원"],[0,"병원비 통장 잔액 확인","2,840만원"]],
+  tl:[["10.02","어머님 정기 검진 — 병원비 통장에서 지출"],["11월","물려주기 관련 전문가 상담"],["2027.09","1년 정기 점검"]],
+  alert:["이번 달 병원비 통장에서 160만원이 나갔어요","어머님 외래 진료비예요. 통장에는 2,840만원이 남았고, 약속대로 생활비 통장은 건드리지 않았어요."]}
+}};
+
+/* ---------- state ---------- */
+let view="landing", sc="newly", step=0;
+const ST={};
+function fresh(k){return {persona:DATA[k].me,connected:false,connecting:false,reportReady:false,replyN:0,replying:false,agreed:{},asking:false,pick:DATA[k].final.base,opts:JSON.parse(JSON.stringify(DATA[k].options)),tallyShown:false,signed:{},filter:"전체",extra:{},viewer:DATA[k].me,cl:0}}
+ST.newly=fresh("newly"); ST.elder=fresh("elder");
+const D=()=>DATA[sc], S=()=>ST[sc];
+const $=s=>document.querySelector(s);
+const V=x=>typeof x==="function"?x():x;
+const MC=["var(--m0)","var(--m1)","var(--m2)","var(--m3)"];
+const av=(i,cls="")=>`<span class="av ${cls}" style="background:${MC[i%4]}">${D().members[i].ini}</span>`;
+const won=v=>{const a=Math.abs(Math.round(v)),s=v<0?"-":"";if(a>=10000){const e=Math.floor(a/10000),r=a%10000;return s+e+"억"+(r?" "+r.toLocaleString("ko-KR")+"만":"")+"원"}return s+a.toLocaleString("ko-KR")+"만원"};
+const eokS=v=>{const a=Math.abs(v),s=v<0?"-":"";return a>=10000?s+(Math.round(a/1000)/10)+"억":s+Math.round(a).toLocaleString("ko-KR")+"만"};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("show"),1900)}
+
+/* ---------- view switching ---------- */
+function showLanding(){view="landing";$("#landing").hidden=false;$("#app").hidden=true;$("#gnb").hidden=false;$("#hLanding").hidden=false;$("#hApp").hidden=true;document.body.classList.remove("app");window.scrollTo({top:0})}
+function startApp(k){sc=k;step=0;view="app";$("#landing").hidden=true;$("#app").hidden=false;$("#gnb").hidden=true;$("#hLanding").hidden=true;$("#hApp").hidden=false;document.body.classList.add("app");
+ document.querySelectorAll("[data-sc]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.sc===k));render();window.scrollTo({top:0})}
+document.querySelectorAll("[data-start]").forEach(b=>b.onclick=()=>startApp(b.dataset.start));
+document.querySelectorAll("[data-scroll]").forEach(b=>b.onclick=()=>{if(view!=="landing")showLanding();const t=document.getElementById(b.dataset.scroll);if(t){const y=t.getBoundingClientRect().top+window.scrollY-64;window.scrollTo({top:y,behavior:"smooth"})}});
+$("#logo").onclick=showLanding; $("#exit").onclick=showLanding;
+
+/* ---------- app chrome ---------- */
+function chrome(){
+ $("#roomName").textContent=D().room;
+ $("#stack").innerHTML=D().members.map((m,i)=>av(i,"sm")).join("");
+ $("#rail").innerHTML=`<h3>목차</h3>`+STEPS.map((s,i)=>`<button data-i="${i}" class="${i<step?'done':''}" ${i===step?'aria-current="step"':''}><span>${s}</span><span class="dots"></span><span class="num">${i+1}</span></button>`).join("");
+ $("#rail").querySelectorAll("button").forEach(b=>b.onclick=()=>go(+b.dataset.i));
+ $("#pos").textContent=(step+1)+" / "+STEPS.length;
+ $("#viewer").innerHTML=D().members.map((m,i)=>`<option value="${i}" ${i===S().viewer?"selected":""}>${m.nm}</option>`).join("");
+ $("#prev").disabled=step===0; $("#nextBtn").disabled=step===STEPS.length-1;
+}
+function next(label,dis,hint){return `<div class="next"><span class="pno">— ${step+1} —</span>${dis&&hint?`<span class="hint">${hint}</span>`:""}<button class="btn primary" data-next ${dis?"disabled":""}>${label} <span aria-hidden="true">→</span></button></div>`}
+
+/* ---------- 0 invite ---------- */
+function s0(){
+ const d=D(),host=d.members[d.me];
+ return `
+ <div class="head"><div class="eyebrow">가족 초대</div><h1 class="h1">${d.room}</h1><p class="lead">${host.nm}님이 가족방을 만들고 가족을 초대했어요. 모두 모였으니 이제 각자의 생각을 들어볼 차례예요.</p></div>
+ <div class="cols">
+  <div class="stackv">
+   <div class="card"><div class="ct">가족방을 만든 이유</div><p class="quote">${d.reason}</p><p class="qby">${host.nm} · ${host.role}</p></div>
+   <div class="card">
+    <div class="ct">참여한 가족 <span class="cs">${d.members.length}명 모두 참여</span></div>
+    <div class="plist" style="margin-top:8px">${d.members.map((m,i)=>`
+     <div class="prow">${av(i)}<div class="who"><div class="nm">${m.nm} <span class="rl">· ${m.role}</span></div><div class="rl">${d.invites[i].note}</div></div>
+     <span class="pill ${d.invites[i].st==="방장"?"brand":d.invites[i].st==="간편 모드"?"warm":"good"}">${d.invites[i].st}</span></div>`).join("")}</div>
+    <div class="linkbox"><code>${d.link}</code><button class="btn sm" id="copy">초대 링크 복사</button></div>
+   </div>
+  </div>
+  <div class="card flat">
+   <div class="ct">앞으로 이렇게 진행돼요</div>
+   <ol class="how">
+    <li><div><b>우리 가족 이야기</b><span>지금 상황을 편하게 말하면, 금융 정보와 함께 정리해요</span></div></li>
+    <li><div><b>각자의 생각</b><span>가족마다 AI 상담사와 따로 대화해요. 대화는 본인만 보고, 요약만 공유돼요</span></div></li>
+    <li><div><b>공동 목표 설정과 미래 계산</b><span>같은 생각, 다른 생각, 방법별 결과를 같은 숫자로 봐요</span></div></li>
+    <li><div><b>합의안</b><span>모두 동의하면 확정되고, 맞는 금융상품을 추천해요</span></div></li>
+   </ol>
+  </div>
+ </div>
+ ${next("우리 가족 이야기 시작하기")}`;
+}
+function b0(){ $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText("https://"+D().link)}catch(e){} toast("초대 링크를 복사했어요")}; }
+
+/* ---------- 1 story ---------- */
+function s1(){
+ const d=D(),s=S();
+ const acc=s.connected?`
+   ${d.consent?`<div class="consent">${d.consent.map(c=>`<div><span class="chk">✓</span>${c}</div>`).join("")}</div>`:""}
+   <div>${d.accounts.map(a=>`<div class="arow"><span class="inst" style="background:${a.c}">${a.i}</span><div><div class="an">${V(a.nm)}</div><div class="ao">${a.o}</div></div><div class="amt ${a.a<0?'neg':''}">${won(a.a)}</div></div>`).join("")}</div>
+   <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">${d.acctSum.map(r=>`<div class="urow"><span>${V(r[0])}</span><b>${r[1]}</b></div>`).join("")}</div>`
+  : s.connecting?`<div class="loading"><span class="spin"></span>금융회사에서 정보를 가져오고 있어요</div>`
+  : `<p class="cs" style="margin-bottom:14px;line-height:1.7">${d.consent?"부모님이 한 번만 본인 인증을 하시면 가족방에서 함께 볼 수 있어요.":"은행·카드·증권 정보를 한 번에 가져와요. 가족방 밖으로는 공유되지 않아요."}</p><button class="btn primary" id="connect">금융 정보 가져오기</button>`;
+ return `
+ <div class="head"><div class="eyebrow">우리 가족 이야기</div><h1 class="h1">지금 가족의 상황을 편하게 들려주세요</h1><p class="lead">숫자를 몰라도 괜찮아요. 이야기는 AI가 정리하고, 정확한 금액은 ${T("마이데이터")}로 가져와 채워요.</p></div>
+ <div class="cols">
+  <div class="stackv">
+   <div class="card"><label class="ct" for="story" style="display:block;margin-bottom:10px">${d.members[d.me].nm}님이 쓴 우리 가족 이야기</label><textarea id="story" rows="7">${d.story}</textarea></div>
+   <div class="card"><div class="ct" style="margin-bottom:6px">AI가 이해한 내용</div><div>${d.understood.map(r=>`<div class="urow"><span>${r[0]}</span><b>${V(r[1])}</b></div>`).join("")}</div></div>
+  </div>
+  <div class="card"><div class="ct">가져온 금융 정보</div><div class="cs" style="margin-bottom:12px">시연용 가상 금융회사예요</div>${acc}</div>
+ </div>
+ ${next("각자의 생각 듣기")}`;
+}
+function b1(){ const c=$("#connect"); if(c) c.onclick=()=>{S().connecting=true;render();setTimeout(()=>{S().connecting=false;S().connected=true;if(view==="app"&&step===1)render()},1100)}; }
+
+/* ---------- 2 interviews ---------- */
+function keepOf(i){const iv=D().interviews[i];if(iv.clarify) return S().cl==="done"?iv.clarify.keepAfter:iv.keep;return iv.keep}
+function clarifyChat(iv,p){
+ const c=iv.clarify,s=S(); if(!c) return "";
+ const ai=t=>`<div class="msg ai"><span class="aimark">${AIMARK}</span><div><div class="who-l">AI 상담사</div><div class="bub">${t}</div></div></div>`;
+ const me=t=>`<div class="msg me">${av(p,"sm")}<div><div class="who-l">${D().members[p].nm}</div><div class="bub">${t}</div><div class="voice">음성으로 답한 내용을 받아 적었어요</div></div></div>`;
+ let h=ai(c.intro)+me(c.confused)+ai(c.rephrase);
+ const picked=s.cl==="done"?0:s.cl==="later"?2:-1;
+ h+=`<div class="choices">${c.choices.map((t,i)=>`<button class="choice ${picked===i?'on':''} ${i===2?'muted':''}" data-ch="${i}" ${picked>=0&&s.cl==="done"?"disabled":""}><span class="n">${i+1}</span>${t}</button>`).join("")}</div>`;
+ if(s.cl===0) h+=`<div class="helpers"><button class="btn sm" data-help="voice">🎙 말로 답하기</button><button class="btn sm" data-help="kid">지은님과 함께 답하기</button></div>`;
+ if(s.cl==="done") h+=me(c.answer)+ai(c.confirm)+me(c.yes);
+ if(s.cl==="later") h+=ai(c.later);
+ return h;
+}
+function s2(){
+ const d=D(),s=S(),p=s.viewer,m=d.members[p],iv=d.interviews[p],ex=s.extra[p]||[];
+ return `
+ <div class="head"><div class="eyebrow">각자의 생각</div><h1 class="h1">가족 한 사람씩 AI 상담사와 따로 이야기했어요</h1><p class="lead">AI 상담사가 가족 모두에게 같은 세 가지를 물었어요. 대화에서 뜻이 분명하지 않은 말이 있으면, AI가 그 자리에서 다시 여쭤보고 정리해요.</p></div>
+ <div class="privacy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" style="margin-top:2px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>대화 내용은 본인만 볼 수 있어요</b><span>다른 가족의 대화는 볼 수 없고, 가족에게는 AI가 정리한 요약만 공유돼요. 요약은 공유되기 전에 본인이 먼저 확인해요.</span></div></div>
+ <div class="cols keep2">
+  <div class="chatwin">
+   <div class="chatbar"><span class="aimark">${AIMARK}</span><div class="cb"><b>AI 상담사</b><span>${m.nm}님과의 1:1 대화 · 나만 볼 수 있어요</span></div>${m.easy?`<span class="easy">간편 모드 · 큰 글씨·음성</span>`:""}</div>
+   <div class="chat ${m.easy?'big':''}" id="chat"><div class="daysep"><span>${iv.date}</span></div>${iv.qa.map(q=>`
+    <div class="msg ai"><span class="aimark">${AIMARK}</span><div><div class="who-l">AI 상담사</div><div class="bub">${q[0]}</div></div></div>
+    <div class="msg me">${av(p,"sm")}<div><div class="who-l">${m.nm}</div><div class="bub">${q[1]}</div>${m.easy?`<div class="voice">음성으로 답한 내용을 받아 적었어요</div>`:""}</div></div>`).join("")}
+    ${clarifyChat(iv,p)}
+    ${ex.map(x=>`<div class="msg me">${av(p,"sm")}<div><div class="who-l">${m.nm}</div><div class="bub">${esc(x.t)}</div></div></div>${x.ack?`<div class="msg ai"><span class="aimark">${AIMARK}</span><div><div class="who-l">AI 상담사</div><div class="bub">말씀 잘 들었어요. 요약에 반영해서 가족에게 공유할게요. 대화 내용 자체는 공유되지 않아요.</div></div></div>`:""}`).join("")}
+   </div>
+   <div class="composer"><textarea id="opin" rows="2" placeholder="더 하고 싶은 말을 적어 주세요 (가족에게는 요약만 공유돼요)"></textarea><button class="btn primary" id="send">보내기</button></div>
+  </div>
+  <div class="card">
+   <div class="ct">가족 모두의 의견</div>
+   <div class="cs" style="margin-bottom:8px">AI가 정리하고 본인이 확인한 요약이에요</div>
+   <div class="fam">${d.members.map((x,i)=>{const v=d.interviews[i],pending=v.clarify&&S().cl!=="done",n=(s.extra[i]||[]).length;return `
+    <div class="fm"><div class="fh">${av(i)}<span class="nm">${x.nm}</span><span class="rl">${x.role}</span>${i===p?'<span class="me">나</span>':''}</div>
+     <dl><dt>꼭 지키고 싶은 것</dt><dd>${pending?`${v.keep} <span class="pend">· 뜻을 여쭤보는 중</span>`:keepOf(i)}</dd><dt>양보할 수 있는 것</dt><dd>${v.flex}</dd><dt>가장 큰 걱정</dt><dd>${v.worry}</dd></dl>
+     <div class="meta"><span>✓ 본인 확인 후 공유</span>${v.clarify&&S().cl==="done"?"<span>AI가 한 번 더 여쭤보고 정리했어요</span>":""}${n?`<span>추가 의견 ${n}건 반영</span>`:""}${i!==p?"<span>🔒 대화 내용 비공개</span>":""}</div>
+    </div>`}).join("")}</div>
+  </div>
+ </div>
+ ${next("가족 모두의 생각 함께 보기")}`;
+}
+function b2(){
+ const s=S();
+ document.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{const i=+b.dataset.ch;if(i===0){s.cl="done";toast("아버님의 답을 요약에 반영했어요")}else if(i===2){s.cl="later"}else{toast("시연은 1번 답을 기준으로 준비돼 있어요");return}render()});
+ document.querySelectorAll("[data-help]").forEach(b=>b.onclick=()=>toast(b.dataset.help==="voice"?"말씀하시면 AI가 받아 적어요":"지은님께 '아버님과 함께 답해 주세요' 알림을 보냈어요"));
+ const ta=$("#opin"),send=()=>{const t=ta.value.trim();if(!t)return;const p=s.viewer;(s.extra[p]=s.extra[p]||[]).push({t,ack:false});render();
+  setTimeout(()=>{const l=s.extra[p];l[l.length-1].ack=true;if(view==="app"&&step===2&&s.viewer===p){render();const o=$("#opin");if(o)o.focus()}},650)};
+ $("#send").onclick=send;
+ ta.onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();send()}};
+ const ch=$("#chat"); if(ch) ch.scrollTop=ch.scrollHeight;
+}
+
+/* ---------- 3 report ---------- */
+/* 쟁점마다 입장을 세 칸(왼쪽 생각 / 중간 / 오른쪽 생각)으로 나누고, 차이 크기를 함께 보여 준다 */
+const side=x=>x<.34?0:x>.66?2:1;
+function camp(is,is0,mem){
+ const gap=Math.max(...is.p)-Math.min(...is.p), lv=gap>=.6?3:gap>=.35?2:1, lvT=["","작음","보통","큼"][lv];
+ const moved=i=>is!==is0&&side(is0.p[i])!==side(is.p[i]);
+ const cols=[is.l,"중간",is.r].map((lab,c)=>{
+  const who=is.p.map((x,i)=>side(x)===c?i:-1).filter(i=>i>=0);
+  return `<div class="cp ${c===1?"mid":""}"><div class="cl">${lab}</div><div class="cw">${who.length?who.map(i=>`<div class="nmv"><i style="background:${MC[i%4]}"></i>${mem[i].nm}${moved(i)?`<span class="moved">말뜻 확인 후 옮겨졌어요</span>`:""}</div>`).join(""):`<span class="none">—</span>`}</div></div>`;
+ }).join("");
+ return `<div class="camp-h"><h4>${is.t}</h4><span class="gap">생각 차이 · ${lvT}<span class="sq">${[1,2,3].map(k=>`<i class="${k<=lv?"on":""}"></i>`).join("")}</span></span></div><div class="camps">${cols}</div>`;
+}
+function s3(){
+ const d=D(),s=S(),r=d.report;
+ if(!s.reportReady) return `<div class="head"><div class="eyebrow">공동 목표 설정</div><h1 class="h1">가족의 이야기를 함께 읽고 있어요</h1></div><div class="loading"><span class="spin"></span>${d.members.length}명의 대화와 금융 정보를 맞춰 보는 중이에요</div>`;
+ const rep=s.rep||{}; const allReplied=(!r.clarified||s.cl==="done")&&r.askTo.every(i=>rep[i]!=null);
+ const vw=s.viewer, vwName=d.members[vw].nm;
+ const allAgreed=d.members.every((m,i)=>s.agreed[i]);
+ const nExtra=Object.values(s.extra).reduce((a,l)=>a+l.length,0);
+ const clOK=!r.clarified||s.cl==="done";
+ const who=r.askTo.length===2?"두 분":r.askTo.length===4?"네 분":r.askTo.length+"분";
+ const others=r.askTo.filter(i=>rep[i]==null&&i!==vw);
+ return `
+ <div class="head"><div class="eyebrow">공동 목표 설정</div><p class="big">${r.headline}</p></div>
+
+ <section class="sec">
+  <h2 class="st">이미 같은 생각인 부분</h2>
+  <ul class="agree">${r.agree.map(a=>`<li><span class="chk">✓</span><span>${a}</span></li>`).join("")}</ul>
+  ${nExtra?`<p class="cs" style="margin-top:12px">가족이 대화에서 추가로 남긴 의견 ${nExtra}건도 함께 반영했어요. 내용은 공개되지 않아요.</p>`:""}
+ </section>
+
+ <section class="sec">
+  <h2 class="st">생각이 갈리는 부분</h2>
+  <p class="cs" style="margin-bottom:6px">대화 내용을 바탕으로 각자의 생각이 어디쯤인지 표시했어요</p>
+  ${r.issues.map(is0=>{const is=(is0.mDone&&s.cl==="done")?{...is0,p:is0.pDone,m:is0.mDone}:is0;return `
+   <div class="issue">${camp(is,is0,d.members)}
+    <p class="ailine">${is.m}</p>
+   </div>`}).join("")}
+ </section>
+
+ <section class="sec">
+  <h2 class="st">${clOK?`1단계 · ${who}께 드리는 AI의 제안`:"AI의 제안을 준비하고 있어요"}</h2>
+  ${!clOK?`
+  <div class="aibox">
+   <p class="q">${d.members[r.clarified.who].nm}님이 말씀하신 '${r.clarified.word}'의 뜻을 아직 확인하지 못했어요.</p>
+   <p class="sub">AI는 짐작해서 계산하지 않아요. 다른 가족에게 묻지 않고, ${d.members[r.clarified.who].nm}님께 1:1 대화로 다시 여쭤본 뒤 제안을 만들어요.</p>
+  </div>
+  <div class="actrow"><button class="btn primary" id="reask">${d.members[r.clarified.who].nm}님께 1:1로 다시 여쭤보기</button></div>`:`
+  <div class="aibox">
+   <p class="q">${r.ask}</p>
+   <div class="to">받는 사람 ${r.askTo.map(i=>av(i,"sm")).join("")} ${r.askTo.map(i=>d.members[i].nm+"님").join(", ")}</div>
+  </div>
+  ${r.askTo.some(i=>rep[i]!=null)?`<div class="replies">${r.askTo.filter(i=>rep[i]!=null).map(i=>`<div class="reply">${av(i,"sm")}<div><b>${d.members[i].nm}님의 답${i===vw?" (나)":""}</b>${esc(rep[i])}</div></div>`).join("")}</div>`:""}
+  ${r.askTo.includes(vw)&&rep[vw]==null?`
+  <div class="act">
+   <div class="rl">${av(vw,"sm")}${vwName}님의 답을 남겨 주세요</div>
+   <textarea id="myReply" placeholder="이 제안에 대한 생각을 자유롭게 적어 주세요"></textarea>
+   <div class="row"><button class="quick" data-q="좋아요, 그렇게 해요.">좋아요, 그렇게 해요</button><button class="quick" data-q="조건으로 정하는 건 좋은데, 조금 더 이야기해 보고 싶어요.">조금 더 이야기하고 싶어요</button><span style="flex:1"></span><button class="btn primary sm" id="sendReply">답 보내기</button></div>
+  </div>`:""}
+  ${others.map(i=>`<div class="wait">${av(i,"sm")}${d.members[i].nm}님의 답을 기다리고 있어요 · ${d.members[i].easy?"간편 모드(음성)로 알림을 보냈어요":"알림을 보냈어요"}</div>`).join("")}
+  ${others.length?`
+  <div class="demo"><div class="dt"><i>시연용</i>실제 서비스에는 없는 버튼이에요</div>
+   <p>실제로는 ${r.askTo.filter(i=>i!==vw).map(i=>d.members[i].nm+"님").join(", ")}이 각자 자기 휴대폰에서 알림을 받고 직접 답을 남겨요. 간편 모드를 쓰는 분은 음성으로 답해요.</p>
+   <button class="btn sm" id="demoReply">${others.map(i=>d.members[i].nm).join(", ")}님의 답이 도착한 장면 보기</button></div>`:""}`}
+ </section>
+
+ ${allReplied?`
+ <section class="sec" style="animation:in .35s ease both">
+  <h2 class="st">2단계 · 가족 모두의 동의</h2>
+  <p class="cs" style="margin-bottom:10px">답을 바탕으로 AI가 정리한 기준이에요. 가족 모두가 동의해야 이 기준으로 계산해요.</p>
+  <div class="aibox"><p class="q">${r.basis}</p></div>
+  <div class="agreelist">${d.members.map((m,i)=>`<div class="agr">${av(i)}<div><div class="nm">${m.nm}</div><div class="cm">${s.agreed[i]?"“"+r.agreeCm[i]+"”":"아직 답하지 않았어요"}</div></div>${i===vw&&!s.agreed[i]?`<button class="btn primary sm" data-ag="${i}">동의해요</button>`:`<span class="agbtn ${s.agreed[i]?'on':''}">${s.agreed[i]?"✓ 동의":"대기 중"}</span>`}</div>`).join("")}</div>
+  ${allAgreed?`<p class="okline"><span class="chk">✓</span><span><b>가족 모두 이 기준에 동의했어요.</b> ${r.after}</span></p>`:(d.members.some((m,i)=>i!==vw&&!s.agreed[i])?`<div class="demo"><div class="dt"><i>시연용</i>실제 서비스에는 없는 버튼이에요</div><p>실제로는 기준이 정리되면 가족 모두에게 알림이 가고, 각자 자기 휴대폰에서 '동의해요'를 누르거나 다른 의견을 남겨요.</p><button class="btn sm" id="askAgree" ${s.asking?"disabled":""}>${s.asking?"동의가 도착하는 중이에요":"다른 가족의 동의가 도착한 장면 보기"}</button></div>`:"")}
+ </section>`:""}
+ ${next("방법별로 미래 계산하기",!allAgreed,clOK?"가족 모두 동의하면 다음으로 넘어갈 수 있어요":"확인이 필요한 말이 해결되면 이어서 진행돼요")}`;
+}
+function b3(){
+ const s=S(),d=D(),r=d.report;
+ if(!s.reportReady){setTimeout(()=>{s.reportReady=true;if(view==="app"&&step===3)render()},1300);return}
+ const ra=$("#reask"); if(ra) ra.onclick=()=>{s.viewer=r.clarified.who;toast(d.members[r.clarified.who].nm+"님의 대화로 이동했어요");go(2)};
+ s.rep=s.rep||{};
+ document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const t=$("#myReply");t.value=b.dataset.q;t.focus()});
+ const sr=$("#sendReply"); if(sr) sr.onclick=()=>{const t=$("#myReply").value.trim();if(!t){toast("답을 적거나 빠른 답을 골라 주세요");return}s.rep[s.viewer]=t;toast("답을 보냈어요");render()};
+ const dr=$("#demoReply"); if(dr) dr.onclick=()=>{dr.disabled=true;let k=0;r.askTo.forEach(i=>{if(s.rep[i]!=null||i===s.viewer)return;const pre=(r.replies.find(x=>x[0]===i)||[])[1];setTimeout(()=>{s.rep[i]=pre;if(view==="app"&&step===3)render()},500+(k++)*700)})};
+ document.querySelectorAll("[data-ag]").forEach(b=>b.onclick=()=>{s.agreed[+b.dataset.ag]=true;toast("동의했어요");render()});
+ const aa=$("#askAgree"); if(aa) aa.onclick=()=>{s.asking=true;render();let k=0;d.members.forEach((m,i)=>{if(s.agreed[i]||i===s.viewer)return;setTimeout(()=>{s.agreed[i]=true;if(d.members.every((x,j)=>s.agreed[j]||j===s.viewer))s.asking=false;if(view==="app"&&step===3)render()},600+(k++)*650)})};
+}
+
+/* ---------- 4 simulation ---------- */
+function simulate(o){
+ const Sm=D().sim; let b=Sm.start; const pts=[b]; let hit=null;
+ for(let m=1;m<=Sm.months;m++){
+  if(b>0) b*=1+o.r/100/12;
+  let add=o.save; (o.ev||[]).forEach(e=>{if(m>=e.f&&m<=e.t) add+=e.v}); (o.lump||[]).forEach(l=>{if(m===l.m) add+=l.v});
+  b+=add;
+  if(hit==null&&((Sm.mode==="goal"&&b>=Sm.goal)||(Sm.mode==="runway"&&b<0))) hit=m;
+  if(m%12===0) pts.push(b);
+ }
+ return {pts,hit,end:b};
+}
+/* 한 달에 늘거나 줄어드는 돈이 어떻게 나왔는지 (시연용 가상값) */
+const CALC={
+ newly:["둘이 버는 돈 700만원 − 생활비 350만원 − 양가 용돈 40만원 − 쓸 수 있는 여유 50만원",
+        "둘이 버는 돈 700만원 − 생활비 350만원 − 양가 용돈 40만원 − 쓸 수 있는 여유 75만원",
+        "둘이 버는 돈 700만원 − 생활비 350만원 − 양가 용돈 40만원 − 쓸 수 있는 여유 180만원"],
+ elder:["부모님 연금 140만원 + 자녀가 보태는 돈 80만원 − 생활비 260만원",
+        "부모님 연금 140만원 + 주택연금 110만원 + 자녀가 보태는 돈 40만원 − 생활비 260만원",
+        "부모님 연금 140만원 + 자녀가 보태는 돈 50만원 − 생활비 250만원 (작은 집이라 관리비가 줄어요)"]};
+const LUMPNOTE={elder:["","","지금 집(시세 5억 5,000만원)을 팔고 3억원대 집으로 옮긴 뒤 남는 돈이에요. 이사·세금 비용을 뺀 가상값이에요."]};
+const resTxt=r=>D().sim.mode==="goal"?(r.hit==null?"8년 넘게":(r.hit/12).toFixed(1)+"년 뒤"):(r.hit==null?"25년 넘게":(r.hit/12).toFixed(1)+"년");
+
+function s4(){
+ const d=D(),s=S(),o=s.opts[s.pick],res=s.opts.map(simulate);
+ return `
+ <div class="head"><div class="eyebrow">미래 계산</div><h1 class="h1">세 가지 방법을 고르면 앞으로 어떻게 될까요</h1><p class="lead">합의한 기준으로 세 가지 방법을 계산했어요. 방법을 누르면 아래 그래프와 계산 근거가 바뀌어요.</p></div>
+
+ <section class="sec">
+  <h2 class="st">방법 고르기</h2>
+  <div class="optlist">
+   <div class="opt-h"><span></span><span>방법</span><span>${d.sim.mode==="goal"?"집 살 돈이 모이는 때":"예금이 버티는 기간"}</span></div>
+   ${s.opts.map((op,i)=>`<button class="opt" data-o="${i}" style="--c:${OC[i]}" aria-pressed="${i===s.pick}"><span class="radio"></span><span><span class="ol">${op.nm}</span><span class="od">${V(op.d)}</span></span><span class="res num" data-res="${i}">${resTxt(res[i])}</span></button>`).join("")}
+  </div>
+ </section>
+
+ <section class="sec">
+  <h2 class="st">${o.nm}를 고르면</h2>
+  <div class="aibox easybox" id="easy"></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="chart-wrap"><svg class="chart" id="chart" viewBox="0 0 760 340" role="img" aria-label="해마다 달라지는 금액"></svg></div>
+  <p class="readme">${d.sim.mode==="goal"?"선이 올라갈수록 모인 돈이 많아요. 선이 점선(3억)에 닿는 때가 집 살 조건이 채워지는 때예요.":"선은 부모님 예금에 남은 돈이에요. 선이 아래 점선(0원)에 닿으면 예금을 다 쓴 거예요."}</p>
+ </section>
+
+ <section class="sec">
+  <h2 class="st">이렇게 계산했어요</h2>
+  <div id="basis"></div>
+  <details class="tune"><summary>숫자를 직접 바꿔서 다시 계산해 보기</summary>
+   <div class="sliders">
+    <div class="sl"><label for="sv">한 달에 ${d.sim.mode==="goal"?"모으는":"늘거나 줄어드는"} 돈 <b id="svv"></b></label><input type="range" id="sv" min="${d.sim.mode==='goal'?80:-150}" max="${d.sim.mode==='goal'?350:120}" step="10" value="${o.save}"></div>
+    <div class="sl"><label for="rr">1년에 불어나는 비율 (${T("수익률")}) <b id="rrv"></b></label><input type="range" id="rr" min="0" max="10" step="0.5" value="${o.r}"></div>
+   </div>
+  </details>
+ </section>
+
+ <section class="sec">
+  <h2 class="st">한 사람 한 사람에게 달라지는 점</h2>
+  <div>${d.members.map((m,i)=>`<div class="irow">${av(i)}<div><div class="nm">${m.nm}</div><p>${o.imp[i]}</p></div></div>`).join("")}</div>
+ </section>
+ ${next("가족이 함께 고르기")}`;
+}
+
+/* 해마다: 시작 금액 · 모으거나 쓴 돈 · 이자로 불어난 돈 · 끝 금액 (simulate와 같은 규칙) */
+function yearly(o){
+ const Sm=D().sim; let b=Sm.start; const rows=[];
+ for(let y=1;y<=Sm.months/12;y++){
+  const st=b; let add=0,int=0;
+  for(let m=(y-1)*12+1;m<=y*12;m++){
+   if(b>0){const i=b*o.r/100/12;b+=i;int+=i}
+   let a=o.save;(o.ev||[]).forEach(e=>{if(m>=e.f&&m<=e.t)a+=e.v});(o.lump||[]).forEach(l=>{if(m===l.m)a+=l.v});
+   b+=a;add+=a;
+  }
+  rows.push([y,st,add,int,b]);
+ }
+ return rows;
+}
+
+function drawSim(){
+ const d=D(),s=S(),Sm=d.sim,res=s.opts.map(simulate),o=s.opts[s.pick],r=res[s.pick],base=d.options[s.pick];
+ $("#svv").textContent=(o.save>0?"+":"")+o.save+"만원"; $("#rrv").textContent=o.r.toFixed(1)+"%";
+ document.querySelectorAll("[data-res]").forEach(el=>el.textContent=resTxt(res[+el.dataset.res]));
+ const y=r.hit==null?null:r.hit/12;
+ let k1,easy;
+ if(Sm.mode==="goal"){
+  k1=`<div class="kpi ${y!=null&&y<=5?'good':'bad'}"><div class="kl">집 살 돈이 모이는 때</div><div class="kv">${y==null?"8년 넘게":y.toFixed(1)+"<small>년 뒤</small>"}</div><div class="kn">${y!=null&&y<=5?"목표한 5년 안이에요":"목표한 5년을 넘겨요"}</div></div>`;
+  easy=`<b>쉽게 말하면</b> ${o.nm}를 고르면 ${y==null?"8년이 지나도 집 살 때 필요한 우리 돈 3억이 다 모이지 않아요.":`약 ${y.toFixed(1)}년 뒤에 집 살 때 필요한 우리 돈 3억이 모여요. ${y<=5?"목표한 5년 안이에요.":"목표한 5년보다 늦어요."}`}`;
+ }else{
+  k1=`<div class="kpi ${y==null||y>=18?'good':'bad'}"><div class="kl">예금으로 버틸 수 있는 기간</div><div class="kv">${y==null?"25년 넘게":y.toFixed(1)+"<small>년</small>"}</div><div class="kn">${y==null?"아버님 97세 이후까지":"아버님 "+Math.floor(Sm.baseAge+y)+"세쯤 다 써요"}</div></div>`;
+  easy=`<b>쉽게 말하면</b> ${o.nm}를 고르면 ${y==null?"부모님 예금이 25년 넘게, 아버님이 97세가 되실 때까지도 남아 있어요.":`약 ${y.toFixed(1)}년 뒤, 아버님이 ${Math.floor(Sm.baseAge+y)}세쯤 되실 때 예금을 다 쓰게 돼요.`}`;
+ }
+ $("#easy").innerHTML=`<p>${easy}</p>`;
+ $("#kpis").innerHTML=k1+[o.k2,o.k3].map(k=>`<div class="kpi"><div class="kl">${k[0]}</div><div class="kv" style="font-size:19px;line-height:1.4;margin-top:4px">${k[1]}</div></div>`).join("");
+
+ /* 그래프: 고른 방법 하나만, 큰 글씨, 중요한 점에 말로 설명 */
+ const W=760,H=340,L=64,R=96,T0=34,B=44,yrs=Sm.months/12,p=r.pts;
+ let mn=Math.min(0,...p,Sm.goal),mx=Math.max(...p,Sm.goal);const st=nice((mx-mn)/3);mn=Math.floor(mn/st)*st;mx=Math.ceil(mx/st)*st;
+ const X=t=>L+(W-L-R)*t/yrs,Y=v=>T0+(H-T0-B)*(1-(v-mn)/(mx-mn));
+ const goal=Sm.mode==="goal";
+ let g="";
+ for(let v=mn;v<=mx+1e-6;v+=st) g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-12}" y="${Y(v)+5}" text-anchor="end" font-size="14" fill="var(--ink2)">${v===0?"0원":eokS(v)+"원"}</text>`;
+ const xs=goal?2:5;
+ for(let t=0;t<=yrs;t+=xs) g+=`<text x="${X(t)}" y="${H-14}" text-anchor="middle" font-size="14" fill="var(--ink2)">${t===0?(goal?"지금":"지금 "+Sm.baseAge+"세"):goal?(2026+t)+"년":(Sm.baseAge+t)+"세"}</text>`;
+ (o.ev||[]).forEach(e=>{const x1=X(e.f/12),x2=X(Math.min(e.t,Sm.months)/12);g+=`<rect x="${x1}" y="${T0}" width="${Math.max(2,x2-x1)}" height="${H-T0-B}" fill="var(--warm)" opacity=".1"/><text x="${x1+8}" y="${T0+18}" font-size="13.5" font-weight="600" fill="var(--warm)">${e.lab} (한 달 ${won(e.v).replace("-","")} ${e.v<0?"줄어요":"늘어요"})</text>`});
+ (o.lump||[]).forEach(l=>{const lx0=X(l.m/12);g+=`<line x1="${lx0}" x2="${lx0}" y1="${T0+26}" y2="${H-B}" stroke="var(--ink2)" stroke-dasharray="2 4"/><text x="${lx0+8}" y="${H-B-14}" font-size="13.5" font-weight="600" fill="var(--ink2)">${l.m}개월 뒤 ${won(l.v)} 들어와요</text>`});
+ const gy=Y(Sm.goal),gc=goal?"var(--green)":"var(--bad)";
+ g+=`<line x1="${L}" x2="${W-R}" y1="${gy}" y2="${gy}" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W-R+10}" y="${gy+5}" font-size="14" font-weight="700" fill="${gc}">${goal?"목표 3억":"예금 0원"}</text>`;
+ const dd=p.map((v,j)=>`${j?"L":"M"}${X(j).toFixed(1)},${Y(v).toFixed(1)}`).join("");
+ g+=`<path d="${dd}L${X(p.length-1)},${Y(Math.max(mn,0))}L${X(0)},${Y(Math.max(mn,0))}Z" fill="var(--green)" opacity=".08"/>`;
+ g+=`<path d="${dd}" fill="none" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+ g+=`<circle cx="${X(0)}" cy="${Y(p[0])}" r="5" fill="var(--ink)"/><text x="${X(0)+10}" y="${Y(p[0])+(goal?24:-14)}" font-size="14" fill="var(--ink2)">지금 ${eokS(p[0])}원</text>`;
+ const lx=X(p.length-1),ly=Y(p[p.length-1]);
+ g+=`<circle cx="${lx}" cy="${ly}" r="5" fill="var(--ink)"/><text x="${lx+10}" y="${ly+5}" font-size="14" font-weight="700" fill="var(--ink)">${eokS(p[p.length-1])}원</text>`;
+ if(r.hit!=null){
+  const hx=X(r.hit/12),age=Math.floor(Sm.baseAge+r.hit/12);
+  const lab=goal?`${(r.hit/12).toFixed(1)}년 뒤 3억이 모여요`:`아버님 ${age}세쯤 예금이 바닥나요`;
+  const ty=gy-22,bx=Math.min(Math.max(hx,L+122),W-R-122+80);
+  g+=`<circle cx="${hx}" cy="${gy}" r="8" fill="var(--paper)" stroke="${gc}" stroke-width="3"/><rect x="${bx-120}" y="${ty-22}" width="240" height="30" fill="var(--paper)" stroke="${gc}" stroke-width="1.5"/><text x="${bx}" y="${ty-2}" text-anchor="middle" font-size="15" font-weight="700" fill="${gc}">${lab}</text>`;
+ }else if(!goal){
+  g+=`<rect x="${lx-250}" y="${ly-48}" width="240" height="30" fill="var(--paper)" stroke="var(--green)" stroke-width="1.5"/><text x="${lx-130}" y="${ly-28}" text-anchor="middle" font-size="15" font-weight="700" fill="var(--green)">끝까지 예금이 남아요</text>`;
+ }
+ $("#chart").innerHTML=g;
+
+ /* 계산 근거 */
+ const changed=o.save!==base.save||o.r!==base.r;
+ const calc=!changed&&CALC[sc]?CALC[sc][s.pick]:"직접 바꾼 값이에요.";
+ const rows=[
+  ["출발 금액",won(Sm.start),Sm.note,"2단계 금융정보"],
+  ["한 달에 "+(goal?"모으는 돈":"늘거나 줄어드는 돈"),(o.save>0?"+":"")+won(o.save),calc,goal?"5단계 방법 "+o.nm.split(".")[0]:"5단계 방법 "+o.nm.split(".")[0]],
+  ["1년에 불어나는 비율",o.r.toFixed(1)+"%","예금·적금과 투자 상품을 섞었을 때의 가상 평균이에요. 실제로는 해마다 오르내릴 수 있어요.","가정"],
+  ...(o.ev||[]).map(e=>[e.lab,(e.v>0?"+":"")+won(e.v)+" / 한 달",`${(e.f/12).toFixed(e.f%12?1:0)}년 뒤부터 ${e.t>=Sm.months?"계속":Math.round((e.t-e.f+1))+"개월 동안"} 한 달에 ${won(Math.abs(e.v))}씩 ${e.v<0?"덜 모여요":"더 들어가요"}.`,"가정"]),
+  ...(o.lump||[]).map((l,k)=>[ "한 번에 들어오는 돈","+"+won(l.v),`${l.m}개월 뒤 한 번 들어와요. ${(LUMPNOTE[sc]||[])[s.pick]||""}`,"가정"]),
+  ["가족이 정한 기준",goal?"3억":"예금 0원 전까지",d.report.basis,"4단계 가족 동의"],
+ ];
+ const yr=yearly(o);
+ $("#basis").innerHTML=`
+  <table class="btab"><thead><tr><th>항목</th><th>값</th><th>어디서 나왔나요</th></tr></thead><tbody>
+  ${rows.map(x=>`<tr><td class="bk">${x[0]}</td><td class="bv num">${x[1]}</td><td class="bd">${x[2]}<span class="src">${x[3]}</span></td></tr>`).join("")}
+  </tbody></table>
+  <p class="how2"><b>계산 방법</b> 매달 ① 남아 있는 돈에 한 달 치 이자를 붙이고 ② 그달에 늘거나 줄어드는 돈을 더해요. 이걸 ${Sm.months}개월(${Sm.months/12}년) 동안 반복했어요. 세금, 물가 상승, 대출 원금 상환은 아직 넣지 않았어요. 모든 숫자는 시연용 가상값이에요.</p>
+  <details class="tune"><summary>해마다 계산한 표 보기</summary>
+   <div class="ytab-wrap"><table class="ytab num"><thead><tr><th>${goal?"연도":"아버님 나이"}</th><th>해의 시작</th><th>${goal?"모은 돈":"늘거나 줄어든 돈"}</th><th>이자로 불어난 돈</th><th>해의 끝</th></tr></thead><tbody>
+   ${yr.map(x=>`<tr class="${goal&&x[4]>=Sm.goal&&x[1]<Sm.goal?"hit":!goal&&x[4]<0&&x[1]>=0?"hit":""}"><td>${goal?(2026+x[0])+"년":(Sm.baseAge+x[0])+"세"}</td><td>${won(x[1])}</td><td>${(x[2]>0?"+":"")+won(x[2])}</td><td>${x[3]>0?"+"+won(x[3]):"0원"}</td><td><b>${won(x[4])}</b></td></tr>`).join("")}
+   </tbody></table></div>
+  </details>`;
+}
+function nice(x){const p=Math.pow(10,Math.floor(Math.log10(x||1))),f=x/p;return (f<=1?1:f<=2?2:f<=5?5:10)*p}
+function b4(){
+ const s=S();
+ document.querySelectorAll("[data-o]").forEach(b=>b.onclick=e=>{if(e.target.closest(".term"))return;s.pick=+b.dataset.o;render()});
+ $("#sv").oninput=e=>{s.opts[s.pick].save=+e.target.value;drawSim()};
+ $("#rr").oninput=e=>{s.opts[s.pick].r=+e.target.value;drawSim()};
+ drawSim();
+}
+
+/* ---------- 5 합의안: 점수 투표가 아니라 "반대 없는 방법 찾기" ----------
+   ① AI가 방법마다 각자의 '꼭 지키고 싶은 것'이 지켜지는지 점검
+   ② 각자 방법마다 좋아요 / 괜찮아요, 단 ○○ / 받아들이기 어려워요(이유)
+   ③ 모든 방법에 반대가 있으면 AI가 반대 이유로 방법을 다듬어 다시 묻는다
+   ④ 반대 없이 모인 방법 + 조건 → 합의안 약속 → 각자 서명 */
+const CONSENT={
+ newly:{
+  keeps:["5년 안에 집 사기","2년 안에 아이 · 양가 용돈 똑같이"],
+  check:[[[1,"4.3년 뒤 모여요"],[0,"아이 계획을 1년 미뤄요"]],[[1,"4.9년 뒤 모여요"],[1,"계획대로 2년 차에 아이"]],[[0,"6.1년 뒤, 5년을 넘겨요"],[1,"계획대로 2년 차에 아이"]]],
+  checkNote:"B는 두 분이 꼭 지키고 싶다고 한 것을 모두 지켜요. A와 C는 한 분의 것을 깨요. 어떤 방법으로 할지는 두 분이 정해요.",
+  r1:[[["good",""],["no","모으는 돈을 전부 예금에 두면 집값 오르는 속도를 못 따라갈 것 같아요."],["no","5년 안에 집을 못 사요."]],
+      [["no","아이를 1년 미루는 건 받아들이기 어려워요."],["good",""],["cond","투자에서 손해가 나면 바로 줄이기로 해요."]]],
+  revise:{nm:"B. 둘 다 챙기기 · 주식 비중 조정안",finalNm:"B. 둘 다 챙기기",from:1,save:235,r:4.2,
+   why:"민준님은 '모으는 돈을 전부 예금에 두면 집값을 못 따라간다'는 이유로 B에 반대했어요. 서연님은 A에 반대했고 B는 좋다고 했어요. 그래서 B의 뼈대는 그대로 두고, 민준님이 걱정한 부분만 바꿨어요.",
+   changes:[["바뀐 것","휴직 준비금을 뺀 여윳돈 중 20%까지는 주식에 넣어요 (1년 수익률 가정 3.8% → 4.2%)"],["그대로인 것","계획대로 2년 차에 아이 · 휴직 준비금 1,800만원은 투자하지 않고 따로 모으기"]]},
+  r2:[["cond","좋아요. 대신 집값이 많이 오르면 6개월 점검 때 시기를 다시 이야기해요."],["cond","괜찮아요. 휴직 준비금만은 절대 투자하지 않기로 해요."]],
+  ruleSrc:["4단계 공동 목표","서연님 조건","주식 비중 조정 · 민준님 반대 반영","서연님이 꼭 지키고 싶은 것"],
+  reviewSrc:"민준님 조건"},
+ elder:{
+  keeps:["살아 계신 동안 이 집에 살기","자식에게 부담 주지 않기","부모님 생활 안정","형제끼리 공평하게 나누기"],
+  check:[[[1,"지금 집 그대로"],[0,"자녀가 한 달 80만원 계속 보태요"],[0,"예금이 87세쯤 바닥나요"],[0,"간병이 지은님께 몰려요"]],
+         [[1,"끝까지 이 집에 사세요"],[1,"보태는 돈이 한 달 40만원으로"],[1,"예금이 25년 넘게 남아요"],[1,"버는 만큼 나누고 시간도 인정"]],
+         [[0,"살던 집을 떠나셔야 해요"],[1,"보태는 돈이 한 달 50만원으로"],[1,"예금이 25년 넘게 남아요"],[0,"이사 준비가 지은님께 몰려요"]]],
+  checkNote:"B는 네 분이 꼭 지키고 싶다고 한 것을 모두 지켜요. 어떤 방법으로 할지는 가족이 정해요.",
+  r1:[[["good",""],["cond","물려주는 건 나중에 다시 이야기하자."],["no","이 집을 떠나긴 싫다."]],
+      [["no","애들한테 계속 짐이 돼요."],["good",""],["cond","애들 아빠가 원하면요."]],
+      [["no","지금보다 더 보태기는 어렵습니다."],["good",""],["cond","아버지가 원하실 때만 검토했으면 합니다."]],
+      [["cond","간병하는 시간도 기여로 인정해 주세요."],["cond","간병이 필요해지면 시간을 내는 사람은 돈을 덜 내기로 해요."],["no","이사 준비가 저한테 몰릴 것 같아요."]]],
+  ruleSrc:["방법 B","방법 B","방법 B","지은님 조건","아버님 조건"],
+  reviewSrc:""}
+};
+const VL={good:["좋아요","✓"],cond:["괜찮아요, 단","△"],no:["받아들이기 어려워요","✕"]};
+function csState(){const s=S();return s.cs||(s.cs={r1:{},sub1:{},r2:{},sub2:{}})}
+function respCell(x){if(!x) return `<span class="rv wait-v">기다리는 중</span>`;return `<span class="rv v-${x.v}"><b>${VL[x.v][1]} ${VL[x.v][0]}</b>${x.t?`<span>${esc(x.t)}</span>`:""}</span>`}
+function myRows(rd,opts,vw){
+ const c=csState(),C=CONSENT[sc],mine=(rd===1?c.r1:c.r2)[vw]||{};
+ return opts.map(([oi,label,res])=>{const x=mine[oi];return `
+  <div class="myrow"><div class="mo"><b>${label}</b>${res?`<span>${res}</span>`:""}</div>
+   <div class="seg">${["good","cond","no"].map(v=>`<button class="${x&&x.v===v?"on v-"+v:""}" data-rd="${rd}" data-oi="${oi}" data-v="${v}">${VL[v][1]} ${VL[v][0]}</button>`).join("")}</div>
+   ${x&&x.v!=="good"?`<input class="tx" data-rd="${rd}" data-oi="${oi}" value="${esc(x.t||"")}" placeholder="${x.v==="no"?"왜 받아들이기 어려운지 적어 주세요":"어떤 조건이면 괜찮은지 적어 주세요"}">`:""}
+  </div>`}).join("");
+}
+function famTable(rd,opts){
+ const c=csState(),d=D(),R=rd===1?c.r1:c.r2,SB=rd===1?c.sub1:c.sub2;
+ return `<div class="famtab-wrap"><table class="famtab"><thead><tr><th>방법</th>${d.members.map((m,i)=>`<th>${av(i,"sm")} ${m.nm}</th>`).join("")}</tr></thead><tbody>
+  ${opts.map(([oi,label])=>`<tr><td class="ol2">${label}</td>${d.members.map((m,i)=>`<td>${SB[i]?respCell((R[i]||{})[oi]):respCell(null)}</td>`).join("")}</tr>`).join("")}
+ </tbody></table></div>`;
+}
+function s5(){
+ const d=D(),s=S(),C=CONSENT[sc],c=csState(),vw=s.viewer,M=d.members;
+ const res=d.options.map(simulate), short=i=>d.options[i].nm;
+ const opts1=d.options.map((o,i)=>[i,o.nm,resTxt(res[i])]);
+ const all1=M.every((m,i)=>c.sub1[i]);
+ const obj=(R,oi)=>M.map((m,i)=>i).filter(i=>((R[i]||{})[oi]||{}).v==="no");
+ const cand1=all1?d.options.map((o,i)=>i).filter(i=>obj(c.r1,i).length===0):[];
+ const needRev=all1&&cand1.length===0&&!!C.revise;
+ const rv=C.revise, rvRes=rv?simulate({...d.options[rv.from],save:rv.save,r:rv.r}):null;
+ const all2=needRev&&M.every((m,i)=>c.sub2[i]);
+ const obj2=all2?obj(c.r2,"x"):[];
+ let finalOi=null,finalName="",conds=[];
+ if(all1&&cand1.length>=1){finalOi=cand1[0];finalName=short(finalOi);conds=M.map((m,i)=>[i,(c.r1[i]||{})[finalOi]]).filter(x=>x[1]&&x[1].v==="cond")}
+ if(all2&&obj2.length===0){finalOi="x";finalName=rv.finalNm||rv.nm;conds=M.map((m,i)=>[i,(c.r2[i]||{}).x]).filter(x=>x[1]&&x[1].v==="cond")}
+ const agreed=finalOi!=null;
+ const othersLeft=(SB)=>M.map((m,i)=>i).filter(i=>!SB[i]&&i!==vw);
+ const demo=(id,SB,what)=>othersLeft(SB).length?`<div class="demo"><div class="dt"><i>시연용</i>실제 서비스에는 없는 버튼이에요</div><p>실제로는 가족마다 자기 휴대폰에서 알림을 받고 직접 의사를 남겨요. 간편 모드를 쓰는 분은 음성으로 답해요.</p><button class="btn sm" id="${id}">${othersLeft(SB).map(i=>M[i].nm).join(", ")}님의 ${what}이 도착한 장면 보기</button></div>`:"";
+ const myDone1=c.sub1[vw], mine1=c.r1[vw]||{}, ready1=d.options.every((o,i)=>mine1[i]);
+ const f=d.final, fo=d.options[f.base], fr=simulate({...fo,save:f.save,r:f.r});
+ const out=d.sim.mode==="goal"?`약 ${(fr.hit/12).toFixed(1)}년 뒤 집 살 돈이 모여요`:(fr.hit==null?"예금이 25년 넘게 남아요":`예금이 약 ${(fr.hit/12).toFixed(1)}년 버텨요`);
+ const allSigned=M.every((m,i)=>s.signed[i]);
+ return `
+ <div class="head"><div class="eyebrow">합의안</div><h1 class="h1">아무도 반대하지 않는 방법을 함께 찾아요</h1><p class="lead">점수를 더하지 않아요. 방법마다 각자 "좋아요 / 괜찮아요, 단 ○○ / 받아들이기 어려워요"로 답하고, 반대가 하나도 없는 방법을 합의안으로 삼아요. 붙은 조건은 약속이 돼요.</p></div>
+
+ <section class="sec">
+  <h2 class="st">먼저, 각자 꼭 지키고 싶은 것으로 살펴봤어요</h2>
+  <div class="famtab-wrap"><table class="famtab kc"><thead><tr><th>방법</th>${M.map((m,i)=>`<th>${av(i,"sm")} ${m.nm}<span class="kp">${C.keeps[i]}</span></th>`).join("")}</tr></thead><tbody>
+   ${d.options.map((o,oi)=>`<tr><td class="ol2">${o.nm}</td>${C.check[oi].map(([ok,t])=>`<td><span class="kv2 ${ok?"ok":"ng"}"><b>${ok?"✓ 지켜요":"✕ 깨져요"}</b><span>${t}</span></span></td>`).join("")}</tr>`).join("")}
+  </tbody></table></div>
+  <p class="ailine">${C.checkNote}</p>
+ </section>
+
+ <section class="sec">
+  <h2 class="st">각자의 의사</h2>
+  ${!myDone1?`<div class="act"><div class="rl">${av(vw,"sm")}${M[vw].nm}님, 방법마다 의사를 남겨 주세요</div>${myRows(1,opts1,vw)}
+   <div class="row"><span style="flex:1"></span><button class="btn primary sm" id="sub1" ${ready1?"":"disabled"}>내 의사 보내기</button></div></div>`:""}
+  <div style="margin-top:16px">${famTable(1,opts1)}</div>
+  ${demo("demo1",c.sub1,"의사")}
+  ${all1&&cand1.length===0&&!C.revise?`<p class="okline"><span class="chk" style="background:var(--bad)">!</span><span>모든 방법에 반대가 있어요. 실제 서비스에서는 AI가 반대 이유를 모아 방법을 다듬고 다시 물어요.</span></p>`:""}
+  ${all1&&cand1.length>1?`<p class="cs" style="margin-top:10px">반대 없는 방법이 둘 이상이에요. 실제로는 그중 하나를 함께 고르는 질문을 한 번 더 해요. 시연에서는 ${short(cand1[0])}로 이어가요.</p>`:""}
+ </section>
+
+ ${needRev?`
+ <section class="sec" style="animation:in .35s ease both">
+  <h2 class="st">반대가 있어서 AI가 방법을 다듬었어요</h2>
+  <div class="aibox">
+   <p class="q">모든 방법에 반대가 하나 이상 있어요. 반대 이유를 바탕으로 <b>${rv.nm}</b>을 만들었어요.</p>
+   <p class="sub">${rv.why}</p>
+   <table class="chg">${rv.changes.map(x=>`<tr><th>${x[0]}</th><td>${x[1]}</td></tr>`).join("")}<tr><th>계산 결과</th><td>${rvRes.hit==null?"8년 넘게":(rvRes.hit/12).toFixed(1)+"년 뒤 집 살 돈이 모여요"} (B는 ${resTxt(res[rv.from])})</td></tr></table>
+  </div>
+  ${!c.sub2[vw]?`<div class="act"><div class="rl">${av(vw,"sm")}${M[vw].nm}님, 다듬은 방법에 의사를 남겨 주세요</div>${myRows(2,[["x",rv.nm,""]],vw)}
+   <div class="row"><span style="flex:1"></span><button class="btn primary sm" id="sub2" ${(c.r2[vw]||{}).x?"":"disabled"}>내 의사 보내기</button></div></div>`:""}
+  <div style="margin-top:16px">${famTable(2,[["x",rv.nm]])}</div>
+  ${demo("demo2",c.sub2,"의사")}
+  ${all2&&obj2.length?`<p class="okline"><span class="chk" style="background:var(--bad)">!</span><span>아직 반대가 있어요. 실제 서비스에서는 AI가 한 번 더 다듬어요.</span></p>`:""}
+ </section>`:""}
+
+ ${agreed?`
+ <section class="sec" style="animation:in .35s ease both">
+  <h2 class="st">반대 없이 모인 방법</h2>
+  <p class="okline"><span class="chk">✓</span><span><b>${finalName}</b> — 가족 모두 반대하지 않았어요.</span></p>
+  ${conds.length?`<p class="cs" style="margin:14px 0 6px">함께 붙은 조건은 아래 합의안의 약속으로 남겨요</p><ul class="conds">${conds.map(([i,x])=>`<li>${av(i,"sm")}<span><b>${M[i].nm}님의 조건</b>${esc(x.t)}</span></li>`).join("")}</ul>`:""}
+  <article class="paper" style="margin-top:22px">
+   <div class="ptitle">${d.room} 합의안</div>
+   <div class="pmeta">2026년 9월 26일 · ${M.length}명 참여 · 다음 점검 ${d.nextReview}</div>
+   <div class="psec"><h4>함께 이룰 목표</h4><p>${d.goal}</p></div>
+   <div class="psec"><h4>고른 방법</h4><p><b>${finalName}</b><br>한 달에 ${f.save>0?"+":""}${f.save}만원 · 1년에 ${f.r}%씩 불어난다고 가정하면 ${out}</p></div>
+   <div class="psec"><h4>함께 지킬 약속</h4><ol>${d.rules.map((x,i)=>`<li>${x}${C.ruleSrc[i]?` <span class="src">${C.ruleSrc[i]}</span>`:""}</li>`).join("")}</ol></div>
+   <div class="psec"><h4>다시 모이는 때</h4><p>${d.review}${C.reviewSrc?` <span class="src">${C.reviewSrc}</span>`:""}</p></div>
+   <div class="psec"><h4>서명</h4><div>
+    <div class="sigs">${M.map((m,i)=>`<button class="sig ${s.signed[i]?'on':''}" data-sg="${i}" ${i!==vw||s.signed[i]?"disabled":""}>${av(i,"sm")}<span><b>${m.nm}</b><br><span class="st">${s.signed[i]?"서명했어요":i===vw?"눌러서 서명하기":"서명 대기"}</span></span></button>`).join("")}</div>
+    ${allSigned?`<div class="sealed"><span class="chk">✓</span>가족 모두 서명했어요. 합의안이 확정됐어요.</div>`:(M.some((m,i)=>i!==vw&&!s.signed[i])?`<div class="demo"><div class="dt"><i>시연용</i>실제 서비스에는 없는 버튼이에요</div><p>실제로는 가족 모두에게 알림이 가고, 각자 자기 휴대폰에서 내용을 읽은 뒤 직접 서명해요.</p><button class="btn sm" id="askSign">다른 가족의 서명이 도착한 장면 보기</button></div>`:"")}
+   </div></div>
+  </article>
+ </section>`:""}
+ ${next("약속에 맞는 금융상품 보기",!allSigned,agreed?"가족 모두 서명하면 다음으로 넘어갈 수 있어요":"반대 없는 방법이 정해지면 합의안이 만들어져요")}`;
+}
+function b5(){
+ const s=S(),d=D(),C=CONSENT[sc],c=csState();
+ const pre=(rd,i,oi)=>rd===1?C.r1[i][oi]:C.r2[i];
+ document.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{
+  const rd=+b.dataset.rd,oi=b.dataset.oi==="x"?"x":+b.dataset.oi,v=b.dataset.v,vw=s.viewer,R=rd===1?c.r1:c.r2;
+  const p=pre(rd,vw,oi)||["",""];
+  (R[vw]=R[vw]||{})[oi]={v,t:v==="good"?"":(p[0]===v?p[1]:((R[vw][oi]||{}).t||""))};
+  render();
+ });
+ document.querySelectorAll("input.tx").forEach(t=>t.oninput=()=>{const rd=+t.dataset.rd,oi=t.dataset.oi==="x"?"x":+t.dataset.oi,R=rd===1?c.r1:c.r2;R[s.viewer][oi].t=t.value});
+ const sub=(id,SB,rd)=>{const b=$("#"+id);if(b) b.onclick=()=>{const R=rd===1?c.r1:c.r2,mine=R[s.viewer]||{};if(Object.values(mine).some(x=>x.v==="no"&&!x.t.trim())){toast("받아들이기 어려운 이유를 적어 주세요");return}SB[s.viewer]=true;toast("의사를 보냈어요");render()}};
+ sub("sub1",c.sub1,1); sub("sub2",c.sub2,2);
+ const demo=(id,SB,rd)=>{const b=$("#"+id);if(b) b.onclick=()=>{b.disabled=true;let k=0;d.members.forEach((m,i)=>{if(SB[i]||i===s.viewer)return;setTimeout(()=>{
+   if(rd===1) c.r1[i]=Object.fromEntries(C.r1[i].map((x,oi)=>[oi,{v:x[0],t:x[1]}])); else c.r2[i]={x:{v:C.r2[i][0],t:C.r2[i][1]}};
+   SB[i]=true;if(view==="app"&&step===5)render()},500+(k++)*650)})}};
+ demo("demo1",c.sub1,1); demo("demo2",c.sub2,2);
+ document.querySelectorAll("[data-sg]").forEach(b=>b.onclick=()=>{s.signed[+b.dataset.sg]=true;toast("서명했어요");render()});
+ const a=$("#askSign"); if(a) a.onclick=()=>{a.disabled=true;let k=0;d.members.forEach((m,i)=>{if(s.signed[i]||i===s.viewer)return;setTimeout(()=>{s.signed[i]=true;if(view==="app"&&step===5)render()},500+(k++)*550)})};
+}
+
+/* ---------- 6 products ---------- */
+function s6(){
+ const d=D(),s=S(),goals=["전체",...new Set(d.products.map(p=>p.g))];
+ const list=d.products.filter(p=>s.filter==="전체"||p.g===s.filter);
+ return `
+ <div class="head"><div class="eyebrow">상품 추천</div><h1 class="h1">합의안의 약속을 지켜 줄 금융상품이에요</h1><p class="lead">광고 순서가 아니라, 가족이 정한 약속을 지키는 데 필요한 상품만 골랐어요. 상품마다 어떤 약속과 이어지는지 함께 적었어요.</p></div>
+ <div class="filters">${goals.map(g=>`<button class="fchip" data-f="${g}" aria-pressed="${s.filter===g}">${g}</button>`).join("")}</div>
+ <div class="pgrid">${list.map(p=>`
+  <div class="prod">
+   <div class="top"><span class="inst" style="background:${p.c}">${p.i}</span><span class="inm">${p.inst}</span></div>
+   <div><div class="pn">${p.nm}</div><div class="what">${V(p.what)}</div></div>
+   <div class="fig">${p.fig}<small>${p.figs}</small></div>
+   <div class="why2"><b>왜 이 상품인가요</b><br>${p.why}</div>
+   <div class="trail"><span class="pill brand">${p.g}</span><span>→</span><span class="pill">${p.need}</span></div>
+   <div class="foot"><button class="btn sm" data-more>자세히 보기</button></div>
+  </div>`).join("")}
+ </div>
+ <p class="disc">시연 화면이에요. 금융회사 이름과 상품, 이자, 금액은 모두 가상으로 만든 예시예요.</p>
+ ${next("가족 홈으로 가기")}`;
+}
+function b6(){
+ document.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{S().filter=b.dataset.f;render()});
+ document.querySelectorAll("[data-more]").forEach(b=>b.onclick=()=>toast("상품 상세는 금융회사와 연결한 뒤 볼 수 있어요"));
+}
+
+/* ---------- 7 home ---------- */
+function s7(){
+ const d=D(),h=d.home,me=d.members[d.me];
+ const pct=h.runway?100:Math.round(h.cur/h.goal*100);
+ return `
+ <div class="head"><div class="eyebrow">가족 홈</div><h1 class="h1">${me.nm}님 가족의 이번 달</h1><p class="lead">합의하고 3개월이 지났다고 가정한 화면이에요. 약속을 잘 지키고 있는지 가족 모두 같은 화면으로 봐요.</p></div>
+ <div class="homegrid">
+  <div class="stackv">
+   <div class="card goalcard">
+    <div class="cs" style="font-weight:600">${h.title}</div>
+    <div class="gv">${h.runway?"25년 넘게":won(h.cur)}${h.runway?"":`<small>/ ${won(h.goal)}</small>`}</div>
+    <div class="pbar"><i style="width:${pct}%"></i></div>
+    <div class="pmeta2"><span>${h.sub}</span><span class="num">${h.runway?"":pct+"%"}</span></div>
+   </div>
+   <div class="note"><span class="aimark">${AIMARK}</span><div><b>${h.alert[0]}</b>${h.alert[1]}</div></div>
+   <div class="card"><div class="ct" style="margin-bottom:6px">이번 달 약속</div><div>${h.todo.map(t=>`<div class="trow ${t[0]?'done':''}"><span class="c">${t[0]?"✓":""}</span><span class="tt">${t[1]}</span><span class="ta">${t[2]}</span></div>`).join("")}</div></div>
+  </div>
+  <div class="stackv">
+   <div class="card"><div class="ct" style="margin-bottom:6px">다가오는 일정</div><div>${h.tl.map(t=>`<div class="tli"><span class="d">${t[0]}</span><span>${t[1]}</span></div>`).join("")}</div></div>
+   <div class="card">
+    <div class="ct" style="margin-bottom:10px">우리 가족 합의안</div>
+    <p class="cs" style="margin-bottom:12px">${d.members.length}명 서명 · 2026년 9월 26일 확정</p>
+    <div class="stack" style="margin-bottom:14px">${d.members.map((m,i)=>av(i,"sm")).join("")}</div>
+    <button class="btn sm" data-go="5">합의안 다시 보기</button>
+   </div>
+  </div>
+ </div>`;
+}
+function b7(){ document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(+b.dataset.go)); }
+
+/* ---------- router ---------- */
+const SCR=[s0,s1,s2,s3,s4,s5,s6,s7],BND=[b0,b1,b2,b3,b4,b5,b6,b7];
+function render(){
+ chrome();
+ $("#main").innerHTML=`<div class="screen">${SCR[step]()}</div>`;
+ const eb=$("#main .head .eyebrow"); if(eb) eb.textContent=`제${step+1}장 · ${eb.textContent}`;
+ BND[step]();
+ const n=$("[data-next]"); if(n) n.onclick=()=>go(step+1);
+}
+function go(i){ if(i<0||i>=STEPS.length) return; step=i; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+$("#viewer").onchange=e=>{S().viewer=+e.target.value;render()};
+$("#prev").onclick=()=>go(step-1); $("#nextBtn").onclick=()=>go(step+1);
+document.querySelectorAll("[data-sc]").forEach(b=>b.onclick=()=>{sc=b.dataset.sc;document.querySelectorAll("[data-sc]").forEach(x=>x.setAttribute("aria-pressed",x===b));render()});
+document.addEventListener("keydown",e=>{if(view!=="app"||["INPUT","TEXTAREA"].includes(document.activeElement.tagName)) return; if(e.key==="ArrowRight") go(step+1); if(e.key==="ArrowLeft") go(step-1);});
+</script>
+</body>
+</html>

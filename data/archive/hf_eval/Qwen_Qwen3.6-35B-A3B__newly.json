@@ -1,0 +1,353 @@
+{
+ "model": "Qwen/Qwen3.6-35B-A3B",
+ "scenario": "newly",
+ "started": "2026-10-06 12:04:17",
+ "steps": {
+  "1a": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": {
+    "family_stage": "결혼 1년 차 · 2년 안에 아이 계획",
+    "living": "전세 · 2027년 4월 계약 끝",
+    "shared_goal": "5년 안에 우리 집 사기",
+    "differences": [
+     "집 사는 시기",
+     "아이 시기",
+     "양가 용돈"
+    ]
+   },
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.3
+  },
+  "1b": {
+   "members": {
+    "m0": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "5년 안에 집 사기",
+      "flexible": "주식 투자 비중",
+      "worry": "집값이 계속 오르는 것"
+     },
+     "verification": null
+    },
+    "m1": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "2년 안에 아이 · 양가 용돈 똑같이",
+      "flexible": "집 사는 시기 1~2년",
+      "worry": "육아휴직 동안 줄어드는 월급"
+     },
+     "verification": null
+    }
+   },
+   "_score": "0/2 ok",
+   "_wall_s": 0.5
+  },
+  "2a": {
+   "members": {
+    "m0": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": {}
+    },
+    "m1": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": {}
+    }
+   },
+   "true_positive": 0,
+   "false_positive": 0,
+   "expected": 0,
+   "_score": "탐지 0/0, 오탐 0",
+   "_wall_s": 0.4
+  },
+  "2b": {
+   "_score": "해당 없음",
+   "_wall_s": 0.0
+  },
+  "3+4a": {
+   "analysis_run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "proposal_run": {
+    "ok": null,
+    "attempts": null,
+    "errors": null,
+    "latency_s": null,
+    "usage": null,
+    "tool_calls": null,
+    "model": null
+   },
+   "output": {},
+   "verification": null,
+   "side_match": "0/6",
+   "proposal_keywords_hit": [],
+   "_score": "칸 일치 0/6, 제안 키워드 []",
+   "_wall_s": 0.2
+  },
+  "4b": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": "집 사는 시기 = 우리 돈 3억과 육아휴직 준비금 1,800만원이 모두 모였을 때",
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.2
+  },
+  "5+6a": {
+   "design_run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "interpret_run": {
+    "ok": null,
+    "attempts": null,
+    "errors": null,
+    "latency_s": null,
+    "usage": null,
+    "tool_calls": null,
+    "model": null
+   },
+   "levers": null,
+   "error": null,
+   "verification": null,
+   "interpretation": null,
+   "_score": "FAIL",
+   "_wall_s": 0.2
+  },
+  "6b": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.4
+  },
+  "5r": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": {},
+   "hit_display": null,
+   "verification": null,
+   "_score": "from=None levers=None → None (기대 B, newly_B_stock20, 약 4.8년)",
+   "_wall_s": 0.4
+  },
+  "7": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": {
+    "goal": "5년 안에 우리 돈 3억으로 집 마련, 첫아이와 휴직을 무리 없이",
+    "method_label": "B. 둘 다 챙기기",
+    "target_amount": {
+     "value": 30000,
+     "label": "집 살 때 필요한 우리 돈 3억"
+    },
+    "contribution": [
+     {
+      "label": "함께 모으는 돈",
+      "amount": 175
+     },
+     {
+      "label": "휴직 준비 적금",
+      "amount": 60
+     }
+    ],
+    "timing": "날짜가 아닌 조건: 3억 + 비상금 6개월분",
+    "change_conditions": [
+     "6개월마다",
+     "출산·이직·전세 만료 시"
+    ],
+    "commitments": [
+     "집은 날짜 대신 '3억 + 비상금 6개월분' 모이면",
+     "휴직 준비금 1,800만원은 따로, 투자하지 않기",
+     "여윳돈의 주식 비중은 20%까지",
+     "양가 용돈은 각각 월 20만원으로 같게"
+    ]
+   },
+   "verification": {},
+   "_score": "FAIL 검증=None 위반=0",
+   "_wall_s": 0.3
+  },
+  "8": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "mappings": null,
+   "got": {},
+   "expect": {
+    "c1": [
+     "P_housing_subscription",
+     "PP_first_home_loan"
+    ],
+    "c2": [
+     "P_installment_savings"
+    ],
+    "c3": [
+     null
+    ],
+    "c4": [
+     "P_joint_account"
+    ],
+    "goal": [
+     "P_child_insurance"
+    ]
+   },
+   "verification": null,
+   "_score": "약속별 기대 상품 포함 0/5",
+   "_wall_s": 0.2
+  }
+ },
+ "finished": "2026-10-06 12:04:20",
+ "tokens": {
+  "input_tokens": 0,
+  "output_tokens": 0
+ }
+}

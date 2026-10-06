@@ -1,0 +1,94 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "scenario": "newly",
+ "started": "2026-10-06 01:27:52",
+ "steps": {
+  "1a": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 403: {\"error\":\"This authentication method does not have sufficient permissions to call Inference Providers on behalf of user epk0930\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": {
+    "family_stage": "결혼 1년 차 · 2년 안에 아이 계획",
+    "living": "전세 · 2027년 4월 계약 끝",
+    "shared_goal": "5년 안에 우리 집 사기",
+    "differences": [
+     "집 사는 시기",
+     "아이 시기",
+     "양가 용돈"
+    ]
+   },
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.3
+  },
+  "1b": {
+   "members": {
+    "m0": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 403: {\"error\":\"This authentication method does not have sufficient permissions to call Inference Providers on behalf of user epk0930\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "5년 안에 집 사기",
+      "flexible": "주식 투자 비중",
+      "worry": "집값이 계속 오르는 것"
+     },
+     "verification": null
+    },
+    "m1": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 403: {\"error\":\"This authentication method does not have sufficient permissions to call Inference Providers on behalf of user epk0930\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "2년 안에 아이 · 양가 용돈 똑같이",
+      "flexible": "집 사는 시기 1~2년",
+      "worry": "육아휴직 동안 줄어드는 월급"
+     },
+     "verification": null
+    }
+   },
+   "_score": "0/2 ok",
+   "_wall_s": 0.4
+  }
+ },
+ "finished": "2026-10-06 01:27:52",
+ "tokens": {
+  "input_tokens": 0,
+  "output_tokens": 0
+ }
+}

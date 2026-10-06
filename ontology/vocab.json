@@ -1,0 +1,168 @@
+{
+  "_note": "온톨로지 어휘(docs/08_온톨로지.md 2절). LLM 역할 8은 이 id만 쓸 수 있다.",
+  "needs": [
+    {
+      "id": "N_home_purchase_prep",
+      "label": "집 살 때를 대비한 자격·한도 확인",
+      "satisfied_by": [
+        "P_housing_subscription",
+        "PP_first_home_loan"
+      ]
+    },
+    {
+      "id": "N_leave_fund",
+      "label": "육아휴직 동안 쓸 돈 따로 모으기",
+      "satisfied_by": [
+        "P_installment_savings",
+        "P_balanced_fund",
+        "P_parking_account"
+      ],
+      "default_constraints": [
+        "C_principal_protected"
+      ]
+    },
+    {
+      "id": "N_invest_cap",
+      "label": "여윳돈 일부 투자(비중 상한)",
+      "satisfied_by": []
+    },
+    {
+      "id": "N_shared_transfer_record",
+      "label": "함께 내는 돈을 투명하게 기록",
+      "satisfied_by": [
+        "P_joint_account"
+      ]
+    },
+    {
+      "id": "N_child_risk_cover",
+      "label": "아이가 아프거나 다칠 때 대비",
+      "satisfied_by": [
+        "P_child_insurance"
+      ]
+    },
+    {
+      "id": "N_living_income_at_home",
+      "label": "지금 집에 살면서 생활비 마련",
+      "satisfied_by": [
+        "PP_reverse_mortgage"
+      ],
+      "requires": {
+        "home": true,
+        "min_age": 55,
+        "why": "집이 있고 55세 이상인 가족에게만 해당해요"
+      }
+    },
+    {
+      "id": "N_medical_fund_separate",
+      "label": "병원비를 따로 두고 바로 꺼내 쓰기",
+      "satisfied_by": [
+        "P_parking_account",
+        "P_installment_savings"
+      ],
+      "default_constraints": [
+        "C_principal_protected"
+      ]
+    },
+    {
+      "id": "N_care_cost_cover",
+      "label": "간병 비용 대비",
+      "satisfied_by": [
+        "P_care_insurance"
+      ],
+      "requires": {
+        "min_age": 50,
+        "why": "간병을 대비할 나이의 가족이 있을 때 해당해요"
+      }
+    },
+    {
+      "id": "N_inheritance_planning",
+      "label": "나중에 재산 나누는 방법 정하기(전문가 상담)",
+      "satisfied_by": [
+        "P_family_trust_consult"
+      ],
+      "requires": {
+        "home_or_assets": true,
+        "min_age": 55,
+        "why": "물려줄 재산을 정할 나이·상황에서만 해당해요"
+      }
+    },
+    {
+      "id": "N_goal_saving",
+      "label": "목표 금액을 정해 꾸준히 함께 모으기",
+      "satisfied_by": [
+        "P_installment_savings",
+        "P_balanced_fund",
+        "P_joint_account"
+      ]
+    },
+    {
+      "id": "N_emergency_fund",
+      "label": "갑자기 필요한 돈(비상금) 따로 두기",
+      "satisfied_by": [
+        "P_parking_account",
+        "P_installment_savings"
+      ],
+      "default_constraints": [
+        "C_principal_protected"
+      ]
+    },
+    {
+      "id": "N_debt_repayment",
+      "label": "대출을 계획대로 빨리 갚기",
+      "satisfied_by": [
+        "P_prepay_plan",
+        "P_refinance_consult"
+      ],
+      "requires": {
+        "repaying_loan": true,
+        "why": "매달 원금을 갚아 나가는 대출이 있을 때만 해당해요"
+      }
+    },
+    {
+      "id": "N_education_fund",
+      "label": "자녀 교육비 미리 모으기",
+      "satisfied_by": [
+        "P_installment_savings",
+        "P_balanced_fund"
+      ]
+    },
+    {
+      "id": "N_retirement_income",
+      "label": "은퇴 뒤 매달 쓸 돈 마련",
+      "satisfied_by": [
+        "P_pension_savings",
+        "PP_reverse_mortgage"
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "id": "C_principal_protected",
+      "label": "원금이 줄면 안 돼요"
+    },
+    {
+      "id": "C_until_event",
+      "label": "정해진 때(출산 등)까지 모아야 해요"
+    },
+    {
+      "id": "C_instant_access",
+      "label": "필요할 때 바로 꺼내야 해요"
+    },
+    {
+      "id": "C_keep_residence",
+      "label": "지금 집에 계속 살아야 해요"
+    },
+    {
+      "id": "C_risk_cap_20",
+      "label": "투자 비중은 20%까지예요"
+    },
+    {
+      "id": "C_shared_visibility",
+      "label": "가족이 함께 확인할 수 있어야 해요"
+    },
+    {
+      "id": "C_no_direct_advice",
+      "label": "상속·세무·법률은 전문가 상담으로 연결해요"
+    }
+  ]
+}

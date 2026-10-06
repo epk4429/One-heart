@@ -1,0 +1,49 @@
+{
+  "_note": "LLM 역할 8(온톨로지 매핑)의 기대 출력과, 그래프 탐색 기대 결과(기획안 10·15쪽). commitment_id 'goal'은 약속이 아니라 목표에서 나온 필요.",
+  "newly": {
+    "commitments": {
+      "c1": {"no": 1, "text": "집은 날짜 대신 '3억 + 비상금 6개월분' 모이면"},
+      "c2": {"no": 2, "text": "휴직 준비금 1,800만원은 따로, 투자하지 않기"},
+      "c3": {"no": 3, "text": "여윳돈의 주식 비중은 20%까지"},
+      "c4": {"no": 4, "text": "양가 용돈은 각각 월 20만원으로 같게"},
+      "goal": {"no": null, "text": "첫아이와 휴직을 무리 없이"}
+    },
+    "mappings": [
+      {"commitment_id": "c1", "need_ids": ["N_home_purchase_prep"], "constraint_ids": []},
+      {"commitment_id": "c2", "need_ids": ["N_leave_fund"], "constraint_ids": ["C_principal_protected", "C_until_event"]},
+      {"commitment_id": "c3", "need_ids": ["N_invest_cap"], "constraint_ids": ["C_risk_cap_20"]},
+      {"commitment_id": "c4", "need_ids": ["N_shared_transfer_record"], "constraint_ids": ["C_shared_visibility"]},
+      {"commitment_id": "goal", "need_ids": ["N_child_risk_cover"], "constraint_ids": []}
+    ],
+    "expect": {
+      "c1": ["P_housing_subscription", "PP_first_home_loan"],
+      "c2": ["P_installment_savings"],
+      "c3": [null],
+      "c4": ["P_joint_account"],
+      "goal": ["P_child_insurance"]
+    }
+  },
+  "elder": {
+    "commitments": {
+      "c1": {"no": 1, "text": "주택연금을 신청하고, 지금 집에 계속 살기"},
+      "c2": {"no": 2, "text": "자녀가 보태는 돈은 월 40만원, 버는 만큼 나누기"},
+      "c3": {"no": 3, "text": "예금 중 3,000만원은 병원비·간병비로 따로"},
+      "c4": {"no": 4, "text": "간병이 필요해지면 시간을 내는 사람은 돈을 덜 내기"},
+      "c5": {"no": 5, "text": "집을 어떻게 물려줄지는 전문가 상담 후 다시 정하기"}
+    },
+    "mappings": [
+      {"commitment_id": "c1", "need_ids": ["N_living_income_at_home"], "constraint_ids": ["C_keep_residence"]},
+      {"commitment_id": "c2", "need_ids": ["N_shared_transfer_record"], "constraint_ids": ["C_shared_visibility"]},
+      {"commitment_id": "c3", "need_ids": ["N_medical_fund_separate"], "constraint_ids": ["C_principal_protected", "C_instant_access"]},
+      {"commitment_id": "c4", "need_ids": ["N_care_cost_cover"], "constraint_ids": []},
+      {"commitment_id": "c5", "need_ids": ["N_inheritance_planning"], "constraint_ids": ["C_no_direct_advice"]}
+    ],
+    "expect": {
+      "c1": ["PP_reverse_mortgage"],
+      "c2": ["P_joint_account"],
+      "c3": ["P_parking_account"],
+      "c4": ["P_care_insurance"],
+      "c5": ["P_family_trust_consult"]
+    }
+  }
+}

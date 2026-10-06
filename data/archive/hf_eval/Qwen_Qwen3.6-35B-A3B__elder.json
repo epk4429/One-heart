@@ -1,0 +1,433 @@
+{
+ "model": "Qwen/Qwen3.6-35B-A3B",
+ "scenario": "elder",
+ "started": "2026-10-06 12:04:17",
+ "steps": {
+  "1a": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": {
+    "family_stage": "은퇴 12년 차 · 돌봄이 필요해지기 전",
+    "living": "부모님 소유 아파트 · 빚 없음",
+    "shared_goal": "지금처럼 생활하기 · 병원비와 간병 대비",
+    "differences": [
+     "집을 어떻게 할지",
+     "자녀 지원",
+     "간병 나누기"
+    ]
+   },
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.3
+  },
+  "1b": {
+   "members": {
+    "m0": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "이 집",
+      "flexible": "집 말고 다른 것",
+      "worry": "건강이 나빠지는 것",
+      "keep_after_clarify": "살아 계신 동안 이 집에 살기"
+     },
+     "verification": null
+    },
+    "m1": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "자식에게 부담 주지 않기",
+      "flexible": "집 크기",
+      "worry": "병원비"
+     },
+     "verification": null
+    },
+    "m2": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "부모님 생활 안정",
+      "flexible": "집 물려받기",
+      "worry": "보태는 돈이 늘어나는 것"
+     },
+     "verification": null
+    },
+    "m3": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": null,
+     "golden": {
+      "keep": "형제끼리 공평하게 나누기",
+      "flexible": "보태는 돈의 비율",
+      "worry": "간병이 한 사람에게 몰리는 것"
+     },
+     "verification": null
+    }
+   },
+   "_score": "0/4 ok",
+   "_wall_s": 0.9
+  },
+  "2a": {
+   "members": {
+    "m0": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": {}
+    },
+    "m1": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": {}
+    },
+    "m2": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": {}
+    },
+    "m3": {
+     "run": {
+      "ok": false,
+      "attempts": 1,
+      "errors": [
+       "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+      ],
+      "latency_s": 0.0,
+      "usage": {
+       "input_tokens": 0,
+       "output_tokens": 0
+      },
+      "tool_calls": 0,
+      "model": ""
+     },
+     "output": {}
+    }
+   },
+   "true_positive": 0,
+   "false_positive": 0,
+   "expected": 1,
+   "_score": "탐지 0/1, 오탐 0",
+   "_wall_s": 0.9
+  },
+  "2b": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": {},
+   "summary_after": null,
+   "golden_keep": "살아 계신 동안 이 집에 살기",
+   "_score": "FAIL / 요약 keep=None",
+   "_wall_s": 0.5
+  },
+  "3+4a": {
+   "analysis_run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "proposal_run": {
+    "ok": null,
+    "attempts": null,
+    "errors": null,
+    "latency_s": null,
+    "usage": null,
+    "tool_calls": null,
+    "model": null
+   },
+   "output": {},
+   "verification": null,
+   "side_match": "0/12",
+   "proposal_keywords_hit": [],
+   "_score": "칸 일치 0/12, 제안 키워드 []",
+   "_wall_s": 0.2
+  },
+  "4b": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": "아버님이 끝까지 지금 집에 사시는 것을 가장 먼저 지킨다. 이 약속 안에서 생활비와 병원비를 마련할 방법을 비교하고, 작은 집으로 옮기는 경우는 비교용으로만 함께 계산한다.",
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.2
+  },
+  "5+6a": {
+   "design_run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "interpret_run": {
+    "ok": null,
+    "attempts": null,
+    "errors": null,
+    "latency_s": null,
+    "usage": null,
+    "tool_calls": null,
+    "model": null
+   },
+   "levers": null,
+   "error": null,
+   "verification": null,
+   "interpretation": null,
+   "_score": "FAIL",
+   "_wall_s": 0.2
+  },
+  "6b": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "verification": null,
+   "_score": "FAIL",
+   "_wall_s": 0.8
+  },
+  "5r": {
+   "_score": "해당 없음",
+   "_wall_s": 0.0
+  },
+  "7": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "output": null,
+   "golden": {
+    "goal": "부모님이 지금 집에서 지금처럼 생활하시고, 병원비와 간병비를 미리 준비하며, 자녀가 보태는 돈과 돌보는 시간을 공평하게 나눈다.",
+    "method_label": "B. 살면서 연금 받기",
+    "target_amount": {
+     "label": "병원비·간병비 따로 3,000만원 + 예금이 25년 이상 버티는 상태"
+    },
+    "contribution": [
+     {
+      "label": "김태윤 보태는 돈",
+      "amount": 22
+     },
+     {
+      "label": "김지은 보태는 돈",
+      "amount": 18
+     }
+    ],
+    "timing": "주택연금 신청 즉시, 병원비 통장은 이번 달 분리",
+    "change_conditions": [
+     "1년마다",
+     "입원·요양 등급 등 변화 시"
+    ],
+    "commitments": [
+     "주택연금을 신청하고, 지금 집에 계속 살기",
+     "자녀가 보태는 돈은 월 40만원, 버는 만큼 나누기(태윤 22만원 · 지은 18만원)",
+     "예금 중 3,000만원은 병원비·간병비로 따로",
+     "간병이 필요해지면 시간을 내는 사람은 돈을 덜 내기",
+     "집을 어떻게 물려줄지는 전문가 상담 후 다시 정하기"
+    ]
+   },
+   "verification": {},
+   "_score": "FAIL 검증=None 위반=0",
+   "_wall_s": 0.5
+  },
+  "8": {
+   "run": {
+    "ok": false,
+    "attempts": 1,
+    "errors": [
+     "호출 실패: HTTP 402: {\"error\":\"You have depleted your monthly included credits. Purchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get 20x more included usage.\"}"
+    ],
+    "latency_s": 0.0,
+    "usage": {
+     "input_tokens": 0,
+     "output_tokens": 0
+    },
+    "tool_calls": 0,
+    "model": ""
+   },
+   "mappings": null,
+   "got": {},
+   "expect": {
+    "c1": [
+     "PP_reverse_mortgage"
+    ],
+    "c2": [
+     "P_joint_account"
+    ],
+    "c3": [
+     "P_parking_account"
+    ],
+    "c4": [
+     "P_care_insurance"
+    ],
+    "c5": [
+     "P_family_trust_consult"
+    ]
+   },
+   "verification": null,
+   "_score": "약속별 기대 상품 포함 0/5",
+   "_wall_s": 0.2
+  }
+ },
+ "finished": "2026-10-06 12:04:22",
+ "tokens": {
+  "input_tokens": 0,
+  "output_tokens": 0
+ }
+}

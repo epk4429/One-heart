@@ -1,0 +1,381 @@
+{
+  "_note": "신혼부부 시나리오(가상). 원본은 v3 프로토타입 DATA.newly, 정리는 docs/04_시나리오데이터.md. 단위 만원.",
+  "room": {
+    "room_id": "newly",
+    "name": "우리 둘의 5년 계획",
+    "scenario_type": "newlywed",
+    "host_member_id": "m1",
+    "reason": "집을 먼저 살지, 아이를 먼저 가질지 이야기할 때마다 결론 없이 끝났어요. 이번엔 숫자를 놓고 같이 정해보고 싶어요.",
+    "invite_link": "one-heart.example/r/7Q2K-MNSY"
+  },
+  "members": [
+    {
+      "member_id": "m0",
+      "name": "민준",
+      "initial": "민",
+      "role": "남편",
+      "age": 32,
+      "easy_mode": false
+    },
+    {
+      "member_id": "m1",
+      "name": "서연",
+      "initial": "서",
+      "role": "아내",
+      "age": 30,
+      "easy_mode": false
+    }
+  ],
+  "viewer_default": "m1",
+  "story": {
+    "author_id": "m1",
+    "text": "결혼 1년 차 부부예요. 성남 전세에 살고 있고 전세 만기가 내년 4월이에요. 둘 다 회사에 다니고 있고, 2년 안에 아이를 갖고 싶어요. 5년 안에는 작은 아파트라도 우리 집을 사고 싶은데, 남편은 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요. 양가에 드리는 용돈도 기준이 없어서 가끔 서운할 때가 있어요."
+  },
+  "financial_items": [
+    {
+      "item_id": "f1",
+      "owner_id": "m1",
+      "kind": "deposit",
+      "label": "가온은행 예금",
+      "amount": 2800,
+      "period": "once",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f2",
+      "owner_id": "m0",
+      "kind": "investment",
+      "label": "나래증권 주식",
+      "amount": 1200,
+      "period": "once",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "전세 보증금 중 우리 돈",
+      "amount": 10000,
+      "period": "once",
+      "source": "manual"
+    },
+    {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "가온은행 전세대출",
+      "amount": -15000,
+      "rate": 4.1,
+      "period": "once",
+      "source": "mydata",
+      "note": "보증금에 대응, 우리 돈 계산에서 상쇄"
+    },
+    {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "income",
+      "label": "둘이 버는 돈",
+      "amount": 700,
+      "period": "monthly",
+      "source": "mydata"
+    },
+    {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비(카드 월평균)",
+      "amount": -350,
+      "period": "monthly",
+      "source": "mydata"
+    }
+  ],
+  "planning_inputs": {
+    "_note": "역할 5(선택지 설계)가 고를 수 있는 값. LLM은 숫자를 새로 만들지 않고 이 안에서 조합한다(docs/01 4절).",
+    "start_pool": 14000,
+    "start_pool_label": "우리 돈(예금 4,000 + 전세 보증금 중 우리 돈 1억)",
+    "monthly_income": 700,
+    "monthly_living": -350,
+    "parents_allowance_options": [
+      {
+        "label": "양가 용돈(각 20만원)",
+        "amount": -40
+      }
+    ],
+    "discretionary_options": [
+      -50,
+      -75,
+      -180
+    ],
+    "return_assumptions": [
+      {
+        "assumption_id": "newly_B_deposit_heavy",
+        "label": "예금·적금 위주",
+        "expected_return": 3.8,
+        "volatility": 4.5
+      },
+      {
+        "assumption_id": "newly_B_stock20",
+        "label": "여윳돈 주식 20%까지",
+        "expected_return": 4.2,
+        "volatility": 5.5
+      },
+      {
+        "assumption_id": "newly_A_stock30",
+        "label": "여윳돈 주식 30%",
+        "expected_return": 5.0,
+        "volatility": 7.5
+      },
+      {
+        "assumption_id": "newly_C_stock_heavy",
+        "label": "주식 위주",
+        "expected_return": 6.5,
+        "volatility": 14.0
+      }
+    ],
+    "life_events": [
+      {
+        "label": "육아휴직(아이 계획대로 2년 차)",
+        "from_month": 20,
+        "to_month": 31,
+        "monthly_delta": -150,
+        "child_plan": "2년 차(계획대로)"
+      },
+      {
+        "label": "육아휴직(아이 1년 미룸, 3년 차)",
+        "from_month": 36,
+        "to_month": 47,
+        "monthly_delta": -150,
+        "child_plan": "3년 차(1년 미룸)"
+      }
+    ],
+    "goal": {
+      "type": "reach_target",
+      "target_amount": 30000,
+      "label": "집 살 때 필요한 우리 돈 3억",
+      "within_months": 60
+    },
+    "horizon_months": 96,
+    "leave_fund": {
+      "target": 1800,
+      "monthly": 60,
+      "label": "휴직 준비 적금"
+    },
+    "emergency_months": 6,
+    "review": {
+      "interval_label": "6개월마다",
+      "interval_months": 6,
+      "next": "2027년 3월",
+      "events": [
+        "출산",
+        "이직",
+        "전세 만료"
+      ]
+    },
+    "today": "2026년 10월"
+  },
+  "interviews": [
+    {
+      "member_id": "m0",
+      "date": "9월 24일 오후 9:12",
+      "voice": false,
+      "qa": [
+        [
+          "5년 뒤, 두 분의 모습을 어떻게 그리고 계세요?",
+          "우리 집에서 아이랑 사는 거요. 전세 계약 연장할 때마다 불안하거든요."
+        ],
+        [
+          "돈과 관련해서 가장 걱정되는 건 뭔가요?",
+          "집값이 계속 오르면 영영 못 살까 봐요."
+        ],
+        [
+          "양보할 수 있는 것과 없는 것을 하나씩 말해 주세요.",
+          "투자 비중은 줄일 수 있어요. 대신 집 사는 시기를 너무 늦추고 싶진 않아요."
+        ]
+      ]
+    },
+    {
+      "member_id": "m1",
+      "date": "9월 24일 오후 10:05",
+      "voice": false,
+      "qa": [
+        [
+          "5년 뒤, 두 분의 모습을 어떻게 그리고 계세요?",
+          "아이가 있고, 제가 육아휴직을 마음 편히 쓸 수 있으면 좋겠어요."
+        ],
+        [
+          "돈과 관련해서 가장 걱정되는 건 뭔가요?",
+          "휴직하면 제 월급이 절반 이하로 줄어요. 그때 대출 이자까지 내면 빠듯할 것 같아요."
+        ],
+        [
+          "양보할 수 있는 것과 없는 것을 하나씩 말해 주세요.",
+          "집은 1~2년 늦어져도 괜찮아요. 그런데 양가 용돈은 똑같이 했으면 해요."
+        ]
+      ]
+    }
+  ],
+  "golden": {
+    "story_understanding": {
+      "family_stage": "결혼 1년 차 · 2년 안에 아이 계획",
+      "living": "전세 · 2027년 4월 계약 끝",
+      "shared_goal": "5년 안에 우리 집 사기",
+      "differences": [
+        "집 사는 시기",
+        "아이 시기",
+        "양가 용돈"
+      ]
+    },
+    "summaries": {
+      "m0": {
+        "keep": "5년 안에 집 사기",
+        "flexible": "주식 투자 비중",
+        "worry": "집값이 계속 오르는 것"
+      },
+      "m1": {
+        "keep": "2년 안에 아이 · 양가 용돈 똑같이",
+        "flexible": "집 사는 시기 1~2년",
+        "worry": "육아휴직 동안 줄어드는 월급"
+      }
+    },
+    "clarification": null,
+    "goal_setting": {
+      "headline": "두 분은 가고 싶은 곳이 같아요. 가는 순서가 다를 뿐이에요.",
+      "agreed_points": [
+        "5년 안에 우리 집 마련",
+        "비상금 6개월분 유지",
+        "서로 양보할 부분이 있음"
+      ],
+      "issues": [
+        {
+          "title": "집은 언제",
+          "left_label": "최대한 빨리",
+          "right_label": "여건이 되면",
+          "positions": {
+            "m0": 0.18,
+            "m1": 0.72
+          },
+          "note": "차이 1~2년"
+        },
+        {
+          "title": "아이는 언제",
+          "left_label": "집 산 다음에",
+          "right_label": "2년 안에",
+          "positions": {
+            "m0": 0.3,
+            "m1": 0.9
+          },
+          "note": "서연에게 더 중요"
+        },
+        {
+          "title": "양가 용돈",
+          "left_label": "그때그때",
+          "right_label": "같은 금액으로 고정",
+          "positions": {
+            "m0": 0.38,
+            "m1": 0.92
+          },
+          "note": "고정 + 경조사 별도"
+        }
+      ],
+      "proposal_keywords": [
+        "날짜",
+        "조건"
+      ],
+      "criterion": "집 사는 시기 = 우리 돈 3억과 육아휴직 준비금 1,800만원이 모두 모였을 때"
+    },
+    "replies": {
+      "m0": "조건이 빨리 채워지면 그만큼 빨리 사는 거니까, 괜찮은 것 같아요.",
+      "m1": "그러면 아이 계획을 미루지 않아도 되겠네요. 좋아요."
+    },
+    "options_expect": {
+      "A": {
+        "goal_hit_display": "약 4.3년",
+        "monthly_flow": 260,
+        "expected_return": 5.0
+      },
+      "B": {
+        "goal_hit_display": "약 4.9년",
+        "monthly_flow": 235,
+        "expected_return": 3.8
+      },
+      "C": {
+        "goal_hit_display": "약 6.1년",
+        "monthly_flow": 130,
+        "expected_return": 6.5
+      }
+    },
+    "consent_round1": {
+      "m0": {
+        "A": [
+          "good",
+          ""
+        ],
+        "B": [
+          "no",
+          "모으는 돈을 전부 예금에 두면 집값 오르는 속도를 못 따라갈 것 같아요."
+        ],
+        "C": [
+          "no",
+          "5년 안에 집을 못 사요."
+        ]
+      },
+      "m1": {
+        "A": [
+          "no",
+          "아이를 1년 미루는 건 받아들이기 어려워요."
+        ],
+        "B": [
+          "good",
+          ""
+        ],
+        "C": [
+          "cond",
+          "투자에서 손해가 나면 바로 줄이기로 해요."
+        ]
+      }
+    },
+    "revision_expect": {
+      "from_option_id": "B",
+      "expected_return": 4.2,
+      "goal_hit_display": "약 4.8년"
+    },
+    "consent_round2": {
+      "m0": [
+        "cond",
+        "좋아요. 대신 집값이 많이 오르면 6개월 점검 때 시기를 다시 이야기해요."
+      ],
+      "m1": [
+        "cond",
+        "괜찮아요. 휴직 준비금만은 절대 투자하지 않기로 해요."
+      ]
+    },
+    "agreement": {
+      "goal": "5년 안에 우리 돈 3억으로 집 마련, 첫아이와 휴직을 무리 없이",
+      "method_label": "B. 둘 다 챙기기",
+      "target_amount": {
+        "value": 30000,
+        "label": "집 살 때 필요한 우리 돈 3억"
+      },
+      "contribution": [
+        {
+          "label": "함께 모으는 돈",
+          "amount": 175
+        },
+        {
+          "label": "휴직 준비 적금",
+          "amount": 60
+        }
+      ],
+      "timing": "날짜가 아닌 조건: 3억 + 비상금 6개월분",
+      "change_conditions": [
+        "6개월마다",
+        "출산·이직·전세 만료 시"
+      ],
+      "commitments": [
+        "집은 날짜 대신 '3억 + 비상금 6개월분' 모이면",
+        "휴직 준비금 1,800만원은 따로, 투자하지 않기",
+        "여윳돈의 주식 비중은 20%까지",
+        "양가 용돈은 각각 월 20만원으로 같게"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+# 서버 실행: Anthropic 공식 SDK(LLM_PROVIDER=anthropic일 때). 엔진·검증·온톨로지·HF 호출은 표준 라이브러리만 쓴다.
+anthropic>=1.11
+# 테스트용: pytest

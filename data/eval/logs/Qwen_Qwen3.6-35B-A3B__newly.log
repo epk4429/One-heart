@@ -1,0 +1,12 @@
+  [1a] FAIL (0.3s)
+  [1b] 0/2 ok (0.5s)
+  [2a] 탐지 0/0, 오탐 0 (0.4s)
+  [2b] 해당 없음 (0.0s)
+  [3+4a] 칸 일치 0/6, 제안 키워드 [] (0.2s)
+  [4b] FAIL (0.2s)
+  [5+6a] FAIL (0.2s)
+  [6b] FAIL (0.4s)
+  [5r] from=None levers=None → None (기대 B, newly_B_stock20, 약 4.8년) (0.4s)
+  [7] FAIL 검증=None 위반=0 (0.3s)
+  [8] 약속별 기대 상품 포함 0/5 (0.2s)
+→ data\eval\Qwen_Qwen3.6-35B-A3B__newly.json  tokens={'input_tokens': 0, 'output_tokens': 0}

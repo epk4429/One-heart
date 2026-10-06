@@ -1,0 +1,107 @@
+{
+  "_note": "계산엔진 수용 테스트용 골든 케이스(docs/05_계산엔진.md 5절). 조건은 docs/04_시나리오데이터.md, 기대값은 기획안 숫자. 단위 만원.",
+  "cases": [
+    {
+      "case_id": "newly_options",
+      "request": {
+        "scenario_id": "newly",
+        "horizon_months": 96,
+        "start": {"goal_pool": 14000, "pool_label": "우리 돈(예금 4,000 + 전세 보증금 중 우리 돈 1억)"},
+        "goal": {"type": "reach_target", "target_amount": 30000, "label": "집 살 때 필요한 우리 돈 3억", "within_months": 60},
+        "options": [
+          {"option_id": "A", "label": "집 먼저", "expected_return": 5.0, "volatility": 7.5, "return_assumption_id": "newly_A_stock30",
+           "cashflows": [
+             {"label": "둘이 버는 돈", "amount": 700, "category": "income"},
+             {"label": "생활비", "amount": -350, "category": "expense"},
+             {"label": "양가 용돈", "amount": -40, "category": "transfer"},
+             {"label": "쓸 수 있는 여유", "amount": -50, "category": "discretionary"}],
+           "events": [{"label": "육아휴직", "from_month": 36, "to_month": 47, "monthly_delta": -150, "category": "income"}]},
+          {"option_id": "B", "label": "둘 다 챙기기", "expected_return": 3.8, "volatility": 4.5, "return_assumption_id": "newly_B_deposit_heavy",
+           "cashflows": [
+             {"label": "둘이 버는 돈", "amount": 700, "category": "income"},
+             {"label": "생활비", "amount": -350, "category": "expense"},
+             {"label": "양가 용돈", "amount": -40, "category": "transfer"},
+             {"label": "쓸 수 있는 여유", "amount": -75, "category": "discretionary"}],
+           "events": [{"label": "육아휴직", "from_month": 20, "to_month": 31, "monthly_delta": -150, "category": "income"}]},
+          {"option_id": "C", "label": "지금을 여유 있게", "expected_return": 6.5, "volatility": 14, "return_assumption_id": "newly_C_stock_heavy",
+           "cashflows": [
+             {"label": "둘이 버는 돈", "amount": 700, "category": "income"},
+             {"label": "생활비", "amount": -350, "category": "expense"},
+             {"label": "양가 용돈", "amount": -40, "category": "transfer"},
+             {"label": "쓸 수 있는 여유", "amount": -180, "category": "discretionary"}],
+           "events": [{"label": "육아휴직", "from_month": 20, "to_month": 31, "monthly_delta": -150, "category": "income"}]}
+        ]
+      },
+      "expect": {
+        "A": {"goal_hit_month": 51, "display": "약 4.3년"},
+        "B": {"goal_hit_month": 59, "display": "약 4.9년"},
+        "C": {"goal_hit_month": 73, "display": "약 6.1년"}
+      }
+    },
+    {
+      "case_id": "newly_agreed",
+      "request": {
+        "scenario_id": "newly",
+        "horizon_months": 96,
+        "start": {"goal_pool": 14000, "pool_label": "우리 돈"},
+        "goal": {"type": "reach_target", "target_amount": 30000, "label": "집 살 때 필요한 우리 돈 3억", "within_months": 60},
+        "options": [
+          {"option_id": "B_adj", "label": "둘 다 챙기기", "description": "주식 비중 조정(여윳돈 20%까지)", "expected_return": 4.2, "volatility": 5.5,
+           "return_assumption_id": "newly_B_stock20",
+           "cashflows": [
+             {"label": "함께 모으는 돈", "amount": 175, "category": "saving"},
+             {"label": "휴직 준비 적금", "amount": 60, "category": "saving"}],
+           "events": [{"label": "육아휴직", "from_month": 20, "to_month": 31, "monthly_delta": -150, "category": "income"}]}
+        ]
+      },
+      "expect": {
+        "B_adj": {"goal_hit_month": 58, "display": "약 4.8년", "pool_after_3_months": 14855}
+      }
+    },
+    {
+      "case_id": "elder_options",
+      "request": {
+        "scenario_id": "elder",
+        "horizon_months": 300,
+        "start": {
+          "goal_pool": 12000, "pool_label": "부모님 예금",
+          "aux_accounts": [
+            {"id": "home", "kind": "asset", "value": 55000, "growth": 0, "label": "지금 집(시세 추정)"},
+            {"id": "reverse_mortgage", "kind": "debt", "value": 0, "label": "주택연금 누적 잔액"}
+          ]
+        },
+        "goal": {"type": "runway", "target_amount": 0, "label": "예금을 다 쓰는 선", "within_months": 300},
+        "member_context": {"base_age": 72, "member_id": "m0"},
+        "options": [
+          {"option_id": "A", "label": "지금처럼", "expected_return": 2.5, "volatility": 2.0, "return_assumption_id": "elder_deposit",
+           "cashflows": [
+             {"label": "부모님 연금", "amount": 140, "category": "income"},
+             {"label": "자녀가 보태는 돈", "amount": 80, "category": "transfer"},
+             {"label": "생활비", "amount": -260, "category": "expense"}],
+           "events": [{"label": "병원비·간병비 증가", "from_month": 96, "to_month": 300, "monthly_delta": -80, "category": "expense"}]},
+          {"option_id": "B", "label": "살면서 연금 받기", "expected_return": 2.5, "volatility": 2.0, "return_assumption_id": "elder_deposit",
+           "cashflows": [
+             {"label": "부모님 연금", "amount": 140, "category": "income"},
+             {"label": "주택연금", "amount": 110, "category": "income"},
+             {"label": "자녀가 보태는 돈", "amount": 40, "category": "transfer"},
+             {"label": "생활비", "amount": -260, "category": "expense"}],
+           "events": [{"label": "병원비·간병비 증가", "from_month": 96, "to_month": 300, "monthly_delta": -80, "category": "expense"}],
+           "aux_changes": [{"type": "accrue", "account_id": "reverse_mortgage", "from_month": 1, "to_month": 300, "monthly_amount": 110, "rate": 3.0}]},
+          {"option_id": "C", "label": "작은 집으로", "expected_return": 2.5, "volatility": 2.0, "return_assumption_id": "elder_deposit",
+           "cashflows": [
+             {"label": "부모님 연금", "amount": 140, "category": "income"},
+             {"label": "자녀가 보태는 돈", "amount": 50, "category": "transfer"},
+             {"label": "생활비(관리비 감소)", "amount": -250, "category": "expense"}],
+           "events": [{"label": "병원비·간병비 증가", "from_month": 96, "to_month": 300, "monthly_delta": -80, "category": "expense"}],
+           "lump_sums": [{"month": 6, "amount": 23000, "label": "작은 집으로 옮기고 남는 돈"}],
+           "aux_changes": [{"type": "set", "account_id": "home", "month": 6, "value": 30000}]}
+        ]
+      },
+      "expect": {
+        "A": {"goal_hit_month": 191, "display": "약 15.9년", "age_at_hit": 87},
+        "B": {"goal_hit_month": null, "display": "25년 이상", "end_pool": 14457},
+        "C": {"goal_hit_month": null, "display": "25년 이상", "end_pool": 19410}
+      }
+    }
+  ]
+}
