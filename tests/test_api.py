@@ -16,7 +16,7 @@ from server import guard  # noqa: E402
 def _iso(tmp_path, monkeypatch):
     monkeypatch.setattr(guard, "USAGE_FILE", tmp_path / "usage.json")
     monkeypatch.setenv("LLM_PROVIDER", "replay")
-    monkeypatch.delenv("ACCESS_CODES", raising=False)
+    monkeypatch.setenv("ACCESS_CODES", "")  # 빈 값으로 두면 .env를 읽어도 덮어쓰지 않는다(load_env는 setdefault)
     monkeypatch.setenv("RATE_PER_MIN", "1000")
     A._provider = None
     yield

@@ -8,6 +8,7 @@ import json
 import os
 import sys
 from http.server import BaseHTTPRequestHandler
+from urllib.parse import parse_qs, urlsplit
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -46,12 +47,18 @@ class handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Max-Age", "600")
         self.end_headers()
 
+    def _route(self) -> str:
+        """원래 요청 경로. Vercel rewrites가 /api/index로 바꿔 보내므로 vercel.json이 붙인 __path를 먼저 본다."""
+        u = urlsplit(self.path)
+        orig = parse_qs(u.query).get("__path")
+        return orig[0] if orig else u.path
+
     def _ip(self) -> str:
         return (self.headers.get("x-forwarded-for") or self.client_address[0]).split(",")[0].strip()
 
     def _static(self) -> None:
         """화면 파일(web/)을 내준다. Vercel이 모든 주소를 이 함수로 보내는 경우에도 화면이 열리게."""
-        rel = self.path.split("?")[0].lstrip("/") or "index.html"
+        rel = self._route().lstrip("/") or "index.html"
         f = os.path.realpath(os.path.join(WEB, rel))
         if not f.startswith(os.path.realpath(WEB) + os.sep) or not os.path.isfile(f):
             self.send_response(404)
@@ -70,10 +77,11 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(data)
 
     def do_GET(self):
-        if not self.path.startswith("/api/"):
+        path = self._route()
+        if not path.startswith("/api/"):
             return self._static()
-        self._send(*dispatch("GET", self.path, b"", dict(self.headers), self._ip()))
+        self._send(*dispatch("GET", path, b"", dict(self.headers), self._ip()))
 
     def do_POST(self):
         n = int(self.headers.get("Content-Length") or 0)
-        self._send(*dispatch("POST", self.path, self.rfile.read(n), dict(self.headers), self._ip()))
+        self._send(*dispatch("POST", self._route(), self.rfile.read(n), dict(self.headers), self._ip()))
