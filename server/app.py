@@ -127,7 +127,7 @@ def r_health(_b, _ctx):
     name = os.environ.get("LLM_PROVIDER", "hf")
     model = "replay(개발용)" if name == "replay" else os.environ.get("LLM_MODEL") or DEFAULT_MODELS.get(name, "")
     return {"ok": True, "provider": name, "model": model, "engine_version": ENGINE_VERSION,
-            "access_required": guard.access_required()}
+            "access_required": guard.access_required(), "budget_store": guard.backend()}
 
 
 def r_access(b, _ctx):
