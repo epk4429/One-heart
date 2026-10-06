@@ -184,7 +184,7 @@ function s1() {
   const author = f.room.host_member_id;
   const rows = f.finance.map(finRow).join("");
   return `<div class="head"><div class="eyebrow">우리 가족 이야기</div><h1 class="h1">지금 가족의 상황을 편하게 들려주세요</h1><p class="lead">이야기는 AI가 정리하고, 숫자는 아래 표에 넣어요. 계산은 이 숫자로 계산엔진이 해요.</p></div>
-  <div class="warnbox"><b>실제 계좌 정보나 정확한 금액은 넣지 마세요.</b> 체험판이라 대략적인 값이나 가상의 값으로 충분해요. 입력한 내용은 이 브라우저에만 저장돼요. AI가 정리할 때는 서버를 거쳐 AI(Anthropic Claude)에 보내지만, 이 서비스 서버에는 저장하지 않아요.</div>
+  <div class="warnbox"><b>실제 계좌 정보나 정확한 금액은 넣지 마세요.</b> 체험판이라 대략적인 값이나 가상의 값으로 충분해요. 입력한 내용은 서버에 저장하지 않아요.</div>
   <section class="sec"><h2 class="st">${esc(mem(author).name)}님이 쓰는 우리 가족 이야기</h2>
    <textarea ${presetLocked() ? "readonly" : ""} data-bind="story.text" data-reset="story" maxlength="1500" style="min-height:130px" placeholder="예: 결혼 1년 차 부부예요. 전세에 살고 있고, 2년 안에 아이를 갖고 싶어요. 남편은 집을 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요.">${esc(f.story.text)}</textarea>
    <p class="cs" style="margin-top:6px">가족의 단계, 사는 곳, 함께 이루고 싶은 것, 생각이 다른 부분을 써 주시면 좋아요. 1,500자까지.</p></section>
