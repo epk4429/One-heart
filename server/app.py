@@ -48,12 +48,36 @@ def _need(body: dict, *keys: str) -> None:
             raise ApiError("bad_request", f"'{k}'가 필요해요")
 
 
+def custom_family_allowed() -> bool:
+    """'우리 가족으로 체험하기'를 열지. Vercel(공개)에서는 기본으로 닫고(예시 가족만), 로컬 개발에서는 연다.
+    ALLOW_CUSTOM_FAMILY=1/0으로 바꿀 수 있다."""
+    v = os.environ.get("ALLOW_CUSTOM_FAMILY")
+    if v is not None and v.strip() != "":
+        return v.strip().lower() in ("1", "true", "yes", "on")
+    return not os.environ.get("VERCEL")
+
+
+def _same_as_preset(fam: dict) -> bool:
+    """예시 가족 그대로인지(가족방·구성원·이야기). 금융정보는 가족 홈의 재점검으로 바뀔 수 있어 보지 않는다."""
+    pid = fam.get("preset_id")
+    if not pid:
+        return False
+    try:
+        p = F.validate(F.preset(pid))
+    except F.FamilyError:
+        return False
+    return all(fam[k] == p[k] for k in ("room", "members", "story"))
+
+
 def _family(body: dict) -> dict:
     _need(body, "family")
     try:
-        return F.validate(body["family"])
+        fam = F.validate(body["family"])
     except F.FamilyError as e:
         raise ApiError("bad_family", str(e))
+    if not custom_family_allowed() and not _same_as_preset(fam):
+        raise ApiError("examples_only", "체험판에서는 예시 가족만 쓸 수 있어요", 403)
+    return fam
 
 
 def _member_id(fam: dict, body: dict) -> str:
@@ -127,7 +151,8 @@ def r_health(_b, _ctx):
     name = os.environ.get("LLM_PROVIDER", "hf")
     model = "replay(개발용)" if name == "replay" else os.environ.get("LLM_MODEL") or DEFAULT_MODELS.get(name, "")
     return {"ok": True, "provider": name, "model": model, "engine_version": ENGINE_VERSION,
-            "access_required": guard.access_required(), "budget_store": guard.backend()}
+            "access_required": guard.access_required(), "budget_store": guard.backend(),
+            "custom_family": custom_family_allowed()}
 
 
 def r_access(b, _ctx):
@@ -144,7 +169,7 @@ def r_access(b, _ctx):
 
 def r_config(_b, _ctx):
     a = F.assumptions()
-    return {"questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
+    return {"custom_family": custom_family_allowed(), "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
             "monthly_kinds": [k for k, v in F.KINDS.items() if v[0] == "monthly"], "loan_types": F.LOAN_TYPES,
             "goal_types": GOAL_TYPES, "limits": F.LIMITS,
             "assumptions": {"returns": a["returns"], "inflation": a["inflation"],

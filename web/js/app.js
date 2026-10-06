@@ -114,11 +114,24 @@ const prevBtn = () => step > 0 ? `<button class="btn" data-act="prev"><span aria
 const next = (label, dis, hint) => `<div class="next">${prevBtn()}<span class="pno">— ${step + 1} —</span>${dis && hint ? `<span class="hint">${hint}</span>` : ""}${label ? `<button class="btn primary" data-act="next" ${dis ? "disabled" : ""}>${label} <span aria-hidden="true">→</span></button>` : ""}</div>`;
 const turn = (list, what) => { const o = list.filter(m => m !== viewer()); return o.length ? `<div class="turn"><span>${o.map(m => esc(mem(m).name) + "님").join(", ")}의 ${what}이 남았어요.</span><button class="btn sm" data-act="viewer" data-mid="${o[0]}">${esc(mem(o[0]).name)}님 차례로 바꾸기</button></div>` : ""; };
 const oneDevice = () => `<div class="onedev"><b>한 기기에서 가족이 돌아가며 입력해요</b><span>아래 검은 막대의 <b>보는 사람</b>을 바꾸면 그 사람의 화면이 돼요. 실제 서비스에서는 가족마다 자기 휴대폰에서 알림을 받고 직접 입력해요.</span></div>`;
+const customOn = () => !CFG || CFG.custom_family !== false;
+const presetLocked = () => !customOn() && S() && S().key !== "custom"; // 공개 체험판: 예시 가족의 기본 정보는 고칠 수 없음
+function applyPublicMode(h) {
+  if (h.custom_family !== false) return;
+  document.querySelectorAll('[data-start="custom"]').forEach(b => {
+    b.removeAttribute("data-start"); b.dataset.scroll = "stories";
+    b.textContent = b.textContent.includes("→") ? "예시 가족으로 체험하기 →" : "예시 가족으로 체험하기";
+    b.onclick = () => { const t = document.getElementById("stories"); if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" }); };
+  });
+  document.querySelectorAll("[data-custom-text]").forEach(el => el.textContent = el.dataset.customText);
+  document.querySelectorAll(".cover .cta button").forEach(b => { if (b.textContent.includes("먼저 보기")) b.hidden = true; });
+}
 const exampleBtn = (act, extra = "") => S().scripts ? `<button class="btn sm" data-act="${act}" ${extra}>예시 답 넣기</button>` : "";
 
 /* ---------- 화면 0: 가족방 만들기 ---------- */
 function s0() {
   const s = S(), f = F(), host = f.room.host_member_id;
+  if (presetLocked() && !s.setupDone) { s.setupDone = true; s.viewer = f.room.host_member_id; }
   if (s.setupDone) {
     const ivStarted = Object.values(s.iv).some(x => (x.answers || []).length);
     return `<div class="head"><div class="eyebrow">가족방 만들기</div><h1 class="h1">${esc(f.room.name)}</h1><p class="lead">${esc(mem(host).name)}님이 가족방을 만들었어요. 이제 가족의 이야기를 들어볼 차례예요.</p></div>
@@ -127,7 +140,7 @@ function s0() {
      ${f.room.reason ? `<div class="card"><div class="ct">가족방을 만든 이유</div><p class="quote">${esc(f.room.reason)}</p><p class="qby">${esc(mem(host).name)} · ${esc(mem(host).role)}</p></div>` : ""}
      <div class="card"><div class="ct">참여한 가족 <span class="cs">${f.members.length}명</span></div>
       <div class="plist">${f.members.map(m => `<div class="prow">${av(m.member_id)}<div class="who"><div class="nm">${esc(m.name)} <span class="rl">· ${esc(m.role)} · ${m.age}세</span></div><div class="rl">${m.member_id === host ? "가족방을 만들었어요" : m.easy_mode ? "큰 글씨·쉬운 말로 참여" : "참여"}</div></div><span class="pill ${m.member_id === host ? "brand" : m.easy_mode ? "warm" : "good"}">${m.member_id === host ? "방장" : m.easy_mode ? "간편 모드" : "참여"}</span></div>`).join("")}</div>
-      ${ivStarted ? `<p class="cs" style="margin-top:12px">각자의 생각을 듣기 시작해서 구성원은 바꿀 수 없어요. 바꾸려면 아래 검은 막대의 '처음부터'를 눌러 주세요.</p>` : `<button class="btn sm" style="margin-top:12px" data-act="edit-setup">구성원 고치기</button>`}</div>
+      ${presetLocked() ? `<p class="cs" style="margin-top:12px">예시 가족이라 구성원은 정해져 있어요.</p>` : ivStarted ? `<p class="cs" style="margin-top:12px">각자의 생각을 듣기 시작해서 구성원은 바꿀 수 없어요. 바꾸려면 아래 검은 막대의 '처음부터'를 눌러 주세요.</p>` : `<button class="btn sm" style="margin-top:12px" data-act="edit-setup">구성원 고치기</button>`}</div>
     </div>${next("우리 가족 이야기 쓰기")}`;
   }
   const rows = f.members.map((m, i) => `<tr><td>${av(m.member_id, "sm")}</td>
@@ -151,20 +164,20 @@ function s0() {
 
 /* ---------- 화면 1: 우리 가족 이야기 ---------- */
 function finRow(it, i) {
-  const s = S(), f = F(), vw = viewer(), own = it.owner_id === vw;
+  const s = S(), f = F(), vw = viewer(), own = it.owner_id === vw, ro = presetLocked() ? "disabled" : "";
   const d = f.disclosure[it.item_id] || "share";
   const kinds = CFG.kinds;
   const loan = it.kind === "loan";
   return `<tr>
-   <td><select data-bind="finance.${i}.owner_id">${[["joint", "공동"], ...f.members.map(m => [m.member_id, m.name])].map(([v, l]) => `<option value="${v}" ${it.owner_id === v ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
-   <td><select data-bind="finance.${i}.kind">${Object.entries(kinds).map(([k, l]) => `<option value="${k}" ${it.kind === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
-   <td><input data-bind="finance.${i}.label" value="${esc(it.label)}" placeholder="이름(예: 월급)" maxlength="30"></td>
-   <td><div class="amt-in"><input data-bind="finance.${i}.amount" data-num value="${it.amount ?? ""}" inputmode="decimal" placeholder="0"><span>만원${CFG.monthly_kinds.includes(it.kind) ? "/월" : ""}</span></div>
-    ${loan ? `<div class="loanx"><select data-bind="finance.${i}.loan_type">${Object.entries(CFG.loan_types).map(([k, l]) => `<option value="${k}" ${it.loan_type === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
-      <label>금리 <input data-bind="finance.${i}.rate" data-num value="${it.rate ?? ""}" inputmode="decimal" style="width:64px">%</label>
-      ${it.loan_type !== "lease" ? `<label>월 상환액 <input data-bind="finance.${i}.payment" data-num value="${it.payment ?? ""}" inputmode="decimal" style="width:72px">만원</label>` : ""}</div>` : ""}</td>
+   <td><select data-bind="finance.${i}.owner_id" ${ro}>${[["joint", "공동"], ...f.members.map(m => [m.member_id, m.name])].map(([v, l]) => `<option value="${v}" ${it.owner_id === v ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
+   <td><select data-bind="finance.${i}.kind" ${ro}>${Object.entries(kinds).map(([k, l]) => `<option value="${k}" ${it.kind === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
+   <td><input ${ro} data-bind="finance.${i}.label" value="${esc(it.label)}" placeholder="이름(예: 월급)" maxlength="30"></td>
+   <td><div class="amt-in"><input ${ro} data-bind="finance.${i}.amount" data-num value="${it.amount ?? ""}" inputmode="decimal" placeholder="0"><span>만원${CFG.monthly_kinds.includes(it.kind) ? "/월" : ""}</span></div>
+    ${loan ? `<div class="loanx"><select ${ro} data-bind="finance.${i}.loan_type">${Object.entries(CFG.loan_types).map(([k, l]) => `<option value="${k}" ${it.loan_type === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
+      <label>금리 <input ${ro} data-bind="finance.${i}.rate" data-num value="${it.rate ?? ""}" inputmode="decimal" style="width:64px">%</label>
+      ${it.loan_type !== "lease" ? `<label>월 상환액 <input ${ro} data-bind="finance.${i}.payment" data-num value="${it.payment ?? ""}" inputmode="decimal" style="width:72px">만원</label>` : ""}</div>` : ""}</td>
    <td>${own ? `<span class="disc">${["share", "summary_only", "hide"].map(k => `<button class="${d === k ? "on" : ""}" data-act="disc" data-item="${it.item_id}" data-v="${k}">${{ share: "공개", summary_only: "합계만", hide: "숨김" }[k]}</button>`).join("")}</span>` : `<span class="cs">${{ share: "공개", summary_only: "합계만", hide: "숨김" }[d]}${it.owner_id !== "joint" ? `<br>(${esc(mem(it.owner_id).name)}님이 정해요)` : ""}</span>`}</td>
-   <td><button class="btn sm" data-act="del-fin" data-i="${i}" aria-label="빼기">빼기</button></td></tr>`;
+   <td>${ro ? "" : `<button class="btn sm" data-act="del-fin" data-i="${i}" aria-label="빼기">빼기</button>`}</td></tr>`;
 }
 function s1() {
   const s = S(), f = F(), st = s.story, u = st.result, p = s.profile;
@@ -173,12 +186,13 @@ function s1() {
   return `<div class="head"><div class="eyebrow">우리 가족 이야기</div><h1 class="h1">지금 가족의 상황을 편하게 들려주세요</h1><p class="lead">이야기는 AI가 정리하고, 숫자는 아래 표에 넣어요. 계산은 이 숫자로 계산엔진이 해요.</p></div>
   <div class="warnbox"><b>실제 계좌 정보나 정확한 금액은 넣지 마세요.</b> 체험판이라 대략적인 값이나 가상의 값으로 충분해요. 입력한 내용은 이 브라우저에만 저장돼요. AI가 정리할 때는 서버를 거쳐 AI(Anthropic Claude)에 보내지만, 이 서비스 서버에는 저장하지 않아요.</div>
   <section class="sec"><h2 class="st">${esc(mem(author).name)}님이 쓰는 우리 가족 이야기</h2>
-   <textarea data-bind="story.text" data-reset="story" maxlength="1500" style="min-height:130px" placeholder="예: 결혼 1년 차 부부예요. 전세에 살고 있고, 2년 안에 아이를 갖고 싶어요. 남편은 집을 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요.">${esc(f.story.text)}</textarea>
+   <textarea ${presetLocked() ? "readonly" : ""} data-bind="story.text" data-reset="story" maxlength="1500" style="min-height:130px" placeholder="예: 결혼 1년 차 부부예요. 전세에 살고 있고, 2년 안에 아이를 갖고 싶어요. 남편은 집을 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요.">${esc(f.story.text)}</textarea>
    <p class="cs" style="margin-top:6px">가족의 단계, 사는 곳, 함께 이루고 싶은 것, 생각이 다른 부분을 써 주시면 좋아요. 1,500자까지.</p></section>
   <section class="sec"><h2 class="st">금융 정보 <span class="cs">단위 만원 · 체험용 값</span></h2>
    <p class="cs" style="margin-bottom:8px">실제 서비스에서는 마이데이터(흩어진 금융 정보를 내 동의로 모아 보는 방법)로 가져오고, 체험판에서는 직접 넣어요. 내 항목은 가족에게 보일 범위를 내가 골라요(공개 / 합계만 / 숨김). 숨긴 항목도 계산에는 들어가요.</p>
    <div class="ftab-wrap"><table class="ftab fin"><thead><tr><th>누구 것</th><th>종류</th><th>이름</th><th>금액</th><th>가족에게 보이기</th><th></th></tr></thead><tbody>${rows || `<tr><td colspan="6" class="cs" style="padding:14px">아직 항목이 없어요. 아래 버튼으로 더해 주세요.</td></tr>`}</tbody></table></div>
-   <div class="row" style="margin-top:10px"><button class="btn sm" data-act="add-fin" data-kind="income">+ 매달 들어오는 돈</button><button class="btn sm" data-act="add-fin" data-kind="expense">+ 생활비</button><button class="btn sm" data-act="add-fin" data-kind="deposit">+ 예금·투자</button><button class="btn sm" data-act="add-fin" data-kind="loan">+ 대출</button><button class="btn sm" data-act="add-fin" data-kind="home">+ 집·보증금</button></div></section>
+   ${presetLocked() ? `<p class="cs" style="margin-top:8px">예시 가족이라 이야기와 금액은 정해져 있어요. 가족에게 보일 범위(공개·합계만·숨김)는 바꿔 볼 수 있어요.</p>` : ""}
+   <div class="row" style="margin-top:10px" ${presetLocked() ? "hidden" : ""}><button class="btn sm" data-act="add-fin" data-kind="income">+ 매달 들어오는 돈</button><button class="btn sm" data-act="add-fin" data-kind="expense">+ 생활비</button><button class="btn sm" data-act="add-fin" data-kind="deposit">+ 예금·투자</button><button class="btn sm" data-act="add-fin" data-kind="loan">+ 대출</button><button class="btn sm" data-act="add-fin" data-kind="home">+ 집·보증금</button></div></section>
   <section class="sec"><h2 class="st">AI가 이해한 내용</h2>
    ${!started(st) && st.status !== "error" ? `<button class="btn primary" data-act="understand">이야기와 금융 정보 정리 맡기기</button>` : ""}
    ${pend(st, "AI가 이야기를 읽고 있어요", "understand")}
@@ -869,4 +883,4 @@ document.addEventListener("keydown", e => { if (view !== "app" || ["INPUT", "TEX
 const aimk = document.getElementById("aimk"); if (aimk) aimk.innerHTML = AIMARK;
 load();
 // 모델 이름은 화면에 보이지 않는다. 개발용 재생 모드일 때만 "실제 AI 아님"을 알려 준다(혼동 방지).
-api("/api/health", null, "GET").then(h => { HEALTH = h; const p = $("#prov"); if (h.provider === "replay") { p.hidden = false; p.classList.add("replay"); p.textContent = "개발용 재생 모드 — 실제 AI 아님"; } }).catch(() => { const p = $("#prov"); p.hidden = false; p.textContent = "서버 연결 안 됨"; });
+api("/api/health", null, "GET").then(h => { HEALTH = h; applyPublicMode(h); const p = $("#prov"); if (h.provider === "replay") { p.hidden = false; p.classList.add("replay"); p.textContent = "개발용 재생 모드 — 실제 AI 아님"; } }).catch(() => { const p = $("#prov"); p.hidden = false; p.textContent = "서버 연결 안 됨"; });

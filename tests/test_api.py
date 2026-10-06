@@ -193,3 +193,26 @@ def test_must_keep_money_gets_principal_protected_products_only():
     leave = [r for r in recs if r["need_id"] == "N_leave_fund" and r.get("product_type_id")]
     assert leave and all(r["attributes"]["risk"] == "원금보장" for r in leave)
     assert not any(r["need_id"] == "N_debt_repayment" for r in recs)  # 전세대출만 있으면 '빨리 갚기' 아님
+
+
+def test_public_mode_allows_examples_only(monkeypatch):
+    monkeypatch.setenv("ALLOW_CUSTOM_FAMILY", "0")
+    assert call("/api/health", method="GET")["custom_family"] is False
+    fam = call("/api/preset", {"preset_id": "newly"})
+    call("/api/family/check", {"family": fam})  # 예시 가족 그대로는 된다
+    fam2 = dict(fam, finance=fam["finance"] + [{"item_id": "f99", "owner_id": "joint", "kind": "deposit",
+                                                "label": "새로 생긴 돈(재점검)", "amount": 100}])
+    call("/api/family/check", {"family": fam2})  # 재점검으로 금융정보가 바뀌는 것은 된다
+    for bad in (dict(fam, story={**fam["story"], "text": "다른 이야기"}), SINGLE_PARENT):
+        st, out = A.dispatch("POST", "/api/family/check", json.dumps({"family": bad}).encode())
+        assert st == 403 and out["error"]["code"] == "examples_only"
+
+
+def test_custom_family_default_by_environment(monkeypatch):
+    monkeypatch.delenv("ALLOW_CUSTOM_FAMILY", raising=False)
+    monkeypatch.delenv("VERCEL", raising=False)
+    assert A.custom_family_allowed() is True  # 로컬 개발
+    monkeypatch.setenv("VERCEL", "1")
+    assert A.custom_family_allowed() is False  # Vercel 공개
+    monkeypatch.setenv("ALLOW_CUSTOM_FAMILY", "1")
+    assert A.custom_family_allowed() is True

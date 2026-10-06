@@ -198,6 +198,7 @@
 - 코드 준비 완료: 서버 코드는 `server/`(Vercel 진입점은 `api/index.py` 하나), `vercel.json`(300초·데이터 포함·`web/`을 첫 화면으로), GitHub Pages 워크플로(선택), CORS 허용 주소, Upstash 이름 두 가지 인식. 안내서 `docs/10_배포.md`.
 - 남은 일(사용자): Anthropic 콘솔 한도, GitHub 저장소, Vercel 가져오기·환경변수(키는 사용자가 직접), 커밋·푸시 승인. 방식 A(Vercel 하나, 추천)와 B(Pages+Vercel, 처음 계획) 중 선택.
 - 개발 서버는 서버 쪽 파일이 바뀌면 스스로 다시 켜진다(오류로 멈춰도 감시 유지).
+- ✅ (2026-10-07) 공개 주소 https://one-heart-nine.vercel.app (Vercel 하나, 비공개 저장소 epk4429/One-heart, Upstash 예산 저장 연결). 공개본은 **예시 가족만**(우리 가족으로 체험하기는 로컬 개발에서만, `ALLOW_CUSTOM_FAMILY`). 커밋·푸시는 사용자가 직접 한다. QR코드는 `docs/qr/`.
 
 ## 10. 구현 착수 때 정할 것 (사용자가 미뤄 둔 결정)
 
