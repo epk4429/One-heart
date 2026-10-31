@@ -161,6 +161,7 @@
 ### 온톨로지
 - ✅ 금융사 연계가 없어 실제 상품 정보를 받아 올 수는 없다. 그래도 온톨로지 구축은 시도한다.
 - ⚠️ 구조: 합의안 → 약속 → 필요 → (제약 조건) → 상품군 → 상품. LLM이 약속 문장에서 필요·제약 조건을 뽑아 노드에 매핑하고, 코드가 그래프를 따라 상품을 고른다. 따라간 경로가 곧 "왜 이 상품인가요" 설명이 된다.
+- ✅ (2026-10-31) 고도화 최우선: 온톨로지를 상품 추천만이 아니라 **서비스 전체가 기대는 뼈대**(상황 → 목표 → 필요 → 방법 → 제도·상품)로 넓힌다. 금융 지식은 LLM 기억·파인튜닝이 아니라 공식 원문 인용 지식베이스로 넣고, **검토자가 없으므로** 인용 글자 일치·숫자 일치·두 번 추출 대조 등 기계 검사로 정확성을 담보한다. 설계 `docs/12_도메인지식_구축.md`, 고도화 목록 `docs/11_고도화_목록.md`.
 - ⚠️ 상품 데이터는 가상 상품으로 먼저 만들고, 여유가 생기면 공시 데이터 연결을 검토한다. 저장은 JSON 트리플과 Python으로 시작한다.
 
 ### LLM 역할 (8개, 상세는 `docs/06_LLM역할.md`)
@@ -192,11 +193,11 @@
    - **상태(2026-10-06, 체험판 전환 후): 어떤 가족이든 입력 → 8개 화면 → 합의안·상품·가족 홈까지 동작.** 재생 공급자로 화면 전체를 확인했고, 실제 Claude(`claude-opus-5-5`)로 가족 셋(예시 2 + 직접 만든 한부모 가족)을 처음부터 끝까지 돌려 모든 단계 통과(가족당 약 0.7~0.8달러). 테스트 53개. 구조: `llm/family.py`(입력 검사·금융 합계·facts), `llm/plan.py`(목표 정리·방법 출처 검사·엔진 입력), `server/guard.py`(체험 코드·예산·호출 제한), `data/assumptions.json`(가정값 표), `data/presets/`(예시 가족). 이전 기록:  검증 구조(`verify/`), 온톨로지(`ontology/`), LLM 계층(`llm/`: 공급자 어댑터·역할 13개·레버·파이프라인·평가·재생), API(`api/`), 로컬 서버(`dev_server.py`), 화면(`web/`). 테스트 38개 통과.
    - 실행: `python dev_server.py 8000`(실제 Claude, .env의 ANTHROPIC_API_KEY) 또는 `python dev_server.py 8000 --replay`(돈 안 드는 개발용) → http://localhost:8000
    - 실제 흐름 평가: `python -m llm.eval --family newly|elder|single_parent --max-usd 1.0` → `data/eval/`. **한 번에 하나씩**, 비용 상한을 걸고 돌린다. 모든 실제 호출 비용은 `data/usage/usage.json`에 쌓이고 `BUDGET_USD`를 넘으면 막힌다.
-   - **상태(2026-10-06): Anthropic 공급자 준비 완료(공식 SDK, 요청 형식 테스트 포함 40개 통과). 막힌 것: `.env`에 `ANTHROPIC_API_KEY`와 `LLM_PROVIDER=anthropic`이 아직 없음.** 실제 호출은 아직 한 번도 안 했다.
+   - **상태(2026-10-07): 실제 Claude(Sonnet 5.5)로 동작 중, 테스트 63개.** 한 가족 이용 약 $0.2~0.3(2인 15~16회, 4인 약 20회 호출). 호출별 비용 장부: `python -m server.usage_report`(로컬만).
 
 ### 배포 (2026-10-07)
-- 코드 준비 완료: 서버 코드는 `server/`(Vercel 진입점은 `api/index.py` 하나), `vercel.json`(300초·데이터 포함·`web/`을 첫 화면으로), GitHub Pages 워크플로(선택), CORS 허용 주소, Upstash 이름 두 가지 인식. 안내서 `docs/10_배포.md`.
-- 남은 일(사용자): Anthropic 콘솔 한도, GitHub 저장소, Vercel 가져오기·환경변수(키는 사용자가 직접), 커밋·푸시 승인. 방식 A(Vercel 하나, 추천)와 B(Pages+Vercel, 처음 계획) 중 선택.
+- 구조: 서버 코드는 `server/`, Vercel 진입점은 `api/index.py` 하나(화면 파일도 이 함수가 내줌, `vercel.json` rewrites가 원래 경로를 `__path`로 넘김), 300초, Upstash 예산 저장. 안내서 `docs/10_배포.md`.
+- ✅ 방식 A(Vercel 하나)로 결정. GitHub Pages 자동 배포 설정은 지웠다(비공개 저장소라 매번 실패 메일). 체험 코드는 사용자가 정해 Vercel 환경변수에 넣었다.
 - 개발 서버는 서버 쪽 파일이 바뀌면 스스로 다시 켜진다(오류로 멈춰도 감시 유지).
 - ✅ (2026-10-07) 공개 주소 https://one-heart-nine.vercel.app (Vercel 하나, 비공개 저장소 epk4429/One-heart, Upstash 예산 저장 연결). 공개본은 **예시 가족만**(우리 가족으로 체험하기는 로컬 개발에서만, `ALLOW_CUSTOM_FAMILY`). 커밋·푸시는 사용자가 직접 한다. QR코드는 `docs/qr/`.
 
