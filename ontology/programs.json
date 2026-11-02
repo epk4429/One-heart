@@ -1,0 +1,162 @@
+{
+ "_note": "제도·정책금융 규칙(docs/12 13.1절 4단계). Claude Code가 공식 안내 원문(knowledge/sources/docs)을 읽고 적었다. 모든 조건·숫자에 원문 인용(quote)이 있고, 인용은 원문에 글자 그대로 있어야 한다(tests/test_programs.py, G3·G4). var는 ontology/programs.py VARIABLES에서 가족 정보로 계산한다. unmodeled는 가족 정보로 판정할 수 없어 늘 '기관 확인'으로 보여 주는 조건. 수집일 2026-11-03.",
+ "programs": [
+  {
+   "id": "PG_reverse_mortgage", "label": "주택연금", "publisher": "한국주택금융공사", "kind": "공적 보증 연금",
+   "source": "hf_reverse_mortgage", "summary": "집을 담보로 맡기고 그 집에 계속 살면서 평생 매달 연금을 받는 국가 보증 제도예요.",
+   "eligibility": [
+    {"label": "부부 중 1명이 55세 이상", "var": "eldest_age", "op": ">=", "value": 55, "quote": "부부 중 1명이 55세 이상이고"},
+    {"label": "집을 가지고 있음", "var": "home_count", "op": ">=", "value": 1, "quote": "주택을 소유하신 분"},
+    {"label": "부부합산 공시가격 12억원 이하", "var": "home_value_gongsi", "op": "<=", "value": 120000, "quote": "부부합산 공시가격 12억원 이하"}
+   ],
+   "unmodeled": [
+    {"label": "가입 주택에 실제로 살고 있어야 해요", "quote": "실제로 거주지(주민등록전입)로 이용하고 있어야 함"},
+    {"label": "부부 중 1명이 대한민국 국민", "quote": "부부 중 1명이 대한민국 국민"}
+   ],
+   "facts": [
+    {"label": "월지급금은 부부 중 나이가 젊은 사람 기준", "quote": "연령은 부부 중 나이가 젊으신 연소자 나이를 기준으로 합니다."},
+    {"label": "초기보증료", "quote": "주택가격의 1.0%를 최초 연금지급일에 납부"}
+   ],
+   "monthly_table": {
+    "source": "hf_reverse_mortgage_payments", "basis_quote": "종신지급방식(정액형, 2026.03.01. 기준)",
+    "example_quote": "예시 : 70세(부부 중 연소자 기준), 3억원 주택 기준으로 매월 약 92만 3천원을 수령합니다.",
+    "unit": "천원", "prices_eok": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "rows": {
+     "55": [156, 312, 468, 624, 780, 936, 1092, 1248, 1404, 1560, 1716, 1872],
+     "60": [210, 421, 632, 842, 1053, 1264, 1475, 1685, 1896, 2107, 2318, 2528],
+     "65": [252, 505, 758, 1011, 1264, 1517, 1770, 2023, 2276, 2529, 2782, 3035],
+     "70": [307, 615, 923, 1231, 1539, 1847, 2155, 2462, 2770, 3078, 3386, 3414],
+     "75": [381, 762, 1143, 1525, 1906, 2287, 2669, 3050, 3431, 3666, 3666, 3666],
+     "80": [483, 966, 1449, 1932, 2416, 2899, 3382, 3865, 4060, 4060, 4060, 4060]
+    }
+   }
+  },
+  {
+   "id": "PG_didimdol", "label": "내집마련 디딤돌대출", "publisher": "주택도시기금", "kind": "정책 구입자금 대출",
+   "source": "nhuf_didimdol", "summary": "무주택 서민이 집을 살 때 기금에서 낮은 금리로 빌려주는 구입자금 대출이에요.",
+   "eligibility": [
+    {"label": "세대원 모두 무주택", "var": "home_count", "op": "==", "value": 0, "quote": "세대주를 포함한 세대원 전원이 무주택인 자"},
+    {"label": "부부합산 연소득 6천만원 이하(생애최초·2자녀 이상 7천만원, 신혼 8.5천만원)", "var": "household_income_year", "op": "<=", "value": 6000, "alt": [{"if": "children>=2", "value": 7000}], "quote": "부부합산 연소득 6천만원 이하"},
+    {"label": "순자산 5.11억원 이하", "var": "net_assets", "op": "<=", "value": 51100, "quote": "순자산가액 5.11억원 이하"}
+   ],
+   "unmodeled": [
+    {"label": "살 집의 평가액 5억원(신혼·2자녀 이상 6억원) 이하, 전용 85㎡ 이하", "quote": "평가액이 5억원(신혼가구 또는 2자녀 이상 가구 6억원) 이하 인 주택"},
+    {"label": "성년 세대주, 기금·주택담보대출을 이용 중이 아님, 신용 요건", "quote": "대출접수일 현재 민법상 성년인"},
+    {"label": "신혼·생애최초면 소득 기준이 더 높아요", "quote": "신혼가구는 연소득 8.5천만원 이하"}
+   ],
+   "terms": {
+    "rate": {"min": 2.85, "max": 4.15, "quote": "연 2.85% ∼ 연 4.15%"},
+    "limit": {"max_manwon": 20000, "note": "생애최초 2.4억원, 신혼·2자녀 이상 3.2억원", "ltv_pct": 70, "quote": "일반 2억원(생애최초 일반 2.4억원), 신혼가구 또는 2자녀 이상 가구 3.2억원 이내"},
+    "term": {"quote": "10년, 15년, 20년, 30년 (거치 1년 또는 비거치)"}
+   }
+  },
+  {
+   "id": "PG_newborn_didimdol", "label": "신생아 특례 디딤돌대출", "publisher": "주택도시기금", "kind": "정책 구입자금 대출",
+   "source": "nhuf_newborn_didimdol", "summary": "2년 안에 아이를 낳은 무주택 가구가 집을 살 때 특례 금리로 빌려주는 대출이에요.",
+   "eligibility": [
+    {"label": "대출접수일 기준 2년 안에 출산", "var": "newborn_2y", "op": "==", "value": true, "quote": "대출접수일 기준 2년 내 출산"},
+    {"label": "무주택 세대주(1주택은 대환대출만)", "var": "home_count", "op": "==", "value": 0, "quote": "무주택 세대주 및 1주택 세대주(대환대출)"},
+    {"label": "부부합산 연소득 1.3억원 이하(맞벌이 2억원)", "var": "household_income_year", "op": "<=", "value": 13000, "quote": "부부합산 연소득 1.3억원 이하(맞벌이의 경우 2억원 이하)"},
+    {"label": "순자산 5.11억원 이하", "var": "net_assets", "op": "<=", "value": 51100, "quote": "순자산가액 5.11억원 이하"}
+   ],
+   "unmodeled": [
+    {"label": "살 집의 평가액 9억원 이하, 전용 85㎡ 이하", "quote": "평가액이 9억원 이하 인 주택"},
+    {"label": "성년 세대주, 중복대출 금지, 신용 요건", "quote": "대출접수일 현재 민법상 성년인"}
+   ],
+   "terms": {
+    "rate": {"min": 1.8, "max": 4.5, "quote": "1.8% ~ 4.5%"},
+    "limit": {"max_manwon": 40000, "ltv_pct": 70, "quote": "최대 4억원 이내(LTV 70%, DTI 60% 이내."},
+    "term": {"quote": "10년, 15년, 20년, 30년(거치 1년 또는 비거치)"}
+   }
+  },
+  {
+   "id": "PG_bogeumjari", "label": "보금자리론", "publisher": "한국주택금융공사", "kind": "정책 모기지(고정금리)",
+   "source": "hf_bogeumjari", "summary": "6억원 이하 집을 살 때 장기 고정금리로 빌려주는 공사의 주택담보대출이에요.",
+   "eligibility": [
+    {"label": "무주택 또는 1주택(살 집 제외)", "var": "home_count", "op": "<=", "value": 1, "quote": "본건 담보주택 제외 무주택 또는 1주택"},
+    {"label": "부부합산 연소득 7천만원 이하(자녀가 있으면 더 높음)", "var": "household_income_year", "op": "<=", "value": 7000, "alt": [{"if": "children>=2", "value": 10000}, {"if": "children>=1", "value": 9000}], "quote": "부부합산 연소득 7천만원 이하"}
+   ],
+   "unmodeled": [
+    {"label": "살 집 6억원 이하", "quote": "6억원 이하 공부상 주택"},
+    {"label": "신용 요건(CB점수 등)", "quote": "CB점수 271점 이상"}
+   ],
+   "facts": [{"label": "자녀가 있으면 소득 기준", "quote": "미성년 자녀 1자녀 9천만원, 다자녀가구 1억원"}],
+   "terms": {
+    "rate": {"note": "금리는 매달 공사가 정해요(공사 금리 안내 확인)", "quote": ""},
+    "limit": {"max_manwon": 36000, "note": "다자녀 4억원, 생애최초 4.2억원", "ltv_pct": 70, "quote": "대출한도 최대 3.6억원(다자녀 · 전세사기피해자 4억원, 생애최초 4.2억원)"},
+    "term": {"quote": "대출만기 10,15,20,30,40,50년"}
+   }
+  },
+  {
+   "id": "PG_beotimmok", "label": "버팀목 전세자금대출", "publisher": "주택도시기금", "kind": "정책 전세자금 대출",
+   "source": "nhuf_beotimmok", "summary": "무주택 서민의 전세 보증금을 기금에서 낮은 금리로 빌려주는 대출이에요.",
+   "eligibility": [
+    {"label": "세대원 모두 무주택", "var": "home_count", "op": "==", "value": 0, "quote": "세대주를 포함한 세대원 전원이 무주택인 자"},
+    {"label": "부부합산 연소득 5천만원 이하(2자녀 이상 6천만원, 신혼 7.5천만원)", "var": "household_income_year", "op": "<=", "value": 5000, "alt": [{"if": "children>=2", "value": 6000}], "quote": "부부합산 연소득 5천만원 이하"},
+    {"label": "순자산 3.45억원 이하", "var": "net_assets", "op": "<=", "value": 34500, "quote": "순자산가액 3.45억원 이하"}
+   ],
+   "unmodeled": [
+    {"label": "임차보증금 수도권 3억원·수도권 외 2억원 이하(신혼·2자녀 이상 4억·3억)", "quote": "수도권 3억원, 수도권외 2억원"},
+    {"label": "성년 세대주, 중복대출 금지, 신용 요건, 공공임대 거주 아님", "quote": "대출접수일 현재 민법상 성년인 세대주"}
+   ],
+   "terms": {
+    "rate": {"min": 2.5, "max": 3.5, "quote": "연 2.5%~3.5%"},
+    "limit": {"max_manwon": 12000, "note": "수도권 외 8천만원", "quote": "수도권 1.2억원, 수도권 외 0.8억원 이내"},
+    "term": {"quote": "2년 이내(최장 10년 이용 가능)"}
+   }
+  },
+  {
+   "id": "PG_newborn_beotimmok", "label": "신생아 특례 버팀목대출", "publisher": "주택도시기금", "kind": "정책 전세자금 대출",
+   "source": "nhuf_newborn_beotimmok", "summary": "2년 안에 아이를 낳은 무주택 가구의 전세 보증금을 특례 금리로 빌려주는 대출이에요.",
+   "eligibility": [
+    {"label": "대출접수일 기준 2년 안에 출산", "var": "newborn_2y", "op": "==", "value": true, "quote": "대출접수일 기준 2년 내 출산"},
+    {"label": "무주택 세대주", "var": "home_count", "op": "==", "value": 0, "quote": "무주택 세대주"},
+    {"label": "부부합산 연소득 1.3억원 이하(맞벌이 2억원)", "var": "household_income_year", "op": "<=", "value": 13000, "quote": "부부합산 연소득 1.3억원 이하(맞벌이의 경우 2억원 이하)"},
+    {"label": "순자산 3.45억원 이하", "var": "net_assets", "op": "<=", "value": 34500, "quote": "순자산가액 3.45억원 이하"}
+   ],
+   "unmodeled": [
+    {"label": "전용 85㎡ 이하 주택, 중복대출 금지, 신용 요건", "quote": "주거용 오피스텔은 85㎡이하 포함"}
+   ],
+   "terms": {
+    "rate": {"min": 1.3, "max": 4.3, "quote": "연 1.3%~4.3%"},
+    "limit": {"max_manwon": 24000, "deposit_pct": 80, "quote": "최대 2.4억원 이내(임차보증금의 80% 이내)"},
+    "term": {"quote": "2년 이내(최장 12년 이용 가능)"}
+   }
+  },
+  {
+   "id": "PG_subscription", "label": "주택청약종합저축", "publisher": "주택도시기금", "kind": "청약 저축",
+   "source": "nhuf_subscription", "summary": "국민주택·민영주택에 청약하려면 필요한 저축이에요. 무주택 근로자는 소득공제도 받을 수 있어요.",
+   "eligibility": [
+    {"label": "개인이면 누구나 가입", "var": "always", "op": "==", "value": true, "quote": "개인 또는 외국인 거주자"}
+   ],
+   "unmodeled": [],
+   "facts": [
+    {"label": "소득공제: 총급여 7천만원 이하 무주택 세대주(와 배우자), 연 300만원 한도의 40%", "quote": "총급여액이 7천만원 이하 근로자인 무주택세대주 및 무주택세대주의 배우자"},
+    {"label": "소득공제 한도", "quote": "해당 과세연도 납부분(연간 300만원 한도)의 40%(120만원 한도)"}
+   ],
+   "terms": {
+    "rate": {"min": 2.3, "max": 3.1, "quote": "연 2.3%~3.1%"},
+    "monthly": {"min_manwon": 2, "max_manwon": 50, "quote": "2만원 이상 50만원 이내"}
+   }
+  },
+  {
+   "id": "PG_basic_pension", "label": "기초연금", "publisher": "보건복지부", "kind": "공적 연금(복지)",
+   "source": "mohw_basic_pension_target", "summary": "만 65세 이상이고 소득인정액이 기준 이하인 어르신께 매달 드리는 연금이에요.",
+   "eligibility": [
+    {"label": "만 65세 이상", "var": "eldest_age", "op": ">=", "value": 65, "quote": "만 65세 이상이고"},
+    {"label": "소득인정액이 선정기준액 이하(단독 월 247만원, 부부 월 395.2만원)", "var": "income_recognition_month", "op": "<=", "value": 247, "alt": [{"if": "couple_65", "value": 395.2}], "quote": "선정기준액 이하인 분들께 드립니다."}
+   ],
+   "unmodeled": [
+    {"label": "소득인정액은 소득과 재산을 함께 환산해요(가족 정보로는 정확히 못 해요)", "quote": "‘소득인정액’이란 월 소득평가액과 재산의 월 소득환산액을 합산한 금액을 말합니다."},
+    {"label": "공무원·사학·군인연금 등 직역연금 수급자는 원칙적으로 제외", "quote": "원칙적으로 기초연금 수급대상에서 제외됩니다."}
+   ],
+   "facts": [
+    {"label": "2026년 선정기준액(단독)", "quote": "2,470,000원"},
+    {"label": "2026년 선정기준액(부부)", "quote": "3,952,000원"}
+   ],
+   "terms": {
+    "amount": {"monthly_manwon": 34.97, "source": "mohw_basic_pension_amount", "note": "기준연금액(국민연금을 받거나 부부가 함께 받으면 줄 수 있어요)", "quote": "※ 2026년 1월 ~ 2026년 12월: 월 349,700원"}
+   }
+  }
+ ]
+}

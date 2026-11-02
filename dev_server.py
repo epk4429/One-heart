@@ -2,6 +2,9 @@
 
 사용: python dev_server.py [포트]             (기본 8000, .env의 LLM_PROVIDER 사용)
       python dev_server.py 8000 --replay       (LLM 없이 배선 확인용. 화면에 "재생(개발용)"이 표시됨)
+      python dev_server.py 8000 --record data/demo/rec/newly.jsonl
+                                               (녹화본 체험판용: API 요청·응답을 한 줄씩 기록. tools/build_demo.py가 읽음)
+      python dev_server.py 8000 --budget 6.5   (이번 실행만 전체 AI 예산 상한을 바꿈. .env는 그대로)
 
 서버 쪽 코드(.py·.json)나 .env가 바뀌면 스스로 다시 켜진다(껐다 켤 필요 없음). 화면 파일(web/)은 새로고침만 하면 된다.
 """
@@ -61,7 +64,23 @@ def serve() -> None:
 
     if "--replay" in sys.argv:
         os.environ["LLM_PROVIDER"] = "replay"
+    if "--budget" in sys.argv:
+        os.environ["BUDGET_USD"] = sys.argv[sys.argv.index("--budget") + 1]
     from server.app import dispatch
+
+    rec = sys.argv[sys.argv.index("--record") + 1] if "--record" in sys.argv else None
+    if rec:
+        rec = ROOT / rec
+        rec.parent.mkdir(parents=True, exist_ok=True)
+        os.environ["ACCESS_CODES"] = ""  # 녹화는 개발자가 로컬에서 직접 진행한다(체험 코드 없이). .env 값은 덮지 않는 load_env라 이 값이 남는다
+
+    def handle(method, path, raw, headers, ip):
+        status, payload = dispatch(method, path, raw, headers, ip)
+        if rec:
+            with open(rec, "a", encoding="utf-8") as fp:
+                fp.write(json.dumps({"method": method, "path": path.split("?")[0], "body": json.loads(raw or b"{}"),
+                                     "status": status, "response": payload}, ensure_ascii=False) + "\n")
+        return status, payload
 
     web = ROOT / "web"
     mimetypes.add_type("text/javascript", ".js")
@@ -81,7 +100,7 @@ def serve() -> None:
 
         def do_GET(self):
             if self.path.startswith("/api/"):
-                return self._json(*dispatch("GET", self.path, b"", dict(self.headers), self.client_address[0]))
+                return self._json(*handle("GET", self.path, b"", dict(self.headers), self.client_address[0]))
             rel = self.path.split("?")[0].lstrip("/") or "index.html"
             f = (web / rel).resolve()
             if not str(f).startswith(str(web)) or not f.is_file():
@@ -96,7 +115,7 @@ def serve() -> None:
 
         def do_POST(self):
             n = int(self.headers.get("Content-Length") or 0)
-            self._json(*dispatch("POST", self.path, self.rfile.read(n), dict(self.headers), self.client_address[0]))
+            self._json(*handle("POST", self.path, self.rfile.read(n), dict(self.headers), self.client_address[0]))
 
     class Server(ThreadingHTTPServer):
         allow_reuse_address = False  # 같은 포트에 서버가 두 개 뜨지 않게(윈도우에서는 True면 겹쳐 뜬다)
@@ -112,7 +131,8 @@ def serve() -> None:
     load_env()
     prov = os.environ.get("LLM_PROVIDER", "hf")
     model = "재생(개발용)" if prov == "replay" else os.environ.get("LLM_MODEL") or DEFAULT_MODELS.get(prov, "")
-    print(f"ONE-Heart 개발 서버: http://localhost:{port}  ({time.strftime('%H:%M:%S')} 시작 · AI {model})", file=sys.stderr)
+    print(f"ONE-Heart 개발 서버: http://localhost:{port}  ({time.strftime('%H:%M:%S')} 시작 · AI {model})"
+          + (f" · 녹화 {rec.relative_to(ROOT)}" if rec else ""), file=sys.stderr)
     httpd.serve_forever()
 
 

@@ -1,0 +1,561 @@
+{
+ "_note": "개발용(dev_only). 금감원 금융상품 한눈에 공시 원본(knowledge/sources)에서 tools/build_products.py로 만든다. 직접 고치지 않는다. 범주·기간·적립 유형별 금리(연 %) 분포. base_rate=기본금리, max_rate=최고 우대금리.",
+ "sources": [
+  "S_finlife_busi_loan_020000_202610",
+  "S_finlife_busi_loan_030200_202610",
+  "S_finlife_busi_loan_030300_202610",
+  "S_finlife_busi_loan_050000_202610",
+  "S_finlife_credit_loan_020000_202610",
+  "S_finlife_credit_loan_030200_202610",
+  "S_finlife_credit_loan_030300_202610",
+  "S_finlife_credit_loan_050000_202610",
+  "S_finlife_deposit_020000_202610",
+  "S_finlife_deposit_030300_202610",
+  "S_finlife_mortgage_020000_202610",
+  "S_finlife_mortgage_030300_202610",
+  "S_finlife_mortgage_050000_202610",
+  "S_finlife_rent_loan_020000_202610",
+  "S_finlife_rent_loan_030300_202610",
+  "S_finlife_rent_loan_050000_202610",
+  "S_finlife_saving_020000_202610",
+  "S_finlife_saving_030300_202610"
+ ],
+ "categories": {
+  "deposit": {
+   "label": "정기예금",
+   "groups": [
+    "020000",
+    "030300"
+   ],
+   "products": 436,
+   "as_of": [
+    "202610"
+   ],
+   "by_term": [
+    {
+     "term_months": 1,
+     "rsrv": null,
+     "n_products": 204,
+     "n_options": 382,
+     "base_rate": {
+      "min": 0.2,
+      "median": 1.6,
+      "max": 3.5
+     },
+     "max_rate": {
+      "min": 0.2,
+      "median": 1.6,
+      "max": 3.5
+     }
+    },
+    {
+     "term_months": 3,
+     "rsrv": null,
+     "n_products": 239,
+     "n_options": 441,
+     "base_rate": {
+      "min": 1,
+      "median": 2.2,
+      "max": 3.7
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 2.2,
+      "max": 3.8
+     }
+    },
+    {
+     "term_months": 6,
+     "rsrv": null,
+     "n_products": 278,
+     "n_options": 518,
+     "base_rate": {
+      "min": 1,
+      "median": 3.05,
+      "max": 4.1
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 3.1,
+      "max": 4.1
+     }
+    },
+    {
+     "term_months": 12,
+     "rsrv": null,
+     "n_products": 363,
+     "n_options": 678,
+     "base_rate": {
+      "min": 1.9,
+      "median": 3.9,
+      "max": 4.13
+     },
+     "max_rate": {
+      "min": 2.4,
+      "median": 3.9,
+      "max": 4.13
+     }
+    },
+    {
+     "term_months": 24,
+     "rsrv": null,
+     "n_products": 238,
+     "n_options": 446,
+     "base_rate": {
+      "min": 1,
+      "median": 2.9,
+      "max": 4.15
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 2.9,
+      "max": 4.2
+     }
+    },
+    {
+     "term_months": 36,
+     "rsrv": null,
+     "n_products": 188,
+     "n_options": 353,
+     "base_rate": {
+      "min": 1,
+      "median": 2.9,
+      "max": 4.1
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 3,
+      "max": 4.1
+     }
+    }
+   ]
+  },
+  "saving": {
+   "label": "적금",
+   "groups": [
+    "020000",
+    "030300"
+   ],
+   "products": 337,
+   "as_of": [
+    "202610"
+   ],
+   "by_term": [
+    {
+     "term_months": 1,
+     "rsrv": "자유적립식",
+     "n_products": 19,
+     "n_options": 24,
+     "base_rate": {
+      "min": 0.5,
+      "median": 1.5,
+      "max": 3.06
+     },
+     "max_rate": {
+      "min": 1.1,
+      "median": 1.85,
+      "max": 10
+     }
+    },
+    {
+     "term_months": 1,
+     "rsrv": "정액적립식",
+     "n_products": 5,
+     "n_options": 8,
+     "base_rate": {
+      "min": 1.5,
+      "median": 1.5,
+      "max": 1.8
+     },
+     "max_rate": {
+      "min": 1.5,
+      "median": 1.5,
+      "max": 1.8
+     }
+    },
+    {
+     "term_months": 3,
+     "rsrv": "자유적립식",
+     "n_products": 19,
+     "n_options": 24,
+     "base_rate": {
+      "min": 1.2,
+      "median": 2.5,
+      "max": 3.7
+     },
+     "max_rate": {
+      "min": 1.2,
+      "median": 2.75,
+      "max": 6
+     }
+    },
+    {
+     "term_months": 3,
+     "rsrv": "정액적립식",
+     "n_products": 6,
+     "n_options": 9,
+     "base_rate": {
+      "min": 1.4,
+      "median": 2.5,
+      "max": 2.5
+     },
+     "max_rate": {
+      "min": 1.4,
+      "median": 2.5,
+      "max": 2.5
+     }
+    },
+    {
+     "term_months": 6,
+     "rsrv": "자유적립식",
+     "n_products": 57,
+     "n_options": 69,
+     "base_rate": {
+      "min": 0.7,
+      "median": 2.9,
+      "max": 4
+     },
+     "max_rate": {
+      "min": 0.7,
+      "median": 3.3,
+      "max": 6.5
+     }
+    },
+    {
+     "term_months": 6,
+     "rsrv": "정액적립식",
+     "n_products": 177,
+     "n_options": 236,
+     "base_rate": {
+      "min": 1.4,
+      "median": 2.6,
+      "max": 4
+     },
+     "max_rate": {
+      "min": 1.4,
+      "median": 2.6,
+      "max": 6.2
+     }
+    },
+    {
+     "term_months": 12,
+     "rsrv": "자유적립식",
+     "n_products": 86,
+     "n_options": 101,
+     "base_rate": {
+      "min": 1.2,
+      "median": 3,
+      "max": 4.1
+     },
+     "max_rate": {
+      "min": 1.2,
+      "median": 3.9,
+      "max": 14
+     }
+    },
+    {
+     "term_months": 12,
+     "rsrv": "정액적립식",
+     "n_products": 268,
+     "n_options": 344,
+     "base_rate": {
+      "min": 1,
+      "median": 3.5,
+      "max": 6.5
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 3.7,
+      "max": 15
+     }
+    },
+    {
+     "term_months": 24,
+     "rsrv": "자유적립식",
+     "n_products": 63,
+     "n_options": 75,
+     "base_rate": {
+      "min": 1.1,
+      "median": 3,
+      "max": 4
+     },
+     "max_rate": {
+      "min": 1.1,
+      "median": 3.4,
+      "max": 7
+     }
+    },
+    {
+     "term_months": 24,
+     "rsrv": "정액적립식",
+     "n_products": 229,
+     "n_options": 301,
+     "base_rate": {
+      "min": 1,
+      "median": 3.3,
+      "max": 5.8
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 3.5,
+      "max": 6.5
+     }
+    },
+    {
+     "term_months": 36,
+     "rsrv": "자유적립식",
+     "n_products": 55,
+     "n_options": 65,
+     "base_rate": {
+      "min": 1.1,
+      "median": 3,
+      "max": 3.78
+     },
+     "max_rate": {
+      "min": 1.1,
+      "median": 3.3,
+      "max": 7.3
+     }
+    },
+    {
+     "term_months": 36,
+     "rsrv": "정액적립식",
+     "n_products": 212,
+     "n_options": 278,
+     "base_rate": {
+      "min": 1,
+      "median": 3.25,
+      "max": 5.5
+     },
+     "max_rate": {
+      "min": 1,
+      "median": 3.3,
+      "max": 5.5
+     }
+    }
+   ]
+  }
+ },
+ "loans": {
+  "mortgage": {
+   "label": "주택담보대출",
+   "products": 112,
+   "groups": [
+    "020000",
+    "030300",
+    "050000"
+   ],
+   "as_of": [
+    "202610"
+   ],
+   "rates": {
+    "아파트·만기일시상환방식·fixed": {
+     "n": 8,
+     "min": 4.5,
+     "median": 5.75,
+     "max": 10.09
+    },
+    "아파트·만기일시상환방식·variable": {
+     "n": 6,
+     "min": 4.86,
+     "median": 5.39,
+     "max": 5.61
+    },
+    "아파트·분할상환방식·fixed": {
+     "n": 26,
+     "min": 4.92,
+     "median": 5.64,
+     "max": 6.82
+    },
+    "아파트·분할상환방식·variable": {
+     "n": 33,
+     "min": 4.5,
+     "median": 5.23,
+     "max": 7.39
+    },
+    "아파트외·만기일시상환방식·fixed": {
+     "n": 4,
+     "min": 5.21,
+     "median": 5.7,
+     "max": 7.87
+    },
+    "아파트외·만기일시상환방식·variable": {
+     "n": 5,
+     "min": 4.84,
+     "median": 4.92,
+     "max": 5.56
+    },
+    "아파트외·분할상환방식·fixed": {
+     "n": 14,
+     "min": 5.56,
+     "median": 5.78,
+     "max": 6.08
+    },
+    "아파트외·분할상환방식·variable": {
+     "n": 18,
+     "min": 4.88,
+     "median": 5.32,
+     "max": 7.16
+    }
+   }
+  },
+  "rent_loan": {
+   "label": "전세자금대출",
+   "products": 58,
+   "groups": [
+    "020000",
+    "030300",
+    "050000"
+   ],
+   "as_of": [
+    "202610"
+   ],
+   "rates": {
+    "-·만기일시상환방식·fixed": {
+     "n": 18,
+     "min": 4.65,
+     "median": 5.82,
+     "max": 9.76
+    },
+    "-·만기일시상환방식·variable": {
+     "n": 30,
+     "min": 3.81,
+     "median": 4.66,
+     "max": 5.63
+    },
+    "-·분할상환방식·variable": {
+     "n": 6,
+     "min": 4.11,
+     "median": 4.66,
+     "max": 5.25
+    }
+   }
+  },
+  "credit_loan": {
+   "label": "개인신용대출",
+   "products": 115,
+   "groups": [
+    "020000",
+    "030200",
+    "030300",
+    "050000"
+   ],
+   "as_of": [
+    "202610"
+   ],
+   "rates": {
+    "300-": {
+     "n": 19,
+     "min": 5.31,
+     "median": 11.5,
+     "max": 19.9
+    },
+    "301-400": {
+     "n": 15,
+     "min": 6.88,
+     "median": 15.48,
+     "max": 19.9
+    },
+    "401-500": {
+     "n": 11,
+     "min": 7.15,
+     "median": 13.06,
+     "max": 19.82
+    },
+    "501-600": {
+     "n": 50,
+     "min": 7.22,
+     "median": 16.07,
+     "max": 19.9
+    },
+    "601-700": {
+     "n": 93,
+     "min": 4.43,
+     "median": 14.84,
+     "max": 19.9
+    },
+    "701-800": {
+     "n": 103,
+     "min": 4.47,
+     "median": 13.52,
+     "max": 19.89
+    },
+    "801-900": {
+     "n": 106,
+     "min": 5.67,
+     "median": 12.25,
+     "max": 19.89
+    },
+    "900+": {
+     "n": 103,
+     "min": 5.27,
+     "median": 10.18,
+     "max": 18.12
+    }
+   }
+  },
+  "busi_loan": {
+   "label": "개인사업자대출",
+   "products": 1012,
+   "groups": [
+    "020000",
+    "030200",
+    "030300",
+    "050000"
+   ],
+   "as_of": [
+    "202610"
+   ],
+   "rates": {
+    "300-": {
+     "n": 32,
+     "min": 4.15,
+     "median": 9.94,
+     "max": 19.9
+    },
+    "301-400": {
+     "n": 32,
+     "min": 4.15,
+     "median": 9.83,
+     "max": 19.7
+    },
+    "401-500": {
+     "n": 33,
+     "min": 4.15,
+     "median": 9.72,
+     "max": 19.9
+    },
+    "501-600": {
+     "n": 59,
+     "min": 4.15,
+     "median": 10,
+     "max": 19.9
+    },
+    "601-700": {
+     "n": 110,
+     "min": 4.15,
+     "median": 9.25,
+     "max": 19.48
+    },
+    "701-800": {
+     "n": 162,
+     "min": 3.84,
+     "median": 7.4,
+     "max": 19.9
+    },
+    "801-900": {
+     "n": 204,
+     "min": 3.59,
+     "median": 6.37,
+     "max": 17.6
+    },
+    "900+": {
+     "n": 243,
+     "min": 1.98,
+     "median": 5.81,
+     "max": 17.16
+    }
+   }
+  }
+ }
+}

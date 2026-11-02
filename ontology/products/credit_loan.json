@@ -1,0 +1,7149 @@
+{
+ "_note": "개발용(dev_only). 금감원 금융상품 한눈에 공시 원본(knowledge/sources)에서 tools/build_products.py로 만든다. 직접 고치지 않는다. 대출 상품: terms에 한도·중도상환 수수료·우대 규칙과 검사 결과.",
+ "category": "credit_loan",
+ "sources": [
+  "S_finlife_credit_loan_020000_202610",
+  "S_finlife_credit_loan_030200_202610",
+  "S_finlife_credit_loan_030300_202610",
+  "S_finlife_credit_loan_050000_202610"
+ ],
+ "products": [
+  {
+   "product_id": "PRD_credit_loan_0010001_CR0001A_1",
+   "provider": "우리은행",
+   "provider_code": "0010001",
+   "name": "협약금리 外 신용대출상품",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.03,
+     "801-900": 6.83,
+     "701-800": 7.2,
+     "601-700": 7.45,
+     "501-600": 7.5,
+     "401-500": 7.4,
+     "301-400": 9.21,
+     "300-": 9.12
+    },
+    "avg": 6.62
+   },
+   "rate_parts": {
+    "기준금리": 3.97,
+    "가산금리": 3.13,
+    "가감조정금리": 0.48
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010001_CR0001C_2",
+   "provider": "우리은행",
+   "provider_code": "0010001",
+   "name": "협약금리 外 신용대출상품",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.79,
+     "801-900": 6.08,
+     "701-800": 6.32,
+     "601-700": 6.34,
+     "501-600": 11.57,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.83
+   },
+   "rate_parts": {
+    "기준금리": 3.44,
+    "가산금리": 2.79,
+    "가감조정금리": 0.4
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010002_SC001217_1",
+   "provider": "한국스탠다드차타드은행",
+   "provider_code": "0010002",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.87,
+     "801-900": 7.26,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.34
+   },
+   "rate_parts": {
+    "기준금리": 3.12,
+    "가산금리": 4.07,
+    "가감조정금리": 0.85
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010002_SC001217_1_2",
+   "provider": "한국스탠다드차타드은행",
+   "provider_code": "0010002",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.39,
+     "801-900": 8.02,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.46
+   },
+   "rate_parts": {
+    "기준금리": 3.12,
+    "가산금리": 4.23,
+    "가감조정금리": 0.89
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010006_WR0002F_3",
+   "provider": "한국씨티은행",
+   "provider_code": "0010006",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 10.37,
+     "801-900": 10.85,
+     "701-800": 12.52,
+     "601-700": 13.36,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.97
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010016_WR0001F_1",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 7.08,
+     "801-900": 7.77,
+     "701-800": 8.18,
+     "601-700": 11.28,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": 11.5
+    },
+    "avg": 7.56
+   },
+   "rate_parts": {
+    "기준금리": 3.76,
+    "가산금리": 4.07,
+    "가감조정금리": 0.27
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010016_WR0002F_2",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.68,
+     "801-900": 7.37,
+     "701-800": 6.88,
+     "601-700": 7.08,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.77
+   },
+   "rate_parts": {
+    "가감조정금리": 0.39,
+    "가산금리": 3.57,
+    "기준금리": 3.59
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010016_WR0002F_3",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 10.18,
+     "801-900": 11.97,
+     "701-800": 13.57,
+     "601-700": 13.25,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.89
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010017_1300_1",
+   "provider": "부산은행",
+   "provider_code": "0010017",
+   "name": "ONE신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261006",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.5,
+     "801-900": 6.73,
+     "701-800": 7.2,
+     "601-700": 7.48,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.68
+   },
+   "rate_parts": {
+    "기준금리": 2.75,
+    "가산금리": 3.73,
+    "가감조정금리": 0.8
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010017_1301_2",
+   "provider": "부산은행",
+   "provider_code": "0010017",
+   "name": "ONE신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261006",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.98,
+     "801-900": 6.65,
+     "701-800": 6.84,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.06
+   },
+   "rate_parts": {
+    "기준금리": 2.74,
+    "가산금리": 3.66,
+    "가감조정금리": 0.34
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010017_WR0002F_3",
+   "provider": "부산은행",
+   "provider_code": "0010017",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 11.77,
+     "801-900": 12.94,
+     "701-800": 14.05,
+     "601-700": 15.09,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.04
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010019_1_1",
+   "provider": "광주은행",
+   "provider_code": "0010019",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 7.51,
+     "801-900": 8.57,
+     "701-800": 9.78,
+     "601-700": 10.5,
+     "501-600": 8.67,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 8.32
+   },
+   "rate_parts": {
+    "기준금리": 3.39,
+    "가산금리": 6.14,
+    "가감조정금리": 1.21
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010019_2_2",
+   "provider": "광주은행",
+   "provider_code": "0010019",
+   "name": "마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.59,
+     "801-900": 7.85,
+     "701-800": 8.53,
+     "601-700": 5.66,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.73
+   },
+   "rate_parts": {
+    "기준금리": 3.55,
+    "가산금리": 3.23,
+    "가감조정금리": 0.05
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010019_WR0002F_3",
+   "provider": "광주은행",
+   "provider_code": "0010019",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 9.17,
+     "801-900": 12.57,
+     "701-800": 13.4,
+     "601-700": 15.13,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.12
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010020_WR0001F_1",
+   "provider": "제주은행",
+   "provider_code": "0010020",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.46,
+     "801-900": 5.67,
+     "701-800": 7.06,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": 9.57
+    },
+    "avg": 5.63
+   },
+   "rate_parts": {
+    "기준금리": 3.71,
+    "가산금리": 2.66,
+    "가감조정금리": 0.74
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010020_WR0002F_2",
+   "provider": "제주은행",
+   "provider_code": "0010020",
+   "name": "개인신용대출2",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.39,
+     "801-900": 6.14,
+     "701-800": 8.32,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": 6.13
+    },
+    "avg": 6.27
+   },
+   "rate_parts": {
+    "가감조정금리": 0.74,
+    "가산금리": 3.04,
+    "기준금리": 3.97
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010022_CR0001A_1",
+   "provider": "전북은행",
+   "provider_code": "0010022",
+   "name": "가계일반자금대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 7.34,
+     "801-900": 13.56,
+     "701-800": 14.83,
+     "601-700": 15.1,
+     "501-600": 15.37,
+     "401-500": 17.79,
+     "301-400": 18.09,
+     "300-": 15.5
+    },
+    "avg": 12.89
+   },
+   "rate_parts": {
+    "기준금리": 3.8,
+    "가산금리": 10.05,
+    "가감조정금리": 0.96
+   },
+   "texts": {
+    "cb_name": "kcb"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010022_CR0001C_2",
+   "provider": "전북은행",
+   "provider_code": "0010022",
+   "name": "평생종합통장",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.43,
+     "801-900": 7.34,
+     "701-800": null,
+     "601-700": 6.89,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.51
+   },
+   "rate_parts": {
+    "가감조정금리": 0.46,
+    "가산금리": 3.23,
+    "기준금리": 3.74
+   },
+   "texts": {
+    "cb_name": "kcb"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010022_WR0002F_3",
+   "provider": "전북은행",
+   "provider_code": "0010022",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": 13.18,
+     "601-700": 15.38,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.42
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010024_CR0001A_1",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.12,
+     "801-900": 7.63,
+     "701-800": 8.91,
+     "601-700": 9.9,
+     "501-600": 10.29,
+     "401-500": 13.06,
+     "301-400": 13.06,
+     "300-": null
+    },
+    "avg": 7.15
+   },
+   "rate_parts": {
+    "기준금리": 3.43,
+    "가산금리": 4.8,
+    "가감조정금리": 1.08
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010024_CR0001B_2",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.82,
+     "801-900": 6.15,
+     "701-800": 7.88,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.86
+   },
+   "rate_parts": {
+    "기준금리": 3.29,
+    "가산금리": 3.14,
+    "가감조정금리": 0.57
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010024_WR0002F_3",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 10.6,
+     "801-900": 11.2,
+     "701-800": 12.77,
+     "601-700": 14.84,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.69
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010026_21_1",
+   "provider": "중소기업은행",
+   "provider_code": "0010026",
+   "name": "일반신용\n대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.82,
+     "801-900": 6.39,
+     "701-800": 6.7,
+     "601-700": 8.35,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.96
+   },
+   "rate_parts": {
+    "기준금리": 3.67,
+    "가산금리": 2.56,
+    "가감조정금리": 0.27
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010026_31_2",
+   "provider": "중소기업은행",
+   "provider_code": "0010026",
+   "name": "마이너스\n한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.28,
+     "801-900": 6.66,
+     "701-800": 7.82,
+     "601-700": 8.43,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.33
+   },
+   "rate_parts": {
+    "기준금리": 3.79,
+    "가산금리": 2.4,
+    "가감조정금리": -0.14
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010026_WR0002F_3",
+   "provider": "중소기업은행",
+   "provider_code": "0010026",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 9.46,
+     "801-900": 13,
+     "701-800": 17.72,
+     "601-700": 18.71,
+     "501-600": 19.09,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.58
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010030_1_1",
+   "provider": "한국산업은행",
+   "provider_code": "0010030",
+   "name": "개인신용대출(신규대출취급중단)",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": null
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010030_2_2",
+   "provider": "한국산업은행",
+   "provider_code": "0010030",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": null
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010225_WR0001F_1",
+   "provider": "현대카드㈜",
+   "provider_code": "0010225",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 11.59,
+     "801-900": 13.34,
+     "701-800": 15.26,
+     "601-700": 18.11,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.54
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010225_WR0002F_3",
+   "provider": "현대카드㈜",
+   "provider_code": "0010225",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 11.75,
+     "801-900": 12.7,
+     "701-800": 15.1,
+     "601-700": 17.28,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.22
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010226_WR0002F_3",
+   "provider": "롯데카드㈜",
+   "provider_code": "0010226",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 9.85,
+     "801-900": 11.25,
+     "701-800": 14.02,
+     "601-700": 18.07,
+     "501-600": 18.72,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.2
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010227_WR0001F_1",
+   "provider": "비씨카드㈜",
+   "provider_code": "0010227",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 9.83,
+     "801-900": 11.63,
+     "701-800": 13.36,
+     "601-700": 13.4,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.36
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010227_WR0002F_3",
+   "provider": "비씨카드㈜",
+   "provider_code": "0010227",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 8.88,
+     "801-900": 10.14,
+     "701-800": 11.95,
+     "601-700": 14.83,
+     "501-600": 19.9,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 10.52
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010228_WR0001F_1",
+   "provider": "삼성카드㈜",
+   "provider_code": "0010228",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.14,
+     "801-900": 12.75,
+     "701-800": 15.62,
+     "601-700": 17.67,
+     "501-600": 19.39,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.7
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010228_WR0002F_3",
+   "provider": "삼성카드㈜",
+   "provider_code": "0010228",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 12.87,
+     "801-900": 12.01,
+     "701-800": 14.85,
+     "601-700": 17.67,
+     "501-600": 18.78,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.39
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010229_WR0001F_1",
+   "provider": "신한카드㈜",
+   "provider_code": "0010229",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.05,
+     "801-900": 13.46,
+     "701-800": 14.53,
+     "601-700": 16.37,
+     "501-600": 16.85,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.79
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010229_WR0002F_3",
+   "provider": "신한카드㈜",
+   "provider_code": "0010229",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 10.52,
+     "801-900": 11.84,
+     "701-800": 13.61,
+     "601-700": 16.2,
+     "501-600": 17.27,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.57
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010240_WR0001F_1",
+   "provider": "오케이캐피탈 ㈜",
+   "provider_code": "0010240",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": 19.89,
+     "701-800": 19.89,
+     "601-700": 19.9,
+     "501-600": 19.9,
+     "401-500": null,
+     "301-400": 19.9,
+     "300-": 19.9
+    },
+    "avg": 19.9
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010245_WR0001F_1",
+   "provider": "한국캐피탈㈜",
+   "provider_code": "0010245",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 16.91,
+     "801-900": 17.2,
+     "701-800": 17.46,
+     "601-700": 17.46,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 17.31
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010250_WR0001F_1",
+   "provider": "케이비캐피탈㈜",
+   "provider_code": "0010250",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 10.1,
+     "801-900": 11.04,
+     "701-800": 12.25,
+     "601-700": 12.45,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.13
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE,KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010255_WR0001F_1",
+   "provider": "우리금융캐피탈㈜",
+   "provider_code": "0010255",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.59,
+     "801-900": 15.36,
+     "701-800": 16.94,
+     "601-700": 18.92,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.22
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010259_WR0001F_1",
+   "provider": "롯데캐피탈㈜",
+   "provider_code": "0010259",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.87,
+     "801-900": 14.8,
+     "701-800": 15.48,
+     "601-700": 15.78,
+     "501-600": 16.08,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.41
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010267_WR0001F_1",
+   "provider": "제이비우리캐피탈㈜",
+   "provider_code": "0010267",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.89,
+     "801-900": 16.46,
+     "701-800": 17.76,
+     "601-700": 18.18,
+     "501-600": 18.91,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 17.69
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010268_WR0001F_1",
+   "provider": "하나캐피탈㈜",
+   "provider_code": "0010268",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13,
+     "801-900": 13.58,
+     "701-800": 13.77,
+     "601-700": 13.34,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.53
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010271_WR0001F_1",
+   "provider": "현대캐피탈㈜",
+   "provider_code": "0010271",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.98,
+     "801-900": 14.81,
+     "701-800": 15.37,
+     "601-700": 15.91,
+     "501-600": 16.39,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.32
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010345_애큐온00020_1",
+   "provider": "애큐온저축은행",
+   "provider_code": "0010345",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": 13.35,
+     "701-800": 13.5,
+     "601-700": 13.47,
+     "501-600": 13,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.48
+   },
+   "rate_parts": {
+    "기준금리": 3.69,
+    "가산금리": 9.79
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010346_71411,71421,71424,71388_1",
+   "provider": "OSB저축은행",
+   "provider_code": "0010346",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 15.3,
+     "801-900": 16.73,
+     "701-800": 16.47,
+     "601-700": 16.91,
+     "501-600": 17.85,
+     "401-500": null,
+     "301-400": 18.91,
+     "300-": null
+    },
+    "avg": 16.58
+   },
+   "rate_parts": {
+    "기준금리": 3.5,
+    "가산금리": 13.08
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010349_0402_1",
+   "provider": "디비저축은행",
+   "provider_code": "0010349",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 11.24,
+     "801-900": 12.12,
+     "701-800": 12.56,
+     "601-700": 13.33,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.31
+   },
+   "rate_parts": {
+    "기준금리": 3.35,
+    "가산금리": 8.96
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010359_760075_1",
+   "provider": "키움예스저축은행",
+   "provider_code": "0010359",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.4,
+     "801-900": 14.7,
+     "701-800": 14.78,
+     "601-700": 14.66,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": 14.76
+    },
+    "avg": 14.73
+   },
+   "rate_parts": {
+    "기준금리": 3.21,
+    "가산금리": 11.52
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010370_151014_1",
+   "provider": "SBI저축은행",
+   "provider_code": "0010370",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.02,
+     "801-900": 14.98,
+     "701-800": 15.24,
+     "601-700": 15.35,
+     "501-600": 14.61,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.19
+   },
+   "rate_parts": {
+    "가산금리": 11.68,
+    "기준금리": 3.51
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010388_D1_1",
+   "provider": "다올저축은행",
+   "provider_code": "0010388",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 11.39,
+     "801-900": 12.81,
+     "701-800": 13.46,
+     "601-700": 14.03,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.33
+   },
+   "rate_parts": {
+    "기준금리": 3.05,
+    "가산금리": 10.28
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010390_760174_1",
+   "provider": "고려저축은행",
+   "provider_code": "0010390",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 10.73,
+     "801-900": 12.87,
+     "701-800": 12.51,
+     "601-700": 12.16,
+     "501-600": 12.11,
+     "401-500": null,
+     "301-400": null,
+     "300-": 15.67
+    },
+    "avg": 12.32
+   },
+   "rate_parts": {
+    "기준금리": 2.98,
+    "가산금리": 9.34
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010430_760909_1",
+   "provider": "모아저축은행",
+   "provider_code": "0010430",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 9.66,
+     "801-900": 14.03,
+     "701-800": 14.81,
+     "601-700": 15.48,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.77
+   },
+   "rate_parts": {
+    "기준금리": 3.4,
+    "가산금리": 11.37
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010439_1_1",
+   "provider": "MS저축은행",
+   "provider_code": "0010439",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 8.2,
+     "801-900": 12.54,
+     "701-800": 14.35,
+     "601-700": 15.4,
+     "501-600": 12.5,
+     "401-500": null,
+     "301-400": 14.9,
+     "300-": 11.65
+    },
+    "avg": 14.21
+   },
+   "rate_parts": {
+    "기준금리": 14.21
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010456_760181_1",
+   "provider": "키움저축은행",
+   "provider_code": "0010456",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 11.92,
+     "801-900": 12.39,
+     "701-800": 12.32,
+     "601-700": 13.35,
+     "501-600": 16.14,
+     "401-500": null,
+     "301-400": 15.48,
+     "300-": 15.8
+    },
+    "avg": 12.63
+   },
+   "rate_parts": {
+    "가산금리": 9.65,
+    "기준금리": 2.98
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010467_760066_1",
+   "provider": "융창저축은행",
+   "provider_code": "0010467",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.48,
+     "801-900": 13.39,
+     "701-800": 13.78,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.58
+   },
+   "rate_parts": {
+    "기준금리": 4,
+    "가산금리": 9.58
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010468_760101_1",
+   "provider": "세람저축은행",
+   "provider_code": "0010468",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.3,
+     "801-900": 14.07,
+     "701-800": 14.26,
+     "601-700": 15.4,
+     "501-600": 16.12,
+     "401-500": null,
+     "301-400": 16.24,
+     "300-": 15.26
+    },
+    "avg": 15.23
+   },
+   "rate_parts": {
+    "기준금리": 3.47,
+    "가산금리": 11.76
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010471_760101_1",
+   "provider": "페퍼저축은행",
+   "provider_code": "0010471",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.79,
+     "801-900": 16.52,
+     "701-800": 17,
+     "601-700": 15.98,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 16.69
+   },
+   "rate_parts": {
+    "기준금리": 3.26,
+    "가산금리": 13.43
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010473_GP760130_1",
+   "provider": "상상인저축은행",
+   "provider_code": "0010473",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 16.84,
+     "801-900": 16.16,
+     "701-800": 16.19,
+     "601-700": 16.18,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 16.19
+   },
+   "rate_parts": {
+    "가산금리": 12.86,
+    "기준금리": 3.33
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010477_760261, 760263, 820021_1",
+   "provider": "한화저축은행",
+   "provider_code": "0010477",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰",
+    "모집인",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 9.91,
+     "801-900": 11.61,
+     "701-800": 12.78,
+     "601-700": 13.45,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.89
+   },
+   "rate_parts": {
+    "기준금리": 3.01,
+    "가산금리": 9.88
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010488_760309_1",
+   "provider": "우리금융저축은행",
+   "provider_code": "0010488",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 11.56,
+     "801-900": 15.29,
+     "701-800": 15.8,
+     "601-700": 15.79,
+     "501-600": 16.06,
+     "401-500": 16.75,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.43
+   },
+   "rate_parts": {
+    "가산금리": 11.97,
+    "기준금리": 3.46
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010489_760000_1",
+   "provider": "청주저축은행",
+   "provider_code": "0010489",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261013",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 16.56,
+     "801-900": 17.06,
+     "701-800": 17.45,
+     "601-700": 17.44,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 17.29
+   },
+   "rate_parts": {
+    "기준금리": 4.11,
+    "가산금리": 13.18
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010492_76-0023_1",
+   "provider": "한성저축은행",
+   "provider_code": "0010492",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": 17.83,
+     "701-800": 18.7,
+     "601-700": 18.97,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 18.59
+   },
+   "rate_parts": {
+    "기준금리": 3.16,
+    "가산금리": 15.43
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010508_01000_1",
+   "provider": "상상인플러스저축은행",
+   "provider_code": "0010508",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 17.51,
+     "801-900": 17.86,
+     "701-800": 17.24,
+     "601-700": 16.93,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 17.34
+   },
+   "rate_parts": {
+    "가산금리": 14.26,
+    "기준금리": 3.08
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010521_312_1",
+   "provider": "스타저축은행",
+   "provider_code": "0010521",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": 14.13,
+     "701-800": 17.97,
+     "601-700": 19.42,
+     "501-600": null,
+     "401-500": 19.7,
+     "301-400": 19.7,
+     "300-": null
+    },
+    "avg": 18.44
+   },
+   "rate_parts": {
+    "기준금리": 2.98,
+    "가산금리": 15.46
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010526_760102_1",
+   "provider": "대한저축은행",
+   "provider_code": "0010526",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.85
+   },
+   "rate_parts": {
+    "기준금리": 3.18,
+    "가산금리": 12.67
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010527_760099_1",
+   "provider": "동양저축은행",
+   "provider_code": "0010527",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": 17.79,
+     "601-700": 17.52,
+     "501-600": 18.7,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 17.81
+   },
+   "rate_parts": {
+    "기준금리": 3.44,
+    "가산금리": 14.37
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010534_WR0001G_1",
+   "provider": "스마트저축은행",
+   "provider_code": "0010534",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.76,
+     "801-900": 14,
+     "701-800": 14.34,
+     "601-700": 14.56,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.19
+   },
+   "rate_parts": {
+    "가산금리": 10.33,
+    "기준금리": 3.86
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010537_SJ0001_1",
+   "provider": "한국투자저축은행",
+   "provider_code": "0010537",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.37,
+     "801-900": 12.07,
+     "701-800": 12.72,
+     "601-700": 13.5,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.73
+   },
+   "rate_parts": {
+    "기준금리": 2.9,
+    "가산금리": 9.83
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010593_개인신용대출_1",
+   "provider": "한화생명보험주식회사",
+   "provider_code": "0010593",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 8.96,
+     "801-900": 9.6,
+     "701-800": 10.23,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 9.25
+   },
+   "rate_parts": {
+    "기준금리": 2.81,
+    "가산금리": 6.44
+   },
+   "texts": {
+    "cb_name": "NICE, KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010595_개인신용대출_1",
+   "provider": "삼성생명보험주식회사",
+   "provider_code": "0010595",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20211220",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.62,
+     "801-900": 6.73,
+     "701-800": 7.25,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.04
+   },
+   "rate_parts": {
+    "기준금리": 4.04,
+    "가산금리": 2
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010596_개인신용대출_1",
+   "provider": "흥국생명보험주식회사",
+   "provider_code": "0010596",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20151120",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": null
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE, KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010597_개인신용대출_1",
+   "provider": "교보생명보험주식회사",
+   "provider_code": "0010597",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.75,
+     "801-900": 6.9,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.79
+   },
+   "rate_parts": {
+    "기준금리": 4.36,
+    "가산금리": 2.43
+   },
+   "texts": {
+    "cb_name": "NICE, KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010608_개인신용대출_1",
+   "provider": "미래에셋생명보험주식회사",
+   "provider_code": "0010608",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261001",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": null
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE,KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010927_KB200200000001_1",
+   "provider": "국민은행",
+   "provider_code": "0010927",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.27,
+     "801-900": 5.9,
+     "701-800": 6.43,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.43
+   },
+   "rate_parts": {
+    "가감조정금리": 0.63,
+    "가산금리": 2.83,
+    "기준금리": 3.23
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0010927_KB200200000002_2",
+   "provider": "국민은행",
+   "provider_code": "0010927",
+   "name": "마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.29,
+     "801-900": 5.79,
+     "701-800": 6.51,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.35
+   },
+   "rate_parts": {
+    "기준금리": 3.23,
+    "가산금리": 3.18,
+    "가감조정금리": 1.06
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0011551_769999_1",
+   "provider": "예가람저축은행",
+   "provider_code": "0011551",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 16.65,
+     "801-900": 15.32,
+     "701-800": 15.59,
+     "601-700": 15.49,
+     "501-600": 14.3,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 15.53
+   },
+   "rate_parts": {
+    "기준금리": 3.4,
+    "가산금리": 12.13
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0011625_CR0001A_1",
+   "provider": "신한은행",
+   "provider_code": "0011625",
+   "name": "개인신용대출(일반신용대출)",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.53,
+     "801-900": 6.52,
+     "701-800": 7.27,
+     "601-700": 7.32,
+     "501-600": 7.22,
+     "401-500": 7.15,
+     "301-400": 6.88,
+     "300-": 5.97
+    },
+    "avg": 6.01
+   },
+   "rate_parts": {
+    "가감조정금리": 1.22,
+    "가산금리": 3.9,
+    "기준금리": 3.33
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0011625_CR0001C_2",
+   "provider": "신한은행",
+   "provider_code": "0011625",
+   "name": "개인신용대출(마이너스한도대출)",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.83,
+     "801-900": 6.27,
+     "701-800": 6.48,
+     "601-700": 10.42,
+     "501-600": 11.8,
+     "401-500": null,
+     "301-400": null,
+     "300-": 5.31
+    },
+    "avg": 5.89
+   },
+   "rate_parts": {
+    "기준금리": 3.6,
+    "가산금리": 3.46,
+    "가감조정금리": 1.17
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0011766_WR0001F_1",
+   "provider": "현대커머셜㈜",
+   "provider_code": "0011766",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 11.71,
+     "801-900": 12.81,
+     "701-800": 13.39,
+     "601-700": 13.77,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.81
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0011767_JTPLOOOO_1",
+   "provider": "JT저축은행",
+   "provider_code": "0011767",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.59,
+     "801-900": 12.85,
+     "701-800": 13.52,
+     "601-700": 13.58,
+     "501-600": 12.87,
+     "401-500": null,
+     "301-400": 11.49,
+     "300-": null
+    },
+    "avg": 13.39
+   },
+   "rate_parts": {
+    "기준금리": 3.23,
+    "가산금리": 10.16
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0011797_WR0001F_1",
+   "provider": "엔에이치농협캐피탈㈜",
+   "provider_code": "0011797",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 9.37,
+     "801-900": 11.42,
+     "701-800": 13.45,
+     "601-700": 15.82,
+     "501-600": 15.66,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.67
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012120_1_1",
+   "provider": "삼호저축은행",
+   "provider_code": "0012120",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.86,
+     "801-900": 16.61,
+     "701-800": 18.83,
+     "601-700": 19.37,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 17.96
+   },
+   "rate_parts": {
+    "기준금리": 3.02,
+    "가산금리": 14.94
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012303_WR0001F_1",
+   "provider": "㈜아이엠캐피탈",
+   "provider_code": "0012303",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.73,
+     "801-900": 13.36,
+     "701-800": 14.14,
+     "601-700": 13.83,
+     "501-600": 13.57,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.76
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012452_WR0001F_1",
+   "provider": "비엔케이캐피탈㈜",
+   "provider_code": "0012452",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.36,
+     "801-900": 13.85,
+     "701-800": 14.79,
+     "601-700": 15.48,
+     "501-600": 16.44,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.61
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012627_WR0001F_1",
+   "provider": "㈜케이비국민카드",
+   "provider_code": "0012627",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.05,
+     "801-900": 13.91,
+     "701-800": 15.33,
+     "601-700": 16.4,
+     "501-600": 16.21,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.91
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012627_WR0002F_3",
+   "provider": "㈜케이비국민카드",
+   "provider_code": "0012627",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 11.6,
+     "801-900": 12.98,
+     "701-800": 14.64,
+     "601-700": 17.11,
+     "501-600": 18.42,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.38
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012711_71100_1",
+   "provider": "엔에이치저축은행",
+   "provider_code": "0012711",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 10.63,
+     "801-900": 11.86,
+     "701-800": 13.64,
+     "601-700": 15.29,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.9
+   },
+   "rate_parts": {
+    "가산금리": 10.04,
+    "기준금리": 2.86
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0012889_760148_1",
+   "provider": "IBK저축은행",
+   "provider_code": "0012889",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 9.24,
+     "801-900": 11.93,
+     "701-800": 12.66,
+     "601-700": 12.64,
+     "501-600": 11.95,
+     "401-500": null,
+     "301-400": null,
+     "300-": 10.84
+    },
+    "avg": 12.52
+   },
+   "rate_parts": {
+    "기준금리": 2.8,
+    "가산금리": 9.72
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013002_BNK2300_1",
+   "provider": "BNK저축은행",
+   "provider_code": "0013002",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 10.39,
+     "801-900": 11.45,
+     "701-800": 12.15,
+     "601-700": 12.79,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 11.9
+   },
+   "rate_parts": {
+    "기준금리": 3.54,
+    "가산금리": 8.36
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013127_75010_1",
+   "provider": "KB저축은행",
+   "provider_code": "0013127",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.66,
+     "801-900": 13.4,
+     "701-800": 13.43,
+     "601-700": 13.44,
+     "501-600": 13.87,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.38
+   },
+   "rate_parts": {
+    "기준금리": 3.07,
+    "가산금리": 10.31
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013166_1-1_1",
+   "provider": "하나저축은행",
+   "provider_code": "0013166",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261012",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.37,
+     "801-900": 14.22,
+     "701-800": 14.51,
+     "601-700": 14.43,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.35
+   },
+   "rate_parts": {
+    "가산금리": 11.33,
+    "기준금리": 3.02
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013173_개인신용대출_1",
+   "provider": "농협생명보험주식회사",
+   "provider_code": "0013173",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20120302",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": null,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": null
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE, KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013175_CR0001A_1",
+   "provider": "농협은행주식회사",
+   "provider_code": "0013175",
+   "name": "가계신용대출(일반)",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.81,
+     "801-900": 6.47,
+     "701-800": 7.4,
+     "601-700": 7.97,
+     "501-600": 8.53,
+     "401-500": 8.79,
+     "301-400": null,
+     "300-": 8.51
+    },
+    "avg": 6.13
+   },
+   "rate_parts": {
+    "가감조정금리": 1.3,
+    "가산금리": 3.76,
+    "기준금리": 3.67
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013175_CR0001B_2",
+   "provider": "농협은행주식회사",
+   "provider_code": "0013175",
+   "name": "가계신용대출(마이너스대출)",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.8,
+     "801-900": 5.68,
+     "701-800": 4.47,
+     "601-700": 4.43,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.66
+   },
+   "rate_parts": {
+    "기준금리": 3.67,
+    "가산금리": 2.84,
+    "가감조정금리": 0.85
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013175_WR0002F_3",
+   "provider": "농협은행주식회사",
+   "provider_code": "0013175",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 10.59,
+     "801-900": 12.11,
+     "701-800": 14.62,
+     "601-700": 17.97,
+     "501-600": 19.29,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.25
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013202_WR0001F_1",
+   "provider": "메리츠캐피탈㈜",
+   "provider_code": "0013202",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 8.9,
+     "801-900": 17.42,
+     "701-800": 19.78,
+     "601-700": 19.9,
+     "501-600": 19.9,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 19.34
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013308_760433_1",
+   "provider": "JT친애저축은행",
+   "provider_code": "0013308",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 12.51,
+     "801-900": 12.39,
+     "701-800": 13.07,
+     "601-700": 13.23,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 12.95
+   },
+   "rate_parts": {
+    "기준금리": 3.36,
+    "가산금리": 9.59
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013313_11111_1",
+   "provider": "신한저축은행",
+   "provider_code": "0013313",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.65,
+     "801-900": 14.56,
+     "701-800": 14.72,
+     "601-700": 15.14,
+     "501-600": 14.68,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.68
+   },
+   "rate_parts": {
+    "기준금리": 3.17,
+    "가산금리": 11.51
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013350_2275101072_1",
+   "provider": "웰컴저축은행",
+   "provider_code": "0013350",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.9,
+     "801-900": 15.19,
+     "701-800": 15.62,
+     "601-700": 16.69,
+     "501-600": 17.48,
+     "401-500": 19.64,
+     "301-400": 17.42,
+     "300-": 17.85
+    },
+    "avg": 16.45
+   },
+   "rate_parts": {
+    "기준금리": 2.78,
+    "가산금리": 13.67
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013351_761110_1",
+   "provider": "OK저축은행",
+   "provider_code": "0013351",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030300",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 14.87,
+     "801-900": 14.79,
+     "701-800": 15.64,
+     "601-700": 16.81,
+     "501-600": 18.44,
+     "401-500": 19.82,
+     "301-400": 18.99,
+     "300-": 18.99
+    },
+    "avg": 15.81
+   },
+   "rate_parts": {
+    "기준금리": 3.25,
+    "가산금리": 12.56
+   },
+   "texts": {
+    "cb_name": "NICE"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013361_WR0001F_1",
+   "provider": "㈜우리카드",
+   "provider_code": "0013361",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 8.6,
+     "801-900": null,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 8.6
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013361_WR0002F_3",
+   "provider": "㈜우리카드",
+   "provider_code": "0013361",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 9.61,
+     "801-900": 12.44,
+     "701-800": 14.48,
+     "601-700": 18.04,
+     "501-600": 19.11,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 13.85
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013640_WR0001F_1",
+   "provider": "하나카드㈜",
+   "provider_code": "0013640",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 18.12,
+     "801-900": 14.89,
+     "701-800": 17.53,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 16.95
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013640_WR0002F_3",
+   "provider": "하나카드㈜",
+   "provider_code": "0013640",
+   "name": "장기카드대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "전화(텔레뱅킹)",
+    "기타"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "장기카드대출(카드론)",
+   "rates": {
+    "by_band": {
+     "900+": 11.82,
+     "801-900": 13.61,
+     "701-800": 14.93,
+     "601-700": 16.51,
+     "501-600": 17.43,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.27
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013706_WR0001F_1",
+   "provider": "한국투자캐피탈㈜",
+   "provider_code": "0013706",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "030200",
+   "join_way": [
+    "인터넷",
+    "스마트폰",
+    "모집인",
+    "전화(텔레뱅킹)"
+   ],
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261021",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 13.14,
+     "801-900": 13.95,
+     "701-800": 14.95,
+     "601-700": 16.27,
+     "501-600": 17.07,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 14.84
+   },
+   "rate_parts": {},
+   "texts": {
+    "cb_name": "NICE,KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013909_1_1",
+   "provider": "주식회사 하나은행",
+   "provider_code": "0013909",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.26,
+     "801-900": 7.19,
+     "701-800": 8.06,
+     "601-700": 8.6,
+     "501-600": 9.37,
+     "401-500": 10.88,
+     "301-400": 12.44,
+     "300-": 11.2
+    },
+    "avg": 7.08
+   },
+   "rate_parts": {
+    "가감조정금리": 2.28,
+    "가산금리": 5.56,
+    "기준금리": 3.8
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0013909_3_2",
+   "provider": "주식회사 하나은행",
+   "provider_code": "0013909",
+   "name": "마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.91,
+     "801-900": 5.92,
+     "701-800": 5.92,
+     "601-700": 5.96,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.91
+   },
+   "rate_parts": {
+    "기준금리": 3.62,
+    "가산금리": 3.82,
+    "가감조정금리": 1.53
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0014674_010200010000000001_1",
+   "provider": "주식회사 케이뱅크",
+   "provider_code": "0014674",
+   "name": "신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.61,
+     "801-900": 7.02,
+     "701-800": 7.34,
+     "601-700": 7.64,
+     "501-600": 7.61,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.87
+   },
+   "rate_parts": {
+    "가산금리": 3.52,
+    "기준금리": 3.35
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0014674_010200040000000001_2",
+   "provider": "주식회사 케이뱅크",
+   "provider_code": "0014674",
+   "name": "마이너스 통장 대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.82,
+     "801-900": 7.31,
+     "701-800": 7.97,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.87
+   },
+   "rate_parts": {
+    "기준금리": 3.15,
+    "가산금리": 3.72
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0014807_601_1",
+   "provider": "수협은행",
+   "provider_code": "0014807",
+   "name": "개인신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.66,
+     "801-900": 5.98,
+     "701-800": 7.43,
+     "601-700": 8.92,
+     "501-600": 8.7,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 5.76
+   },
+   "rate_parts": {
+    "기준금리": 3.15,
+    "가산금리": 3.38,
+    "가감조정금리": 0.77
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0014807_804_2",
+   "provider": "수협은행",
+   "provider_code": "0014807",
+   "name": "개인신용마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.38,
+     "801-900": 6.73,
+     "701-800": null,
+     "601-700": null,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.41
+   },
+   "rate_parts": {
+    "가감조정금리": 0.09,
+    "가산금리": 3.33,
+    "기준금리": 3.17
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0015130_030020001_1",
+   "provider": "주식회사 카카오뱅크",
+   "provider_code": "0015130",
+   "name": "일반신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.83,
+     "801-900": 7.04,
+     "701-800": 7.74,
+     "601-700": 8.09,
+     "501-600": 10.6,
+     "401-500": 10.29,
+     "301-400": 10.16,
+     "300-": 9.62
+    },
+    "avg": 6.44
+   },
+   "rate_parts": {
+    "기준금리": 3.4,
+    "가산금리": 3.05,
+    "가감조정금리": 0.01
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0015130_030020003_2",
+   "provider": "주식회사 카카오뱅크",
+   "provider_code": "0015130",
+   "name": "마이너스한도대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.52,
+     "801-900": 8.71,
+     "701-800": 9.05,
+     "601-700": 8.76,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 7.55
+   },
+   "rate_parts": {
+    "기준금리": 3.58,
+    "가산금리": 3.97
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0017801_20-01-03-021-0001_2",
+   "provider": "토스뱅크 주식회사",
+   "provider_code": "0017801",
+   "name": "토스뱅크 마이너스 통장대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "마이너스한도대출",
+   "rates": {
+    "by_band": {
+     "900+": 6.37,
+     "801-900": 8.15,
+     "701-800": 8.76,
+     "601-700": 8.58,
+     "501-600": null,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 7.04
+   },
+   "rate_parts": {
+    "기준금리": 3.56,
+    "가산금리": 3.47
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_credit_loan_0017801_20-01-03-311-0001_1",
+   "provider": "토스뱅크 주식회사",
+   "provider_code": "0017801",
+   "name": "토스뱅크 신용대출",
+   "category": "credit_loan",
+   "category_label": "개인신용대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "loan_kind": "일반신용대출",
+   "rates": {
+    "by_band": {
+     "900+": 5.67,
+     "801-900": 6.93,
+     "701-800": 7.87,
+     "601-700": 8.28,
+     "501-600": 9.67,
+     "401-500": null,
+     "301-400": null,
+     "300-": null
+    },
+    "avg": 6.04
+   },
+   "rate_parts": {
+    "기준금리": 3.41,
+    "가산금리": 2.62
+   },
+   "texts": {
+    "cb_name": "KCB"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "한도가 공시에 없음",
+     "중도상환 수수료가 공시에 없음"
+    ],
+    "status": "needs_check"
+   }
+  }
+ ]
+}

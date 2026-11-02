@@ -1,0 +1,2559 @@
+{
+ "service": "companySearch",
+ "category": "company",
+ "group": "050000",
+ "pages": [
+  {
+   "prdt_div": "F",
+   "total_count": 20,
+   "max_page_no": 1,
+   "now_page_no": 1,
+   "err_cd": "000",
+   "err_msg": "정상",
+   "baseList": [
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "kor_co_nm": "생명보험협회",
+     "dcls_chrg_man": "상품지원부, 02-2262-6603",
+     "homp_url": "https://pub.insure.or.kr",
+     "cal_tel": "02-2262-6600"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "kor_co_nm": "한화생명보험주식회사",
+     "dcls_chrg_man": "융자마케팅사업부, 02-789-7321",
+     "homp_url": "http://www.hanwhalife.com",
+     "cal_tel": "15886363"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "kor_co_nm": "에이비엘생명보험주식회사",
+     "dcls_chrg_man": "투자기획팀, 02-3787-7645",
+     "homp_url": "https://www.abllife.co.kr/",
+     "cal_tel": "1588-6500"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "kor_co_nm": "삼성생명보험주식회사",
+     "dcls_chrg_man": "※ 대출상담 및 신청 : 1577-7272(콜센터) /  공시 관련 문의 : 02-2259-7991(융자기획파트)",
+     "homp_url": "http://www.samsunglife.com",
+     "cal_tel": "1577-7272"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "kor_co_nm": "흥국생명보험주식회사",
+     "dcls_chrg_man": "개인금융팀, 02-2002-7344",
+     "homp_url": "http://www.heungkuklife.co.kr",
+     "cal_tel": "1588-2288"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "kor_co_nm": "교보생명보험주식회사",
+     "dcls_chrg_man": "소매여신마케팅팀, 02-721-2451",
+     "homp_url": "http://www.kyobo.co.kr",
+     "cal_tel": "15881001"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "kor_co_nm": "신한라이프생명보험주식회사",
+     "dcls_chrg_man": "개인여신셀, 02-3455-6027",
+     "homp_url": "https://www.shinhanlife.co.kr/hp/cdha0010.do",
+     "cal_tel": "1588-5580"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "kor_co_nm": "KDB생명보험주식회사",
+     "dcls_chrg_man": "투자지원파트, 02-6303-6447",
+     "homp_url": "http://www.kdblife.co.kr",
+     "cal_tel": "1588-4040"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "kor_co_nm": "미래에셋생명보험주식회사",
+     "dcls_chrg_man": "융자팀,  02-3271-4915",
+     "homp_url": "http://life.miraeasset.com",
+     "cal_tel": "1588-0220"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "kor_co_nm": "하나생명보험주식회사",
+     "dcls_chrg_man": "가계여신부 대리 김강석(T.02-3709-5977)",
+     "homp_url": "https://hanalife.co.kr",
+     "cal_tel": "1899-5600"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "kor_co_nm": "동양생명보험주식회사",
+     "dcls_chrg_man": "개인여신파트,  02-728-9593",
+     "homp_url": "http://www.myangel.co.kr",
+     "cal_tel": "1577-1004"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "kor_co_nm": "롯데손해보험주식회사",
+     "dcls_chrg_man": "개인여신센터, 02-3455-3304",
+     "homp_url": "http://www.lotteins.co.kr",
+     "cal_tel": "15883344"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "kor_co_nm": "흥국화재해상보험주식회사",
+     "dcls_chrg_man": "개인금융팀, 02-2002-6033",
+     "homp_url": "www.heungkukfire.co.kr",
+     "cal_tel": "16881688"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "kor_co_nm": "삼성화재해상보험주식회사",
+     "dcls_chrg_man": "(융자DS파트,02-758-7231)\n(융자콜센터,1588-7444)",
+     "homp_url": "http://www.samsungfire.com",
+     "cal_tel": "15885114"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "kor_co_nm": "현대해상화재보험주식회사",
+     "dcls_chrg_man": "개인융자부 02-3701-8212",
+     "homp_url": "http://www.hi.co.kr",
+     "cal_tel": "16685655"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "kor_co_nm": "주식회사KB손해보험",
+     "dcls_chrg_man": "개인대출운용부, 02-6913-3071 (대출상담 및 신청 : 1544-9110)",
+     "homp_url": "http://www.kbinsure.co.kr",
+     "cal_tel": "15449110"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "kor_co_nm": "DB손해보험주식회사",
+     "dcls_chrg_man": "투자금융1부, 02-331-5481",
+     "homp_url": "http://www.idbins.com",
+     "cal_tel": "15440100"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "kor_co_nm": "푸본현대생명보험주식회사",
+     "dcls_chrg_man": "개인여신팀, 02-3284-7067",
+     "homp_url": "http://www.fubonhyundai.com/",
+     "cal_tel": "1577-3311"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "kor_co_nm": "농협생명보험주식회사",
+     "dcls_chrg_man": "운용관리팀, 02-3786-7145",
+     "homp_url": "https://www.nhlife.co.kr/",
+     "cal_tel": "1544-4000"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "kor_co_nm": "농협손해보험주식회사",
+     "dcls_chrg_man": "여신투자팀, 02-3786-7939",
+     "homp_url": "https://www.nhfire.co.kr",
+     "cal_tel": "16449000"
+    }
+   ],
+   "optionList": [
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010587",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010593",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010594",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010595",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010596",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010597",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010599",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010607",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010608",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010618",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010622",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010628",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010630",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010633",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010634",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010635",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0010636",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0011320",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013173",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "01",
+     "area_nm": "서울",
+     "exis_yn": "Y"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "02",
+     "area_nm": "부산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "03",
+     "area_nm": "대구",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "04",
+     "area_nm": "인천",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "05",
+     "area_nm": "광주",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "06",
+     "area_nm": "대전",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "07",
+     "area_nm": "울산",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "08",
+     "area_nm": "세종",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "09",
+     "area_nm": "경기",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "10",
+     "area_nm": "강원",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "11",
+     "area_nm": "충북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "12",
+     "area_nm": "충남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "13",
+     "area_nm": "전북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "14",
+     "area_nm": "전남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "15",
+     "area_nm": "경북",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "16",
+     "area_nm": "경남",
+     "exis_yn": "N"
+    },
+    {
+     "dcls_month": "202610",
+     "fin_co_no": "0013174",
+     "area_cd": "17",
+     "area_nm": "제주",
+     "exis_yn": "N"
+    }
+   ]
+  }
+ ]
+}

@@ -6,7 +6,8 @@
       "label": "집 살 때를 대비한 자격·한도 확인",
       "satisfied_by": [
         "P_housing_subscription",
-        "PP_first_home_loan"
+        "PP_first_home_loan",
+        "P_mortgage_loan"
       ]
     },
     {
@@ -24,7 +25,8 @@
     {
       "id": "N_invest_cap",
       "label": "여윳돈 일부 투자(비중 상한)",
-      "satisfied_by": []
+      "satisfied_by": [],
+      "self": "여윳돈의 투자 비중은 상품 없이 가족이 직접 지켜요"
     },
     {
       "id": "N_shared_transfer_record",
@@ -44,7 +46,8 @@
       "id": "N_living_income_at_home",
       "label": "지금 집에 살면서 생활비 마련",
       "satisfied_by": [
-        "PP_reverse_mortgage"
+        "PP_reverse_mortgage",
+        "PP_basic_pension"
       ],
       "requires": {
         "home": true,
@@ -92,7 +95,8 @@
       "satisfied_by": [
         "P_installment_savings",
         "P_balanced_fund",
-        "P_joint_account"
+        "P_joint_account",
+        "P_term_deposit"
       ]
     },
     {
@@ -111,12 +115,15 @@
       "label": "대출을 계획대로 빨리 갚기",
       "satisfied_by": [
         "P_prepay_plan",
-        "P_refinance_consult"
+        "P_refinance_consult",
+        "P_mortgage_loan",
+        "P_credit_loan"
       ],
       "requires": {
         "repaying_loan": true,
         "why": "매달 원금을 갚아 나가는 대출이 있을 때만 해당해요"
-      }
+      },
+      "compare_note": "실제 상품 비교는 지금 대출을 다른 상품으로 갈아탈 때의 비용 비교예요"
     },
     {
       "id": "N_education_fund",
@@ -131,7 +138,23 @@
       "label": "은퇴 뒤 매달 쓸 돈 마련",
       "satisfied_by": [
         "P_pension_savings",
-        "PP_reverse_mortgage"
+        "PP_reverse_mortgage",
+        "PP_basic_pension"
+      ]
+    },
+    {
+      "id": "N_rent_deposit",
+      "label": "전세 보증금 마련(전세대출 알아보기)",
+      "satisfied_by": [
+        "P_rent_loan",
+        "PP_rent_policy_loan"
+      ]
+    },
+    {
+      "id": "N_business_fund",
+      "label": "사업 자금 마련(사업자 대출 알아보기)",
+      "satisfied_by": [
+        "P_business_loan"
       ]
     }
   ],

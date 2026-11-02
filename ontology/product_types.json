@@ -1,5 +1,5 @@
 {
- "_note": "상품 유형(docs/08_온톨로지.md 3절). 특정 금융회사 상품이 아니다(기획안 15쪽). 금리 숫자는 지어내지 않고 가정값·공시 스냅샷을 참조한다. '확인 필요'는 공시·제도 안내로 확인 전.",
+ "_note": "상품 유형(docs/08_온톨로지.md 3절). 특정 금융회사 상품이 아니다(기획안 15쪽). 금리 숫자는 지어내지 않고 가정값·공시 스냅샷을 참조한다. '확인 필요'는 공시·제도 안내로 확인 전. data: real(금감원 공시 실제 상품 비교가 있음, real_category) / none(공시 API에 없어 실제 상품 데이터가 아직 없음) / program(제도, 공식 원문 규칙은 docs/12 13.1절 4단계) / consult(상담 연결) / self(상품 없이 가족이 직접).",
  "product_types": [
   {
    "id": "P_housing_subscription",
@@ -15,7 +15,11 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "새로 짓는 아파트를 신청할 자격을 쌓는 통장이에요."
+   "summary": "새로 짓는 아파트를 신청할 자격을 쌓는 통장이에요.",
+   "data": "program",
+   "programs": [
+    "PG_subscription"
+   ]
   },
   {
    "id": "PP_first_home_loan",
@@ -31,7 +35,13 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "처음 집을 살 때 받을 수 있는 정책 대출 유형이에요. 미리 한도를 확인해 둘 수 있어요."
+   "summary": "처음 집을 살 때 받을 수 있는 정책 대출 유형이에요. 미리 한도를 확인해 둘 수 있어요.",
+   "data": "program",
+   "programs": [
+    "PG_didimdol",
+    "PG_newborn_didimdol",
+    "PG_bogeumjari"
+   ]
   },
   {
    "id": "P_installment_savings",
@@ -47,7 +57,9 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "매달 정해진 돈을 넣고 만기에 찾는 상품이에요. 원금이 줄지 않아요."
+   "summary": "매달 정해진 돈을 넣고 만기에 찾는 상품이에요. 원금이 줄지 않아요.",
+   "data": "real",
+   "real_category": "saving"
   },
   {
    "id": "P_balanced_fund",
@@ -63,7 +75,9 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "예금과 주식에 나눠 투자하는 상품이에요. 오를 수도 내릴 수도 있어요."
+   "summary": "예금과 주식에 나눠 투자하는 상품이에요. 오를 수도 내릴 수도 있어요.",
+   "data": "none",
+   "data_note": "펀드는 금감원 상품 공시 API에 없어요"
   },
   {
    "id": "P_joint_account",
@@ -82,7 +96,9 @@
     "자동이체"
    ],
    "requires_home_sale": false,
-   "summary": "여러 사람이 함께 넣고 쓰면서 누가 얼마나 넣었는지 같이 보는 통장이에요."
+   "summary": "여러 사람이 함께 넣고 쓰면서 누가 얼마나 넣었는지 같이 보는 통장이에요.",
+   "data": "none",
+   "data_note": "모임통장은 금감원 상품 공시 API에 없어요"
   },
   {
    "id": "P_child_insurance",
@@ -98,7 +114,9 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "아이가 아프거나 다칠 때 보장받는 보험이에요."
+   "summary": "아이가 아프거나 다칠 때 보장받는 보험이에요.",
+   "data": "none",
+   "data_note": "보험은 금감원 상품 공시 API에 없어요"
   },
   {
    "id": "PP_reverse_mortgage",
@@ -114,7 +132,11 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "집을 담보로 맡기고, 그 집에 계속 살면서 매달 생활비를 받는 제도예요."
+   "summary": "집을 담보로 맡기고, 그 집에 계속 살면서 매달 생활비를 받는 제도예요.",
+   "data": "program",
+   "programs": [
+    "PG_reverse_mortgage"
+   ]
   },
   {
    "id": "P_home_downsize",
@@ -130,7 +152,8 @@
    },
    "features": [],
    "requires_home_sale": true,
-   "summary": "지금 집을 팔고 작은 집으로 옮겨 남는 돈을 쓰는 방법이에요."
+   "summary": "지금 집을 팔고 작은 집으로 옮겨 남는 돈을 쓰는 방법이에요.",
+   "data": "self"
   },
   {
    "id": "P_parking_account",
@@ -146,7 +169,9 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "언제든 넣고 뺄 수 있는 통장이에요."
+   "summary": "언제든 넣고 뺄 수 있는 통장이에요.",
+   "data": "none",
+   "data_note": "수시입출금 통장은 금감원 상품 공시 API에 없어요"
   },
   {
    "id": "P_care_insurance",
@@ -162,7 +187,9 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "간병이 필요해졌을 때 비용을 보장하는 보험이에요."
+   "summary": "간병이 필요해졌을 때 비용을 보장하는 보험이에요.",
+   "data": "none",
+   "data_note": "보험은 금감원 상품 공시 API에 없어요"
   },
   {
    "id": "P_family_trust_consult",
@@ -178,7 +205,8 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "재산을 나중에 어떻게 나눌지 전문가와 상담하는 창구예요."
+   "summary": "재산을 나중에 어떻게 나눌지 전문가와 상담하는 창구예요.",
+   "data": "consult"
   },
   {
    "id": "P_prepay_plan",
@@ -194,7 +222,8 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "매달 정한 만큼 대출을 더 갚아 이자를 줄이는 방법이에요."
+   "summary": "매달 정한 만큼 대출을 더 갚아 이자를 줄이는 방법이에요.",
+   "data": "self"
   },
   {
    "id": "P_refinance_consult",
@@ -210,7 +239,8 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "지금보다 금리가 낮은 대출로 바꿀 수 있는지 상담받는 방법이에요."
+   "summary": "지금보다 금리가 낮은 대출로 바꿀 수 있는지 상담받는 방법이에요.",
+   "data": "consult"
   },
   {
    "id": "P_pension_savings",
@@ -226,7 +256,140 @@
    },
    "features": [],
    "requires_home_sale": false,
-   "summary": "노후에 연금으로 받으려고 오래 모으는 상품이에요. 세금 혜택이 있어요."
+   "summary": "노후에 연금으로 받으려고 오래 모으는 상품이에요. 세금 혜택이 있어요.",
+   "data": "none",
+   "data_note": "연금저축 공시 API 응답이 비정상이라 아직 못 받았어요(docs/13 1-1)"
+  },
+  {
+   "id": "P_term_deposit",
+   "label": "정기예금(원금 보장)",
+   "kind": "product",
+   "attributes": {
+    "rate": "공시(실제 상품 비교)",
+    "term": "1~36개월",
+    "risk": "원금보장",
+    "liquidity": "만기",
+    "tax": "확인 필요",
+    "eligibility": "상품별(실제 상품 비교)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "목돈을 정해진 기간 한 번에 맡기고 만기에 이자와 함께 받아요.",
+   "data": "real",
+   "real_category": "deposit"
+  },
+  {
+   "id": "P_mortgage_loan",
+   "label": "주택담보대출",
+   "kind": "product",
+   "attributes": {
+    "rate": "공시(실제 상품 비교)",
+    "term": "장기",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "상품별(실제 상품 비교)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "집을 담보로 집 살 돈을 빌려요. 한도는 집값의 일정 비율(LTV)이에요.",
+   "data": "real",
+   "real_category": "mortgage"
+  },
+  {
+   "id": "P_rent_loan",
+   "label": "전세자금대출",
+   "kind": "product",
+   "attributes": {
+    "rate": "공시(실제 상품 비교)",
+    "term": "전세 계약 기간",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "상품별(실제 상품 비교)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "전세 보증금 일부를 빌려요. 보통 이자만 내다 계약이 끝나면 갚아요.",
+   "data": "real",
+   "real_category": "rent_loan"
+  },
+  {
+   "id": "P_credit_loan",
+   "label": "개인신용대출",
+   "kind": "product",
+   "attributes": {
+    "rate": "공시(신용점수 구간별)",
+    "term": "단기~중기",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "상품별(실제 상품 비교)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "담보 없이 신용으로 빌려요. 금리는 신용점수에 따라 달라요.",
+   "data": "real",
+   "real_category": "credit_loan"
+  },
+  {
+   "id": "P_business_loan",
+   "label": "개인사업자대출",
+   "kind": "product",
+   "attributes": {
+    "rate": "공시(신용점수 구간별)",
+    "term": "상품별",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "상품별(실제 상품 비교)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "사업자가 운영·시설 자금을 빌려요. 지역·업종 전용 상품이 많아요.",
+   "data": "real",
+   "real_category": "busi_loan"
+  },
+  {
+   "id": "PP_rent_policy_loan",
+   "label": "정책 전세자금대출(버팀목)",
+   "kind": "policy",
+   "attributes": {
+    "rate": "제도 규칙",
+    "term": "제도 규칙",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "제도 규칙(원문 인용)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "무주택 서민·신생아 가구의 전세 보증금을 기금에서 낮은 금리로 빌려주는 대출이에요.",
+   "data": "program",
+   "programs": [
+    "PG_beotimmok",
+    "PG_newborn_beotimmok"
+   ]
+  },
+  {
+   "id": "PP_basic_pension",
+   "label": "기초연금(공적 제도)",
+   "kind": "policy",
+   "attributes": {
+    "rate": "제도 규칙",
+    "term": "제도 규칙",
+    "risk": "해당 없음",
+    "liquidity": "해당 없음",
+    "tax": "해당 없음",
+    "eligibility": "제도 규칙(원문 인용)"
+   },
+   "features": [],
+   "requires_home_sale": false,
+   "summary": "만 65세 이상이고 소득인정액이 기준 이하인 어르신께 매달 드리는 연금이에요.",
+   "data": "program",
+   "programs": [
+    "PG_basic_pension"
+   ]
   }
  ]
 }

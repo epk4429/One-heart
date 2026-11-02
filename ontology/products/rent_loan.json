@@ -1,0 +1,3896 @@
+{
+ "_note": "개발용(dev_only). 금감원 금융상품 한눈에 공시 원본(knowledge/sources)에서 tools/build_products.py로 만든다. 직접 고치지 않는다. 대출 상품: terms에 한도·중도상환 수수료·우대 규칙과 검사 결과.",
+ "category": "rent_loan",
+ "sources": [
+  "S_finlife_rent_loan_020000_202610",
+  "S_finlife_rent_loan_030300_202610",
+  "S_finlife_rent_loan_050000_202610"
+ ],
+ "products": [
+  {
+   "product_id": "PRD_rent_loan_0010001_10561",
+   "provider": "우리은행",
+   "provider_code": "0010001",
+   "name": "우리전세론(주택금융보증)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.39,
+     "rate_max": 6.09,
+     "rate_avg": 5.38
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.04,
+     "rate_max": 4.74,
+     "rate_avg": 4.29
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.39,
+     "rate_max": 6.09,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.04,
+     "rate_max": 4.74,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대4.44억원",
+    "erly_rpay_fee": "- 고정금리 : 중도상환대출금×0.76%×잔존기간÷대출기간\n- 변동금리 : 중도상환대출금×0.35%×잔존기간÷대출기간",
+    "loan_inci_expn": "- 인지세 : 해당세액의 50%(대출금액 5천만원 이하시 없음)\n- 보증료",
+    "dly_rate": "- 적용금리+ 3%\n(가계대출 최고연체이자율 : 12%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "4.44억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.76,
+     "variable_pct": 0.35,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.76",
+      "0.35"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010001_10562",
+   "provider": "우리은행",
+   "provider_code": "0010001",
+   "name": "우리전세론(서울보증)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.4,
+     "rate_max": 6.1,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.1,
+     "rate_max": 4.8,
+     "rate_avg": 4.29
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.3,
+     "rate_max": 6,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4,
+     "rate_max": 4.7,
+     "rate_avg": 4.11
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대5억원",
+    "erly_rpay_fee": "- 고정금리 : 중도상환대출금×0.76%×잔존기간÷대출기간\n- 변동금리 : 중도상환대출금×0.35%×잔존기간÷대출기간",
+    "loan_inci_expn": "- 인지세 : 해당세액의 50%(대출금액 5천만원 이하시 없음)\n- 질권설정, 채권양도통지 비용 : 3만원",
+    "dly_rate": "- 적용금리+ 3%\n(가계대출 최고연체이자율 : 12%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.76,
+     "variable_pct": 0.35,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.76",
+      "0.35"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010002_SC002013SC002003",
+   "provider": "한국스탠다드차타드은행",
+   "provider_code": "0010002",
+   "name": "전세담보대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.94,
+     "rate_max": 5.34,
+     "rate_avg": 5.15
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 5억원",
+    "erly_rpay_fee": "중도상환금액× 0.2%× (대출잔여일수 ÷ 대출기간 총일수)",
+    "loan_inci_expn": "인지세 : 해당세액의 50% (대출금액 5천만원 이하 시 없음)",
+    "dly_rate": "대출금리 + 연 3%\n(최고 연체이자율 : 연 15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.2,
+     "variable_pct": 0.2,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.2%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010016_20460801000001001",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "DGB 전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.82,
+     "rate_max": 5.82,
+     "rate_avg": 4.87
+    }
+   ],
+   "texts": {
+    "loan_lmt": "440백만원",
+    "erly_rpay_fee": "중도상환대출금액×(고정금리:0.57, 변동금리:0.47)%×(대출잔여일수 ÷ 3년)",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n2. 주택금융보증료 : 연 0.12% ~ 0.40%",
+    "dly_rate": "○ 대출이자율 + 3.0%\n○ 최고 연체이자율: 15.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44000.0,
+     "none": false,
+     "quotes": [
+      "440백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.57,
+     "variable_pct": 0.47,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.57",
+      "0.47"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010016_20460801000001002",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "무방문전세자금대출(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.82,
+     "rate_max": 5.82,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "220백만원",
+    "erly_rpay_fee": "중도상환대출금액×(고정금리:0.57, 변동금리:0.47)%×(대출잔여일수 ÷ 3년)",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n2. 질권설정통지수수료 :30,000원",
+    "dly_rate": "○ 대출이자율 + 3.0%\n○ 최고 연체이자율: 15.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 22000.0,
+     "none": false,
+     "quotes": [
+      "220백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.57,
+     "variable_pct": 0.47,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.57",
+      "0.47"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010016_20466201000001001",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "DGB POWER 전세보증대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.82,
+     "rate_max": 5.82,
+     "rate_avg": 5.22
+    }
+   ],
+   "texts": {
+    "loan_lmt": "500백만원",
+    "erly_rpay_fee": "중도상환대출금액×(고정금리:0.57, 변동금리:0.47)%×(대출잔여일수 ÷ 3년)",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n2. 질권설정통지수수료 :30,000원",
+    "dly_rate": "○ 대출이자율 + 3.0%\n○ 최고 연체이자율: 15.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "500백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.57,
+     "variable_pct": 0.47,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.57",
+      "0.47"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010016_20466201000001002",
+   "provider": "아이엠뱅크",
+   "provider_code": "0010016",
+   "name": "무방문전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.82,
+     "rate_max": 5.82,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "500백만원",
+    "erly_rpay_fee": "중도상환대출금액×(고정금리:0.57, 변동금리:0.47)%×(대출잔여일수 ÷ 3년)",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n2. 질권설정통지수수료 :30,000원",
+    "dly_rate": "○ 대출이자율 + 3.0%\n○ 최고 연체이자율: 15.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "500백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.57,
+     "variable_pct": 0.47,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.57",
+      "0.47"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010017_1029",
+   "provider": "부산은행",
+   "provider_code": "0010017",
+   "name": "BNK전세안심대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261006",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.51,
+     "rate_max": 6.31,
+     "rate_avg": 5.84
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.39,
+     "rate_max": 5.19,
+     "rate_avg": 4.4
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.51,
+     "rate_max": 6.31,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.39,
+     "rate_max": 5.19,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대400백만원",
+    "erly_rpay_fee": "중도상환금액 X 중도상환수수요율(고정금리 0.78%, 변동금리 0.54%) X (대출잔여일수 ÷ 대출기간*)\n*대출기간이 3년을 초과하는 경우 3년",
+    "loan_inci_expn": "1. 인지세 : 50%\n2. 보증료 : 보증금액의 최대 0.211%",
+    "dly_rate": "대출금리+3.0%\n(최고 15.0%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 40000.0,
+     "none": false,
+     "quotes": [
+      "400백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.78,
+     "variable_pct": 0.54,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.78",
+      "0.54"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010017_126",
+   "provider": "부산은행",
+   "provider_code": "0010017",
+   "name": "BNK행복스케치전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261006",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.51,
+     "rate_max": 6.31,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.39,
+     "rate_max": 5.19,
+     "rate_avg": 4.53
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.51,
+     "rate_max": 6.31,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.39,
+     "rate_max": 5.19,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대444백만원",
+    "erly_rpay_fee": "중도상환금액 X 중도상환수수요율(고정금리 0.78%, 변동금리 0.54%) X (대출잔여일수 ÷ 대출기간*)\n*대출기간이 3년을 초과하는 경우 3년",
+    "loan_inci_expn": "1. 인지세 : 50%\n2. 보증료 : 보증금액의 최대 0.40%",
+    "dly_rate": "대출금리+3.0%\n(최고 15.0%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "444백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.78,
+     "variable_pct": 0.54,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.78",
+      "0.54"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010017_486",
+   "provider": "부산은행",
+   "provider_code": "0010017",
+   "name": "BNK프리미엄전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261006",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.61,
+     "rate_max": 6.61,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.19,
+     "rate_max": 5.19,
+     "rate_avg": 4.42
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.61,
+     "rate_max": 6.61,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.19,
+     "rate_max": 5.19,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대500백만원",
+    "erly_rpay_fee": "중도상환금액 X 중도상환수수요율(고정금리 0.78%, 변동금리 0.54%) X (대출잔여일수 ÷ 대출기간*)\n*대출기간이 3년을 초과하는 경우 3년",
+    "loan_inci_expn": "1. 인지세 : 50%\n2. 질권설정통지비용 : 30,000원",
+    "dly_rate": "대출금리+3.0%\n(최고 15.0%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "500백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.78,
+     "variable_pct": 0.54,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.78",
+      "0.54"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010019_LN11010001072",
+   "provider": "광주은행",
+   "provider_code": "0010019",
+   "name": "청년맞춤형 전월세보증금 대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.16,
+     "rate_max": 4.36,
+     "rate_avg": 3.81
+    }
+   ],
+   "texts": {
+    "loan_lmt": "2억원",
+    "erly_rpay_fee": "면제",
+    "loan_inci_expn": "1. 인지대 : 50%\n2. 한국주택금융공사 보증료",
+    "dly_rate": "적용금리 + 3% (최고 15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 20000.0,
+     "none": false,
+     "quotes": [
+      "2억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "면제"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010020_14201126",
+   "provider": "제주은행",
+   "provider_code": "0010020",
+   "name": "주택전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 6.23,
+     "rate_max": 6.93,
+     "rate_avg": 5.63
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임차보증금의 80%범위내",
+    "erly_rpay_fee": "중도상환금액×0.9%×대출잔여일수/대출기간",
+    "loan_inci_expn": "인지세 50%",
+    "dly_rate": "적용금리+3%\n최고적용 15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 80.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "80%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.9,
+     "variable_pct": 0.9,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.9%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010020_14201127",
+   "provider": "제주은행",
+   "provider_code": "0010020",
+   "name": "JJB일반전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 6.16,
+     "rate_max": 6.86,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임차보증금의 80% 범위내 최고 444백만원",
+    "erly_rpay_fee": "중도상환금액×0.9%×대출잔여일수/대출기간",
+    "loan_inci_expn": "주택금융공사 보증료 0.4%, 인지세 50%",
+    "dly_rate": "적용금리+3%\n최고적용 15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 80.0,
+     "ratio_of": "deposit",
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "80%",
+      "444백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.9,
+     "variable_pct": 0.9,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.9%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010022_WR0001A",
+   "provider": "전북은행",
+   "provider_code": "0010022",
+   "name": "BEST전세자금대출Ⅱ",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.28,
+     "rate_max": 6.08,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "주택금융공사 전세보증서 최대 발행한도에 보증비율을 적용한 금액",
+    "erly_rpay_fee": "상환금액×수수료율(변동0.27%, 고정0.04%)×대출잔여일수÷대출기간(최장 3년)",
+    "loan_inci_expn": "인지세",
+    "dly_rate": "대출금리+3%\n(최고 연체이자율:15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": 0.04,
+     "variable_pct": 0.27,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.04",
+      "0.27"
+     ],
+     "status": "verified"
+    },
+    "issues": [
+     "한도를 원문에서 숫자로 정할 수 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010022_WR0001B",
+   "provider": "전북은행",
+   "provider_code": "0010022",
+   "name": "JB전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.73,
+     "rate_max": 6.23,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최저 5백만원, 최고 5억원 이내",
+    "erly_rpay_fee": "상환금액×수수료율(변동0.27%, 고정0.04%)×대출잔여일수÷대출기간(최장 3년)",
+    "loan_inci_expn": "인지세",
+    "dly_rate": "대출금리+3%\n(최고 연체이자율:15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.04,
+     "variable_pct": 0.27,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.04",
+      "0.27"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010024_30002152",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "전세자금대출(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.51,
+     "rate_max": 6.01,
+     "rate_avg": 4.88
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대4.44억원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "인지세: 대출금액 구간별 해당 세액의 50%\n[대출금 5천만원 미만시 면제]",
+    "dly_rate": "대출금리+3.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "4.44억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010024_30002257",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "모바일전세자금대출\n(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.49,
+     "rate_max": 6.09,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대4.44억원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "인지세: 대출금액 구간별 해당 새액의 50%\n[대출금 5천만원 미만시 면제]",
+    "dly_rate": "대출금리+3.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "4.44억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010024_30002573",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "고정금리 전세자금대출(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.25,
+     "rate_max": 5.25,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대4억원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "인지세: 대출금액 구간별 해당 세액의 50%\n[대출금 5천만원 미만시 면제]",
+    "dly_rate": "대출금리+3.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 40000.0,
+     "none": false,
+     "quotes": [
+      "4억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010024_30002608",
+   "provider": "경남은행",
+   "provider_code": "0010024",
+   "name": "모바일전세자금대출(서울보증보험)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.96,
+     "rate_max": 6.56,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대5억원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "인지세: 대출금액 구간별 해당 새액의 50%\n[대출금 5천만원 미만시 면제]",
+    "dly_rate": "대출금리+3.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010026_212020007",
+   "provider": "중소기업은행",
+   "provider_code": "0010026",
+   "name": "IBK전세대출 (HF)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.72,
+     "rate_max": 6.22,
+     "rate_avg": 5.81
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.79,
+     "rate_max": 4.99,
+     "rate_avg": 4.78
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.73,
+     "rate_max": 6.23,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.79,
+     "rate_max": 4.99,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 2.2억원",
+    "erly_rpay_fee": "중도상환금액 x 수수료율* x (대출잔여일수 ÷ 대출기간)\n  * 고정금리 0.70%, 변동금리 0.57%",
+    "loan_inci_expn": "인지세 : 해당세액의 50%(대출금액 5천만원 미만시 없음)\n주택신보 보증료",
+    "dly_rate": "대출금리 + 3.0%(최고 연체이자율 : 11%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 22000.0,
+     "none": false,
+     "quotes": [
+      "2.2억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.7,
+     "variable_pct": 0.57,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.70",
+      "0.57"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010026_212020111",
+   "provider": "중소기업은행",
+   "provider_code": "0010026",
+   "name": "IBK전세대출 (SGI)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.96,
+     "rate_max": 6.46,
+     "rate_avg": 5.93
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.03,
+     "rate_max": 5.23,
+     "rate_avg": 4.84
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.89,
+     "rate_max": 6.39,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.95,
+     "rate_max": 5.15,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 5억원",
+    "erly_rpay_fee": "중도상환금액 x 수수료율* x (대출잔여일수 ÷ 대출기간)\n  * 고정금리 0.70%, 변동금리 0.57%",
+    "loan_inci_expn": "인지세 : 해당세액의 50%(대출금액 5천만원 미만시 없음)\n질권설정 통지비용",
+    "dly_rate": "대출금리 + 3.0%(최고 연체이자율 : 11%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.7,
+     "variable_pct": 0.57,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.70",
+      "0.57"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010026_212020112",
+   "provider": "중소기업은행",
+   "provider_code": "0010026",
+   "name": "IBK전세대출 (HUG)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.71,
+     "rate_max": 6.21,
+     "rate_avg": 5.9
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.78,
+     "rate_max": 4.98,
+     "rate_avg": 4.59
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 4억원",
+    "erly_rpay_fee": "중도상환금액 x 수수료율* x (대출잔여일수 ÷ 대출기간)\n  * 고정금리 0.70%, 변동금리 0.57%",
+    "loan_inci_expn": "인지세 : 해당세액의 50%(대출금액 5천만원 미만시 없음)\n질권설정 통지비용",
+    "dly_rate": "대출금리 + 3.0%(최고 연체이자율 : 11%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 40000.0,
+     "none": false,
+     "quotes": [
+      "4억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.7,
+     "variable_pct": 0.57,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.70",
+      "0.57"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010345_2201221",
+   "provider": "애큐온저축은행",
+   "provider_code": "0010345",
+   "name": "전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 6.5,
+     "rate_max": 10.4,
+     "rate_avg": 6.97
+    }
+   ],
+   "texts": {
+    "loan_lmt": "보증금액의 최대 95%",
+    "erly_rpay_fee": "0.015",
+    "loan_inci_expn": "인지세 : 해당세액 x 50%\n(대출금액 5천만원 이하시 없음)",
+    "dly_rate": "- 연체시 : 약정이자 + 3%\n-최고 연체이자율 : 법정최고금리 연 20%이내"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 95.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "95%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": null,
+     "variable_pct": null,
+     "sliding": false,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "issues": [
+     "중도상환 수수료를 원문에서 숫자로 정할 수 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010453_760007",
+   "provider": "부림저축은행",
+   "provider_code": "0010453",
+   "name": "전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 3.08,
+     "rate_max": 17,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 3.08,
+     "rate_max": 17,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "전세보증금의 최고 70%",
+    "erly_rpay_fee": "대출기간 중 대출금의 전부 또는 일부를 상환하는 경우 저축은행에서 정한 기준에 따라 중도상환수수료를 부담(중도상환수수료율: 2%이내, 최대 3년이내) 개별약정별로 상이함",
+    "loan_inci_expn": "- 인지세: 50%\n- 감정평가수수료, 근저당권설정수수료, 담보신탁수수료: 채권자(저축은행)부담.\n- 국민주택채권매입비, 화재보험료, 근저당권말소수수료: 채무자(또는 설정자)부담. \n- 취급수수료, 한도약정수수료, 미인출수수료: 개별약정별로 상이함.\n- 기타비용으로 부담주체가 분명하지 않은 경우 : 채권자와 채무자(또는 설정자)의 균등부담.",
+    "dly_rate": "약정금리 + 3% (최고 연20%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 70.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "70%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 2.0,
+     "variable_pct": 2.0,
+     "sliding": false,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "2%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010460_PT0015",
+   "provider": "평택저축은행",
+   "provider_code": "0010460",
+   "name": "전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 10.5,
+     "rate_max": 13.5,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 10.5,
+     "rate_max": 13.5,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 10.5,
+     "rate_max": 13.5,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 10.5,
+     "rate_max": 13.5,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "- LTV 70%\n- DSR 50%",
+    "erly_rpay_fee": "중도상환금액×0.52%×(대출잔여일수÷대출기간 총일수)\n* 대출 취급 후 3년 경과시 면제",
+    "loan_inci_expn": "인지세 : 해당세액 × 50%(대출금액 5천만원 이하시 없음)",
+    "dly_rate": "약정금리+3%\n(최고 연체이자율 : 연 20%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 70.0,
+     "ratio_of": "home",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "70%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.52,
+     "variable_pct": 0.52,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.52%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010478_780003",
+   "provider": "CK저축은행",
+   "provider_code": "0010478",
+   "name": "일반자금대출(전세자금)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 8,
+     "rate_max": 15,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 8,
+     "rate_max": 15,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 8,
+     "rate_max": 15,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 8,
+     "rate_max": 15,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "LTV 70%",
+    "erly_rpay_fee": "- 중도상환금액 × 2% × (대출잔여일수 ÷ 대출기간 총일수)\n- 대출취급후 2년후 면제",
+    "loan_inci_expn": "- 인지세 : 해당 세액 × 50% - 화재보험료",
+    "dly_rate": "- 1개월 이하 : 약정금리+3%\n- 3개월 이하 : 약정금리+3%\n- 3개월 초과 : 약정금리+3%\n(최고 연체이자율 : 연 20%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 70.0,
+     "ratio_of": "home",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "70%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 2.0,
+     "variable_pct": 2.0,
+     "sliding": true,
+     "free_after_years": 2,
+     "none": false,
+     "quotes": [
+      "2%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010489_760016",
+   "provider": "청주저축은행",
+   "provider_code": "0010489",
+   "name": "임대보증금대출(월수일시)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261013",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.8,
+     "rate_max": 13.8,
+     "rate_avg": 9.32
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임대보증금 최대 120%이내",
+    "erly_rpay_fee": "중도상환금액×2%×(대출잔여일수/대출기간)",
+    "loan_inci_expn": "소비자 일부부담:인지세 50%",
+    "dly_rate": "약정금리 + 3%\n(최고 연체이자율 : 연 20%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 120.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "120%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 2.0,
+     "variable_pct": 2.0,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "2%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010527_760010",
+   "provider": "동양저축은행",
+   "provider_code": "0010527",
+   "name": "임대보증금담보대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261014",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 8,
+     "rate_max": 14,
+     "rate_avg": 9.76
+    }
+   ],
+   "texts": {
+    "loan_lmt": "1",
+    "erly_rpay_fee": "모집비용 발생 시 중도상환수수료율 : 2.00% \n모집비용 미 발생시 중도상환수수료율 : 0.18%\n중도상환금액x중도상환수수료율(2.00% 또는 0.18%)x(대출잔여기간/대출기간)",
+    "loan_inci_expn": "인지세 : 해당세액*50%\n(대출금액 5천만원 이하시 없음)",
+    "dly_rate": "약정금리 +3%\n(최고 연체이자율 : 연 20%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": 2.0,
+     "variable_pct": 2.0,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "2.00%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "한도를 원문에서 숫자로 정할 수 없음",
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010528_760055",
+   "provider": "라인저축은행",
+   "provider_code": "0010528",
+   "name": "임차보증금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "모집인",
+    "기타"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261013",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 6.5,
+     "rate_max": 16,
+     "rate_avg": 9.01
+    }
+   ],
+   "texts": {
+    "loan_lmt": "1",
+    "erly_rpay_fee": "중도상환금액 x\n(0.5%~2%) x (대출잔여일수/대출기간총일수)",
+    "loan_inci_expn": "-송달료\n-인지세:\n해당세액*50%\n(대출금액 5천만원이하시 없음)",
+    "dly_rate": "약정금리+3%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": 2.0,
+     "variable_pct": 2.0,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "2%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "한도를 원문에서 숫자로 정할 수 없음",
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010593_303030",
+   "provider": "한화생명보험주식회사",
+   "provider_code": "0010593",
+   "name": "Hanwha-Home Loan",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20220819",
+   "dev_only": true,
+   "options": [],
+   "texts": {
+    "loan_lmt": "MIN {(신용평점별 한도금액) , (임대보증금 * 80%), (매매시세 * 75% - 선순위설정금액)}",
+    "erly_rpay_fee": "잠정 폐지",
+    "loan_inci_expn": "인지세(50%), 질권설정통지비용",
+    "dly_rate": "대출만기 경과 건을 포함하여 연체기간에 상관없이 정상금리 +3%를 적용 (단, 최고 19%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 80.0,
+     "ratio_of": "home",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "80%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "잠정 폐지"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010594_ABLKeymoney1",
+   "provider": "에이비엘생명보험주식회사",
+   "provider_code": "0010594",
+   "name": "ABL전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.1,
+     "rate_max": 5.2,
+     "rate_avg": 4.74
+    }
+   ],
+   "texts": {
+    "loan_lmt": "5억원",
+    "erly_rpay_fee": "1. 중도상환수수료율: 최초 대출로부터 3년 내 1.15% \n2. 산정방식: (중도상환금액 *수수료율 * 부과기간 잔여일수) / 부과기간 일수\n3. 만기일 1개월 이내 면제",
+    "loan_inci_expn": "* 인지세: 대출금액에 따라 부과되는 인지세의 1/2",
+    "dly_rate": "* 연체이자율: 정상이자율 + 3%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 1.15,
+     "variable_pct": 1.15,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "1.15%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010595_F52065",
+   "provider": "삼성생명보험주식회사",
+   "provider_code": "0010595",
+   "name": "전세보증금담보대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20211020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.91,
+     "rate_max": 7.21,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.95,
+     "rate_max": 6.25,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 5억",
+    "erly_rpay_fee": "-(중도상환금액 X 0.9% X 중도상환수수료부과 잔존일수) / 중도상환수수료 총 부과일수",
+    "loan_inci_expn": "인지세(50%)",
+    "dly_rate": "대출이자율 + 3%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": null,
+     "none": false,
+     "quotes": [],
+     "status": "needs_check"
+    },
+    "prepay": {
+     "fixed_pct": 0.9,
+     "variable_pct": 0.9,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.9%"
+     ],
+     "status": "verified"
+    },
+    "issues": [
+     "한도를 원문에서 숫자로 정할 수 없음"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010596_26031",
+   "provider": "흥국생명보험주식회사",
+   "provider_code": "0010596",
+   "name": "전세론",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20240603",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 6.5,
+     "rate_max": 6.5,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 6.5,
+     "rate_max": 6.5,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임대차계약서상의 임차보증금 80%이내",
+    "erly_rpay_fee": "중도상환금액 x 0.9% x (대출잔여일수/대출기간)",
+    "loan_inci_expn": "질권설정통지비, 인지세(50%)",
+    "dly_rate": "- 1개월이하: 대출금리 + 3% \n- 3개월이하: 대출금리 + 3% \n- 3개월초과: 대출금리 + 3%\n- 최고연체이자율: 19%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 80.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "80%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.9,
+     "variable_pct": 0.9,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.9%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010622_WR001E",
+   "provider": "동양생명보험주식회사",
+   "provider_code": "0010622",
+   "name": "임대아파트 전세대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.38,
+     "rate_max": 5.55,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임차보증금의 최대 90% (임차보증금 금액에 따라 차등)",
+    "erly_rpay_fee": "중도상환금액 X 1.17% X (잔여기간 / 대출기간)",
+    "loan_inci_expn": "인지세(50%),\n질권설정통지비용",
+    "dly_rate": "정상이자율+3.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 90.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "90%"
+     ],
+     "status": "verified_note"
+    },
+    "prepay": {
+     "fixed_pct": 1.17,
+     "variable_pct": 1.17,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "1.17%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010622_WR002E",
+   "provider": "동양생명보험주식회사",
+   "provider_code": "0010622",
+   "name": "일반 전세대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.78,
+     "rate_max": 5.95,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "전세보증금의 최대 80%",
+    "erly_rpay_fee": "중도상환금액 X 1.44% X (잔여기간 / 대출기간)",
+    "loan_inci_expn": "인지세(50%), \n전세권설정비용",
+    "dly_rate": "정상이율+3.0%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 80.0,
+     "ratio_of": "deposit",
+     "max_manwon": null,
+     "none": false,
+     "quotes": [
+      "80%"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 1.44,
+     "variable_pct": 1.44,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "1.44%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010628_4354",
+   "provider": "롯데손해보험주식회사",
+   "provider_code": "0010628",
+   "name": "롯데손해보험\n전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.7,
+     "rate_max": 6.4,
+     "rate_avg": 6.43
+    }
+   ],
+   "texts": {
+    "loan_lmt": "공공 : 임차보증금의 95%\n일반 : 임차보증금의 80%\n(최대 3억원)",
+    "erly_rpay_fee": "2년이내\n2025년 1월 13일 이전 : 1.5%\n2025년 1월 13일 이후 : 0.8%\n2026년 1월 01일 이후 : 1.0%\n(만기 3개월 이내 상환시 면제)",
+    "loan_inci_expn": "인지세 50%\n대환비용 \n근저당권 말소비용",
+    "dly_rate": "대출금리+3%\n최고 연체이자율 : 19%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 95.0,
+     "ratio_of": "deposit",
+     "max_manwon": 30000.0,
+     "none": false,
+     "quotes": [
+      "95%",
+      "3억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 1.5,
+     "variable_pct": 1.5,
+     "sliding": false,
+     "free_after_years": 2,
+     "none": false,
+     "quotes": [
+      "1.5%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010634_10445004",
+   "provider": "현대해상화재보험주식회사",
+   "provider_code": "0010634",
+   "name": "현대해상_임대아파트론(민간)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 6.74,
+     "rate_max": 7.04,
+     "rate_avg": 7.09
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임대차보증금의 \n최대 95%\n(최대 5억원 한도)",
+    "erly_rpay_fee": "2년 이내 1.5% \n(만기 3개월 내 상환시 면제)",
+    "loan_inci_expn": "인지세 50%",
+    "dly_rate": "대출금리 + 3%\n최고 연체이자율 : 19%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 95.0,
+     "ratio_of": "deposit",
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "95%",
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 1.5,
+     "variable_pct": 1.5,
+     "sliding": false,
+     "free_after_years": 2,
+     "none": false,
+     "quotes": [
+      "1.5%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010634_10445006",
+   "provider": "현대해상화재보험주식회사",
+   "provider_code": "0010634",
+   "name": "HI 모바일 민간임대론",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "050000",
+   "join_way": [
+    "인터넷",
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 6.54,
+     "rate_max": 6.84,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "임대차보증금의 \n최대 95%\n(최대 5억원 한도)",
+    "erly_rpay_fee": "2년 이내 0.6% \n(만기 3개월 내 상환시 면제)",
+    "loan_inci_expn": "인지세 50%",
+    "dly_rate": "대출금리 + 3%\n최고 연체이자율 : 19%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 95.0,
+     "ratio_of": "deposit",
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "95%",
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.6,
+     "variable_pct": 0.6,
+     "sliding": false,
+     "free_after_years": 2,
+     "none": false,
+     "quotes": [
+      "0.6%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010927_KB200331500005",
+   "provider": "국민은행",
+   "provider_code": "0010927",
+   "name": "KB주택전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.3,
+     "rate_max": 5.7,
+     "rate_avg": 4.58
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.41,
+     "rate_max": 5.81,
+     "rate_avg": 4.41
+    }
+   ],
+   "texts": {
+    "loan_lmt": "4.44억원",
+    "erly_rpay_fee": "중도상환금액 × 0.54% × (대출잔여일수 ÷ 3년)",
+    "loan_inci_expn": "ㅇ 인지세 : 해당세액의 50%\nㅇ 주택신보 보증료",
+    "dly_rate": "대출금리+3.0%\n최고연체이자율:15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "4.44억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.54,
+     "variable_pct": 0.54,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.54%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0010927_KB200400000001",
+   "provider": "국민은행",
+   "provider_code": "0010927",
+   "name": "KB플러스전세자금대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.3,
+     "rate_max": 5.7,
+     "rate_avg": 4.58
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.41,
+     "rate_max": 5.81,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "5억원",
+    "erly_rpay_fee": "중도상환금액 × 0.54% × (대출잔여일수 ÷ 3년)",
+    "loan_inci_expn": "ㅇ 인지세 : 해당세액의 50%\nㅇ 질권 설정 통지수수료 : 3만원",
+    "dly_rate": "대출금리+3.0%\n최고연체이자율:15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.54,
+     "variable_pct": 0.54,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.54%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0011625_WR0001A",
+   "provider": "신한은행",
+   "provider_code": "0011625",
+   "name": "신한전세대출(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.74,
+     "rate_max": 5.94,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.49,
+     "rate_max": 5.69,
+     "rate_avg": 4.76
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.74,
+     "rate_max": 5.94,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.52,
+     "rate_max": 5.72,
+     "rate_avg": 5.25
+    }
+   ],
+   "texts": {
+    "loan_lmt": "- 최대:444백만원",
+    "erly_rpay_fee": "-중도상환해약금:중도상환대출금*중도상환해약금률(고정금리0.74%, 변동금리0.72%)*(대출잔여일수/대출기간)",
+    "loan_inci_expn": "- 질권설정통지수수료\n- 인지세 : 해당세액의 50%(대출금액 5천만원 이하시 없음)",
+    "dly_rate": "-1개월이내: 대출금리+3%\n-3개월이내: 대출금리+3%\n-3개월초과: 대출금리+3%(최고 연체이자율 :15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "444백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.74,
+     "variable_pct": 0.72,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.74",
+      "0.72"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0011625_WR0002B",
+   "provider": "신한은행",
+   "provider_code": "0011625",
+   "name": "신한전세대출(서울보증)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.74,
+     "rate_max": 5.64,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.5,
+     "rate_max": 5.4,
+     "rate_avg": 4.89
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.74,
+     "rate_max": 5.64,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.6,
+     "rate_max": 5.5,
+     "rate_avg": 4.79
+    }
+   ],
+   "texts": {
+    "loan_lmt": "- 최대:500백만원",
+    "erly_rpay_fee": "-중도상환해약금:중도상환대출금*중도상환해약금률(고정금리0.74%, 변동금리0.72%)*(대출잔여일수/대출기간)",
+    "loan_inci_expn": "- 질권설정통지수수료\n- 인지세 : 해당세액의 50%(대출금액 5천만원이하시 없음)",
+    "dly_rate": "-1개월이내: 대출금리+3%\n-3개월이내: 대출금리+3%\n-3개월초과: 대출금리+3%(최고 연체이자율 :15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "500백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.74,
+     "variable_pct": 0.72,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "0.74",
+      "0.72"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0012120_300018",
+   "provider": "삼호저축은행",
+   "provider_code": "0012120",
+   "name": "임차론Ⅱ",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "030300",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261015",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.76,
+     "rate_max": 7.78,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.26,
+     "rate_max": 7.78,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대100백만원\n보증금액의 60%",
+    "erly_rpay_fee": "중도상환금액 x 중도상환수수료율(개인:1.48%, 기업:1.17%) x (대출잔여일수/대출기간총일수)",
+    "loan_inci_expn": "인지세 : 해당세액의50% (대출금액 5천만원 이하시 없음)",
+    "dly_rate": "약정금리+연3%(최고 연체이자율 연20%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": 60.0,
+     "ratio_of": "deposit",
+     "max_manwon": 10000.0,
+     "none": false,
+     "quotes": [
+      "60%",
+      "100백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 1.48,
+     "variable_pct": 1.48,
+     "sliding": true,
+     "free_after_years": null,
+     "none": false,
+     "quotes": [
+      "1.48%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0013175_2001105030002",
+   "provider": "농협은행주식회사",
+   "provider_code": "0013175",
+   "name": "NH전세대출(서울보증보험)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.19,
+     "rate_max": 6.79,
+     "rate_avg": 5.28
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.65,
+     "rate_max": 6.55,
+     "rate_avg": 4.61
+    }
+   ],
+   "texts": {
+    "loan_lmt": "5억원",
+    "erly_rpay_fee": "중도상환원금 × 적용요율 × (대출기간 - 경과일수) ÷ 대출기간\n- 대출기간 : 3년을 초과하는 경우 3년\n- 적용요율 : 고정0.93% / 변동 0.52%",
+    "loan_inci_expn": "1. 인지세\n  - 해당 세액의 50%\n2. 질권설정통지수수료",
+    "dly_rate": "연체기간에 관계없이 대출금리 + 3%\n최대 연 15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.93,
+     "variable_pct": 0.52,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.93",
+      "0.52"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0013175_2001108330001",
+   "provider": "농협은행주식회사",
+   "provider_code": "0013175",
+   "name": "NH전세대출(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.09,
+     "rate_max": 6.79,
+     "rate_avg": 4.65
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.55,
+     "rate_max": 6.55,
+     "rate_avg": 4.74
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.09,
+     "rate_max": 6.79,
+     "rate_avg": null
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.55,
+     "rate_max": 6.55,
+     "rate_avg": 4.53
+    }
+   ],
+   "texts": {
+    "loan_lmt": "4억 44백만원",
+    "erly_rpay_fee": "중도상환원금 × 적용요율 × (대출기간 - 경과일수) ÷ 대출기간\n- 대출기간 : 3년을 초과하는 경우 3년\n- 적용요율 : 고정0.93% / 변동 0.52%",
+    "loan_inci_expn": "1. 인지세\n  - 해당 세액의 50%\n2. 보증료\n  - 대출금액의 90% × 보증료율",
+    "dly_rate": "연체기간에 관계없이 대출금리 + 3%\n최대 연 15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "4억 44백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.93,
+     "variable_pct": 0.52,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.93",
+      "0.52"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0013175_2001109030001",
+   "provider": "농협은행주식회사",
+   "provider_code": "0013175",
+   "name": "NH전세대출(주택도시보증공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.09,
+     "rate_max": 6.79,
+     "rate_avg": 5.31
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.55,
+     "rate_max": 6.55,
+     "rate_avg": 4.65
+    }
+   ],
+   "texts": {
+    "loan_lmt": "4억원",
+    "erly_rpay_fee": "중도상환원금 × 적용요율 × (대출기간 - 경과일수) ÷ 대출기간\n- 대출기간 : 3년을 초과하는 경우 3년\n- 적용요율 : 고정0.93% / 변동 0.52%",
+    "loan_inci_expn": "1. 인지세\n  - 해당 세액의 50%\n2. 보증료\n  - 전세보증금반환보증료 + 전세자금대출특약보증료",
+    "dly_rate": "연체기간에 관계없이 대출금리 + 3%\n최대 연 15%"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 40000.0,
+     "none": false,
+     "quotes": [
+      "4억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.93,
+     "variable_pct": 0.52,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.93",
+      "0.52"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0013909_0300123202302",
+   "provider": "주식회사 하나은행",
+   "provider_code": "0013909",
+   "name": "주택신보위탁발행보증서담보대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.77,
+     "rate_max": 6.17,
+     "rate_avg": 4.66
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.77,
+     "rate_max": 6.17,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "444백만원",
+    "erly_rpay_fee": "중도상환금액 × 중도상환해약금률 0.59% × ( 대출잔여일수 ÷ 대출기간* )\n* 대출약정일로부터 최장 3년",
+    "loan_inci_expn": "1. 인지세 : 50%\n2. 보증료",
+    "dly_rate": "적용금리+3% ( 최고 15% )"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "444백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.59,
+     "variable_pct": 0.59,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.59%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0013909_0300326201001",
+   "provider": "주식회사 하나은행",
+   "provider_code": "0013909",
+   "name": "우량주택전세론",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.08,
+     "rate_max": 6.38,
+     "rate_avg": 4.81
+    },
+    {
+     "house": null,
+     "repay": "split",
+     "repay_label": "분할상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.08,
+     "rate_max": 6.38,
+     "rate_avg": 4.82
+    }
+   ],
+   "texts": {
+    "loan_lmt": "500백만원",
+    "erly_rpay_fee": "중도상환금액 × 중도상환해약금률 0.59% × ( 대출잔여일수 ÷ 대출기간* )\n* 대출약정일로부터 최장 3년",
+    "loan_inci_expn": "1. 인지세 : 50%\n2. 질권설정통지비용 : 30,000원",
+    "dly_rate": "적용금리+3% ( 최고 15% )"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "500백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.59,
+     "variable_pct": 0.59,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.59%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0013909_0300373201001",
+   "provider": "주식회사 하나은행",
+   "provider_code": "0013909",
+   "name": "하나전세금안심대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.07,
+     "rate_max": 6.37,
+     "rate_avg": 4.69
+    }
+   ],
+   "texts": {
+    "loan_lmt": "400백만원",
+    "erly_rpay_fee": "중도상환금액 × 중도상환해약금률 0.59% × ( 대출잔여일수 ÷ 대출기간* )\n* 대출약정일로부터 최장 3년",
+    "loan_inci_expn": "1. 인지세 : 50%\n2. 보증료",
+    "dly_rate": "적용금리+3% ( 최고 15% )"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 40000.0,
+     "none": false,
+     "quotes": [
+      "400백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.59,
+     "variable_pct": 0.59,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.59%"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0014674_01021000700000000001",
+   "provider": "주식회사 케이뱅크",
+   "provider_code": "0014674",
+   "name": "전월세보증금 대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.62,
+     "rate_max": 4.62,
+     "rate_avg": 4.27
+    }
+   ],
+   "texts": {
+    "loan_lmt": "440백만원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "- 인지세 : 해당세액의 50%(대출금액 5천만원 미만시 없음)\n-주택금융신용보증료",
+    "dly_rate": "적용금리+3% (최고 15%) 단, 대출이자가 연 15% 이상인 경우 연체이자 2%를 가산"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44000.0,
+     "none": false,
+     "quotes": [
+      "440백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0014674_01021000700000000003",
+   "provider": "주식회사 케이뱅크",
+   "provider_code": "0014674",
+   "name": "고정금리 전월세보증금 대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261020",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 4.87,
+     "rate_max": 5.17,
+     "rate_avg": 4.83
+    }
+   ],
+   "texts": {
+    "loan_lmt": "200백만원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "- 인지세 : 해당세액의 50%(대출금액 5천만원 미만시 없음)\n-주택금융신용보증료",
+    "dly_rate": "적용금리+3% (최고 15%) 단, 대출이자가 연 15% 이상인 경우 연체이자 2%를 가산"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 20000.0,
+     "none": false,
+     "quotes": [
+      "200백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0014807_1130",
+   "provider": "수협은행",
+   "provider_code": "0014807",
+   "name": "공공주택임차보증금담보대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.25,
+     "rate_max": 6.45,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 5억원",
+    "erly_rpay_fee": "중도상환금액 X 수수료율* X (대출잔여일수 / 대출기간)\n\n* 취급 후 3년 이내 0.02%",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%",
+    "dly_rate": "대출금리+연3%\n(최고:연15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.02,
+     "variable_pct": 0.02,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.02%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0014807_1151",
+   "provider": "수협은행",
+   "provider_code": "0014807",
+   "name": "Sh전세보증대출(주택금융공사)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.26,
+     "rate_max": 6.46,
+     "rate_avg": 5.07
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 4.44억원",
+    "erly_rpay_fee": "중도상환금액 X 수수료율* X (대출잔여일수 / 대출기간)\n\n* 취급 후 3년 이내 0.02%",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n\n2. 주택신보보증료",
+    "dly_rate": "대출금리+연3%\n(최고:연15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "4.44억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.02,
+     "variable_pct": 0.02,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.02%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0014807_1170",
+   "provider": "수협은행",
+   "provider_code": "0014807",
+   "name": "Sh전세보증대출(서울보증보험)",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.24,
+     "rate_max": 6.44,
+     "rate_avg": 5.1
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 5억원",
+    "erly_rpay_fee": "중도상환금액 X 수수료율* X (대출잔여일수 / 대출기간)\n\n* 취급 후 3년 이내 0.02%",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n\n2. 질권설정에 대한 통지비용 : 30,000원",
+    "dly_rate": "대출금리+연3%\n(최고:연15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.02,
+     "variable_pct": 0.02,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.02%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0014807_1188",
+   "provider": "수협은행",
+   "provider_code": "0014807",
+   "name": "Sh전세금안심대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "영업점",
+    "모집인"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 5.29,
+     "rate_max": 6.49,
+     "rate_avg": null
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 4.5억원",
+    "erly_rpay_fee": "중도상환금액 X 수수료율* X (대출잔여일수 / 대출기간)\n\n* 취급 후 3년 이내 0.02%",
+    "loan_inci_expn": "1. 인지세 : 해당세액의 50%\n\n2. 주택신보보증료",
+    "dly_rate": "대출금리+연3%\n(최고:연15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 45000.0,
+     "none": false,
+     "quotes": [
+      "4.5억원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.02,
+     "variable_pct": 0.02,
+     "sliding": true,
+     "free_after_years": 3,
+     "none": false,
+     "quotes": [
+      "0.02%"
+     ],
+     "status": "needs_check",
+     "max_only": true
+    },
+    "issues": [
+     "중도상환 수수료를 하나로 정할 수 없음(담보·조건별로 다름)"
+    ],
+    "status": "needs_check"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0015130_03004",
+   "provider": "주식회사 카카오뱅크",
+   "provider_code": "0015130",
+   "name": "HF 전월세보증금 대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.12,
+     "rate_max": 5.32,
+     "rate_avg": 5.29
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.47,
+     "rate_max": 4.67,
+     "rate_avg": 4.33
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 444백만원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "- 인지세 : 해당세액의 50%(대출금액 5천만원 이하시 없음)\n- 주택금융신용보증료",
+    "dly_rate": "대출금리+3%\n(연체대출최고금리:15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 44400.0,
+     "none": false,
+     "quotes": [
+      "444백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0015130_03027",
+   "provider": "주식회사 카카오뱅크",
+   "provider_code": "0015130",
+   "name": "SGI 전월세보증금 대출",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261019",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "fixed",
+     "rate_min": 5.32,
+     "rate_max": 5.52,
+     "rate_avg": 5.68
+    },
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.68,
+     "rate_max": 4.88,
+     "rate_avg": 4.52
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 500백만원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "- 인지세 : 해당세액의 50%(대출금액 5천만원 이하시 없음)",
+    "dly_rate": "대출금리+3%\n(연체대출최고금리:15%)"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 50000.0,
+     "none": false,
+     "quotes": [
+      "500백만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  },
+  {
+   "product_id": "PRD_rent_loan_0017801_2001040010021",
+   "provider": "토스뱅크 주식회사",
+   "provider_code": "0017801",
+   "name": "전월세보증금대출 플러스",
+   "category": "rent_loan",
+   "category_label": "전세자금대출",
+   "group": "020000",
+   "join_way": [
+    "스마트폰"
+   ],
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "as_of": "202610",
+   "disclosed_from": "20261016",
+   "dev_only": true,
+   "options": [
+    {
+     "house": null,
+     "repay": "bullet",
+     "repay_label": "만기일시상환방식",
+     "rate_type": "variable",
+     "rate_min": 4.7,
+     "rate_max": 4.7,
+     "rate_avg": 4.4
+    }
+   ],
+   "texts": {
+    "loan_lmt": "최대 4억 4,000만원",
+    "erly_rpay_fee": "없음",
+    "loan_inci_expn": "1. 인지세\n  - 해당 세액의 50%\n2. 주택금융신용보증료",
+    "dly_rate": "대출금리+연 3%\n연체금리의 최고율은 연 15% 이며, 대출금리 -연15% 이상인 경우 대출금리+연2% 적용"
+   },
+   "terms": {
+    "limit": {
+     "ratio_pct": null,
+     "ratio_of": null,
+     "max_manwon": 0.0,
+     "none": false,
+     "quotes": [
+      "000만원"
+     ],
+     "status": "verified"
+    },
+    "prepay": {
+     "fixed_pct": 0.0,
+     "variable_pct": 0.0,
+     "sliding": false,
+     "free_after_years": null,
+     "none": true,
+     "quotes": [
+      "없음"
+     ],
+     "status": "verified"
+    },
+    "issues": [],
+    "status": "verified"
+   }
+  }
+ ]
+}

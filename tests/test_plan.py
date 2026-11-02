@@ -61,14 +61,14 @@ def test_policy_amounts_come_from_code_not_ai():
     f = fam("elder")
     g = normalize_goal(f, {"type": "runway"})
     rm = next(p for p in policy_menu(f, g) if p["policy"] == "reverse_mortgage")
-    assert rm["monthly"] == 110  # 5.5억 × 0.2%(72세 가정)
+    assert rm["monthly"] == 163 and "월지급금 예시표" in rm["basis"]  # 공사 예시표: 부부 중 젊은 69세·5.5억(65·70세, 5·6억 칸 사이)
     specs = [check_option(f, g, {"option_id": "A", "label": "연금", "return_id": "safe",
                                  "policies": [{"policy": "reverse_mortgage", "from_month": 1}]}),
              check_option(f, g, {"option_id": "B", "label": "이사", "return_id": "safe",
                                  "policies": [{"policy": "sell_home", "month": 6, "new_home_ratio": 0.6}]})]
     out = simulate(build_request(f, g, specs))
     a, b = out["results"]
-    assert any(x["label"] == "주택연금" and x["value"] == 110 for x in a["basis"])
+    assert any(x["label"] == "주택연금" and x["value"] == 163 for x in a["basis"])
     assert any(x["key"] == "lump:6" and x["value"] == 55000 * 0.4 - 55000 * 0.04 for x in b["basis"])
     with pytest.raises(PlanError, match="함께"):
         check_option(f, g, {"option_id": "C", "label": "둘 다", "return_id": "safe",

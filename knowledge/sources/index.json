@@ -1,0 +1,492 @@
+{
+ "sources": [
+  {
+   "source_id": "S_doc_hf_bogeumjari_20261103",
+   "kind": "document",
+   "publisher": "한국주택금융공사",
+   "title": "보금자리론",
+   "url": "https://www.hf.go.kr/ko/sub01/sub01_01_01.do",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "b69958d18fc47f573f967c860e4a1331199d5bb23bf0f8dbba6d11920ddc6c44",
+   "file": "knowledge/sources/docs/S_doc_hf_bogeumjari_20261103.txt",
+   "doc_key": "hf_bogeumjari",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_hf_reverse_mortgage_20261103",
+   "kind": "document",
+   "publisher": "한국주택금융공사",
+   "title": "주택연금이란(가입요건)",
+   "url": "https://www.hf.go.kr/ko/sub03/sub03_01_01_01.do",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "09dc4e8a023b21dcf0db4b2b51942077684bcfc6f121657157ae7093f38e8d8d",
+   "file": "knowledge/sources/docs/S_doc_hf_reverse_mortgage_20261103.txt",
+   "doc_key": "hf_reverse_mortgage",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_hf_reverse_mortgage_payments_20261103",
+   "kind": "document",
+   "publisher": "한국주택금융공사",
+   "title": "주택연금 월지급금 예시",
+   "url": "https://www.hf.go.kr/ko/sub03/sub03_01_01_02.do",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "1e0e8da2ecf3382320448801c9bffde8d2cc8e1d0b6742adf0882285960f0b87",
+   "file": "knowledge/sources/docs/S_doc_hf_reverse_mortgage_payments_20261103.txt",
+   "doc_key": "hf_reverse_mortgage_payments",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_mohw_basic_pension_amount_20261103",
+   "kind": "document",
+   "publisher": "보건복지부 기초연금",
+   "title": "기초연금액 산정",
+   "url": "https://basicpension.mohw.go.kr/menu.es?mid=a10103010000",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "43d67032d00e11a8d1b7bdaf2817dbd67a9978977e30c5ef73420a107ab5842d",
+   "file": "knowledge/sources/docs/S_doc_mohw_basic_pension_amount_20261103.txt",
+   "doc_key": "mohw_basic_pension_amount",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_mohw_basic_pension_target_20261103",
+   "kind": "document",
+   "publisher": "보건복지부 기초연금",
+   "title": "기초연금 대상자 안내",
+   "url": "https://basicpension.mohw.go.kr/menu.es?mid=a10102010000",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "46d257e2d05077df480b7364ba09c89fff0c5fe0601bf97c6d1c15dac8f5831a",
+   "file": "knowledge/sources/docs/S_doc_mohw_basic_pension_target_20261103.txt",
+   "doc_key": "mohw_basic_pension_target",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nhuf_beotimmok_20261103",
+   "kind": "document",
+   "publisher": "주택도시기금",
+   "title": "버팀목전세자금",
+   "url": "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05020101.jsp",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "dd90ce3e2611f45a27ca0e382f9c54e94c2b7c709ddd9f0ed8d0b2ec5a1d8be2",
+   "file": "knowledge/sources/docs/S_doc_nhuf_beotimmok_20261103.txt",
+   "doc_key": "nhuf_beotimmok",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nhuf_didimdol_20261103",
+   "kind": "document",
+   "publisher": "주택도시기금",
+   "title": "내집마련디딤돌대출",
+   "url": "https://nhuf.molit.go.kr/FP/FP05/FP0503/FP05030101.jsp",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "c65e1378606ddff33865f8e837e3c6b5be846a0833795c02f8c1a2365a6473a0",
+   "file": "knowledge/sources/docs/S_doc_nhuf_didimdol_20261103.txt",
+   "doc_key": "nhuf_didimdol",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nhuf_newborn_beotimmok_20261103",
+   "kind": "document",
+   "publisher": "주택도시기금",
+   "title": "신생아 특례 버팀목대출",
+   "url": "https://nhuf.molit.go.kr/FP/FP05/FP0502/FP05021401.jsp",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "585151206ae02bcc6040a03141ebb89007b97f3f3df18ecf851a46fd120d44b7",
+   "file": "knowledge/sources/docs/S_doc_nhuf_newborn_beotimmok_20261103.txt",
+   "doc_key": "nhuf_newborn_beotimmok",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nhuf_newborn_didimdol_20261103",
+   "kind": "document",
+   "publisher": "주택도시기금",
+   "title": "신생아 특례 디딤돌대출",
+   "url": "https://nhuf.molit.go.kr/FP/FP05/FP0503/FP05030801.jsp",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "cce24c1ad1a6764dc351e20453cdd2302ee393e8c2eb606397cdf9e10f35a020",
+   "file": "knowledge/sources/docs/S_doc_nhuf_newborn_didimdol_20261103.txt",
+   "doc_key": "nhuf_newborn_didimdol",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nhuf_subscription_20261103",
+   "kind": "document",
+   "publisher": "주택도시기금",
+   "title": "주택청약종합저축",
+   "url": "https://nhuf.molit.go.kr/FP/FP07/FP0701/FP07010101.jsp",
+   "fetched_at": "2026-11-03 00:44",
+   "sha256": "58c4716b8b486531ca51ec049884fe4341246f6980d4382baae8bd536f997b24",
+   "file": "knowledge/sources/docs/S_doc_nhuf_subscription_20261103.txt",
+   "doc_key": "nhuf_subscription",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_busi_loan_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/busiLoanProductsSearch.json?topFinGrpNo=020000",
+   "title": "개인사업자대출 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "c25deab55824bf7ec8bd2133200cca3071cadbaf0db3f05c1e108b1181a6f3f4",
+   "file": "knowledge/sources/S_finlife_busi_loan_020000_202610.json",
+   "counts": {
+    "products": 523,
+    "options": 523
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_busi_loan_030200_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/busiLoanProductsSearch.json?topFinGrpNo=030200",
+   "title": "개인사업자대출 · 여신전문",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "0259bdc117bfa4be5f5f3d252695245ac70d09d3bc0f7d3f737de719714887cf",
+   "file": "knowledge/sources/S_finlife_busi_loan_030200_202610.json",
+   "counts": {
+    "products": 222,
+    "options": 222
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_busi_loan_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/busiLoanProductsSearch.json?topFinGrpNo=030300",
+   "title": "개인사업자대출 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "f6994c46769efa4b65a01ff94781e0ddfc1440af2482eb52827905fd4ee15393",
+   "file": "knowledge/sources/S_finlife_busi_loan_030300_202610.json",
+   "counts": {
+    "products": 263,
+    "options": 263
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_busi_loan_050000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/busiLoanProductsSearch.json?topFinGrpNo=050000",
+   "title": "개인사업자대출 · 보험",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "8041bd85b0e10ffbc537eedb3a4f68a0e6967027cd07f753308668dc2c6716db",
+   "file": "knowledge/sources/S_finlife_busi_loan_050000_202610.json",
+   "counts": {
+    "products": 4,
+    "options": 4
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_company_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/companySearch.json?topFinGrpNo=020000",
+   "title": "금융회사 개요 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "6a19ee17d219741847d8f8da3446c40adb71465a0b9aac4e8c2c5dfed5696ccc",
+   "file": "knowledge/sources/S_finlife_company_020000_202610.json",
+   "counts": {
+    "products": 17,
+    "options": 289
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_company_030200_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/companySearch.json?topFinGrpNo=030200",
+   "title": "금융회사 개요 · 여신전문",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "17c2cd0d7975cb0742538e2706870dfebb251c65d54d78ca3d6e895e233de7c6",
+   "file": "knowledge/sources/S_finlife_company_030200_202610.json",
+   "counts": {
+    "products": 48,
+    "options": 816
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_company_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/companySearch.json?topFinGrpNo=030300",
+   "title": "금융회사 개요 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "f25da435640145419264816e8846d9b5be7f6eaedbc73b58dadb8225383d9fb3",
+   "file": "knowledge/sources/S_finlife_company_030300_202610.json",
+   "counts": {
+    "products": 80,
+    "options": 1360
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_company_050000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/companySearch.json?topFinGrpNo=050000",
+   "title": "금융회사 개요 · 보험",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "64599a1b8caa404f033ac068e94c04ab545a6ca7c4ed1fca5a9f9355b2124bb3",
+   "file": "knowledge/sources/S_finlife_company_050000_202610.json",
+   "counts": {
+    "products": 20,
+    "options": 340
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_company_060000_202108",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/companySearch.json?topFinGrpNo=060000",
+   "title": "금융회사 개요 · 금융투자",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202010, 202108",
+   "sha256": "983aab5433d8c7cddd78e3c270d0ea41bcc86590baba079af0cbca389b56a955",
+   "file": "knowledge/sources/S_finlife_company_060000_202108.json",
+   "counts": {
+    "products": 7,
+    "options": 85
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_credit_loan_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json?topFinGrpNo=020000",
+   "title": "개인신용대출 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "5b208ca30947e1846e338f20dbcbf63076502fa8051873925cc32491afa51da6",
+   "file": "knowledge/sources/S_finlife_credit_loan_020000_202610.json",
+   "counts": {
+    "products": 44,
+    "options": 139
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_credit_loan_030200_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json?topFinGrpNo=030200",
+   "title": "개인신용대출 · 여신전문",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "93dab659569c721c29b442dae88eba4491b0967db442e4cd97446e43c2a4c830",
+   "file": "knowledge/sources/S_finlife_credit_loan_030200_202610.json",
+   "counts": {
+    "products": 29,
+    "options": 29
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_credit_loan_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json?topFinGrpNo=030300",
+   "title": "개인신용대출 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "0656eb7c9d01514e712bfc3f51094a761af2e5193b65b9330d759b7ff91b7c54",
+   "file": "knowledge/sources/S_finlife_credit_loan_030300_202610.json",
+   "counts": {
+    "products": 36,
+    "options": 107
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_credit_loan_050000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/creditLoanProductsSearch.json?topFinGrpNo=050000",
+   "title": "개인신용대출 · 보험",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "d319cdbec5e5293ff09414b7858c36de7b1b2e3b5145c8811faef11633774b3c",
+   "file": "knowledge/sources/S_finlife_credit_loan_050000_202610.json",
+   "counts": {
+    "products": 6,
+    "options": 9
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_deposit_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?topFinGrpNo=020000",
+   "title": "정기예금 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "d4ffb21a1e54d11e2cdb3ffe5f5ef4ce8295179325c785fadee59b579845820e",
+   "file": "knowledge/sources/S_finlife_deposit_020000_202610.json",
+   "counts": {
+    "products": 40,
+    "options": 164
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_deposit_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?topFinGrpNo=030300",
+   "title": "정기예금 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "83a1153277982d6f6dd81a9af6b9e1f020a82c6a4007a03e0729e8d1823a8dba",
+   "file": "knowledge/sources/S_finlife_deposit_030300_202610.json",
+   "counts": {
+    "products": 396,
+    "options": 2654
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_mortgage_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json?topFinGrpNo=020000",
+   "title": "주택담보대출 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "45a1fb5f29cba007e3aa47c8a22f98b4bd2a4eae3f43c5f82101dae8f783ea2a",
+   "file": "knowledge/sources/S_finlife_mortgage_020000_202610.json",
+   "counts": {
+    "products": 36,
+    "options": 111
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_mortgage_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json?topFinGrpNo=030300",
+   "title": "주택담보대출 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "faa4080ede9295b8e06687ceabf0b278c25d757eff2a12db71f42adb49e4f48f",
+   "file": "knowledge/sources/S_finlife_mortgage_030300_202610.json",
+   "counts": {
+    "products": 56,
+    "options": 157
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_mortgage_050000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/mortgageLoanProductsSearch.json?topFinGrpNo=050000",
+   "title": "주택담보대출 · 보험",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "56e0fb9b5b8de9041159201c57c8416ddc1f7b784f9ecc918391793bbcf49b51",
+   "file": "knowledge/sources/S_finlife_mortgage_050000_202610.json",
+   "counts": {
+    "products": 20,
+    "options": 36
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_rent_loan_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json?topFinGrpNo=020000",
+   "title": "전세자금대출 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "36107dbff154d72731193ac5d587a6c4cbf89857ea4b0bec3c716b929b827d7a",
+   "file": "knowledge/sources/S_finlife_rent_loan_020000_202610.json",
+   "counts": {
+    "products": 41,
+    "options": 80
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_rent_loan_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json?topFinGrpNo=030300",
+   "title": "전세자금대출 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "95de1f6225e213b95891d265e71e643dd330fbfcbc66230e1097f79c65dbd60d",
+   "file": "knowledge/sources/S_finlife_rent_loan_030300_202610.json",
+   "counts": {
+    "products": 8,
+    "options": 16
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_rent_loan_050000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/rentHouseLoanProductsSearch.json?topFinGrpNo=050000",
+   "title": "전세자금대출 · 보험",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "4df40fffff438ae06bbfdc0ab4bb0334baf61d72200c26b7488e729f696883b8",
+   "file": "knowledge/sources/S_finlife_rent_loan_050000_202610.json",
+   "counts": {
+    "products": 9,
+    "options": 10
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_saving_020000_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json?topFinGrpNo=020000",
+   "title": "적금 · 은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "5ed027f6a9a56d1ab2c229767b2a540849d46924f0968aa379ad600f0623b205",
+   "file": "knowledge/sources/S_finlife_saving_020000_202610.json",
+   "counts": {
+    "products": 60,
+    "options": 181
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_finlife_saving_030300_202610",
+   "kind": "api",
+   "publisher": "금융감독원 금융상품통합비교공시(금융상품 한눈에)",
+   "url": "https://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json?topFinGrpNo=030300",
+   "title": "적금 · 저축은행",
+   "fetched_at": "2026-11-03 00:11",
+   "effective_date": "공시월 202610",
+   "sha256": "44b487bcc2bf7ac1886bc7054775ec598d4a1488efd5c93be564decb463ce4da",
+   "file": "knowledge/sources/S_finlife_saving_030300_202610.json",
+   "counts": {
+    "products": 277,
+    "options": 1353
+   },
+   "dev_only": true
+  }
+ ]
+}

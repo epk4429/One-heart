@@ -104,14 +104,14 @@ def _bounds(family: dict) -> dict:
 
 
 def _reverse_mortgage_monthly(family: dict, goal: dict) -> tuple[float, str] | None:
-    rm = assumptions()["reverse_mortgage"]
+    """주택연금 월 수령액: 한국주택금융공사 월지급금 예시표(ontology/programs.json, 원문 인용)에서 부부 중 젊은 사람 나이·집 시세로.
+    2026-11-03 전에는 가상 비율(집값 × 나이별 %, 임의결정 25)이었다."""
+    from ontology.programs import reverse_mortgage_age, reverse_mortgage_monthly
     home = profile(family)["home_total"]
-    age = goal["base_age"]
-    if not home or age < rm["min_age"]:
+    if not home:
         return None
-    ratio = [b["ratio"] for b in rm["monthly_ratio_by_age"] if age >= b["from_age"]][-1]
-    v = round(min(home, rm["max_home_value"]) * ratio)
-    return v, f"집값 {won(home)} × {ratio * 100:g}%({age}세 기준 가정)"
+    m = reverse_mortgage_monthly(reverse_mortgage_age(family), home)
+    return (round(m[0]), m[1]) if m else None
 
 
 def policy_menu(family: dict, goal: dict) -> list[dict]:

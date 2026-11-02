@@ -115,3 +115,54 @@
 .modal h3{font-size:17px;margin:0 0 8px}
 .modal p{font-size:14px;color:var(--ink2);line-height:1.7;margin:0 0 16px}
 .modal .mrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+
+/* 실제 상품: 우리 목표에 잘 맞는 순서(화면 6 아래) */
+.fitsec{margin-top:34px;border-top:1.5px solid var(--ink);padding-top:14px}
+.fitsec .lead2{color:var(--ink2);font-size:14.5px;margin:4px 0 6px}
+.fitctl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end;margin:12px 0 10px}
+.fitctl label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.fitctl select{font:inherit;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 10px}
+.fitctl input{padding:8px 10px;font-size:14px;width:90px}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
+.acts button{border:1px solid var(--line);background:#fff;font-size:12.5px;padding:3px 10px;color:var(--ink2)}
+.acts button.on{background:var(--green-soft);border-color:var(--green);color:var(--green-d);font-weight:600}
+.frow{display:grid;grid-template-columns:24px minmax(0,1fr) 132px;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.frow .rk{font-weight:700;color:var(--muted)}
+.frow .fn{font-weight:700}
+.frow .fm{font-size:12.5px;color:var(--muted)}
+.frow .rt{text-align:right;display:flex;flex-direction:column;gap:2px}
+.frow .rt b{font-size:22px;color:var(--green);letter-spacing:-.02em;line-height:1.2}
+.frow .rt span{font-size:12px;color:var(--ink2)}
+.ftags{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
+.ftags span{font-size:12px;padding:0 7px;border:1px solid var(--line);color:var(--muted)}
+.ftags .g{border-color:var(--green);color:var(--green)}
+.ftags .w{border-color:var(--warm);color:var(--warm)}
+.freason{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink2)}
+.flow{font-size:12.5px;color:var(--ink2);margin-top:6px}
+.fev{font-size:12px;color:var(--ink2);border-left:2px solid var(--line);padding:4px 0 4px 10px;margin-top:6px;white-space:pre-line}
+.linkbtn{background:none;border:0;padding:0;margin-top:6px;font-size:12.5px;color:var(--green);text-decoration:underline;cursor:pointer}
+@media (max-width:640px){.frow{grid-template-columns:20px minmax(0,1fr)}.frow .rt{grid-column:2;text-align:left}}
+.routes{margin:6px 0 4px;padding-left:18px;font-size:13px;color:var(--ink2)}
+.fitcat{margin-top:16px}
+.fitcat .st3{font-size:15px;margin:0 0 4px}
+.fsum{border-left:3px solid var(--green);padding:6px 0 6px 12px;margin:8px 0 4px;font-size:13.5px;display:flex;flex-direction:column;gap:2px}
+.fsum span{color:var(--ink2);font-size:12.5px}
+.fsum.warn{border-left-color:var(--warm)}
+.fsum.warn b{color:var(--warm)}
+.progs{margin-top:14px}
+.prog{border-top:1px solid var(--line);padding:12px 0}
+.prog .ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.prog .pk{font-size:12px;color:var(--muted)}
+.prog .ps{margin-left:auto;font-size:12.5px;font-weight:600;padding:0 8px;border:1px solid var(--line);white-space:nowrap}
+.prog .ps.ok{color:var(--green);border-color:var(--green)}
+.prog .ps.no{color:var(--muted)}
+.prog .ps.chk{color:var(--warm);border-color:var(--warm)}
+.pconds{list-style:none;padding:0;margin:6px 0;font-size:13.5px}
+.pconds li{display:flex;gap:8px;padding:2px 0}
+.pconds li i{font-style:normal;font-weight:700;width:14px}
+.pconds li.met i{color:var(--green)}
+.pconds li.not_met i{color:var(--bad)}
+.pconds li.unknown i{color:var(--warm)}
+.pconds em{display:block;font-style:normal;font-size:12px;color:var(--ink2)}
+.pest{margin:6px 0;font-size:14px;display:flex;flex-direction:column}
+.pest span{font-size:12px;color:var(--muted)}

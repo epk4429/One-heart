@@ -16,6 +16,15 @@ from llm import pipeline as P
 from llm.plan import GOAL_TYPES, PlanError, build_request, check_option, normalize_goal
 from llm.providers import DEFAULT_MODELS, LLMError, get_provider, load_env
 
+from ontology.fit import BAND_LABEL as FIT_BANDS
+from ontology.fit import REAL as FIT_REAL
+from ontology.fit import compare as fit_compare
+from ontology.loans import LOAN as FIT_LOANS
+from ontology.programs import judge as judge_program
+from ontology.routes import ROUTE_LABEL
+from ontology.routes import coverage as need_routes
+from ontology.products import load_products
+
 from . import guard
 
 MAX_BODY = 256 * 1024
@@ -67,6 +76,15 @@ def _same_as_preset(fam: dict) -> bool:
     except F.FamilyError:
         return False
     return all(fam[k] == p[k] for k in ("room", "members", "story"))
+
+
+def real_products_allowed() -> bool:
+    """개발용 실제 상품 공시(ontology/products)를 쓸지. 공개 배포(Vercel)에서는 기본으로 끈다(공시 데이터 공개 사용 조건 확인 전).
+    REAL_PRODUCTS=1/0으로 바꿀 수 있다."""
+    v = os.environ.get("REAL_PRODUCTS")
+    if v is not None and v.strip() != "":
+        return v.strip().lower() in ("1", "true", "yes", "on")
+    return not os.environ.get("VERCEL") and bool(load_products("saving"))
 
 
 def _family(body: dict) -> dict:
@@ -169,7 +187,8 @@ def r_access(b, _ctx):
 
 def r_config(_b, _ctx):
     a = F.assumptions()
-    return {"custom_family": custom_family_allowed(), "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
+    return {"custom_family": custom_family_allowed(), "real_products": real_products_allowed(), "need_routes": need_routes(),
+            "route_labels": ROUTE_LABEL, "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
             "monthly_kinds": [k for k, v in F.KINDS.items() if v[0] == "monthly"], "loan_types": F.LOAN_TYPES,
             "goal_types": GOAL_TYPES, "limits": F.LIMITS,
             "assumptions": {"returns": a["returns"], "inflation": a["inflation"],
@@ -308,6 +327,58 @@ def r_recommend(b, ctx):
     return _strip(_err_if_failed(P.recommend(_family(b), b["agreement"], provider(ctx))))
 
 
+def _opt_num(b: dict, k: str, lo: float, hi: float, label: str):
+    v = b.get(k)
+    if v is None:
+        return None
+    if isinstance(v, bool) or not isinstance(v, (int, float)) or not lo <= v <= hi:
+        raise ApiError("bad_request", f"{label}은(는) {lo:g}~{hi:g} 사이 숫자여야 해요")
+    return v
+
+
+def r_products_fit(b, _ctx):
+    """합의안 약속에 맞는 실제 상품을 '우리 목표에 잘 맞는 순서'로(ontology/fit.py). AI 없음, 비용 없음.
+    category(saving·deposit·mortgage·rent_loan·credit_loan·busi_loan) 또는 product_type_id로 범주를 고른다."""
+    if not real_products_allowed():
+        raise ApiError("not_available", "이 체험판에서는 실제 상품 비교를 쓰지 않아요", 404)
+    _need(b, "need_id")
+    fam = _family(b)
+    mid = _member_id(fam, b)
+    cat = b.get("category") or FIT_REAL.get(str(b.get("product_type_id") or ""))
+    com = b.get("commitment") if isinstance(b.get("commitment"), dict) else None
+    com = {"no": com.get("no") if isinstance(com.get("no"), int) else None, "text": str(com.get("text", ""))[:120]} if com else None
+    if cat in ("saving", "deposit"):
+        term = b.get("term_months", 12)
+        if term not in (1, 3, 6, 12, 24, 36):
+            raise ApiError("bad_request", "기간은 1·3·6·12·24·36개월 중 하나예요")
+        params = {"term": term, "actions": [a for a in (b.get("actions") or []) if isinstance(a, str)][:12],
+                  "monthly": _opt_num(b, "monthly", 1, 10000, "매달 넣을 돈(만원)"), "amount": _opt_num(b, "amount", 1, 1000000, "맡길 돈(만원)")}
+    elif cat in FIT_LOANS:
+        params = {"amount": _opt_num(b, "amount", 1, 1000000, "빌릴 돈(만원)"), "months": int(_opt_num(b, "months", 1, 480, "기간(개월)") or 360),
+                  "home_price": _opt_num(b, "home_price", 1, 10000000, "집값(만원)"),
+                  "deposit_amount": _opt_num(b, "deposit_amount", 1, 1000000, "보증금(만원)"),
+                  "prepay_month": (int(v) if (v := _opt_num(b, "prepay_month", 1, 480, "일찍 갚을 달")) else None)}
+        for k, allowed, dflt in (("repay", ("split", "bullet"), "split"), ("method", ("equal_payment", "equal_principal"), "equal_payment"),
+                                 ("rate_pref", ("any", "fixed", "variable"), "any"), ("house", ("아파트", "아파트외"), "아파트"),
+                                 ("band", tuple(FIT_BANDS), "avg")):
+            v = b.get(k, dflt)
+            if v not in allowed:
+                raise ApiError("bad_request", f"{k}는 {', '.join(allowed)} 중 하나예요")
+            params[k] = v
+    else:
+        return {"available": False}
+    return fit_compare(fam, str(b["need_id"]), category=cat, member_id=mid, commitment=com, **params)
+
+
+def r_programs_judge(b, _ctx):
+    """필요에 이어진 제도(정책금융·공적 제도)를 가족 정보로 판정(ontology/programs.py, 공식 원문 인용). AI 없음, 비용 없음."""
+    _need(b, "need_id")
+    fam = _family(b)
+    routes = need_routes().get(str(b["need_id"]), {}).get("routes", [])
+    ids = [pid for r in routes if r["route"] == "program" for pid in r["programs"]]
+    return {"need_id": b["need_id"], "programs": [judge_program(pid, fam) for pid in dict.fromkeys(ids)]}
+
+
 REVIEW_FIELDS = {  # 재점검에서 바꿀 수 있는 상황(기획안 15쪽: 소득·지출·금리·자산이 바뀌면 지난 합의와의 차이를 다시 계산)
     "income_delta": ("매달 들어오는 돈", -2000.0, 2000.0),
     "expense_delta": ("매달 나가는 돈", -2000.0, 2000.0),
@@ -387,6 +458,8 @@ ROUTES = {
     ("POST", "/api/agreement/draft"): r_agreement_draft,
     ("POST", "/api/recommend"): r_recommend,
     ("POST", "/api/review/compare"): r_review_compare,
+    ("POST", "/api/products/fit"): r_products_fit,
+    ("POST", "/api/programs/judge"): r_programs_judge,
 }
 
 

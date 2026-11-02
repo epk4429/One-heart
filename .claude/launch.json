@@ -28,6 +28,19 @@
         "8767"
       ],
       "port": 8767
+    },
+    {
+      "name": "oneheart-record",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "dev_server.py",
+        "8768",
+        "--record",
+        "data/demo/rec/demo.jsonl",
+        "--budget",
+        "6.5"
+      ],
+      "port": 8768
     }
   ]
 }
