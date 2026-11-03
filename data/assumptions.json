@@ -1,12 +1,14 @@
 {
   "_note": "계산 가정값 표(docs/05·04). 역할 5는 수익률을 이 표의 id로만 고른다. 숫자는 모두 체험용 가정값이며 화면에 공개한다. 출처가 있는 값은 source에 적었다.",
-  "version": "2026-10-06",
+  "version": "2026-11-03",
   "returns": [
-    {"id": "safe", "label": "예금·적금만", "expected_return": 2.5, "volatility": 2.0, "note": "원금 보장 상품만"},
-    {"id": "deposit_heavy", "label": "예금·적금 위주", "expected_return": 3.8, "volatility": 4.5, "note": "일부 채권형 포함"},
-    {"id": "stock20", "label": "여윳돈의 주식 20%까지", "expected_return": 4.2, "volatility": 5.5, "note": ""},
-    {"id": "stock30", "label": "여윳돈의 주식 30%", "expected_return": 5.0, "volatility": 7.5, "note": ""},
-    {"id": "stock_heavy", "label": "주식 위주", "expected_return": 6.5, "volatility": 14.0, "note": "오를 때도 내릴 때도 커요"}
+    {"id": "safe", "label": "예금·적금만", "expected_return": 3.3, "volatility": 2.0, "note": "원금 보장 상품만",
+     "source": "금감원 '금융상품 한눈에' 공시(2026년 10월) 은행 정기예금 12개월 기본금리 중앙값 연 3.31%(40개 상품, 세전·우대금리 제외)",
+     "benchmark": {"category": "deposit", "term_months": 12, "group": "020000"}},
+    {"id": "deposit_heavy", "label": "예금·적금 위주", "expected_return": 3.8, "volatility": 4.5, "note": "일부 채권형 포함", "source": "체험용 가정값(채권형은 공시 통계가 없어요)"},
+    {"id": "stock20", "label": "여윳돈의 주식 20%까지", "expected_return": 4.2, "volatility": 5.5, "note": "", "source": "체험용 가정값(주식은 공시 통계가 없어요)"},
+    {"id": "stock30", "label": "여윳돈의 주식 30%", "expected_return": 5.0, "volatility": 7.5, "note": "", "source": "체험용 가정값(주식은 공시 통계가 없어요)"},
+    {"id": "stock_heavy", "label": "주식 위주", "expected_return": 6.5, "volatility": 14.0, "note": "오를 때도 내릴 때도 커요", "source": "체험용 가정값(주식은 공시 통계가 없어요)"}
   ],
   "inflation": {"rate": 2.0, "label": "물가 오름 연 2%", "source": "한국은행 물가안정목표(소비자물가 상승률 2%)", "applies_to": "생활비 같은 지출"},
   "reverse_mortgage": {

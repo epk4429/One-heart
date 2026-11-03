@@ -106,10 +106,10 @@ def _bounds(family: dict) -> dict:
 def _reverse_mortgage_monthly(family: dict, goal: dict) -> tuple[float, str] | None:
     """주택연금 월 수령액: 한국주택금융공사 월지급금 예시표(ontology/programs.json, 원문 인용)에서 부부 중 젊은 사람 나이·집 시세로.
     2026-11-03 전에는 가상 비율(집값 × 나이별 %, 임의결정 25)이었다."""
-    from ontology.programs import reverse_mortgage_age, reverse_mortgage_monthly
+    from ontology.programs import judge, reverse_mortgage_age, reverse_mortgage_monthly
     home = profile(family)["home_total"]
-    if not home:
-        return None
+    if not home or judge("PG_reverse_mortgage", family)["status"] == "not_eligible":
+        return None  # 집 주인 부부가 55세 미만 등 공식 조건에 확실히 안 맞으면 미래 계산에도 내놓지 않는다
     m = reverse_mortgage_monthly(reverse_mortgage_age(family), home)
     return (round(m[0]), m[1]) if m else None
 

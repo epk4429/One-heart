@@ -45,7 +45,7 @@ def row(limit_ok, checks=()):
 def test_summary_says_none_honestly():
     s = summarize([row(False), row(False)], total=10, excluded=3, no_option=5, money_given=True)
     assert s["state"] == "none" and s["text"] == "지금 조건에 맞는 상품이 없어요."
-    assert "가입 나이가 안 맞는 상품 3개" in s["why"] and "한도를 넘는 상품 2개" in s["why"]
+    assert "가입 조건(나이·자녀·무주택)이 안 맞는 상품 3개" in s["why"] and "한도를 넘는 상품 2개" in s["why"]
     assert summarize([], total=4, excluded=4, no_option=0, money_given=True)["state"] == "none"
 
 

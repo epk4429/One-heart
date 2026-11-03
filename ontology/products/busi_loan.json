@@ -87140,7 +87140,14 @@
        "tag": "job",
        "issues": [],
        "rank": 1,
-       "kind": "attribute"
+       "kind": "attribute",
+       "who": {
+        "type": "flags",
+        "flags": [
+         "self_employed"
+        ],
+        "quote": "1. 대출신청일 직전 180일 이전 개인사업자 신용대출 보유 이력 있는 고객 연 0.20%"
+       }
       },
       {
        "quote": "2. 카카오뱅크 BUSINESS 현대카드(PRIME포함)를 이용하는 고객 연 0.20%",
@@ -88791,7 +88798,14 @@
        "tag": "job",
        "issues": [],
        "rank": 4,
-       "kind": "attribute"
+       "kind": "attribute",
+       "who": {
+        "type": "flags",
+        "flags": [
+         "self_employed"
+        ],
+        "quote": "개인사업자 부동산담보대출을 신청한 고객, 연 0.15%"
+       }
       }
      ],
      "caps": [],

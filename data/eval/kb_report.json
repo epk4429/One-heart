@@ -1,0 +1,1767 @@
+{
+ "_note": "6단계 검증 묶음 결과(ontology/kb_eval.py). 개발용 공시 스냅샷 기준.",
+ "metrics": {
+  "families": 12,
+  "invalid_families": 0,
+  "needs": 16,
+  "unrouted": 0,
+  "over_claim_programs": 0,
+  "false_exclusion_programs": 0,
+  "hint_wrong": 0,
+  "over_claim_policy": 0,
+  "over_claim_products": 0,
+  "inconsistent": 0,
+  "comparisons": 216,
+  "comparison_states": {
+   "ok": 153,
+   "unsure": 27,
+   "none": 36
+  },
+  "product_rows": 57685,
+  "product_rows_with_checks_pct": 62.6,
+  "program_judgments": {
+   "eligible": 14,
+   "check": 37,
+   "not_eligible": 45
+  },
+  "program_check_pct": 38.5
+ },
+ "invalid_families": [],
+ "unrouted": [],
+ "over_claim_programs": [],
+ "false_exclusion_programs": [],
+ "hint_wrong": [],
+ "over_claim_policy": [],
+ "over_claim_products": [],
+ "inconsistent": [],
+ "comparisons": {
+  "F01_young_renters|m0|saving": {
+   "state": "ok",
+   "rows": 315,
+   "ok": 37,
+   "unsure": 273,
+   "with_checks": 72,
+   "excluded": 13
+  },
+  "F01_young_renters|m0|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F01_young_renters|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F01_young_renters|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F01_young_renters|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F01_young_renters|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F01_young_renters|m1|saving": {
+   "state": "ok",
+   "rows": 317,
+   "ok": 37,
+   "unsure": 275,
+   "with_checks": 74,
+   "excluded": 11
+  },
+  "F01_young_renters|m1|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F01_young_renters|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F01_young_renters|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F01_young_renters|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F01_young_renters|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F02_infant|m0|saving": {
+   "state": "ok",
+   "rows": 315,
+   "ok": 37,
+   "unsure": 273,
+   "with_checks": 72,
+   "excluded": 13
+  },
+  "F02_infant|m0|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F02_infant|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F02_infant|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F02_infant|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F02_infant|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F02_infant|m1|saving": {
+   "state": "ok",
+   "rows": 317,
+   "ok": 37,
+   "unsure": 275,
+   "with_checks": 74,
+   "excluded": 11
+  },
+  "F02_infant|m1|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F02_infant|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F02_infant|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F02_infant|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F02_infant|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F02_infant|m2|saving": {
+   "state": "ok",
+   "rows": 301,
+   "ok": 28,
+   "unsure": 267,
+   "with_checks": 71,
+   "excluded": 27
+  },
+  "F02_infant|m2|deposit": {
+   "state": "ok",
+   "rows": 344,
+   "ok": 30,
+   "unsure": 314,
+   "with_checks": 44,
+   "excluded": 19
+  },
+  "F02_infant|m2|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F02_infant|m2|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F02_infant|m2|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F02_infant|m2|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m0|saving": {
+   "state": "ok",
+   "rows": 315,
+   "ok": 37,
+   "unsure": 273,
+   "with_checks": 72,
+   "excluded": 13
+  },
+  "F03_single_parent|m0|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F03_single_parent|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F03_single_parent|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F03_single_parent|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F03_single_parent|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F03_single_parent|m1|saving": {
+   "state": "ok",
+   "rows": 299,
+   "ok": 28,
+   "unsure": 265,
+   "with_checks": 69,
+   "excluded": 29
+  },
+  "F03_single_parent|m1|deposit": {
+   "state": "ok",
+   "rows": 344,
+   "ok": 30,
+   "unsure": 314,
+   "with_checks": 44,
+   "excluded": 19
+  },
+  "F03_single_parent|m1|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m1|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m1|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m1|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m2|saving": {
+   "state": "ok",
+   "rows": 299,
+   "ok": 28,
+   "unsure": 265,
+   "with_checks": 69,
+   "excluded": 29
+  },
+  "F03_single_parent|m2|deposit": {
+   "state": "ok",
+   "rows": 344,
+   "ok": 30,
+   "unsure": 314,
+   "with_checks": 44,
+   "excluded": 19
+  },
+  "F03_single_parent|m2|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m2|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m2|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F03_single_parent|m2|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m0|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F04_multi_child_owner|m0|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F04_multi_child_owner|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F04_multi_child_owner|m1|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F04_multi_child_owner|m1|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F04_multi_child_owner|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F04_multi_child_owner|m2|saving": {
+   "state": "ok",
+   "rows": 302,
+   "ok": 33,
+   "unsure": 263,
+   "with_checks": 70,
+   "excluded": 26
+  },
+  "F04_multi_child_owner|m2|deposit": {
+   "state": "ok",
+   "rows": 347,
+   "ok": 30,
+   "unsure": 317,
+   "with_checks": 46,
+   "excluded": 16
+  },
+  "F04_multi_child_owner|m2|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m2|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m2|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m2|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m3|saving": {
+   "state": "ok",
+   "rows": 299,
+   "ok": 28,
+   "unsure": 265,
+   "with_checks": 69,
+   "excluded": 29
+  },
+  "F04_multi_child_owner|m3|deposit": {
+   "state": "ok",
+   "rows": 345,
+   "ok": 30,
+   "unsure": 315,
+   "with_checks": 45,
+   "excluded": 18
+  },
+  "F04_multi_child_owner|m3|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m3|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m3|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m3|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m4|saving": {
+   "state": "ok",
+   "rows": 299,
+   "ok": 28,
+   "unsure": 265,
+   "with_checks": 69,
+   "excluded": 29
+  },
+  "F04_multi_child_owner|m4|deposit": {
+   "state": "ok",
+   "rows": 344,
+   "ok": 30,
+   "unsure": 314,
+   "with_checks": 44,
+   "excluded": 19
+  },
+  "F04_multi_child_owner|m4|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m4|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m4|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F04_multi_child_owner|m4|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F05_pre_retire|m0|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F05_pre_retire|m0|deposit": {
+   "state": "ok",
+   "rows": 362,
+   "ok": 33,
+   "unsure": 329,
+   "with_checks": 48,
+   "excluded": 1
+  },
+  "F05_pre_retire|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F05_pre_retire|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F05_pre_retire|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F05_pre_retire|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F05_pre_retire|m1|saving": {
+   "state": "ok",
+   "rows": 313,
+   "ok": 37,
+   "unsure": 271,
+   "with_checks": 71,
+   "excluded": 15
+  },
+  "F05_pre_retire|m1|deposit": {
+   "state": "ok",
+   "rows": 362,
+   "ok": 33,
+   "unsure": 329,
+   "with_checks": 48,
+   "excluded": 1
+  },
+  "F05_pre_retire|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F05_pre_retire|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F05_pre_retire|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F05_pre_retire|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F05_pre_retire|m2|saving": {
+   "state": "ok",
+   "rows": 315,
+   "ok": 37,
+   "unsure": 273,
+   "with_checks": 72,
+   "excluded": 13
+  },
+  "F05_pre_retire|m2|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F05_pre_retire|m2|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F05_pre_retire|m2|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F05_pre_retire|m2|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F05_pre_retire|m2|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m0|saving": {
+   "state": "ok",
+   "rows": 313,
+   "ok": 37,
+   "unsure": 271,
+   "with_checks": 71,
+   "excluded": 15
+  },
+  "F06_elder_son_owner|m0|deposit": {
+   "state": "ok",
+   "rows": 363,
+   "ok": 33,
+   "unsure": 330,
+   "with_checks": 48,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F06_elder_son_owner|m1|saving": {
+   "state": "ok",
+   "rows": 310,
+   "ok": 37,
+   "unsure": 268,
+   "with_checks": 68,
+   "excluded": 18
+  },
+  "F06_elder_son_owner|m1|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F06_elder_son_owner|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F06_elder_son_owner|m2|saving": {
+   "state": "ok",
+   "rows": 313,
+   "ok": 37,
+   "unsure": 271,
+   "with_checks": 71,
+   "excluded": 15
+  },
+  "F06_elder_son_owner|m2|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F06_elder_son_owner|m2|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m2|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m2|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m2|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F06_elder_son_owner|m3|saving": {
+   "state": "ok",
+   "rows": 302,
+   "ok": 33,
+   "unsure": 264,
+   "with_checks": 67,
+   "excluded": 26
+  },
+  "F06_elder_son_owner|m3|deposit": {
+   "state": "ok",
+   "rows": 349,
+   "ok": 30,
+   "unsure": 319,
+   "with_checks": 46,
+   "excluded": 14
+  },
+  "F06_elder_son_owner|m3|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m3|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m3|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F06_elder_son_owner|m3|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m0|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F07_elderly_couple_low|m0|deposit": {
+   "state": "ok",
+   "rows": 363,
+   "ok": 33,
+   "unsure": 330,
+   "with_checks": 48,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 9,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F07_elderly_couple_low|m1|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F07_elderly_couple_low|m1|deposit": {
+   "state": "ok",
+   "rows": 363,
+   "ok": 33,
+   "unsure": 330,
+   "with_checks": 48,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 9,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F07_elderly_couple_low|m2|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F07_elderly_couple_low|m2|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F07_elderly_couple_low|m2|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 9,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m2|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m2|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F07_elderly_couple_low|m2|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F08_self_employed_2homes|m0|saving": {
+   "state": "ok",
+   "rows": 310,
+   "ok": 37,
+   "unsure": 268,
+   "with_checks": 68,
+   "excluded": 18
+  },
+  "F08_self_employed_2homes|m0|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F08_self_employed_2homes|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F08_self_employed_2homes|m1|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F08_self_employed_2homes|m1|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F08_self_employed_2homes|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F08_self_employed_2homes|m2|saving": {
+   "state": "ok",
+   "rows": 301,
+   "ok": 33,
+   "unsure": 262,
+   "with_checks": 69,
+   "excluded": 27
+  },
+  "F08_self_employed_2homes|m2|deposit": {
+   "state": "ok",
+   "rows": 347,
+   "ok": 30,
+   "unsure": 317,
+   "with_checks": 46,
+   "excluded": 16
+  },
+  "F08_self_employed_2homes|m2|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m2|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m2|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F08_self_employed_2homes|m2|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m0|saving": {
+   "state": "ok",
+   "rows": 314,
+   "ok": 37,
+   "unsure": 272,
+   "with_checks": 71,
+   "excluded": 14
+  },
+  "F09_heavy_debt|m0|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F09_heavy_debt|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 49,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m1|saving": {
+   "state": "ok",
+   "rows": 316,
+   "ok": 37,
+   "unsure": 274,
+   "with_checks": 73,
+   "excluded": 12
+  },
+  "F09_heavy_debt|m1|deposit": {
+   "state": "ok",
+   "rows": 360,
+   "ok": 33,
+   "unsure": 327,
+   "with_checks": 47,
+   "excluded": 3
+  },
+  "F09_heavy_debt|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 49,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F09_heavy_debt|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1002,
+   "ok": 48,
+   "unsure": 924,
+   "with_checks": 993,
+   "excluded": 0
+  },
+  "F10_rich_elder|m0|saving": {
+   "state": "ok",
+   "rows": 312,
+   "ok": 37,
+   "unsure": 270,
+   "with_checks": 70,
+   "excluded": 16
+  },
+  "F10_rich_elder|m0|deposit": {
+   "state": "ok",
+   "rows": 363,
+   "ok": 33,
+   "unsure": 330,
+   "with_checks": 48,
+   "excluded": 0
+  },
+  "F10_rich_elder|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F10_rich_elder|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F10_rich_elder|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F10_rich_elder|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F10_rich_elder|m1|saving": {
+   "state": "ok",
+   "rows": 313,
+   "ok": 37,
+   "unsure": 271,
+   "with_checks": 71,
+   "excluded": 15
+  },
+  "F10_rich_elder|m1|deposit": {
+   "state": "ok",
+   "rows": 363,
+   "ok": 33,
+   "unsure": 330,
+   "with_checks": 48,
+   "excluded": 0
+  },
+  "F10_rich_elder|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F10_rich_elder|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F10_rich_elder|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F10_rich_elder|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F10_rich_elder|m2|saving": {
+   "state": "ok",
+   "rows": 311,
+   "ok": 37,
+   "unsure": 269,
+   "with_checks": 69,
+   "excluded": 17
+  },
+  "F10_rich_elder|m2|deposit": {
+   "state": "ok",
+   "rows": 362,
+   "ok": 33,
+   "unsure": 329,
+   "with_checks": 48,
+   "excluded": 1
+  },
+  "F10_rich_elder|m2|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 70,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F10_rich_elder|m2|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F10_rich_elder|m2|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F10_rich_elder|m2|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F11_border_ages|m0|saving": {
+   "state": "ok",
+   "rows": 310,
+   "ok": 37,
+   "unsure": 268,
+   "with_checks": 68,
+   "excluded": 18
+  },
+  "F11_border_ages|m0|deposit": {
+   "state": "ok",
+   "rows": 362,
+   "ok": 33,
+   "unsure": 329,
+   "with_checks": 48,
+   "excluded": 1
+  },
+  "F11_border_ages|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F11_border_ages|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F11_border_ages|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F11_border_ages|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F11_border_ages|m1|saving": {
+   "state": "ok",
+   "rows": 313,
+   "ok": 37,
+   "unsure": 271,
+   "with_checks": 71,
+   "excluded": 15
+  },
+  "F11_border_ages|m1|deposit": {
+   "state": "ok",
+   "rows": 362,
+   "ok": 33,
+   "unsure": 329,
+   "with_checks": 48,
+   "excluded": 1
+  },
+  "F11_border_ages|m1|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F11_border_ages|m1|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F11_border_ages|m1|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F11_border_ages|m1|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F11_border_ages|m2|saving": {
+   "state": "ok",
+   "rows": 313,
+   "ok": 37,
+   "unsure": 271,
+   "with_checks": 71,
+   "excluded": 15
+  },
+  "F11_border_ages|m2|deposit": {
+   "state": "ok",
+   "rows": 362,
+   "ok": 33,
+   "unsure": 329,
+   "with_checks": 48,
+   "excluded": 1
+  },
+  "F11_border_ages|m2|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F11_border_ages|m2|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 50,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F11_border_ages|m2|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F11_border_ages|m2|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F12_grandma_grandchild|m0|saving": {
+   "state": "ok",
+   "rows": 311,
+   "ok": 37,
+   "unsure": 269,
+   "with_checks": 69,
+   "excluded": 17
+  },
+  "F12_grandma_grandchild|m0|deposit": {
+   "state": "ok",
+   "rows": 363,
+   "ok": 33,
+   "unsure": 330,
+   "with_checks": 48,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m0|mortgage": {
+   "state": "ok",
+   "rows": 79,
+   "ok": 69,
+   "unsure": 9,
+   "with_checks": 53,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m0|rent_loan": {
+   "state": "ok",
+   "rows": 57,
+   "ok": 38,
+   "unsure": 6,
+   "with_checks": 27,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m0|credit_loan": {
+   "state": "unsure",
+   "rows": 110,
+   "ok": 0,
+   "unsure": 110,
+   "with_checks": 110,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m0|busi_loan": {
+   "state": "ok",
+   "rows": 1001,
+   "ok": 48,
+   "unsure": 923,
+   "with_checks": 992,
+   "excluded": 1
+  },
+  "F12_grandma_grandchild|m1|saving": {
+   "state": "ok",
+   "rows": 297,
+   "ok": 28,
+   "unsure": 263,
+   "with_checks": 68,
+   "excluded": 31
+  },
+  "F12_grandma_grandchild|m1|deposit": {
+   "state": "ok",
+   "rows": 345,
+   "ok": 30,
+   "unsure": 315,
+   "with_checks": 45,
+   "excluded": 18
+  },
+  "F12_grandma_grandchild|m1|mortgage": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m1|rent_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m1|credit_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  },
+  "F12_grandma_grandchild|m1|busi_loan": {
+   "state": "none",
+   "rows": 0,
+   "ok": 0,
+   "unsure": 0,
+   "with_checks": 0,
+   "excluded": 0
+  }
+ }
+}

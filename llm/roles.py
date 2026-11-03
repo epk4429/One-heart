@@ -12,6 +12,9 @@ import re
 from dataclasses import dataclass
 from typing import Callable
 
+from ontology import cards
+from ontology.products import provider_names
+
 from .plan import OPTION_IDS, PlanError, check_option
 
 COMMON = """너는 가족 금융목표 합의 서비스 ONE-Heart의 AI 상담사다. 어떤 가족이든 상황에 맞게 돕는다.
@@ -211,12 +214,17 @@ def _b4a(i):
 좋은 제안은 누가 이기는 게 아니라 양쪽이 지키고 싶은 것을 함께 지키는 기준을 찾는다.
 (예: 집 사는 시기를 날짜가 아니라 '필요한 돈이 모이면'이라는 조건으로 정하기 / 집을 물려주는 것보다 사시는 것을 먼저 지키기)
 금액은 facts의 {{{{fact:ID}}}}로만 쓴다. 제안은 질문형("~하면 어떨까요?")으로 끝낸다.
+제안의 근거는 cards(공식 금융교육 자료로 만든 재무 원리 카드)에서만 고른다. 근거는 따로 목록으로 쓰지 말고 제안 문장 안에 "~이니까", "~라서"처럼 녹이고,
+그 근거 부분을 [[card:카드ID|근거 문구]]로 감싼다(1~2곳). 근거 문구는 카드 설명을 쉬운 말로 줄인 것이고, 카드 설명에 있는 숫자만 그 안에서 쓸 수 있다.
+(예: "[[card:C_short_money_no_risk|1~2년 안에 쓸 돈은 원금이 줄 수 있는 곳에 두지 않는 게 원칙이라서]] 휴직 동안 쓸 돈은 따로 모아 두면 어떨까요?")
+금융회사 이름이나 상품 이름은 쓰지 않는다. cards에 없는 원리를 지어내지 않는다.
 출력 형식: {{"proposal": "제안 문장", "to": ["받는 구성원id", ...], "bridges": [{{"issue_title": "쟁점 제목", "how": "이 제안이 그 차이를 어떻게 좁히는지"}}]}}
 
 구성원: {_dump(i['members'])}
 쟁점 분석: {_dump(i['analysis'])}
 요약: {_dump(i['summaries'])}
 말뜻 확인 결과: {_dump(i.get('clarifications', []))}
+cards: {_dump(i.get('cards', []))}
 facts: {_dump(i['facts'])}"""
 
 
@@ -226,6 +234,14 @@ def _c4a(o, i):
     mids = {m["member_id"] for m in i["members"]}
     if not isinstance(o.get("to"), list) or not set(o["to"]) <= mids or not o["to"]:
         errs.append("'to'는 구성원 id 배열이어야 해요")
+    if isinstance(o.get("proposal"), str):
+        allowed = {c["card_id"] for c in i.get("cards", [])}
+        errs += cards.check_output(o["proposal"], allowed, provider_names())
+        if allowed and not cards.used_ids(o["proposal"]):
+            errs.append("제안 문장 안에 근거를 [[card:카드ID|근거 문구]]로 하나 이상 녹여 주세요.")
+    for n, br in enumerate(o.get("bridges") or []):
+        if isinstance(br, dict) and isinstance(br.get("how"), str) and "[[" in br["how"]:
+            errs.append(f"bridges[{n}].how에는 카드 표시를 쓰지 마세요(제안 문장에만).")
     return errs + _unknown_facts(o, _ids(i["facts"]))
 
 

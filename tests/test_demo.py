@@ -1,4 +1,4 @@
-"""녹화본 체험판(tools/build_demo.py): 녹화가 두 예시 가족을 끝까지 덮는지, 파일 하나로 묶이는지."""
+"""mock 체험판(tools/build_demo.py): 파일 하나로 묶이는지, 첫 화면을 미리 계산해 넣는지, 녹화 없이 재생 공급자로 도는지."""
 
 import json
 import re
@@ -11,30 +11,32 @@ sys.path.insert(0, str(ROOT / "tools"))
 import build_demo  # noqa: E402
 
 
-def test_recordings_cover_both_presets():
-    rec = build_demo.load_recordings()
-    assert build_demo.check_complete(rec) == []
-    assert not any(k.startswith("|") for k in rec["ai"])  # 모든 AI 응답이 예시 가족에 묶여 있다
-
-
 def test_demo_html_is_self_contained(tmp_path):
     out = build_demo.build(tmp_path / "demo.html")
     html = out.read_text(encoding="utf-8")
     assert 'DEMO: true' in html
     assert not re.search(r'(src|href)="(img|css|js)/', html)
     assert "fetch(window.ONEHEART.API_BASE" not in html  # 서버로 보내는 api.js가 들어가지 않았다
-    rec = json.loads(re.search(r'<script type="application/json" id="demo-rec">(.*?)</script>', html, re.S).group(1))
-    assert rec["fixed"]["|/api/config"]["custom_family"] is False
+    data = json.loads(re.search(r'<script type="application/json" id="demo-data">(.*?)</script>', html, re.S).group(1))
+    assert data["fixed"]["/api/config"]["custom_family"] is False
+    assert data["fixed"]["/api/config"]["real_products"] is True
+    for p in build_demo.PRESETS:
+        assert data["fixed"][f"/api/preset|{p}"]["preset_id"] == p
+        assert p in data["stances"]
 
 
-def test_demo_not_deployed():
-    ignore = (ROOT / ".vercelignore").read_text(encoding="utf-8").split()
-    assert "web/demo.html" in ignore  # 비공개(형님 결정 2026-11-02). 개발용 실제 상품 공시도 들어 있다
-
-
-def test_rec_key_matches_js():
+def test_demo_uses_mock_not_recordings():
     js = (ROOT / "web/js/demo-api.js").read_text(encoding="utf-8")
-    for path in ("/api/interview/review", "/api/interview/resolve", "/api/preset"):
-        assert f'path === "{path}"' in js
-    assert build_demo.rec_key("/api/interview/review", {"family": {"preset_id": "newly"}, "member_id": "m0",
-                                                       "clarification": {"word": "x"}}) == "newly|/api/interview/review|m0|2"
+    assert '"LLM_PROVIDER": "replay"' in js
+    assert "demo-rec" not in js and "not_recorded" not in js
+    assert 'path === "/api/preset" ? `${path}|${body.preset_id}` : path' in js  # build_demo.demo_data 키와 같은 규칙
+
+
+def test_stances_match_mock_options():
+    st = json.loads((ROOT / "data/demo/stances.json").read_text(encoding="utf-8"))
+    for p in build_demo.PRESETS:
+        members = {m["member_id"] for m in json.loads((ROOT / f"data/presets/{p}.json").read_text(encoding="utf-8"))["members"]}
+        assert set(st[p]["r1"]) == members
+        for opts in st[p]["r1"].values():
+            assert set(opts) == {"A", "B", "C"}  # llm/replay.py _r5의 방법 id
+            assert all(o["v"] in ("good", "cond", "no") and (o["v"] == "good" or o["text"]) for o in opts.values())

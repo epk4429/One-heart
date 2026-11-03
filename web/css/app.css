@@ -126,6 +126,8 @@
 .acts{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
 .acts button{border:1px solid var(--line);background:#fff;font-size:12.5px;padding:3px 10px;color:var(--ink2)}
 .acts button.on{background:var(--green-soft);border-color:var(--green);color:var(--green-d);font-weight:600}
+.acts label.kids{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+.acts label.kids select{font-size:12.5px;padding:2px 4px}
 .frow{display:grid;grid-template-columns:24px minmax(0,1fr) 132px;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
 .frow .rk{font-weight:700;color:var(--muted)}
 .frow .fn{font-weight:700}
@@ -166,3 +168,12 @@
 .pconds em{display:block;font-style:normal;font-size:12px;color:var(--ink2)}
 .pest{margin:6px 0;font-size:14px;display:flex;flex-direction:column}
 .pest span{font-size:12px;color:var(--muted)}
+/* 제도·법 원문 찾기(RAG) */
+.ragbox{margin:8px 0 4px;padding:10px 12px;border:1px solid var(--line);background:#fff}
+.ragq input{width:100%;font-size:13px;padding:6px 8px;border:1px solid var(--line);margin:2px 0 8px;box-sizing:border-box}
+.ragitem{border-top:1px solid var(--line);padding:8px 0}
+.ragitem .rh{font-size:13px;display:flex;gap:6px;align-items:baseline}
+.ragitem .rk{font-size:11px;color:var(--green-d);border:1px solid var(--green);padding:0 5px;flex:none}
+.ragitem .rt{white-space:pre-wrap;font-size:12.5px;line-height:1.6;color:var(--ink2);max-height:220px;overflow:auto;margin:4px 0}
+.ragitem .rt mark{background:var(--green-soft);color:inherit}
+.ragitem .rs{font-size:11.5px;color:var(--ink2)}

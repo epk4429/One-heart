@@ -70,7 +70,8 @@ def test_judgments_elder():
     fam = F.validate(F.preset("elder"))
     rm = P.judge("PG_reverse_mortgage", fam)
     assert rm["status"] == "eligible" and rm["estimate"]["monthly_manwon"] > 0
-    assert P.judge("PG_didimdol", fam)["status"] == "not_eligible"  # 집이 있음
+    dd = P.judge("PG_didimdol", fam)  # 부모님 집이 있지만 자녀(45·41세) 세대가 신청하면 다를 수 있다(여러 세대 가족방)
+    assert dd["status"] == "check" and "여러 세대" in dd["conditions"][0]["hint"]
     bp = P.judge("PG_basic_pension", fam)
     assert statuses(bp)["만 65세 이상"] == "met" and bp["status"] == "check"  # 소득인정액은 재산 환산을 못 해 확인 필요
 

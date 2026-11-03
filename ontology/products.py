@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import statistics
+from functools import lru_cache
 from pathlib import Path
 
 from . import conditions, loans
@@ -161,3 +162,25 @@ def build_all() -> dict:
 def load_products(category: str) -> list[dict]:
     p = OUT / "products" / f"{category}.json"
     return json.loads(p.read_text(encoding="utf-8"))["products"] if p.exists() else []
+
+
+def rate_benchmark(category: str = "deposit", term_months: int = 12, group: str = "020000") -> dict:
+    """미래 계산 가정값의 근거: 한 권역·기간의 상품별 기본금리 중앙값(세전, 우대 제외).
+    상품마다 그 기간 옵션의 평균을 한 표로 세서 옵션이 많은 상품이 끌고 가지 않게 한다."""
+    per, srcs, as_of = [], set(), set()
+    for p in load_products(category):
+        xs = [o["base_rate"] for o in p["options"] if o["term_months"] == term_months and o["base_rate"] is not None]
+        if p["group"] == group and xs:
+            per.append(statistics.mean(xs))
+            srcs.add(p["source_id"])
+            as_of.add(p["as_of"])
+    if not per:
+        return {}
+    return {"category": category, "term_months": term_months, "group": group, "median": round(statistics.median(per), 2),
+            "n_products": len(per), "as_of": sorted(as_of), "source_ids": sorted(srcs)}
+
+
+@lru_cache(maxsize=1)
+def provider_names() -> frozenset[str]:
+    """공시에 나온 금융회사 이름 전부(앞 단계 글에 회사 이름이 나오는지 검사, G12)."""
+    return frozenset(p["provider"] for cat in {*CATEGORY, *loans.LOAN} for p in load_products(cat))

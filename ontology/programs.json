@@ -5,7 +5,7 @@
    "id": "PG_reverse_mortgage", "label": "주택연금", "publisher": "한국주택금융공사", "kind": "공적 보증 연금",
    "source": "hf_reverse_mortgage", "summary": "집을 담보로 맡기고 그 집에 계속 살면서 평생 매달 연금을 받는 국가 보증 제도예요.",
    "eligibility": [
-    {"label": "부부 중 1명이 55세 이상", "var": "eldest_age", "op": ">=", "value": 55, "quote": "부부 중 1명이 55세 이상이고"},
+    {"label": "부부 중 1명이 55세 이상", "var": "owner_age", "op": ">=", "value": 55, "quote": "부부 중 1명이 55세 이상이고"},
     {"label": "집을 가지고 있음", "var": "home_count", "op": ">=", "value": 1, "quote": "주택을 소유하신 분"},
     {"label": "부부합산 공시가격 12억원 이하", "var": "home_value_gongsi", "op": "<=", "value": 120000, "quote": "부부합산 공시가격 12억원 이하"}
    ],

@@ -37,6 +37,7 @@ ACTIONS = {  # 화면에서 "내가 할 수 있는 것"으로 고르는 우대 �
 }
 BAND_LABEL = {k: label for k, label, _, _ in L.BANDS} | {"avg": "모름(평균)"}
 TOP = 5
+ADULT = 19  # 대출 비교를 하는 나이(만)
 REGIONS = ("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주",
            "충청", "전라", "경상")  # 지역 전용 대출(가족 정보에 주소가 없어 판정할 수 없음)
 NOTE = "우리 목표에 잘 맞는 순서예요. 추천이 아니라 정보예요. 선택과 가입은 직접 해요. 가입 전 금융회사에서 조건을 확인하세요. 개발용 예시 데이터(금감원 공시)예요."
@@ -108,7 +109,7 @@ def summarize(rows: list, total: int, excluded: int, no_option: int, money_given
     ok = sum(1 for r in rows if r["limit_ok"] is not False and (r["limit_ok"] is True or not money_given) and not _elig_unsure(r))
     unsure = len(rows) - over - ok
     state = "ok" if ok else "unsure" if unsure else "none"
-    parts = [f"가입 나이가 안 맞는 상품 {excluded}개" if excluded else "", f"이 기간·방식이 없는 상품 {no_option}개" if no_option else "",
+    parts = [f"가입 조건(나이·자녀·무주택)이 안 맞는 상품 {excluded}개" if excluded else "", f"이 기간·방식이 없는 상품 {no_option}개" if no_option else "",
              f"한도를 넘는 상품 {over}개" if over else "", f"한도·자격을 공시로 정할 수 없는 상품 {unsure}개" if unsure else ""]
     why = ", ".join(x for x in parts if x)
     text = {"ok": f"조건에 맞는 상품이 {ok}개 있어요." if money_given else f"아직 금액을 넣지 않아 한도는 따지지 않았어요. 기본 조건이 맞는 상품이 {ok}개 있어요.",
@@ -132,17 +133,49 @@ def _option(p: dict, term: int) -> dict | None:
     return sorted(opts, key=lambda o: (o["rsrv"] != "정액적립식", -(o["max_rate"] or o["base_rate"])))[0]  # 매달 같은 금액 = 정액적립식 먼저
 
 
-ELIG_CHECKS = {"다른 상품 보유", "일부제한", "서민전용", "청년", "서민", "장애", "기초생활", "다자녀", "한부모", "외국인", "임직원", "학생",
+ELIG_CHECKS = {"자녀 수", "여러 대상 중 하나", "다른 상품 보유", "일부제한", "서민전용", "청년", "서민", "장애", "기초생활", "다자녀", "한부모", "외국인", "임직원", "학생",
                "군인", "사업자등록", "근로자", "자녀", "부모", "여성", "남성"}
 
 
+def person_of(family: dict, member_id: str, person: dict | None) -> dict:
+    """계좌 주인의 사람 조건. kids = 18세 이하 자녀 수(None = 모름, 3 = 3명 이상), flags = 가족이 고른 조건(C.PERSON),
+    no_home = 무주택인가(넣은 금융정보 기준: 본인 이름이거나 함께 가진 집이 없으면 무주택)."""
+    p = person or {}
+    kids = p.get("kids")
+    homes = [i for i in family["finance"] if i["kind"] == "home" and i["owner_id"] in (member_id, "joint")]
+    return {"age": F.member(family, member_id)["age"], "kids": None if kids is None else min(int(kids), 3),
+            "flags": {f for f in p.get("flags") or [] if f in C.PERSON}, "no_home": not homes}
+
+
+def _elig_person(rec: dict, me: dict) -> tuple[str | None, list[str], list[str]]:
+    """가입대상의 사람 조건(자녀 수·무주택) 판정 → (가입할 수 없는 이유 | None, 아직 모르는 조건, 넣은 정보로 맞다고 본 조건)."""
+    left, assumed = [], []
+    for u in rec["eligibility"]["unknown"]:
+        if u["var"] == "무주택":
+            if not me["no_home"]:
+                return f"무주택인 사람만 가입할 수 있어요('{u['quote']}')", [], []
+            assumed.append("넣은 금융정보에 본인·공동 명의 집이 없어 무주택으로 봤어요")
+            continue
+        if u["var"] == "자녀 수":
+            st, _ = C.judge_person(u["who"], me["age"], me["kids"], me["flags"])
+            if st == "not_met":
+                return f"가입 조건이 {C.person_label(u['who'])}이에요('{u['quote']}')", [], []
+            if st == "met":
+                assumed.append(f"고른 자녀 수로 가입 조건({C.person_label(u['who'])})에 맞아요")
+                continue
+        left.append(u["var"])
+    return None, left, assumed
+
+
 def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment: dict | None, term: int = 12,
-             actions: list[str] | None = None, monthly: float | None = None, amount: float | None = None) -> dict:
-    """적금은 monthly(매달 넣을 돈), 정기예금은 amount(한 번에 맡길 돈)."""
+             actions: list[str] | None = None, monthly: float | None = None, amount: float | None = None,
+             person: dict | None = None) -> dict:
+    """적금은 monthly(매달 넣을 돈), 정기예금은 amount(한 번에 맡길 돈). person은 사람 조건(person_of)."""
     o = load_ontology()
     cond = {r["product_id"]: r for r in _conditions()}
     tax = F.assumptions()["interest_tax"]["rate"]
     who = F.member(family, member_id)
+    me = person_of(family, member_id, person)
     picked = {a for a in (actions or []) if a in ACTIONS}
     money_in = monthly if cat == "saving" else amount
     rows, excluded, no_term = [], [], 0
@@ -153,19 +186,32 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
             continue
         rec = cond.get(p["product_id"])
         ok, why = _age_ok(rec["eligibility"]["conditions"], who["age"])
-        if not ok:
-            excluded.append({"name": p["name"].replace("\n", " "), "provider": _short(p["provider"]), "reason": why})
+        no, left, assumed = _elig_person(rec, me)
+        if not ok or no:
+            excluded.append({"name": p["name"].replace("\n", " "), "provider": _short(p["provider"]), "reason": why or no})
             continue
         gap = max(0.0, (opt["max_rate"] or opt["base_rate"]) - opt["base_rate"])
-        items = rec["benefits"]
+        items, mine, not_mine = [], [], []
+        for b in rec["benefits"]:  # 사람 조건: 해당하면 우대에 넣고(명수별이면 그 금리), 해당 안 되면 뺀다
+            st, pp = C.judge_person(b["who"], me["age"], me["kids"], me["flags"]) if b.get("who") and b.get("role") != "group" else (None, None)
+            if st == "met":
+                b = {**b, "tag": "_person", "add_pp": pp if pp is not None else b["add_pp"]}
+                mine.append(b)
+            elif st == "not_met":
+                not_mine.append(b)
+                b = {**b, "add_pp": 0}
+            items.append(b)
         cap = rec["check"]["cap_pp"]
-        bonus = round(min(C.applicable(items, picked), gap, cap if cap is not None else gap), 2)
+        want = C.applicable(items, picked | {"_person"})
+        bonus = round(min(want, gap, cap if cap is not None else gap), 2)
+        held = round(want - bonus, 2) if want > bonus + 0.005 else 0  # 원문 우대 합이 공시 최고 우대금리보다 커서 금리에 다 넣지 않은 몫
         rate = round(opt["base_rate"] + bonus, 2)
         got = [b for b in items if b.get("role") != "group" and b["tag"] in picked and (b["add_pp"] or 0) > 0]
         more = [b for b in items if b.get("role") != "group" and b["kind"] == "action" and b["tag"] not in picked and (b["add_pp"] or 0) > 0]
-        maybe = [b for b in items if b.get("role") != "group" and b["kind"] in ("attribute", "relation") and (b["add_pp"] or 0) > 0]
+        maybe = [b for b in items if b.get("role") != "group" and b["kind"] in ("attribute", "relation") and b["tag"] != "_person"
+                 and (b["add_pp"] or 0) > 0]
         unknown_amt = [b for b in items if b["add_pp"] is None]
-        checks = [u["var"] for u in rec["eligibility"]["unknown"]]
+        checks = left
         if rec["benefit_status"] == "needs_check":
             checks.append("우대조건(원문과 공시 숫자가 다르거나 금액이 없음)")
         if cat == "saving":
@@ -180,9 +226,13 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
             "product_id": p["product_id"], "name": p["name"].replace("\n", " "), "provider": _short(p["provider"]), "term_months": term,
             "rsrv": opt["rsrv"], "rate_type": opt["rate_type"], "base_rate": opt["base_rate"], "max_rate": opt["max_rate"],
             "my_rate": rate, "limit_manwon": limit, "limit_ok": fits, "money": money,
-            "got": [{"label": ACTIONS.get(b["tag"], b["tag"]), "pp": b["add_pp"]} for b in got],
+            "got": [{"label": ACTIONS.get(b["tag"], b["tag"]), "pp": b["add_pp"]} for b in got]
+                   + [{"label": "해당돼요 · " + C.person_label(b["who"]), "pp": b["add_pp"], "person": True, "quote": b["quote"]} for b in mine if b["add_pp"]],
+            "assumed": assumed, "held_pp": held,
+            "not_mine": [{"label": C.person_label(b["who"]), "pp": b["add_pp"]} for b in not_mine if b["add_pp"]],
             "more": [{"label": ACTIONS.get(b["tag"], b["tag"]), "pp": b["add_pp"]} for b in more],
-            "maybe": [{"label": C.TAG[b["tag"]]["label"], "pp": b["add_pp"], "quote": b["quote"]} for b in maybe],
+            "maybe": [{"label": C.person_label(b["who"]) if b.get("who") else C.TAG[b["tag"]]["label"], "pp": b["add_pp"], "quote": b["quote"]}
+                      for b in maybe],
             "checks": checks + (["금액이 원문에 없는 우대 " + str(len(unknown_amt)) + "개"] if unknown_amt else []),
             "evidence": {"benefits": [b["quote"] for b in items if b.get("role") != "group"] + [c["quote"] for c in rec["benefit_caps"]],
                          "join_member": p["texts"].get("join_member"), "limit_quote": rec["limits"]["quote"],
@@ -194,7 +244,7 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
         lim = 2 if r["limit_ok"] is False else (1 if r["limit_ok"] is None and money_in is not None else 0)
         gain = math.floor(r["money"]["interest_after"]) if r["money"] else math.floor(r["my_rate"] * 10)  # 1만원(금액 없으면 0.1%p) 단위
         elig = any(c in ELIG_CHECKS for c in r["checks"])  # 가입할 수 있는지 모르면 이자보다 먼저 뒤로
-        return (lim, elig, -gain, len(r["checks"]) > 0, len(r["got"]), -r["my_rate"])
+        return (lim, elig, -gain, len(r["checks"]) > 0, _todo(r), -r["my_rate"])
     rows.sort(key=key)
     need = o["needs"].get(need_id, {})
     for i, r in enumerate(rows):
@@ -202,9 +252,15 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
         if i:
             r["why_lower"] = _saving_lower(r, rows[0], cat, money_in)
     summary = summarize(rows, len(rows) + len(excluded) + no_term, len(excluded), no_term, money_in is not None)
-    return _result(cat, need, who, rows, {"term_months": term, "monthly": monthly, "amount": amount, "actions": ACTIONS,
+    return _result(cat, need, who, rows, {"term_months": term, "monthly": monthly, "amount": amount, "actions": ACTIONS, "person": {"options": C.PERSON, "kids": me["kids"],
+                                          "flags": sorted(me["flags"]), "no_home": me["no_home"]},
                                           "excluded": excluded, "no_term": no_term, "tax": F.assumptions()["interest_tax"],
                                           "summary": summary})
+
+
+def _todo(r: dict) -> int:
+    """지켜야 할 우대 조건 수(사람 조건 해당은 할 일이 아니다)."""
+    return sum(1 for x in r["got"] if not x.get("person"))
 
 
 def _saving_reasons(r: dict, cat: str, need: dict, commitment: dict | None, money_in: float | None) -> list[str]:
@@ -221,10 +277,17 @@ def _saving_reasons(r: dict, cat: str, need: dict, commitment: dict | None, mone
             out.append(f"{lim}가 {won(r['limit_manwon'])}이라 {unit}{won(money_in)}을 다 넣지는 못해요.")
         else:
             out.append(f"{lim}는 공시 원문에 없어요. 금융회사에서 확인이 필요해요.")
-    if r["got"]:
-        out.append(f"우대 조건({', '.join(x['label'] for x in r['got'])})을 지키면 연 {r['my_rate']:.2f}%예요.")
+    acts = [x["label"] for x in r["got"] if not x.get("person")]
+    mine = [x["label"].removeprefix("해당돼요 · ") for x in r["got"] if x.get("person")]
+    if acts:
+        out.append(f"우대 조건({', '.join(acts)})을 지키면 연 {r['my_rate']:.2f}%예요.")
     else:
         out.append(f"따로 할 일 없이 연 {r['my_rate']:.2f}%예요.")
+    out += [f"{a}(가입할 때 금융회사가 확인해요)." for a in r["assumed"]]
+    if r["held_pp"]:
+        out.append(f"원문대로면 우대가 {r['held_pp']}%p 더 있지만 공시 최고금리를 넘어서 금리에 넣지 않았어요(금융회사 확인).")
+    if mine:
+        out.append(f"{', '.join(mine)}에 해당해서 우대가 들어갔어요(가입할 때 금융회사가 증빙으로 확인해요).")
     if r["money"]:
         m = r["money"]
         out.append(f"만기에 약 {won_k(m['total'])}(넣은 돈 {won(m['principal'])} + 세후 이자 약 {won_k(m['interest_after'])})을 받아요.")
@@ -245,7 +308,7 @@ def _saving_lower(r: dict, top: dict, cat: str, money_in: float | None) -> str:
             return f"만기 세후 이자가 약 {won_k(d)} 적어요."
     if r["checks"] and not top["checks"]:
         return "확인이 필요한 조건이 있어요."
-    if len(r["got"]) > len(top["got"]):
+    if _todo(r) > _todo(top):
         return "같은 이자를 받으려면 할 일이 더 많아요."
     return "금리가 조금 낮아요."
 
@@ -302,12 +365,25 @@ def _loans(family: dict, need_id: str, cat: str, *, member_id: str, commitment: 
     o = load_ontology()
     who = F.member(family, member_id)
     how = "bullet" if repay == "bullet" else method
-    rows, no_match = [], 0
+    need = o["needs"].get(need_id, {})
+    if who["age"] < ADULT:  # 대출은 어른 이름으로만 비교한다(임의결정 70)
+        total = len(load_products(cat))
+        sm = {"state": "none", "total": total, "ok": 0, "unsure": 0, "over_limit": 0, "excluded_age": total, "no_option": 0,
+              "text": f"대출은 어른(만 {ADULT}세 이상) 이름으로 비교해요.", "why": f"{who['name']}님은 {who['age']}세예요"}
+        return _result(cat, need, who, [], {"amount": amount, "months": months, "repay": repay, "method": how, "method_label": METHODS[how],
+                                            "rate_pref": rate_pref, "band": band, "band_label": BAND_LABEL.get(band, band), "no_match": 0,
+                                            "excluded": [], "bands": BAND_LABEL, "summary": sm})
+    rows, no_match, excluded = [], 0, []
     for p in load_products(cat):
         r = _loan_rate(p, cat, repay, rate_pref, house, band)
         if r is None:
             no_match += 1
             continue
+        if cat == "busi_loan":  # 가입조건(세부)의 나이: "만 39세이하 청년창업기업", "20세부터 74세 이하"
+            ok, why = _age_ok(C.parse_eligibility(p["texts"].get("join_deny_detl") or "", "1")["conditions"], who["age"])
+            if not ok:
+                excluded.append({"name": p["name"].replace("\n", " "), "provider": _short(p["provider"]), "reason": why})
+                continue
         t = p["terms"]
         lim = t["limit"]
         cap = None
@@ -343,15 +419,14 @@ def _loans(family: dict, need_id: str, cat: str, *, member_id: str, commitment: 
         elig = any(k in c2 for c2 in x["checks"] for k in ("가입조건", "지역 조건"))  # 받을 수 있는지 모르면(지역·자격 전용) 비용보다 먼저 뒤로
         return (lim, elig, c, len(x["checks"]) > 0, x["my_rate"])
     rows.sort(key=key)
-    need = o["needs"].get(need_id, {})
     for i, x in enumerate(rows):
         x["reasons"] = _loan_reasons(x, cat, need, commitment, amount, months, how, band, home_price, deposit_amount)
         if i:
             x["why_lower"] = _loan_lower(x, rows[0], amount)
-    summary = summarize(rows, len(rows) + no_match, 0, no_match, amount is not None)
+    summary = summarize(rows, len(rows) + no_match + len(excluded), len(excluded), no_match, amount is not None)
     return _result(cat, need, who, rows, {"amount": amount, "months": months, "repay": repay, "method": how, "method_label": METHODS[how],
                                           "rate_pref": rate_pref, "band": band, "band_label": BAND_LABEL.get(band, band),
-                                          "no_match": no_match, "excluded": [], "bands": BAND_LABEL, "summary": summary})
+                                          "no_match": no_match, "excluded": excluded, "bands": BAND_LABEL, "summary": summary})
 
 
 def _loan_reasons(x: dict, cat: str, need: dict, commitment: dict | None, amount: float | None, months: int, how: str,

@@ -72,15 +72,15 @@
  },
  "summary": {
   "products": 773,
-  "verified": 605,
-  "capped": 21,
-  "needs_check": 147,
+  "verified": 635,
+  "capped": 6,
+  "needs_check": 132,
   "benefit": {
-   "verified": 668,
-   "capped": 24,
-   "needs_check": 81
+   "verified": 669,
+   "capped": 6,
+   "needs_check": 98
   },
-  "eligibility_needs_check": 82
+  "eligibility_needs_check": 49
  },
  "products": [
   {
@@ -788,7 +788,14 @@
       "금액 없음"
      ],
      "rank": 2,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "kids",
+      "min": 3,
+      "maybe_from": null,
+      "tiers": null,
+      "quote": "⑥다자녀(3인이상 자녀)가정"
+     }
     },
     {
      "quote": "⑦탐나는 J연금통장 가입고객",
@@ -1836,7 +1843,13 @@
      "tag": "age",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "age",
+      "min": 65,
+      "max": null,
+      "quote": "만65세 이상"
+     }
     },
     {
      "quote": "2-2. 만 19~34세 MZ고객 우대 : 0.1%p",
@@ -1845,7 +1858,13 @@
      "tag": "age",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "age",
+      "min": 19,
+      "max": 34,
+      "quote": "만 19~34세"
+     }
     }
    ],
    "benefit_caps": [],
@@ -4215,7 +4234,14 @@
      "tag": "welfare",
      "issues": [],
      "rank": 3,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "disabled"
+      ],
+      "quote": "- 장애인 등록고객 추가 우대금리 : 연 0.2%"
+     }
     }
    ],
    "benefit_caps": [],
@@ -5016,12 +5042,7 @@
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -5042,24 +5063,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010390_240038",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -5080,24 +5094,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010390_240042",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -5118,24 +5125,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010390_240043",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -5156,24 +5156,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010390_240058",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -5194,24 +5187,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010390_240060",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -5232,12 +5218,10 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010391_KJ0001A",
@@ -6756,15 +6740,13 @@
    "product_id": "PRD_deposit_0010449_NY240009",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
-    "conditions": [
+    "conditions": [],
+    "unknown": [
      {
-      "var": "age",
-      "op": ">=",
-      "value": 19,
-      "quote": "만19세이상"
+      "var": "여러 대상 중 하나",
+      "quote": "만19세이상 내국인 개인고객, 본인 스마트폰 소지자, 신분증(주민등록증 또는 운전면허증)소지자, 미국인 납세"
      }
     ],
-    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -6785,10 +6767,12 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "verified",
+   "status": "needs_check",
    "benefit_status": "verified",
-   "eligibility_status": "verified",
-   "issues": []
+   "eligibility_status": "needs_check",
+   "issues": [
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010453_240001",
@@ -6981,10 +6965,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010456_240054",
@@ -7022,10 +7008,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010456_240056",
@@ -7063,10 +7051,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010456_240062",
@@ -7252,15 +7242,13 @@
    "product_id": "PRD_deposit_0010457_240016",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
-    "conditions": [
+    "conditions": [],
+    "unknown": [
      {
-      "var": "age",
-      "op": ">=",
-      "value": 19,
-      "quote": "만19세이상"
+      "var": "여러 대상 중 하나",
+      "quote": "만19세이상 내국인 개인고객, 본인 스마트폰 소지자, 신분증(주민등록증 또는 운전면허증)소지자, 미국인 납세"
      }
     ],
-    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -7281,10 +7269,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "verified",
+   "status": "needs_check",
    "benefit_status": "verified",
-   "eligibility_status": "verified",
-   "issues": []
+   "eligibility_status": "needs_check",
+   "issues": [
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010460_240013",
@@ -7512,24 +7502,24 @@
      "중복 적용"
     ]
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.9%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010463_240006 240007",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
-    "conditions": [
+    "conditions": [],
+    "unknown": [
      {
-      "var": "age",
-      "op": ">=",
-      "value": 19,
-      "quote": "만19세이상"
+      "var": "여러 대상 중 하나",
+      "quote": "만19세이상 내국인 개인고객, 본인 스마트폰 소지자, 신분증(주민등록증 또는 운전면허증)소지자, 최근 30일"
      }
     ],
-    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -7550,10 +7540,12 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "verified",
+   "status": "needs_check",
    "benefit_status": "verified",
-   "eligibility_status": "verified",
-   "issues": []
+   "eligibility_status": "needs_check",
+   "issues": [
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010464_240010",
@@ -8125,7 +8117,8 @@
    "benefit_status": "needs_check",
    "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 1개"
+    "읽지 못한 항목 1개",
+    "원문 우대 최대 3.95%p인데 공시 최고 우대금리가 기본금리와 같음"
    ]
   },
   {
@@ -8168,10 +8161,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 3.8%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010471_24-0059",
@@ -8213,10 +8208,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 3.8%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010471_24-0061",
@@ -8255,10 +8252,12 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 3.95%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010471_24-0069",
@@ -8331,10 +8330,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 3.8%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010471_24-0083",
@@ -8373,10 +8374,12 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 3.95%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010471_24-0085",
@@ -8449,10 +8452,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 3.8%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010471_24-0089",
@@ -11463,10 +11468,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.5%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0010537_240299",
@@ -12755,12 +12762,7 @@
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -12781,24 +12783,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240008",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -12819,24 +12814,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240011",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -12857,24 +12845,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240013",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -12895,24 +12876,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240016",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -12933,24 +12907,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240021",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -12971,24 +12938,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240022",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -13009,24 +12969,17 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240025",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -13047,24 +13000,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240026",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -13085,24 +13031,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0010576_240027",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -13123,12 +13062,10 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0011551_240001",
@@ -13166,10 +13103,12 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0011551_240008",
@@ -13971,12 +13910,7 @@
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -13997,24 +13931,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0012889_240071",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -14035,24 +13962,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0012889_240074",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -14073,24 +13993,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0012889_240076",
    "source_id": "S_finlife_deposit_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -14111,12 +14024,10 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_deposit_0013002_BNK1001",
@@ -14154,10 +14065,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0013002_BNK1003",
@@ -14317,7 +14230,13 @@
      "issues": [],
      "rank": 3,
      "kind": "attribute",
-     "caveat": "한하여"
+     "caveat": "한하여",
+     "who": {
+      "type": "age",
+      "min": 65,
+      "max": null,
+      "quote": "만 65세이상"
+     }
     }
    ],
    "benefit_caps": [],
@@ -14392,7 +14311,13 @@
      "issues": [],
      "rank": 3,
      "kind": "attribute",
-     "caveat": "한하여"
+     "caveat": "한하여",
+     "who": {
+      "type": "age",
+      "min": 65,
+      "max": null,
+      "quote": "만 65세이상"
+     }
     }
    ],
    "benefit_caps": [],
@@ -14613,7 +14538,8 @@
    "benefit_status": "needs_check",
    "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 1개"
+    "읽지 못한 항목 1개",
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
    ]
   },
   {
@@ -14728,10 +14654,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_deposit_0013166_240011",
@@ -17565,7 +17493,13 @@
      "tag": "age",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "age",
+      "min": 19,
+      "max": 34,
+      "quote": "만 19~34세"
+     }
     },
     {
      "quote": "4. 직전 1년간 당행 예적금(청약포함) 미보유 고객 : 0.2%p",
@@ -17820,7 +17754,13 @@
      "tag": "age",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "age",
+      "min": 65,
+      "max": null,
+      "quote": "만 65세 이상"
+     }
     },
     {
      "quote": "2-2. 만 19~34세 MZ고객 우대 : 0.3%p",
@@ -17829,7 +17769,13 @@
      "tag": "age",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "age",
+      "min": 19,
+      "max": 34,
+      "quote": "만 19~34세"
+     }
     }
    ],
    "benefit_caps": [],
@@ -19381,13 +19327,13 @@
       "var": "age",
       "op": ">=",
       "value": 19,
-      "quote": "만 19세 이상 ~ 만 39세 이하"
+      "quote": "만 19세 이상"
      },
      {
       "var": "age",
       "op": "<=",
       "value": 39,
-      "quote": "만 19세 이상 ~ 만 39세 이하"
+      "quote": "만 39세 이하"
      }
     ],
     "unknown": [
@@ -19647,7 +19593,8 @@
    "benefit_status": "needs_check",
    "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 1개"
+    "읽지 못한 항목 1개",
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
    ]
   },
   {
@@ -19705,7 +19652,8 @@
    "benefit_status": "needs_check",
    "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 1개"
+    "읽지 못한 항목 1개",
+    "원문 우대 최대 0.2%p인데 공시 최고 우대금리가 기본금리와 같음"
    ]
   },
   {
@@ -19762,7 +19710,14 @@
      "tag": "child",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "pregnant"
+      ],
+      "quote": "4. 가입기간 내 결혼, 임신, 출산 중 한 가지 이상 충족 +0.25%"
+     }
     },
     {
      "quote": "5. 다자녀 가정 +0.25%",
@@ -19771,7 +19726,14 @@
      "tag": "child",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "kids",
+      "min": 3,
+      "maybe_from": 2,
+      "tiers": null,
+      "quote": "5. 다자녀 가정 +0.25%"
+     }
     }
    ],
    "benefit_caps": [
@@ -19851,7 +19813,14 @@
      "tag": "child",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "pregnant"
+      ],
+      "quote": "4. 가입기간 내 결혼, 임신, 출산 중 한 가지 이상 충족 +0.25%"
+     }
     },
     {
      "quote": "5. 다자녀 가정 +0.25%",
@@ -19860,7 +19829,14 @@
      "tag": "child",
      "issues": [],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "kids",
+      "min": 3,
+      "maybe_from": 2,
+      "tiers": null,
+      "quote": "5. 다자녀 가정 +0.25%"
+     }
     }
    ],
    "benefit_caps": [
@@ -20537,10 +20513,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.1%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_saving_0010366_024312001",
@@ -20593,7 +20571,14 @@
      "tag": "welfare",
      "issues": [],
      "rank": 3,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "disabled"
+      ],
+      "quote": "- 장애인 등록고객 시 : 연0.2%"
+     }
     },
     {
      "quote": "* 월 1백만원 이하, 12개월 약정시",
@@ -20635,7 +20620,8 @@
    "benefit_status": "needs_check",
    "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 2개"
+    "읽지 못한 항목 2개",
+    "원문 우대 최대 0.3%p인데 공시 최고 우대금리가 기본금리와 같음"
    ]
   },
   {
@@ -20725,6 +20711,10 @@
     ],
     "unknown": [
      {
+      "var": "무주택",
+      "quote": "무주택 개인"
+     },
+     {
       "var": "다른 상품 보유",
       "quote": "혹은 운전면허증 보유한"
      },
@@ -20744,12 +20734,10 @@
      "quote": "- 세대주 우대금리 : 연0.1%",
      "context": null,
      "add_pp": 0.1,
-     "tag": "other",
-     "issues": [
-      "조건 종류를 모름"
-     ],
+     "tag": "housing",
+     "issues": [],
      "rank": 3,
-     "kind": "unknown"
+     "kind": "attribute"
     },
     {
      "quote": "- 청년층 우대금리 : 연0.9%",
@@ -20764,23 +20752,26 @@
      "quote": "- 소득취약계층 우대금리 : 연 1.0%",
      "context": null,
      "add_pp": 1.0,
-     "tag": "other",
-     "issues": [
-      "조건 종류를 모름"
-     ],
+     "tag": "welfare",
+     "issues": [],
      "rank": 3,
-     "kind": "unknown"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "low_income"
+      ],
+      "quote": "- 소득취약계층 우대금리 : 연 1.0%"
+     }
     },
     {
      "quote": "- 전세사기피해자 우대금리 : 연 2.0%",
      "context": null,
      "add_pp": 2.0,
-     "tag": "other",
-     "issues": [
-      "조건 종류를 모름"
-     ],
+     "tag": "welfare",
+     "issues": [],
      "rank": 3,
-     "kind": "unknown"
+     "kind": "attribute"
     }
    ],
    "benefit_caps": [],
@@ -20797,11 +20788,10 @@
     "caveats": []
    },
    "status": "needs_check",
-   "benefit_status": "needs_check",
+   "benefit_status": "verified",
    "eligibility_status": "needs_check",
    "issues": [
-    "읽지 못한 항목 3개",
-    "가입대상에 판정할 수 없는 조건: 다른 상품 보유, 일부제한"
+    "가입대상에 판정할 수 없는 조건: 무주택, 다른 상품 보유, 일부제한"
    ]
   },
   {
@@ -21290,12 +21280,6 @@
       "op": ">=",
       "value": 19,
       "quote": "19세 이상"
-     },
-     {
-      "var": "age",
-      "op": "<=",
-      "value": 18,
-      "quote": "18세 이하"
      }
     ],
     "unknown": [
@@ -21339,7 +21323,14 @@
      "issues": [],
      "rank": 4,
      "group": "g1",
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "newborn"
+      ],
+      "quote": "신규 가입일 당시 2년 이내 출생한 자녀의 부모인 경우 : 1.00 %p"
+     }
     },
     {
      "quote": "- 한부모가정의 부모인 경우 : 1.00 %p",
@@ -21348,7 +21339,14 @@
      "tag": "welfare",
      "issues": [],
      "rank": 3,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "single_parent"
+      ],
+      "quote": "- 한부모가정의 부모인 경우 : 1.00 %p"
+     }
     }
    ],
    "benefit_caps": [
@@ -21395,12 +21393,7 @@
       "quote": "만20세~만39세"
      }
     ],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": false,
      "sole_proprietor": "unknown"
@@ -21415,7 +21408,13 @@
      "tag": "age",
      "issues": [],
      "rank": 2,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "age",
+      "min": 20,
+      "max": 39,
+      "quote": "만20세~만39세"
+     }
     },
     {
      "quote": "② 만기유지시 : 0.50%",
@@ -21449,24 +21448,17 @@
     "disclosed_bonus_pp": 1.5,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010390_310009",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -21515,24 +21507,17 @@
     "disclosed_bonus_pp": 1.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "capped",
    "benefit_status": "capped",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010390_310017",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -21572,35 +21557,20 @@
     "disclosed_bonus_pp": 1,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010390_310022",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
-     {
-      "var": "age",
-      "op": "<=",
-      "value": 18,
-      "quote": "만 18세 이하"
-     },
-     {
-      "var": "age",
-      "op": "<=",
-      "value": 18,
-      "quote": "만 18세 이하"
-     }
-    ],
+    "conditions": [],
     "unknown": [
      {
-      "var": "외국인",
-      "quote": "외국인"
+      "var": "여러 대상 중 하나",
+      "quote": "-만 18세 이하 본인 -만 18세 이하 자녀를 둔 부모 -비거주 외국인 외 제한 없음"
      },
      {
       "var": "자녀",
@@ -21685,7 +21655,7 @@
    "eligibility_status": "needs_check",
    "issues": [
     "읽지 못한 항목 1개",
-    "가입대상에 판정할 수 없는 조건: 외국인, 자녀, 부모, 일부제한"
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나, 자녀, 부모, 일부제한"
    ]
   },
   {
@@ -21694,10 +21664,6 @@
    "eligibility": {
     "conditions": [],
     "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     },
      {
       "var": "일부제한",
       "quote": "가입제한 3(일부제한)"
@@ -21763,7 +21729,7 @@
    "eligibility_status": "needs_check",
    "issues": [
     "읽지 못한 항목 1개",
-    "가입대상에 판정할 수 없는 조건: 외국인, 일부제한"
+    "가입대상에 판정할 수 없는 조건: 일부제한"
    ]
   },
   {
@@ -21771,12 +21737,7 @@
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -21816,12 +21777,10 @@
     "disclosed_bonus_pp": 1.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010391_KJ0001B",
@@ -22413,6 +22372,7 @@
    "eligibility_status": "needs_check",
    "issues": [
     "읽지 못한 항목 1개",
+    "원문 우대 최대 3.0%p인데 공시 최고 우대금리가 기본금리와 같음",
     "가입대상에 판정할 수 없는 조건: 부모"
    ]
   },
@@ -22699,12 +22659,15 @@
     "conditions": [],
     "unknown": [
      {
-      "var": "자녀",
-      "quote": "자녀"
-     },
-     {
-      "var": "부모",
-      "quote": "부모"
+      "var": "자녀 수",
+      "quote": "세명 이상의 미성년 자녀를 둔 부모",
+      "who": {
+       "type": "kids",
+       "min": 3,
+       "maybe_from": null,
+       "tiers": null,
+       "quote": "세명 이상의 미성년 자녀를 둔 부모"
+      }
      },
      {
       "var": "일부제한",
@@ -22735,7 +22698,7 @@
    "benefit_status": "verified",
    "eligibility_status": "needs_check",
    "issues": [
-    "가입대상에 판정할 수 없는 조건: 자녀, 부모, 일부제한"
+    "가입대상에 판정할 수 없는 조건: 자녀 수, 일부제한"
    ]
   },
   {
@@ -23011,14 +22974,7 @@
    "product_id": "PRD_saving_0010439_310012",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
-     {
-      "var": "age",
-      "op": "<",
-      "value": 19,
-      "quote": "만 19세미만"
-     }
-    ],
+    "conditions": [],
     "unknown": [
      {
       "var": "자녀",
@@ -23257,15 +23213,13 @@
    "product_id": "PRD_saving_0010449_NY310009",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
+    "conditions": [],
+    "unknown": [
      {
-      "var": "age",
-      "op": ">=",
-      "value": 19,
-      "quote": "만19세이상"
+      "var": "여러 대상 중 하나",
+      "quote": "만19세이상 내국인 개인고객, 본인 스마트폰 소지자, 신분증(주민등록증 또는 운전면허증)소지자, 미국인 납세"
      }
     ],
-    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -23286,10 +23240,12 @@
     "disclosed_bonus_pp": 0,
     "caveats": []
    },
-   "status": "verified",
+   "status": "needs_check",
    "benefit_status": "verified",
-   "eligibility_status": "verified",
-   "issues": []
+   "eligibility_status": "needs_check",
+   "issues": [
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나"
+   ]
   },
   {
    "product_id": "PRD_saving_0010453_310001",
@@ -23595,20 +23551,7 @@
    "product_id": "PRD_saving_0010456_310014",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
-     {
-      "var": "age",
-      "op": "<=",
-      "value": 7,
-      "quote": "만 7세이하"
-     },
-     {
-      "var": "age",
-      "op": "<=",
-      "value": 7,
-      "quote": "만7세 이하"
-     }
-    ],
+    "conditions": [],
     "unknown": [
      {
       "var": "자녀",
@@ -23867,17 +23810,93 @@
    "product_id": "PRD_saving_0010463_310007",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
+    "conditions": [],
+    "unknown": [
      {
-      "var": "age",
-      "op": ">=",
-      "value": 19,
-      "quote": "만19세이상"
+      "var": "여러 대상 중 하나",
+      "quote": "만19세이상 내국인 개인고객, 본인 스마트폰 소지자, 신분증(주민등록증 또는 운전면허증)소지자, 최근 30일"
      }
     ],
-    "unknown": [],
     "entity": {
      "individual": true,
+     "sole_proprietor": "unknown"
+    },
+    "one_per_person": false
+   },
+   "benefits": [],
+   "benefit_caps": [],
+   "limits": {
+    "monthly_max_manwon": null,
+    "quote": null,
+    "unlimited": false
+   },
+   "check": {
+    "items_reachable_pp": 0.0,
+    "cap_pp": null,
+    "reachable_pp": 0.0,
+    "disclosed_bonus_pp": 0.0,
+    "caveats": []
+   },
+   "status": "needs_check",
+   "benefit_status": "verified",
+   "eligibility_status": "needs_check",
+   "issues": [
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나"
+   ]
+  },
+  {
+   "product_id": "PRD_saving_0010464_310008",
+   "source_id": "S_finlife_saving_030300_202610",
+   "eligibility": {
+    "conditions": [],
+    "unknown": [],
+    "entity": {
+     "individual": false,
+     "sole_proprietor": "unknown"
+    },
+    "one_per_person": false
+   },
+   "benefits": [
+    {
+     "quote": "계약기간이 1년이상인 정기예금, 정기적금, 신용부금 만기수령액 이하를 1년 이상으로 재예치시",
+     "context": null,
+     "add_pp": null,
+     "tag": "deposit_size",
+     "issues": [
+      "금액 없음"
+     ],
+     "rank": 4,
+     "kind": "action"
+    }
+   ],
+   "benefit_caps": [],
+   "limits": {
+    "monthly_max_manwon": null,
+    "quote": null,
+    "unlimited": false
+   },
+   "check": {
+    "items_reachable_pp": 0.0,
+    "cap_pp": null,
+    "reachable_pp": 0.0,
+    "disclosed_bonus_pp": 0.0,
+    "caveats": []
+   },
+   "status": "needs_check",
+   "benefit_status": "needs_check",
+   "eligibility_status": "verified",
+   "issues": [
+    "읽지 못한 항목 1개"
+   ]
+  },
+  {
+   "product_id": "PRD_saving_0010464_310010",
+   "source_id": "S_finlife_saving_030300_202610",
+   "eligibility": {
+    "conditions": [],
+    "unknown": [],
+    "entity": {
+     "individual": false,
      "sole_proprietor": "unknown"
     },
     "one_per_person": false
@@ -23902,105 +23921,11 @@
    "issues": []
   },
   {
-   "product_id": "PRD_saving_0010464_310008",
-   "source_id": "S_finlife_saving_030300_202610",
-   "eligibility": {
-    "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
-    "entity": {
-     "individual": false,
-     "sole_proprietor": "unknown"
-    },
-    "one_per_person": false
-   },
-   "benefits": [
-    {
-     "quote": "계약기간이 1년이상인 정기예금, 정기적금, 신용부금 만기수령액 이하를 1년 이상으로 재예치시",
-     "context": null,
-     "add_pp": null,
-     "tag": "deposit_size",
-     "issues": [
-      "금액 없음"
-     ],
-     "rank": 4,
-     "kind": "action"
-    }
-   ],
-   "benefit_caps": [],
-   "limits": {
-    "monthly_max_manwon": null,
-    "quote": null,
-    "unlimited": false
-   },
-   "check": {
-    "items_reachable_pp": 0.0,
-    "cap_pp": null,
-    "reachable_pp": 0.0,
-    "disclosed_bonus_pp": 0.0,
-    "caveats": []
-   },
-   "status": "needs_check",
-   "benefit_status": "needs_check",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "읽지 못한 항목 1개",
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
-  },
-  {
-   "product_id": "PRD_saving_0010464_310010",
-   "source_id": "S_finlife_saving_030300_202610",
-   "eligibility": {
-    "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
-    "entity": {
-     "individual": false,
-     "sole_proprietor": "unknown"
-    },
-    "one_per_person": false
-   },
-   "benefits": [],
-   "benefit_caps": [],
-   "limits": {
-    "monthly_max_manwon": null,
-    "quote": null,
-    "unlimited": false
-   },
-   "check": {
-    "items_reachable_pp": 0.0,
-    "cap_pp": null,
-    "reachable_pp": 0.0,
-    "disclosed_bonus_pp": 0.0,
-    "caveats": []
-   },
-   "status": "needs_check",
-   "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
-  },
-  {
    "product_id": "PRD_saving_0010464_310011",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": false,
      "sole_proprietor": "unknown"
@@ -24021,24 +23946,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010464_310012",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": false,
      "sole_proprietor": "unknown"
@@ -24059,24 +23977,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010464_380001",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": false,
      "sole_proprietor": "unknown"
@@ -24111,10 +24022,9 @@
    },
    "status": "needs_check",
    "benefit_status": "needs_check",
-   "eligibility_status": "needs_check",
+   "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 1개",
-    "가입대상에 판정할 수 없는 조건: 외국인"
+    "읽지 못한 항목 1개"
    ]
   },
   {
@@ -24290,10 +24200,12 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "capped",
-   "benefit_status": "capped",
+   "status": "needs_check",
+   "benefit_status": "needs_check",
    "eligibility_status": "verified",
-   "issues": []
+   "issues": [
+    "원문 우대 최대 0.3%p인데 공시 최고 우대금리가 기본금리와 같음"
+   ]
   },
   {
    "product_id": "PRD_saving_0010468_310035",
@@ -24599,9 +24511,10 @@
     "caveats": []
    },
    "status": "needs_check",
-   "benefit_status": "capped",
+   "benefit_status": "needs_check",
    "eligibility_status": "needs_check",
    "issues": [
+    "원문 우대 최대 1.5%p인데 공시 최고 우대금리가 기본금리와 같음",
     "가입대상에 판정할 수 없는 조건: 다른 상품 보유"
    ]
   },
@@ -24668,6 +24581,7 @@
    "eligibility_status": "needs_check",
    "issues": [
     "읽지 못한 항목 1개",
+    "원문 우대 최대 1.5%p인데 공시 최고 우대금리가 기본금리와 같음",
     "가입대상에 판정할 수 없는 조건: 다른 상품 보유"
    ]
   },
@@ -25526,8 +25440,14 @@
      {
       "var": "age",
       "op": ">=",
+      "value": 1,
+      "quote": "1~19세"
+     },
+     {
+      "var": "age",
+      "op": "<=",
       "value": 19,
-      "quote": "19세"
+      "quote": "1~19세"
      }
     ],
     "unknown": [],
@@ -25795,7 +25715,14 @@
       "금액 없음"
      ],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "pregnant"
+      ],
+      "quote": "※ 가입기간 중 출산시 우대 금리 제공"
+     }
     },
     {
      "quote": "①가입기가 중 출산시 + 1.00%",
@@ -25804,7 +25731,14 @@
      "tag": "child",
      "issues": [],
      "rank": 2,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "pregnant"
+      ],
+      "quote": "①가입기가 중 출산시 + 1.00%"
+     }
     },
     {
      "quote": "②가입기간 중 다둥이 가정(미성년 자녀 2명 이상) 출산시 + 1.50%",
@@ -25835,7 +25769,8 @@
    "benefit_status": "needs_check",
    "eligibility_status": "verified",
    "issues": [
-    "읽지 못한 항목 1개"
+    "읽지 못한 항목 1개",
+    "원문 우대 최대 2.5%p인데 공시 최고 우대금리가 기본금리와 같음"
    ]
   },
   {
@@ -26259,26 +26194,18 @@
    "product_id": "PRD_saving_0010534_WR0001V",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
-     {
-      "var": "age",
-      "op": "<=",
-      "value": 18,
-      "quote": "만 18세이하"
-     }
-    ],
+    "conditions": [],
     "unknown": [
      {
-      "var": "다자녀",
-      "quote": "다자녀"
-     },
-     {
-      "var": "자녀",
-      "quote": "자녀"
-     },
-     {
-      "var": "부모",
-      "quote": "부모"
+      "var": "자녀 수",
+      "quote": "만 18세이하 다자녀를 둔 부모",
+      "who": {
+       "type": "kids",
+       "min": 3,
+       "maybe_from": 2,
+       "tiers": null,
+       "quote": "만 18세이하 다자녀를 둔 부모"
+      }
      }
     ],
     "entity": {
@@ -26299,7 +26226,23 @@
       "자녀 수 3명 이상 우대이율 3.0%"
      ],
      "tiered": true,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "kids",
+      "min": 2,
+      "maybe_from": null,
+      "tiers": [
+       [
+        2,
+        2.0
+       ],
+       [
+        3,
+        3.0
+       ]
+      ],
+      "quote": "만 18세 이하 자녀 수 2명 우대이율 2.0%,"
+     }
     }
    ],
    "benefit_caps": [],
@@ -26316,10 +26259,11 @@
     "caveats": []
    },
    "status": "needs_check",
-   "benefit_status": "capped",
+   "benefit_status": "needs_check",
    "eligibility_status": "needs_check",
    "issues": [
-    "가입대상에 판정할 수 없는 조건: 다자녀, 자녀, 부모"
+    "원문 우대 최대 3.0%p인데 공시 최고 우대금리가 기본금리와 같음",
+    "가입대상에 판정할 수 없는 조건: 자녀 수"
    ]
   },
   {
@@ -27294,12 +27238,7 @@
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -27320,24 +27259,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010576_310009",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -27358,24 +27290,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010576_310010",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -27396,24 +27321,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010576_310014",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -27434,24 +27352,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010576_310015",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -27472,24 +27383,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0010576_310016",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -27510,12 +27414,10 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0011551_310001",
@@ -27686,7 +27588,14 @@
      ],
      "rank": 1,
      "kind": "attribute",
-     "caveat": "한하여"
+     "caveat": "한하여",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "pregnant"
+      ],
+      "quote": "* 임신 또는 당해연도 출산(임신: 본인에 한하여 적용, 출산: 부모 기준 적용)"
+     }
     },
     {
      "quote": "* 미취학 자녀수 에 따른 차등 적용(만 1세 이상 만 6세 미만, 최대 3명까지 인정)",
@@ -27708,7 +27617,14 @@
       "금액 없음"
      ],
      "rank": 1,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "single_parent"
+      ],
+      "quote": "* 한부모가족 지원 대상자"
+     }
     }
    ],
    "benefit_caps": [],
@@ -28221,12 +28137,7 @@
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -28247,24 +28158,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0012889_310041",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -28285,24 +28189,17 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0012889_310042",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
     "conditions": [],
-    "unknown": [
-     {
-      "var": "외국인",
-      "quote": "외국인"
-     }
-    ],
+    "unknown": [],
     "entity": {
      "individual": true,
      "sole_proprietor": "unknown"
@@ -28323,12 +28220,10 @@
     "disclosed_bonus_pp": 0.0,
     "caveats": []
    },
-   "status": "needs_check",
+   "status": "verified",
    "benefit_status": "verified",
-   "eligibility_status": "needs_check",
-   "issues": [
-    "가입대상에 판정할 수 없는 조건: 외국인"
-   ]
+   "eligibility_status": "verified",
+   "issues": []
   },
   {
    "product_id": "PRD_saving_0012889_310057",
@@ -28367,7 +28262,14 @@
      "tag": "child",
      "issues": [],
      "rank": 2,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "pregnant"
+      ],
+      "quote": "① 출산예정인자-배우자 포함(0.2%)"
+     }
     },
     {
      "quote": "② 당해연도 출생한 부모(0.3%)",
@@ -28387,7 +28289,14 @@
      "tag": "child",
      "issues": [],
      "rank": 2,
-     "kind": "attribute"
+     "kind": "attribute",
+     "who": {
+      "type": "flags",
+      "flags": [
+       "single_parent"
+      ],
+      "quote": "③ 미성년자 자녀가 있는 한부모 가정의 부모(0.3%)"
+     }
     },
     {
      "quote": "④ 핵심예금 자동이체 신청시 0.1%",
@@ -28422,6 +28331,7 @@
    "eligibility_status": "needs_check",
    "issues": [
     "읽지 못한 항목 1개",
+    "원문 우대 최대 0.5%p인데 공시 최고 우대금리가 기본금리와 같음",
     "가입대상에 판정할 수 없는 조건: 한부모, 자녀, 부모, 일부제한"
    ]
   },
@@ -28676,15 +28586,12 @@
    "product_id": "PRD_saving_0013127_310006",
    "source_id": "S_finlife_saving_030300_202610",
    "eligibility": {
-    "conditions": [
-     {
-      "var": "age",
-      "op": ">=",
-      "value": 65,
-      "quote": "만65세이상"
-     }
-    ],
+    "conditions": [],
     "unknown": [
+     {
+      "var": "여러 대상 중 하나",
+      "quote": "기초생활수급자, 소년소녀가장, 한부모가족지원보호대상자, 새터민, 만65세이상 차상위계층, 장애인연금·장애수당"
+     },
      {
       "var": "장애",
       "quote": "장애"
@@ -28736,7 +28643,7 @@
    "benefit_status": "verified",
    "eligibility_status": "needs_check",
    "issues": [
-    "가입대상에 판정할 수 없는 조건: 장애, 기초생활, 한부모, 부모"
+    "가입대상에 판정할 수 없는 조건: 여러 대상 중 하나, 장애, 기초생활, 한부모, 부모"
    ]
   },
   {
@@ -29264,8 +29171,14 @@
      {
       "var": "age",
       "op": ">=",
+      "value": 19,
+      "quote": "19~39세"
+     },
+     {
+      "var": "age",
+      "op": "<=",
       "value": 39,
-      "quote": "39세"
+      "quote": "19~39세"
      }
     ],
     "unknown": [

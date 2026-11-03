@@ -82,9 +82,12 @@ def test_api_fit_and_validation(monkeypatch):
     assert call({**base, "product_type_id": "P_joint_account"})[1]["available"] is False
 
 
-def test_api_off_in_public(monkeypatch):
-    monkeypatch.setenv("VERCEL", "1")
+def test_api_on_in_public_and_switchable(monkeypatch):
+    monkeypatch.setenv("VERCEL", "1")  # 공개 배포에서도 켠다(2026-11-03 형님 결정)
     monkeypatch.delenv("REAL_PRODUCTS", raising=False)
-    st, out = call({"family": F.preset("newly"), "need_id": "N_leave_fund", "product_type_id": "P_installment_savings", "member_id": "m1"})
-    assert st == 404
+    body = {"family": F.preset("newly"), "need_id": "N_leave_fund", "product_type_id": "P_installment_savings", "member_id": "m1"}
+    assert call(body)[0] == 200
+    assert dispatch("POST", "/api/config", b"{}", {}, "t")[1]["real_products"] is True
+    monkeypatch.setenv("REAL_PRODUCTS", "0")
+    assert call(body)[0] == 404
     assert dispatch("POST", "/api/config", b"{}", {}, "t")[1]["real_products"] is False

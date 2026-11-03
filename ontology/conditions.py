@@ -24,8 +24,8 @@ TAGS = [
     ("job", "직업·사업자·학력", "attribute", r"근로자|재직|공무원|군인|나라사랑|개인사업자|사업자\s*계좌|졸업|사관학교"),
     ("age", "나이", "attribute", r"만\s*\d+\s*[~∼-]?\s*\d*\s*세|청년|시니어|어르신|MZ"),
     ("child", "출산·자녀", "attribute", r"출산|임신|자녀|다자녀|육아|태아|아이"),
-    ("housing", "주거(무주택 등)", "attribute", r"무주택|신혼|주택\s*소유"),
-    ("welfare", "복지 대상(비과세종합저축·장애 등)", "attribute", r"비과세종합저축|장애|기초생활|국가유공|한부모|저소득"),
+    ("housing", "주거(무주택 등)", "attribute", r"무주택|신혼|주택\s*소유|세대주"),
+    ("welfare", "복지 대상(비과세종합저축·장애 등)", "attribute", r"비과세종합저축|장애|기초생활|국가유공|한부모|저소득|소득취약|전세사기"),
     ("new_customer", "첫 거래 고객", "relation", r"첫\s*거래|첫거래|첫\s*예금|신규\s*고객|최초\s*(거래|신규)|미보유|이력\s*미보유|보유\s*이력이\s*없|해지\s*이력|퍼스트\s*고객|처음"),
     ("loyalty", "주거래·거래 실적·등급", "relation", r"VIP|우수\s*고객|등급|주거래|평잔|총수신|요구불|거래\s*실적|장기\s*거래|복수\s*거래|교차\s*거래|탑스"),
     ("salary", "급여·연금 받기", "action", r"급여|소득\s*이체|연금\s*(입금|이체|수령)|연금이체"),
@@ -172,6 +172,11 @@ def parse_benefits(text: str) -> dict:
         cav = _CAVEAT.search(it["quote"] + " " + (it.get("context") or ""))
         if cav:
             it["caveat"] = cav.group(0)
+        if it["kind"] == "attribute" and it.get("role") != "group":
+            who = person_rule(chr(10).join([it["quote"]] + it.get("more_quotes", [])))
+            if who:
+                assert who["quote"] in text  # G3
+                it["who"] = who
     return {"items": items, "caps": caps, "notes": notes, "none": False}
 
 
@@ -249,28 +254,143 @@ def reachable(items: list[dict]) -> float:
     return round(base + max((_sum([it for it in items if it.get("alt") == a]) for a in alts), default=0.0), 2)
 
 
-_AGE = re.compile(r"(?:만\s*)?(\d+)\s*세\s*(이상|이하|미만|초과)?(?:\s*[~∼-]\s*(?:만\s*)?(\d+)\s*세\s*(이하|미만)?)?")
+# ---------- 사람 조건(5단계): 우대·가입대상의 사람 조건을 가족 정보로 판정 ----------
+# 가족이 고르는 사람 조건. 고르면 '해당', 안 고르면 '모름'(해당 안 됨이 아님). 금융회사가 가입할 때 증빙으로 확인한다.
+PERSON = {
+    "pregnant": "임신 중이에요(출산 예정)", "newborn": "2년 안에 태어난 아이가 있어요", "single_parent": "한부모 가정이에요",
+    "disabled": "장애인으로 등록돼 있어요", "low_income": "기초생활수급·차상위예요", "employee": "직장에 다녀요(근로자)",
+    "self_employed": "자영업자(개인사업자)예요",
+}
+_KIDS_AGE = re.compile(r"(?:만\s*)?(\d+)\s*세\s*(이하|미만)?\s*(?:의\s*)?(?:다자녀|자녀|가구원|고객\s*수|아동)")
+_NUM = {"한": 1, "두": 2, "세": 3, "네": 4}
+_COUNT = re.compile(r"(\d|한|두|세|네)\s*[명인]\s*(이상)?")
+_TIER_KIDS = re.compile(r"(\d)\s*명\s*(이상)?\s*[^\d%]{0,12}?(\d+(?:\.\d+)?)\s*%")
+_HOLDER_AGE = re.compile(r"만?\s*(\d+)\s*세?\s*[~∼-]\s*만?\s*(\d+)\s*세\s*(이하|미만)?|만?\s*(\d+)\s*세\s*(이상|이하|미만)?")
+
+
+def _line(t: str, rx: str) -> str:
+    """rx가 처음 나오는 원문 줄(근거로 보여 줄 인용)."""
+    return next(l.strip() for l in t.split(chr(10)) if re.search(rx, l))
+
+
+def _composite(t: str) -> bool:
+    """여러 조건을 나열한 줄("-정기예금 이용 -첫번째 적금 가입 … -60세 이상", "착한운전마일리지 신청자, 저공해차량 운전자, …")은 어느 조건인지 하나로 정할 수 없다."""
+    return len(re.findall(r"(?:^|\s)-\S", t)) >= 3 or t.count(",") >= 3
+
+
+def person_rule(t: str) -> dict | None:
+    """사람 조건 글 → 판정 규칙. 하나로 정할 수 없으면 None(화면에서 '해당되면'으로 남는다). quote는 원문에 그대로 있는 글.
+    type: age(계좌 주인 나이) / kids(18세 이하 자녀 수, tiers = 명수별 우대) / flags(가족이 고르는 조건 중 하나라도)."""
+    if not t or _composite(t) or re.search(r"비과세종합저축|전세사기|세대주|청년층|중소기업|졸업|계좌\s*실적|통장\s*가입|아이계좌|아이사랑|공무원|국가유공", t):
+        return None  # 비과세종합저축: 2026년 대상 변경을 1차 출처(법령)로 확인 못 함(docs/13). 나머지: 가족 정보로 알 수 없음
+    flags = []
+    for f, rx in (("single_parent", r"한부모"), ("disabled", r"장애인\s*(등록|연금)|장애인\s*$|장애인\s*고객"), ("low_income", r"기초생활|차상위|소득취약|저소득"),
+                  ("pregnant", r"임신|출산\s*예정|출산예정|가입\s*기간\s*(중|내)[^%]*출산|가입기가\s*중\s*출산"),
+                  ("newborn", r"\d\s*년\s*이내\s*출생"), ("employee", r"직장인|근로자|재직"), ("self_employed", r"자영업|개인사업자")):
+        if re.search(rx, t):
+            flags.append(f)
+    if flags:
+        if "single_parent" in flags or "disabled" in flags or "low_income" in flags:
+            flags = [f for f in flags if f in ("single_parent", "disabled", "low_income")]
+        if re.search(r"다둥이|미성년\s*자녀\s*\d", t) and "pregnant" in flags:
+            return None  # "다둥이 가정 출산시": 출산과 자녀 수가 함께 걸린 조건
+        return {"type": "flags", "flags": flags, "quote": _line(t, r"한부모|장애인|기초생활|차상위|소득취약|저소득|임신|출산|출생|직장인|근로자|재직|자영업|개인사업자")}
+    k = _KIDS_AGE.search(t)
+    if k or re.search(r"다자녀|미성년\s*자녀|미성년자\s*자녀", t):
+        if k and not (int(k.group(1)) == 18 and k.group(2) != "미만" or int(k.group(1)) == 19 and k.group(2) == "미만"):
+            return None  # 12세·16세·미취학 등 자녀 나이 조건: 가족 정보로 자녀 나이를 알 수 없다
+        if re.search(r"가구원|고객\s*수|미취학", t):
+            return None
+        tiers = [[int(n), float(pp)] for n, _, pp in _TIER_KIDS.findall(t)]
+        c = _COUNT.search(t)
+        if tiers:
+            lo = min(n for n, _ in tiers)
+        elif c:
+            lo = _NUM.get(c.group(1)) or int(c.group(1))
+        elif re.search(r"다자녀", t):
+            return {"type": "kids", "min": 3, "maybe_from": 2, "tiers": None, "quote": _line(t, "다자녀")}  # 은행마다 2명·3명
+        else:
+            lo = 1
+        q = _line(t, "다자녀|미성년|자녀")
+        return {"type": "kids", "min": lo, "maybe_from": None, "tiers": tiers or None, "quote": q}
+    if re.search(r"자녀|아이|육아|태아", t):
+        return None
+    a = _HOLDER_AGE.search(t)
+    if a:
+        r_lo, r_hi, r_op, lo, op = a.groups()
+        q = a.group(0).strip()
+        if r_lo:
+            return {"type": "age", "min": int(r_lo), "max": int(r_hi) - (r_op == "미만"), "quote": q}
+        lo = int(lo)
+        if op in ("이하", "미만"):
+            return {"type": "age", "min": None, "max": lo - (op == "미만"), "quote": q}
+        return {"type": "age", "min": lo, "max": None, "quote": q}
+    return None
+
+
+def person_label(who: dict) -> str:
+    if who["type"] == "age":
+        lo, hi = who["min"], who["max"]
+        return f"나이 만 {lo}~{hi}세" if lo is not None and hi is not None else f"나이 만 {lo}세 이상" if lo is not None else f"나이 만 {hi}세 이하"
+    if who["type"] == "kids":
+        return f"다자녀(18세 이하 자녀 {who['min']}명 이상 기준)" if who.get("maybe_from") else f"18세 이하 자녀 {who['min']}명 이상"
+    return " 또는 ".join(PERSON[f] for f in who["flags"])
+
+
+def judge_person(who: dict, age: int, kids: int | None, flags: set[str]) -> tuple[str, float | None]:
+    """(met | not_met | unknown, 명수별 우대가 있으면 그 금리). 나이는 계좌 주인 나이로 확실히 판정.
+    자녀 수는 가족이 '없음·1·2·3명 이상'을 고르면 판정, '모름'이면 unknown. 다른 조건은 고르면 met, 안 고르면 unknown(not_met 아님)."""
+    if who["type"] == "age":
+        ok = (who["min"] is None or age >= who["min"]) and (who["max"] is None or age <= who["max"])
+        return ("met" if ok else "not_met"), None
+    if who["type"] == "kids":
+        if kids is None:
+            return "unknown", None
+        if kids >= who["min"]:
+            hit = [pp for n, pp in (who["tiers"] or []) if kids >= n]
+            return "met", (max(hit) if hit else None)
+        return ("unknown" if who.get("maybe_from") and kids >= who["maybe_from"] else "not_met"), None
+    return ("met" if set(who["flags"]) & flags else "unknown"), None
+
+
+_AGE = re.compile(r"(?:만\s*)?(\d+)\s*세?\s*[~∼-]\s*(?:만\s*)?(\d+)\s*세\s*(이하|미만)?|(?:만\s*)?(\d+)\s*세\s*(이상|이하|미만|초과)?")
 
 
 def parse_eligibility(join_member: str, join_deny: str) -> dict:
     """가입대상 글 + 가입제한 코드 → 판정할 수 있는 조건과 알 수 없는 조건."""
     t = join_member or ""
     conds, unknown = [], []
+    parent = re.search(r"부모|자녀를?\s*둔|자녀의|자녀가", t)  # 부모도 가입할 수 있는 상품(자녀 적금 등)
     for m in _AGE.finditer(t):
-        lo, op1, hi, op2 = m.groups()
+        r_lo, r_hi, r_op, lo, op1 = m.groups()  # "19~39세"·"1~19세"처럼 앞 숫자에 '세'가 없는 범위도 범위로 읽는다
+        lo, hi, op2 = (r_lo, r_hi, r_op) if r_lo else (lo, None, None)
         q = m.group(0)
+        if re.match(r"\s*(의\s*)?(미성년\s*)?(다자녀|자녀|아동|가구원|손자)", t[m.end():]):
+            continue  # "만 18세이하 다자녀를 둔 부모": 자녀 나이지 가입하는 사람 나이가 아니다
         if hi:
             conds.append({"var": "age", "op": ">=", "value": int(lo), "quote": q})
             conds.append({"var": "age", "op": "<=" if op2 != "미만" else "<", "value": int(hi), "quote": q})
         else:
             op = {"이상": ">=", "이하": "<=", "미만": "<", "초과": ">", None: ">="}[op1]
             conds.append({"var": "age", "op": op, "value": int(lo), "quote": q})
+    if conds and _composite(t):  # "기초생활수급자, 소년소녀가장, …, 만65세이상 차상위계층, …": 나이는 여러 대상 중 하나에만 걸린다
+        conds = []
+        unknown.append({"var": "여러 대상 중 하나", "quote": t.strip()[:60]})
+    if parent:  # "-만 18세 이하 본인 -만 18세 이하 자녀를 둔 부모": 나이 상한은 자녀 본인 가입 쪽이라 부모를 빼면 안 된다
+        conds = [c for c in conds if c["op"] in (">=", ">")]
     entity = {"individual": bool(re.search(r"개인|제한\s*없|누구나|거래대상자는\s*제한|내국인|실명", t)) or not t,
               "sole_proprietor": "excluded" if re.search(r"개인사업자\s*(는\s*)?제외", t)  # "개인(개인사업자 제외)"를 먼저 본다
               else "included" if re.search(r"개인\s*(및|과|\()?\s*개인사업자|개인사업자\s*포함", t) else "unknown"}
     for kw in ("청년", "서민", "장애", "기초생활", "다자녀", "한부모", "외국인", "임직원", "학생", "군인", "사업자등록", "근로자", "자녀", "부모", "여성", "남성"):
+        if kw == "외국인" and not re.search(r"외국인\s*(전용|만|대상\s*상품)", t):
+            continue  # "비거주 외국인 외 제한없음", "내·외국인 대상": 제외 문구라 가족마다 다른 조건이 아니다
         if kw in t and not (kw == "청년" and conds):
             unknown.append({"var": kw, "quote": kw})
+    if re.search(r"무주택", t):
+        unknown.append({"var": "무주택", "quote": re.search(r"무주택\s*\S*", t).group(0)})
+    who = person_rule(t) if not re.search(r"하나\s*이상|또는|본인|및\s*자녀", t) else None
+    if who and who["type"] == "kids":  # "만 18세이하 다자녀를 둔 부모"처럼 자녀 조건 하나뿐인 가입대상
+        unknown = [u for u in unknown if u["var"] not in ("자녀", "부모", "다자녀")] + [{"var": "자녀 수", "quote": who["quote"], "who": who}]
     if re.search(r"보유한|보유\s*고객|통장\s*보유", t):
         unknown.append({"var": "다른 상품 보유", "quote": re.search(r"[^\s,]*\s*[^\s,]*\s*(보유한|보유\s*고객|통장\s*보유)", t).group(0)})
     if join_deny == "2":
@@ -339,6 +459,8 @@ def check_product(p: dict) -> dict:
             issues.append(f"읽지 못한 항목 {len(bad)}개")
         if reach < disclosed - 0.051:  # G5: 공시보다 적게 뽑힘 = 빠진 항목
             issues.append(f"뽑은 우대 {reach}%p < 공시 최고 우대 {disclosed}%p")
+        elif reach > disclosed + 0.051 and disclosed <= 0.005:  # 원문에는 우대가 있는데 공시 최고금리 = 기본금리: 어느 쪽이 맞는지 모름
+            issues.append(f"원문 우대 최대 {reach}%p인데 공시 최고 우대금리가 기본금리와 같음")
         elif reach > disclosed + 0.051 and not issues:
             benefit_status = "capped"  # 택일·단계형이 섞여 합이 공시보다 큼. 공시 최고 우대로 제한해 쓴다
     if issues:

@@ -73,7 +73,13 @@ def _r3(i):
 
 
 def _r4a(i):
-    return {"proposal": "각자 꼭 지키고 싶다고 한 것을 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 계산해 보면 어떨까요?",
+    ids = [c["card_id"] for c in i.get("cards", [])]
+    pick = next((c for c in ("C_short_money_no_risk", "C_home_for_living", "C_emergency_fund") if c in ids), ids[0] if ids else None)
+    why = {"C_short_money_no_risk": "1~2년 안에 쓸 돈은 원금이 줄 수 있는 곳에 두지 않는 게 원칙이라서",
+           "C_home_for_living": "집이 있으면 그 집에 살면서도 생활비를 마련하는 길이 있어서",
+           "C_emergency_fund": "갑자기 쓸 돈은 바로 꺼낼 수 있게 따로 두는 게 기본이라서"}.get(pick, "")
+    lead = f"[[card:{pick}|{why}]] " if pick and why else ""
+    return {"proposal": lead + "각자 꼭 지키고 싶다고 한 것을 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 계산해 보면 어떨까요?",
             "to": [m["member_id"] for m in i["members"]],
             "bridges": [{"issue_title": "무엇을 먼저 할까", "how": "순서 대신 조건으로 정하면 둘 다 지킬 수 있어요."}]}
 

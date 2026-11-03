@@ -13,14 +13,16 @@ const G = {
   물가: "같은 물건값이 해마다 오르는 정도예요. 생활비는 해마다 조금씩 늘어난다고 보고 계산해요.",
 };
 const T = (w, k) => `<button type="button" class="term" data-def="${G[k || w]}">${w}</button>`;
+// 공동 목표 제안 속 재무 원리 카드 근거([[card:ID|근거 문구]]): 문구를 누르면 그 자리에서 원문 인용·출처가 보인다(용어 풀이와 같은 방식)
+const cardText = (text, cards) => { const by = Object.fromEntries((cards || []).map(c => [c.card_id, c])); return String(text || "").split(/(\[\[card:[A-Za-z0-9_]+\|[^\]|]+\]\])/).map(part => { const m = part.match(/^\[\[card:([A-Za-z0-9_]+)\|([^\]|]+)\]\]$/); if (!m) return esc(part); const c = by[m[1]]; if (!c) return esc(m[2]); const def = c.quotes.map(q => `“${q.quote}”`).join("\n") + `\n— ${c.quotes[0].publisher} 「${c.quotes[0].source_title}」(${c.published})`; return `<button type="button" class="term cardref" data-def="${esc(def)}">${esc(m[2].trim())}</button>`; }).join(""); };
 const VL = { good: ["좋아요", "✓"], cond: ["괜찮아요, 단", "△"], no: ["받아들이기 어려워요", "✕"] };
 const SRC = { goal_setting: "공동 목표", condition: "조건", revision: "수정안", keep: "꼭 지키고 싶은 것" };
 const GT = { reach_target: "목표 금액 모으기", runway: "예금이 얼마나 버티는지", debt_free: "대출 다 갚기" };
 const METRIC = { reach_target: "목표에 닿는 때", runway: "예금이 버티는 기간", debt_free: "대출을 다 갚는 때" };
 
-// 녹화본 체험판(web/demo.html, tools/build_demo.py)에서는 예시대로만 진행한다: AI 답은 녹화본, 계산은 브라우저 안의 Python.
+// mock 체험판(web/demo.html, tools/build_demo.py)에서는 예시대로만 진행한다: AI 답은 재생 공급자(mock), 계산은 브라우저 안의 Python.
 const DEMO = !!(window.ONEHEART && window.ONEHEART.DEMO);
-const STORE = DEMO ? "oneheart.demo.v1" : "oneheart.v2";
+const STORE = DEMO ? "oneheart.demo.v2" : "oneheart.v2";
 const $ = s => document.querySelector(s);
 const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const won = v => { const a = Math.abs(Math.round(v)), s = v < 0 ? "-" : ""; if (a >= 10000) { const e = Math.floor(a / 10000), r = a % 10000; return s + e + "억" + (r ? " " + r.toLocaleString("ko-KR") + "만" : "") + "원"; } return s + a.toLocaleString("ko-KR") + "만원"; };
@@ -118,6 +120,7 @@ const next = (label, dis, hint) => `<div class="next">${prevBtn()}<span class="p
 const turn = (list, what) => { const o = list.filter(m => m !== viewer()); return o.length ? `<div class="turn"><span>${o.map(m => esc(mem(m).name) + "님").join(", ")}의 ${what}이 남았어요.</span><button class="btn sm" data-act="viewer" data-mid="${o[0]}">${esc(mem(o[0]).name)}님 차례로 바꾸기</button></div>` : ""; };
 const oneDevice = () => `<div class="onedev"><b>한 기기에서 가족이 돌아가며 입력해요</b><span>아래 검은 막대의 <b>보는 사람</b>을 바꾸면 그 사람의 화면이 돼요. 실제 서비스에서는 가족마다 자기 휴대폰에서 알림을 받고 직접 입력해요.</span></div>`;
 const customOn = () => !CFG || CFG.custom_family !== false;
+const retSource = b => { const id = (b.source || "").startsWith("assumption:") ? b.source.slice(11) : "", r = (CFG?.assumptions?.returns || []).find(x => x.id === id); return r && r.expected_return === b.value ? r.source || "" : ""; }; // 수익률 가정값의 출처(data/assumptions.json). 예전에 저장한 계산이라 값이 다르면 보이지 않는다
 const presetLocked = () => !customOn() && S() && S().key !== "custom"; // 공개 체험판: 예시 가족의 기본 정보는 고칠 수 없음
 function applyPublicMode(h) {
   if (h.custom_family !== false) return;
@@ -268,10 +271,10 @@ function s2() {
   let action = "";
   if (st.answers.length < CFG.questions.length) {
     const ex = s.scripts?.answers?.[vw]?.[st.answers.length];
-    action = DEMO ? `<textarea id="ans" readonly>${esc(ex || "")}</textarea><div class="crow"><span class="cs" style="flex:1">녹화본 체험이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
+    action = DEMO ? `<textarea id="ans" readonly>${esc(ex || "")}</textarea><div class="crow"><span class="cs" style="flex:1">체험판이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
       : `<textarea id="ans" maxlength="500" placeholder="${esc(m.name)}님의 답을 적어 주세요">${esc(st.draft || "")}</textarea><div class="crow">${ex ? `<button class="btn sm" data-act="fill-ans">예시 답 넣기</button>` : ""}<button class="btn primary sm" data-act="send-ans">보내기</button></div>`;
   } else if (!started(st.review) && st.review.status !== "error") action = `<button class="btn primary" data-act="finish" data-mid="${vw}">대화 마치고 AI 요약 받기</button>`;
-  else if (st.clar?.state === "asking" && DEMO) action = `<span class="cs">녹화본 체험이라 1번 답으로 이어가요</span>`;
+  else if (st.clar?.state === "asking" && DEMO) action = `<span class="cs">체험판이라 1번 답으로 이어가요</span>`;
   else if (st.clar?.state === "asking") action = `<input id="clarTxt" placeholder="또는 직접 적어 주세요" maxlength="200"><button class="btn sm" data-act="clar-text" data-mid="${vw}">보내기</button>`;
   else if (st.clar?.state === "later") action = `<span class="cs">질문에 답해야 요약을 공유할 수 있어요. 다른 가족이 먼저 이야기해도 괜찮아요.</span><button class="btn primary sm" data-act="clar-resume" data-mid="${vw}">지금 답하기</button>`;
   else if (st.summary && !st.confirmed) action = `<button class="btn primary" data-act="confirm" data-mid="${vw}">요약 확인하고 가족에게 공유하기</button>`;
@@ -319,7 +322,7 @@ function goalForm() {
    ${g.type === "reach_target" ? `<label>언제까지(선택)<div class="amt-in"><input data-gf="within_years" data-num value="${g.within_months ? g.within_months / 12 : ""}" inputmode="decimal"><span>년 안</span></div></label>` : ""}
    ${g.type === "runway" ? `<label>누구 나이로 볼까요<select data-gf="base_member_id">${f.members.map(m => `<option value="${m.member_id}" ${g.base_member_id === m.member_id ? "selected" : ""}>${esc(m.name)}(${m.age}세)</option>`).join("")}</select></label>` : ""}
   </div>${g.target_note ? `<p class="cs" style="color:var(--warm)">${esc(g.target_note)}</p>` : ""}
-  ${DEMO ? `<p class="cs">녹화본 체험이라 목표는 예시 값 그대로예요</p>` : ""}<div class="row" style="margin-top:10px">${!DEMO && s.scripts?.goal_form && chk.status !== "done" ? `<button class="btn sm" data-act="fill-goal">예시 값 넣기</button>` : ""}${chk.status === "done" ? `<span class="cs">✓ 계산할 수 있는 목표예요. 지금 모여 있는 돈 ${won(chk.goal.start_pool)}(${esc(chk.goal.pool_label)})에서 시작해, 앞으로 ${chk.goal.horizon_months / 12}년 동안을 달마다 계산해서 ${g.type === "reach_target" ? "목표에 닿는 때" : g.type === "runway" ? "예금이 바닥나는 때" : "대출을 다 갚는 때"}를 찾아요.</span>` : `<button class="btn sm" data-act="goal-check">이 목표로 계산할 수 있는지 확인</button>`}</div>${pend(chk, "확인하고 있어요")}`;
+  ${DEMO ? `<p class="cs">체험판이라 목표는 예시 값 그대로예요</p>` : ""}<div class="row" style="margin-top:10px">${!DEMO && s.scripts?.goal_form && chk.status !== "done" ? `<button class="btn sm" data-act="fill-goal">예시 값 넣기</button>` : ""}${chk.status === "done" ? `<span class="cs">✓ 계산할 수 있는 목표예요. 지금 모여 있는 돈 ${won(chk.goal.start_pool)}(${esc(chk.goal.pool_label)})에서 시작해, 앞으로 ${chk.goal.horizon_months / 12}년 동안을 달마다 계산해서 ${g.type === "reach_target" ? "목표에 닿는 때" : g.type === "runway" ? "예금이 바닥나는 때" : "대출을 다 갚는 때"}를 찾아요.</span>` : `<button class="btn sm" data-act="goal-check">이 목표로 계산할 수 있는지 확인</button>`}</div>${pend(chk, "확인하고 있어요")}`;
 }
 const hasBatchim = w => { const c = (w || "").trim().slice(-1).charCodeAt(0); return c >= 0xac00 && c <= 0xd7a3 ? (c - 0xac00) % 28 !== 0 : false; };
 function replyChips(mid) {
@@ -354,9 +357,9 @@ function s3() {
   <section class="sec"><h2 class="st">이미 같은 생각인 부분</h2><ul class="agree">${r.agreed_points.map(a => `<li><span class="chk">✓</span><span>${esc(a)}</span></li>`).join("")}</ul></section>
   <section class="sec"><h2 class="st">생각이 갈리는 부분</h2><p class="cs" style="margin-bottom:6px">AI가 확인된 요약을 바탕으로 각자의 생각이 어디쯤인지 정리했어요(대화 원문은 쓰지 않아요)</p>${r.issues.map(is => `<div class="issue">${camp(is)}</div>`).join("")}</section>
   <section class="sec"><h2 class="st">1단계 · AI의 제안</h2>
-   ${p ? `<div class="aibox"><p class="q">${esc(p.text)}</p><div class="to">받는 사람 ${p.to.map(m => av(m, "sm")).join("")} ${p.to.map(m => esc(mem(m).name) + "님").join(", ")}</div></div>${vbadge(g.verification, g.calls)}` : `<div class="failbox"><b>제안을 만들지 못했어요</b><button class="btn sm" data-act="retry-goal">다시 시도</button></div>`}
+   ${p ? `<div class="aibox"><p class="q">${cardText(p.text, p.cards)}</p>${p.cards?.length ? `<p class="cs">밑줄 친 근거를 누르면 금융감독원 금융교육 자료 원문이 보여요</p>` : ""}<div class="to">받는 사람 ${p.to.map(m => av(m, "sm")).join("")} ${p.to.map(m => esc(mem(m).name) + "님").join(", ")}</div></div>${vbadge(g.verification, g.calls)}` : `<div class="failbox"><b>제안을 만들지 못했어요</b><button class="btn sm" data-act="retry-goal">다시 시도</button></div>`}
    ${replied.length ? `<div class="replies">${replied.map(m => `<div class="reply">${av(m, "sm")}<div><b>${esc(mem(m).name)}님의 답${m === vw ? " (나)" : ""}</b>${esc(s.replies[m])}</div></div>`).join("")}</div>` : ""}
-   ${p && p.to.includes(vw) && s.replies[vw] == null ? `<div class="act"><div class="rl">${av(vw, "sm")}${esc(mem(vw).name)}님의 답을 남겨 주세요</div>${DEMO ? `<textarea id="myReply" readonly>${esc(ex || "")}</textarea><div class="row"><span class="cs" style="flex:1">녹화본 체험이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="reply">답 보내기</button></div>`
+   ${p && p.to.includes(vw) && s.replies[vw] == null ? `<div class="act"><div class="rl">${av(vw, "sm")}${esc(mem(vw).name)}님의 답을 남겨 주세요</div>${DEMO ? `<textarea id="myReply" readonly>${esc(ex || "")}</textarea><div class="row"><span class="cs" style="flex:1">체험판이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="reply">답 보내기</button></div>`
      : `<div class="chips">${replyChips(vw).map(t => `<button class="chip" data-act="reply-chip" data-t="${esc(t)}">${esc(t)}</button>`).join("")}</div><textarea id="myReply" maxlength="500" placeholder="추천 문구를 누르거나 직접 적어 주세요"></textarea><div class="row"><span style="flex:1"></span>${ex ? `<button class="btn sm" data-act="fill-reply">예시 답 넣기</button>` : ""}<button class="btn primary sm" data-act="reply">답 보내기</button></div>`}</div>` : ""}
    ${p ? turn(p.to.filter(m => s.replies[m] == null), "답") : ""}
   </section>
@@ -449,7 +452,7 @@ function s4() {
    ${r.range ? `<details class="tune"><summary>운이 좋을 때와 나쁠 때도 보기(보조 정보)</summary><p class="cs" style="margin-top:8px">같은 계획을 ${r.range.paths}번, 매번 다른 경기 상황을 가정해 계산했어요. ${g.type === "reach_target" ? `운이 좋으면 ${r.range.p10_hit_month ? (r.range.p10_hit_month / 12).toFixed(1) + "년" : "-"}, 보통 ${r.range.p50_hit_month ? (r.range.p50_hit_month / 12).toFixed(1) + "년" : "-"}, 운이 나쁘면 ${r.range.p90_hit_month ? (r.range.p90_hit_month / 12).toFixed(1) + "년" : "기간 안에 못 모임"}${g.within_months ? ` · ${g.within_months / 12}년 안에 모일 가능성 ${Math.round(r.range.prob_reach_within * 100)}%` : ""}` : `끝까지 예금이 남을 가능성 ${Math.round((r.range.prob_last_through ?? 0) * 100)}%`}</p></details>` : ""}
   </section>
   <section class="sec"><h2 class="st">이렇게 계산했어요</h2>
-   <table class="btab"><thead><tr><th>항목</th><th>값</th><th>어디서 나왔나요</th></tr></thead><tbody>${r.basis.map(b => `<tr><td class="bk">${esc(b.label)}</td><td class="bv num">${esc(b.display)}</td><td class="bd">${esc(b.detail || "")}<span class="src">${esc({ financial_snapshot: "가족이 넣은 금융정보", option: "AI가 고른 방법", goal_setting: "공동 목표", assumption: "가정" }[b.source] || (b.source.startsWith("assumption") ? "가정(공개)" : b.source))}</span></td></tr>`).join("")}</tbody></table>
+   <table class="btab"><thead><tr><th>항목</th><th>값</th><th>어디서 나왔나요</th></tr></thead><tbody>${r.basis.map(b => `<tr><td class="bk">${esc(b.label)}</td><td class="bv num">${esc(b.display)}</td><td class="bd">${esc(b.detail || retSource(b))}<span class="src">${esc({ financial_snapshot: "가족이 넣은 금융정보", option: "AI가 고른 방법", goal_setting: "공동 목표", assumption: "가정" }[b.source] || (b.source.startsWith("assumption") ? "가정(공개)" : b.source))}</span></td></tr>`).join("")}</tbody></table>
    <p class="how2"><b>계산 방법</b> 매달 ① 남아 있는 돈에 한 달 치 이자를 붙이고 ② 그달에 늘거나 줄어드는 돈(생활비에는 ${T("물가")} 오름 반영)과 대출 상환을 더하고 빼요. 이걸 ${g.horizon_months}개월 동안 반복했어요. 세금은 넣지 않았고, 수익률·물가·주택연금은 공개된 가정값이에요.</p>
    <details class="tune"><summary>해마다 계산한 표 보기</summary><div class="ytab-wrap"><table class="ytab num"><thead><tr><th>${g.type === "runway" ? esc(mem(g.base_member_id).name) + "님 나이" : "연도"}</th><th>해의 시작</th><th>늘거나 줄어든 돈</th><th>이자로 불어난 돈</th>${hasLoan ? "<th>대출 상환</th><th>남은 대출</th>" : ""}<th>해의 끝</th><th>${T("순자산")}</th></tr></thead><tbody>${yr}</tbody></table></div></details>
    <details class="tune" ${s.override[i] ? "open" : ""}><summary>숫자를 직접 바꿔서 다시 계산해 보기</summary><div class="sliders">
@@ -465,7 +468,7 @@ function s4() {
 const optLabel = sp => `${sp.option_id}. ${sp.label}`;
 function stanceRows(rd, opts) {
   const s = S(), vw = viewer(), R1 = rd === 1 ? s.r1 : s.r2, mine = R1[vw] || {};
-  const demoFill = DEMO ? `<div class="row"><span class="cs" style="flex:1">녹화본 체험이라 예시 의사 그대로 남겨요</span><button class="btn sm" data-act="fill-stance" data-rd="${rd}">예시 의사 채우기</button></div>` : "";
+  const demoFill = DEMO ? `<div class="row"><span class="cs" style="flex:1">체험판이라 예시 의사 그대로 남겨요</span><button class="btn sm" data-act="fill-stance" data-rd="${rd}">예시 의사 채우기</button></div>` : "";
   return demoFill + opts.map(([oid, label, res]) => { const x = mine[oid]; return `<div class="myrow"><div class="mo"><b>${esc(label)}</b>${res ? `<span>${esc(res)}</span>` : ""}</div>
     <div class="seg">${["good", "cond", "no"].map(v => `<button ${DEMO ? "disabled" : ""} class="${x && x.v === v ? "on v-" + v : ""}" data-act="stance" data-rd="${rd}" data-oi="${oid}" data-v="${v}">${VL[v][1]} ${VL[v][0]}</button>`).join("")}</div>
     ${x && x.v !== "good" ? `<input ${DEMO ? "readonly" : ""} class="tx" data-rd="${rd}" data-oi="${oid}" value="${esc(x.text || "")}" maxlength="200" placeholder="${x.v === "no" ? "왜 받아들이기 어려운지 적어 주세요" : "어떤 조건이면 괜찮은지 적어 주세요"}">` : ""}</div>`; }).join("");
@@ -589,6 +592,11 @@ function fitState(nid, cat, r, a) {
     const debt = nid === "N_debt_repayment";
     const st = { member: (c && c.source && c.source.member_id) || F().room.host_member_id, all: false, open: {}, res: {}, actions: [],
       cno: r && /^c\d+$/.test(r.commitment_id || "") ? +r.commitment_id.slice(1) : null, ctext: c && c.text };
+    if (cat === "saving" || cat === "deposit") {  // 사람 조건: 가족 구성원 중 18세 이하를 자녀 수로 미리 채움(바꿀 수 있음), 없으면 '모름'
+      const minors = F().members.filter(m => m.age < 19).length;
+      st.kids = minors ? Math.min(minors, 3) : null;
+      st.flags = F().members.some(m => m.age <= 1) ? ["newborn"] : [];
+    }
     if (cat === "saving") Object.assign(st, { monthly: nid === "N_goal_saving" && sum ? Math.round(sum) : null, term: 12 });
     if (cat === "deposit") Object.assign(st, { amount: null, term: 12 });
     if (cat === "mortgage") Object.assign(st, { amount: debt ? loanSum(["mortgage"]) : null, years: 30, repay: "split", rate_pref: "any", house: "아파트", home_price: debt ? finSum("home") : null });
@@ -597,12 +605,14 @@ function fitState(nid, cat, r, a) {
     if (cat === "busi_loan") Object.assign(st, { amount: null, years: 5, repay: "split", band: "avg" });
     s.fit[key] = st;
   }
+  if (!s.fit[key].flags) Object.assign(s.fit[key], { kids: null, flags: [] });  // 5단계 전에 저장된 진행 상태
   return s.fit[key];
 }
 function fitBody(nid, cat, st) {
   const base = { family: F(), need_id: nid, category: cat, member_id: st.member, commitment: st.cno ? { no: st.cno, text: st.ctext } : null };
-  if (cat === "saving") return { ...base, monthly: st.monthly, term_months: st.term, actions: st.actions };
-  if (cat === "deposit") return { ...base, amount: st.amount, term_months: st.term, actions: st.actions };
+  const person = { kids: st.kids, flags: st.flags };
+  if (cat === "saving") return { ...base, monthly: st.monthly, term_months: st.term, actions: st.actions, person };
+  if (cat === "deposit") return { ...base, amount: st.amount, term_months: st.term, actions: st.actions, person };
   const b = { ...base, amount: st.amount, months: st.years * 12, repay: st.repay };
   if (cat === "mortgage") Object.assign(b, { rate_pref: st.rate_pref, house: st.house, home_price: st.home_price });
   if (cat === "rent_loan") Object.assign(b, { deposit_amount: st.deposit_amount });
@@ -626,6 +636,32 @@ function fitSections(a, recs) {
       ${hasProg ? progSection(nid) : ""}${cats.map(c => fitSection(nid, c, r, a)).join("")}</section>`;
   }).join("");
 }
+function ragPanel(key, nodes, kind, label) {
+  // 제도·법 원문 찾기(rag/index.py): 판정이 아니라 설명·근거. 결과는 원문 그대로.
+  if (!CFG.rag || !CFG.rag.available) return "";
+  const s = S();
+  s.rag = s.rag || {};
+  const r = s.rag[key] || (s.rag[key] = { open: false, q: "", res: {} });
+  const btn = `<button class="linkbtn" data-act="rag-open" data-k="${esc(key)}">${r.open ? "원문 찾기 닫기" : esc(label)}</button>`;
+  if (!r.open) return btn;
+  const tops = CFG.rag.topics[kind] || [];
+  const topics = tops.map(([l, q]) => `<button class="${r.q === q ? "on" : ""}" data-act="rag-q" data-k="${esc(key)}" data-q="${esc(q)}" data-nodes="${esc(nodes.join(","))}">${esc(l)}</button>`).join("");
+  const res = r.res, done = res.status === "done";
+  const item = x => `<div class="ragitem"><div class="rh"><span class="rk">${esc(x.kind)}</span><b>${esc(x.doc_title)} · ${esc(x.title)}</b></div>
+    <div class="rt">${esc(x.text).replace(esc(x.focus), `<mark>${esc(x.focus)}</mark>`)}</div>
+    <div class="rs">${esc(x.publisher)}${x.effective_date ? ` · 시행 ${esc(x.effective_date)}` : ""} · ${esc(x.fetched_at)} 수집 · <a href="${esc(x.url)}" target="_blank" rel="noopener">원문 보기</a></div></div>`;
+  const body = !res.status ? "" : !done ? pend(res, "공식 원문에서 찾고 있어요", null)
+    : res.results.length ? `<p class="cs">${esc(res.note)}</p>${res.results.map(item).join("")}`
+    : `<p class="cs">이 제도의 공식 원문에서 '${esc(res.query)}'와 관련된 부분을 찾지 못했어요. 다른 말로 찾아보거나 기관에 문의해 주세요.</p>`;
+  const typed = r.q && !tops.some(t => t[1] === r.q) ? r.q : "";
+  return `${btn}<div class="ragbox"><div class="acts">${topics}</div>
+    <div class="ragq"><input data-rag="${esc(key)}" data-nodes="${esc(nodes.join(","))}" placeholder="궁금한 것을 적고 Enter (예: 중도상환수수료)" value="${esc(typed)}"></div>${body}</div>`;
+}
+function ragSearch(key, nodes, q) {
+  const r = S().rag[key];
+  r.q = q; r.res = {};
+  run(r.res, "/api/rag/search", { nodes, query: q });
+}
 function progSection(nid) {
   const s = S();
   s.prog = s.prog || {};
@@ -647,14 +683,15 @@ function progSection(nid) {
       ${g.unmodeled.length ? `<p class="cs">기관이 확인하는 조건: ${g.unmodeled.map(u => esc(u.label)).join(" / ")}</p>` : ""}
       ${open ? `<div class="fev">${esc([...g.conditions.map(c => `· ${c.label}: "${c.quote}"`), ...g.facts.map(f => `· ${f.label}: "${f.quote}"`),
         ...Object.values(g.terms).filter(t => t.quote).map(t => `· "${t.quote}"`), `출처: ${g.publisher} 공식 안내(2026-11-03 수집) · 판정은 넣은 정보 기준이고, 최종 판단은 기관이 해요`].join("\n"))}</div>` : ""}
-      <button class="linkbtn" data-act="prog-open" data-need="${nid}" data-pid="${g.program_id}">${open ? "근거 닫기" : "근거 보기(공식 원문)"}</button></div>`;
+      <button class="linkbtn" data-act="prog-open" data-need="${nid}" data-pid="${g.program_id}">${open ? "근거 닫기" : "근거 보기(공식 원문)"}</button>
+      ${ragPanel(`${nid}|${g.program_id}`, [g.program_id], "program", "더 알아보기(공식 안내·법령에서 찾기)")}</div>`;
   };
   return `<div class="progs"><h3 class="st3">제도 · 공식 안내 기준으로 따져 봤어요</h3>${slot.programs.map(card).join("")}</div>`;
 }
 function fitControls(key, cat, st, res) {
   const sel = (k, opts) => `<select data-fit="${k}" data-need="${key}">${opts.map(([v, l]) => `<option value="${v}" ${String(st[k]) === String(v) ? "selected" : ""}>${l}</option>`).join("")}</select>`;
   const num = (k, ph) => `<div class="amt-in"><input data-fit="${k}" data-need="${key}" inputmode="decimal" placeholder="${ph}" value="${st[k] ?? ""}"><span>만원</span></div>`;
-  const who = `<label>누구 이름으로${sel("member", F().members.map(m => [m.member_id, `${esc(m.name)}(${m.age}세)`]))}</label>`;
+  const who = `<label>누구 이름으로${sel("member", F().members.filter(m => !LOANS.includes(cat) || m.age >= 19 || m.member_id === st.member).map(m => [m.member_id, `${esc(m.name)}(${m.age}세)`]))}</label>`;
   const f = [who];
   if (cat === "saving") f.push(`<label>매달 넣을 돈${num("monthly", "예: 60")}</label>`, `<label>기간${sel("term", [6, 12, 24, 36].map(t => [t, t + "개월"]))}</label>`);
   if (cat === "deposit") f.push(`<label>한 번에 맡길 돈${num("amount", "예: 3000")}</label>`, `<label>기간${sel("term", [6, 12, 24, 36].map(t => [t, t + "개월"]))}</label>`);
@@ -668,7 +705,10 @@ function fitControls(key, cat, st, res) {
     if (cat === "credit_loan" || cat === "busi_loan") f.push(`<label>신용점수${sel("band", Object.entries(BANDS))}</label>`);
   }
   const acts = res && res.actions && !LOANS.includes(cat) ? `<div class="cs">내가 할 수 있는 우대 조건을 고르면 받을 금리가 다시 계산돼요</div><div class="acts">${Object.entries(res.actions).map(([k, l]) => `<button class="${st.actions.includes(k) ? "on" : ""}" data-act="fit-act" data-need="${key}" data-k="${k}">${st.actions.includes(k) ? "✓ " : ""}${esc(l)}</button>`).join("")}</div>` : "";
-  return `<div class="fitctl">${f.join("")}</div>${acts}`;
+  const me = F().members.find(m => m.member_id === st.member);
+  const ps = res && res.person && !LOANS.includes(cat) ? `<div class="cs">나에게 해당하는 것을 고르면 사람 조건 우대·가입 조건을 따져요(가입할 때 금융회사가 증빙으로 확인해요). 나이는 ${esc(me.name)}님(${me.age}세) 기준이에요.</div>
+    <div class="acts"><label class="kids">18세 이하 자녀${sel("kids", [["", "모름"], [0, "없음"], [1, "1명"], [2, "2명"], [3, "3명 이상"]])}</label>${Object.entries(res.person.options).map(([k, l]) => `<button class="${st.flags.includes(k) ? "on" : ""}" data-act="fit-flag" data-need="${key}" data-k="${k}">${st.flags.includes(k) ? "✓ " : ""}${esc(l)}</button>`).join("")}</div>` : "";
+  return `<div class="fitctl">${f.join("")}</div>${acts}${ps}`;
 }
 function fitSection(nid, cat, r, a) {
   const st = fitState(nid, cat, r, a), key = `${nid}|${cat}`;
@@ -704,8 +744,9 @@ function fitSection(nid, cat, r, a) {
       ${items.length && !okSt ? `<p class="cs">참고: 조건이 맞지 않거나 확인이 필요한 상품이에요.</p>` : ""}
       ${(st.all ? items : items.slice(0, res.shown)).map(row).join("")}
       ${items.length > res.shown ? `<button class="btn sm" style="margin-top:10px" data-act="fit-all" data-need="${key}">${st.all ? "5개만 보기" : `${items.length - res.shown}개 더 보기`}</button>` : ""}
-      ${res.excluded && res.excluded.length ? `<p class="excl">${esc(res.member.name)}님(${res.member.age}세)은 가입 나이가 맞지 않아 ${res.excluded.length}개는 뺐어요.</p>` : ""}
-      <p class="srcline">${esc(res.note)}${res.tax ? ` 세후 이자는 ${esc(res.tax.label)}를 뺀 값이에요.` : ""}${loan ? " 부대비용(인지세·보증료 등)은 계산에 넣지 않았어요." : ""}</p>`;
+      ${res.excluded && res.excluded.length ? `<p class="excl">${esc(res.member.name)}님(${res.member.age}세)은 가입 조건(나이·자녀·무주택)이 맞지 않아 ${res.excluded.length}개는 뺐어요.</p>` : ""}
+      <p class="srcline">${esc(res.note)}${res.tax ? ` 세후 이자는 ${esc(res.tax.label)}를 뺀 값이에요.` : ""}${loan ? " 부대비용(인지세·보증료 등)은 계산에 넣지 않았어요." : ""}</p>
+      ${loan ? "" : ragPanel(`${key}|law`, [cat === "saving" ? "P_installment_savings" : "P_term_deposit"], "savings", "예금자보호·비과세 법령 찾아보기")}`;
   }
   return `<div class="fitcat"><h3 class="st3">${CAT_LABEL[cat]} · 우리 목표에 잘 맞는 순서예요</h3>${fitControls(key, cat, st, res)}${body}</div>`;
 }
@@ -861,11 +902,12 @@ function famEdited(path) {
 function bindInputs() {
   const s = S();
   if (DEMO) document.querySelectorAll("[data-demo-lock] select, [data-demo-lock] input").forEach(el => el.disabled = true);
+  document.querySelectorAll("[data-rag]").forEach(el => el.onchange = () => { const q = el.value.trim().slice(0, 80); if (q) ragSearch(el.dataset.rag, el.dataset.nodes.split(","), q); });
   document.querySelectorAll("[data-fit]").forEach(el => el.onchange = () => {
     const st = s.fit[el.dataset.need], k = el.dataset.fit, v = el.value.trim().replace(/,/g, "");
     const money = ["monthly", "amount", "home_price", "deposit_amount"].includes(k);
     if (money && v !== "" && !(Number(v) >= 1 && Number(v) <= (k === "monthly" ? 10000 : 10000000))) { toast("금액은 만원 단위 숫자로 적어 주세요"); return; }
-    st[k] = money ? (v === "" ? null : Number(v)) : ["term", "years"].includes(k) ? +v : v;
+    st[k] = money ? (v === "" ? null : Number(v)) : ["term", "years"].includes(k) ? +v : k === "kids" ? (v === "" ? null : +v) : v;
     st.res = {}; render();
   });
   document.querySelectorAll("[data-bind]").forEach(el => {
@@ -968,8 +1010,11 @@ const ACT = {
   "retry-draft": () => { const d = S().draft; Object.keys(d).forEach(k => delete d[k]); render(); },
   sign: () => { const s = S(); s.signed[viewer()] = true; if (mids().every(m => s.signed[m]) && !s.signedAt) s.signedAt = todayIso(); toast("서명했어요"); render(); },
   "retry-rec": () => { S().rec = {}; S().fit = {}; S().prog = {}; render(); },
+  "fit-flag": b => { const st = S().fit[b.dataset.need], k = b.dataset.k; st.flags = st.flags.includes(k) ? st.flags.filter(x => x !== k) : [...st.flags, k]; st.res = {}; render(); },
   "fit-act": b => { const st = S().fit[b.dataset.need], k = b.dataset.k; st.actions = st.actions.includes(k) ? st.actions.filter(x => x !== k) : [...st.actions, k]; st.res = {}; render(); },
   "fit-open": b => { const st = S().fit[b.dataset.need]; st.open[b.dataset.pid] = !st.open[b.dataset.pid]; render(); },
+  "rag-open": b => { const r = S().rag[b.dataset.k]; r.open = !r.open; render(); },
+  "rag-q": b => ragSearch(b.dataset.k, b.dataset.nodes.split(","), b.dataset.q),
   "prog-open": b => { const sl = S().prog[b.dataset.need]; sl.open = sl.open || {}; sl.open[b.dataset.pid] = !sl.open[b.dataset.pid]; render(); },
   "fit-all": b => { const st = S().fit[b.dataset.need]; st.all = !st.all; render(); },
   "retry-home": () => { S().home = {}; render(); },
@@ -987,7 +1032,6 @@ const ACT = {
   },
   "review-del": b => { const s = S(); s.reviewLog.splice(+b.dataset.i, 1); render(); },
   renegotiate: async () => {
-    if (DEMO) { toast("녹화본 체험에서는 합의안 다시 정하기(AI)를 할 수 없어요. 재점검 계산은 그대로 돼요."); return; }
     const s = S(), ch = s.review.changes, f = F();
     if (!(await ask("바뀐 상황으로 합의안을 다시 정할까요?", `금융 정보를 바뀐 값으로 고치고 미래 계산부터 다시 해요. 지금 합의안(Ver.${s.draft.result.version})은 지난 합의안으로 남아요.`, [{ label: "다시 정하기", value: true, primary: true }]))) return;
     const add = (kind, label, amount) => f.finance.push({ item_id: nextId(f.finance, "item_id", "f"), owner_id: "joint", kind, label, amount: Math.abs(amount) });
@@ -1047,4 +1091,4 @@ document.addEventListener("keydown", e => { if (view !== "app" || ["INPUT", "TEX
 const aimk = document.getElementById("aimk"); if (aimk) aimk.innerHTML = AIMARK;
 load();
 // 모델 이름은 화면에 보이지 않는다. 개발용 재생 모드일 때만 "실제 AI 아님"을 알려 준다(혼동 방지).
-api("/api/health", null, "GET").then(h => { HEALTH = h; applyPublicMode(h); const p = $("#prov"); if (h.provider === "replay") { p.hidden = false; p.classList.add("replay"); p.textContent = "개발용 재생 모드 — 실제 AI 아님"; } if (h.provider === "recorded") { p.hidden = false; p.textContent = "녹화본 체험 · AI 답은 미리 녹화, 계산은 지금 실제로"; } }).catch(() => { const p = $("#prov"); p.hidden = false; p.textContent = "서버 연결 안 됨"; });
+api("/api/health", null, "GET").then(h => { HEALTH = h; applyPublicMode(h); const p = $("#prov"); if (h.provider === "replay") { p.hidden = false; p.classList.add("replay"); p.textContent = "개발용 재생 모드 — 실제 AI 아님"; } if (h.provider === "mock") { p.hidden = false; p.classList.add("replay"); p.textContent = "mock 체험 · AI 답은 규칙으로 만든 예시(실제 AI 아님), 계산은 지금 실제로"; } }).catch(() => { const p = $("#prov"); p.hidden = false; p.textContent = "서버 연결 안 됨"; });

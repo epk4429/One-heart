@@ -11,6 +11,8 @@ INDEX = json.loads((ROOT / "knowledge/sources/index.json").read_text(encoding="u
 BASE = "https://finlife.fss.or.kr/finlifeapi/"
 
 
+from tools.fetch_docs import ALLOWED as ALLOWED_DOCS  # noqa: E402
+
 def test_sources_untouched_and_keyless():
     assert INDEX
     for s in INDEX:
@@ -19,7 +21,7 @@ def test_sources_untouched_and_keyless():
         if s["kind"] == "api":
             assert s["url"].startswith(BASE) and "auth" not in s["url"]  # G1, 인증키 안 남김
         else:
-            assert s["url"].split("/")[2] in ("www.hf.go.kr", "nhuf.molit.go.kr", "basicpension.mohw.go.kr")  # G1 출처 허용 목록
+            assert s["url"].split("/")[2] in ALLOWED_DOCS  # G1 출처 허용 목록(tools/fetch_docs.py)
         assert "auth" not in text and s["dev_only"] is True
 
 

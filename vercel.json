@@ -13,7 +13,7 @@
   "functions": {
     "api/index.py": {
       "maxDuration": 300,
-      "includeFiles": "{data/assumptions.json,data/presets/*.json,ontology/*.json,web/**}"
+      "includeFiles": "{data/assumptions.json,data/presets/*.json,ontology/*.json,ontology/products/*.json,knowledge/sources/index.json,knowledge/sources/docs/*.txt,knowledge/rag/chunks.jsonl,web/**}"
     }
   },
   "outputDirectory": "web"

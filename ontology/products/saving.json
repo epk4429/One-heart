@@ -4458,7 +4458,7 @@
     "etc_note": "없음",
     "mtrt_int": "- 1개월이내 해지: 만기시 동일상품 동일계약기간의 신규약정금리\n'- 1개월초과 이후 해지: 보통예금 이율"
    },
-   "conditions_status": "capped",
+   "conditions_status": "needs_check",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20261016",
@@ -5793,7 +5793,7 @@
     "etc_note": "우대조건 ②,③의 경우 중도해지시 적용 불가",
     "mtrt_int": "-1개월이내:당초 약정금리와 만기시 동일상품 동일계약기간의 신규약정금리 중 낮은이율\n-1개월초과:보통예금이자율(현재0.1%)"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -5869,7 +5869,7 @@
     "etc_note": "-우대조건 중도해지시 적용 불가\n-우대조건 ③의 경우 조건충족 시 재예치하는 정기예금 상품에 적용",
     "mtrt_int": "-1개월이내:당초 약정금리와 만기시 동일상품 동일계약기간의 신규약정금리 중 낮은이율\n-1개월초과:보통예금이자율(현재0.1%)"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "capped",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -5931,7 +5931,7 @@
     "etc_note": "-우대조건 중도해지시 적용 불가\n-GOBANK앱 전용 상품\n-1인 1계좌 제한",
     "mtrt_int": "-1개월이내:당초 약정금리와 만기시 동일상품 동일계약기간의 신규약정금리 중 낮은이율\n-1개월초과:보통예금이자율(현재0.1%)"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -6148,7 +6148,7 @@
     "etc_note": "우대조건 중도해지시 적용 불가",
     "mtrt_int": "-1개월이내:당초 약정금리와 만기시 동일상품 동일계약기간의 신규약정금리 중 낮은이율\n-1개월초과:보통예금이자율(현재0.1%)"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -9667,7 +9667,7 @@
     "etc_note": "중도해지 이율 : 1개월미만 : 계약일의 보통예금 금리, 1개월이상 6개월미만 : 약정이율의 50%, 6개월이상 12개월미만 : 약정이율의 55%. 12개월 이상 : 약정이율의 65%",
     "mtrt_int": "만기 후 한 달까지 약정금리-현행금리 비교하여 낮은 금리 적용, 이후 0.1%"
    },
-   "conditions_status": "verified",
+   "conditions_status": "needs_check",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -11116,7 +11116,7 @@
     "etc_note": "중도해지이율:\n1개월미만: 계약일의 보통예금 금리, \n1개월이상 6개월미만: 약정이율의 50%, \n6개월이상 12개월미만: 약정이율의 60%, 12개월이상: 약정이율의 70%",
     "mtrt_int": "만기 후 한 달까지 약정금리-현행금리 비교하여 낮은 금리 적용, 이후 0.1%"
    },
-   "conditions_status": "verified",
+   "conditions_status": "needs_check",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20261028",
@@ -11296,7 +11296,7 @@
     "etc_note": "1만원이상 가입가능",
     "mtrt_int": "만기후 1개월이내 해지시 약정이율 적용(가입시점 이율과 만기시점 이율 중 낮은 이율)\n만기후 1개월이후 해지시 보통예금금리(0.5%)적용"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -11386,7 +11386,7 @@
     "etc_note": "1만원이상 가입가능",
     "mtrt_int": "만기후 1개월이내 해지시 약정이율 적용(가입시점 이율과 만기시점 이율 중 낮은 이율)\n만기후 1개월이후 해지시 보통예금금리(0.5%)적용"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -11476,7 +11476,7 @@
     "etc_note": "1만원이상 가입가능",
     "mtrt_int": "만기후 1개월이내 해지시 약정이율 적용(가입시점 이율과 만기시점 이율 중 낮은 이율)\n만기후 1개월이후 해지시 보통예금금리(0.5%)적용"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -11984,7 +11984,7 @@
     "etc_note": "없음",
     "mtrt_int": "1개월내 : 약정금리와 해당 계약기간의 현행금리 중 낮은 금리 \n1개월 초과: 보통예금 금리"
    },
-   "conditions_status": "capped",
+   "conditions_status": "needs_check",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -20225,7 +20225,7 @@
     "etc_note": "-65세 이상 거주자로서 [기초연금법] 제2조 제2호에 따른 기초연금 수급자 비과세 종합저축 5,000만원 가능",
     "mtrt_int": "ㆍ만기일~1개월 까지 : 최초 약정이율과 만기 후 동일상품 신규가입이율 중 낮은 이율\n\nㆍ1개월 초과 \n: 연 0.1%"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -20294,7 +20294,7 @@
     "etc_note": "-65세 이상 거주자로서 [기초연금법] 제2조 제2호에 따른 기초연금 수급자 비과세 종합저축 5,000만원 가능",
     "mtrt_int": "ㆍ만기일~1개월 까지 : 최초 약정이율과 만기 후 동일상품 신규가입이율 중 낮은 이율\n\nㆍ1개월 초과 \n: 연 0.1%"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -20356,7 +20356,7 @@
     "etc_note": "-만65세 이상 비과세 종합저축 5,000만원 가능",
     "mtrt_int": "ㆍ만기일~1개월 까지 : 최초 약정이율과 만기 후 동일상품 신규가입이율 중 낮은 이율\n\nㆍ1개월 초과 \n: 연 0.1%"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -20425,7 +20425,7 @@
     "etc_note": "-65세 이상 거주자로서 [기초연금법] 제2조 제2호에 따른 기초연금 수급자 비과세 종합저축 5,000만원 가능",
     "mtrt_int": "ㆍ만기일~1개월 까지 : 최초 약정이율과 만기 후 동일상품 신규가입이율 중 낮은 이율\n\nㆍ1개월 초과 \n: 연 0.1%"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -20494,7 +20494,7 @@
     "etc_note": "-65세 이상 거주자로서 [기초연금법] 제2조 제2호에 따른 기초연금 수급자 비과세 종합저축 5,000만원 가능",
     "mtrt_int": "ㆍ만기일~1개월 까지 : 최초 약정이율과 만기 후 동일상품 신규가입이율 중 낮은 이율\n\nㆍ1개월 초과 \n: 연 0.1%"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -20563,7 +20563,7 @@
     "etc_note": "-65세 이상 거주자로서 [기초연금법] 제2조 제2호에 따른 기초연금 수급자 비과세 종합저축 5,000만원 가능",
     "mtrt_int": "ㆍ만기일~1개월 까지 : 최초 약정이율과 만기 후 동일상품 신규가입이율 중 낮은 이율\n\nㆍ1개월 초과 \n: 연 0.1%"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -22476,7 +22476,7 @@
     "etc_note": "* 대면 상품가입시 조건에 따른 이벤트 우대금리 적용가능(월별 차등, 최대 0.5%P)",
     "mtrt_int": "- 만기경과 1개월 이내 : 약정금리와 현행고시 금리중 낮은이율\n\n- 만기경과 1개월 초과 : 보통예금 이율"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -22581,7 +22581,7 @@
     "etc_note": "없음",
     "mtrt_int": "- 만기경과 1개월 이내 : 약정금리와 현행고시 금리중 낮은이율\n\n- 만기경과 1개월 초과 : 보통예금 이율"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",
@@ -22686,7 +22686,7 @@
     "etc_note": "없음",
     "mtrt_int": "- 만기경과 1개월 이내 : 약정금리와 현행고시 금리중 낮은이율\n\n- 만기경과 1개월 초과 : 보통예금 이율"
    },
-   "conditions_status": "needs_check",
+   "conditions_status": "verified",
    "source_id": "S_finlife_saving_030300_202610",
    "as_of": "202610",
    "disclosed_from": "20260921",

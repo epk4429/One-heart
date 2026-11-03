@@ -10,6 +10,7 @@ from __future__ import annotations
 from engine import simulate
 from engine.api import tool_summary
 from engine.fmt import won
+from ontology import cards
 from ontology import load as load_ontology
 from ontology import recommend as ontology_recommend
 from verify import VerificationRecord, check_agreement, check_refs, find_numbers, verify_texts
@@ -141,10 +142,11 @@ def goal_analyze(fam: dict, summaries: dict, story_understanding: dict, provider
         return out
     facts = F.facts(fam)
     clar = [{k: str(c.get(k, ""))[:80] for k in ("member_id", "word", "meaning")} for c in (clarifications or [])]
+    given = cards.for_family(fam)  # 재무 원리 카드: 가족 정보로 고른 묶음만 준다(docs/12 5·6절)
     r4 = run_role("4a", {"members": _members(fam), "analysis": r3.output, "summaries": shared,
-                         "clarifications": clar, "facts": _facts_for_llm(facts)}, provider)
+                         "clarifications": clar, "cards": cards.brief(given), "facts": _facts_for_llm(facts)}, provider)
     out["proposal_run"] = r4.__dict__
-    quotes = _user_texts(shared, su, clar, *_fam_texts(fam))
+    quotes = _user_texts(shared, su, clar, *_fam_texts(fam), [c["text"] for c in given])  # 카드 설명의 숫자(예: 1~2년)는 근거 문구에 써도 된다
     texts = {"headline": r3.output["headline"]}
     texts.update({f"agreed_points.{i}": t for i, t in enumerate(r3.output["agreed_points"])})
     texts.update({f"issues.{i}.note": it["note"] for i, it in enumerate(r3.output["issues"])})
@@ -162,7 +164,8 @@ def goal_analyze(fam: dict, summaries: dict, story_understanding: dict, provider
                        "agreed_points": [rendered[f"agreed_points.{i}"] for i in range(len(r3.output["agreed_points"]))],
                        "issues": issues,
                        "proposal": ({"text": rendered["proposal"], "to": r4.output["to"],
-                                     "bridges": r4.output.get("bridges", [])} if r4.ok else None)},
+                                     "bridges": r4.output.get("bridges", []),
+                                     "cards": [cards.view(c) for c in cards.used_ids(rendered["proposal"])]} if r4.ok else None)},
                verification=rec.to_dict())
     return out
 
@@ -180,7 +183,7 @@ def goal_criterion(fam: dict, proposal_text: str, replies: dict, summaries: dict
     shared = shared_summaries(summaries, fam)
     mids = {m["member_id"] for m in fam["members"]}
     replies = {k: str(v)[:F.LIMITS["answer"]] for k, v in (replies or {}).items() if k in mids}
-    proposal_text = str(proposal_text)[:400]
+    proposal_text = cards.strip(str(proposal_text))[:400]  # 카드 근거 표시는 떼고 문장만
     has_loans = bool(F.profile(fam)["repaying_loans"])
     shared_goal = str((story_understanding or {}).get("shared_goal") or "")[:80]
     run = run_role("4b", {"members": _members(fam), "proposal": proposal_text, "replies": replies, "summaries": shared,

@@ -24,6 +24,11 @@ from ontology.programs import judge as judge_program
 from ontology.routes import ROUTE_LABEL
 from ontology.routes import coverage as need_routes
 from ontology.products import load_products
+from ontology.programs import load as load_programs
+from ontology.search import load as load_ontology
+from rag.index import TOPICS as RAG_TOPICS
+from rag.index import available as rag_available
+from rag.index import search as rag_search
 
 from . import guard
 
@@ -79,12 +84,12 @@ def _same_as_preset(fam: dict) -> bool:
 
 
 def real_products_allowed() -> bool:
-    """개발용 실제 상품 공시(ontology/products)를 쓸지. 공개 배포(Vercel)에서는 기본으로 끈다(공시 데이터 공개 사용 조건 확인 전).
-    REAL_PRODUCTS=1/0으로 바꿀 수 있다."""
+    """실제 상품 공시(ontology/products)를 쓸지. 데이터가 있으면 공개 배포(Vercel)에서도 켠다(2026-11-03 형님 결정:
+    공개 사이트도 형님만 쓰니 상관없음). REAL_PRODUCTS=1/0으로 바꿀 수 있다."""
     v = os.environ.get("REAL_PRODUCTS")
     if v is not None and v.strip() != "":
         return v.strip().lower() in ("1", "true", "yes", "on")
-    return not os.environ.get("VERCEL") and bool(load_products("saving"))
+    return bool(load_products("saving"))
 
 
 def _family(body: dict) -> dict:
@@ -188,6 +193,7 @@ def r_access(b, _ctx):
 def r_config(_b, _ctx):
     a = F.assumptions()
     return {"custom_family": custom_family_allowed(), "real_products": real_products_allowed(), "need_routes": need_routes(),
+            "rag": {"available": rag_available(), "topics": RAG_TOPICS},
             "route_labels": ROUTE_LABEL, "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
             "monthly_kinds": [k for k, v in F.KINDS.items() if v[0] == "monthly"], "loan_types": F.LOAN_TYPES,
             "goal_types": GOAL_TYPES, "limits": F.LIMITS,
@@ -353,6 +359,11 @@ def r_products_fit(b, _ctx):
             raise ApiError("bad_request", "기간은 1·3·6·12·24·36개월 중 하나예요")
         params = {"term": term, "actions": [a for a in (b.get("actions") or []) if isinstance(a, str)][:12],
                   "monthly": _opt_num(b, "monthly", 1, 10000, "매달 넣을 돈(만원)"), "amount": _opt_num(b, "amount", 1, 1000000, "맡길 돈(만원)")}
+        pr = b.get("person") if isinstance(b.get("person"), dict) else {}
+        kids = pr.get("kids")
+        if kids is not None and kids not in (0, 1, 2, 3):
+            raise ApiError("bad_request", "자녀 수는 0·1·2·3(3명 이상) 중 하나예요")
+        params["person"] = {"kids": kids, "flags": [f for f in (pr.get("flags") or []) if isinstance(f, str)][:10]}
     elif cat in FIT_LOANS:
         params = {"amount": _opt_num(b, "amount", 1, 1000000, "빌릴 돈(만원)"), "months": int(_opt_num(b, "months", 1, 480, "기간(개월)") or 360),
                   "home_price": _opt_num(b, "home_price", 1, 10000000, "집값(만원)"),
@@ -368,6 +379,21 @@ def r_products_fit(b, _ctx):
     else:
         return {"available": False}
     return fit_compare(fam, str(b["need_id"]), category=cat, member_id=mid, commitment=com, **params)
+
+
+def r_rag_search(b, _ctx):
+    """제도·법 원문 찾기(rag/index.py): 온톨로지로 고른 노드(제도·상품 유형)의 원문 조각 안에서만 찾는다. AI 없음, 비용 없음.
+    결과는 원문 그대로이고 자격·금리 판단에는 쓰지 않는다."""
+    if not rag_available():
+        raise ApiError("not_available", "이 체험판에서는 원문 찾기를 쓰지 않아요", 404)
+    known = set(load_ontology()["types"]) | set(load_programs())
+    nodes = [n for n in (b.get("nodes") or []) if isinstance(n, str) and n in known][:6]
+    q = str(b.get("query") or "").strip()[:80]
+    if not nodes or not q:
+        raise ApiError("bad_request", "찾을 제도와 질문이 필요해요")
+    topic = any(q == t[1] for ts in RAG_TOPICS.values() for t in ts)
+    return {"query": q, "nodes": nodes, "results": rag_search(q, nodes, topic=topic),
+            "note": "공식 원문을 그대로 보여 줘요(AI가 요약하지 않았어요). 자격·금리 판단은 위 판정을 보세요. 최종 판단은 기관이 해요."}
 
 
 def r_programs_judge(b, _ctx):
@@ -460,6 +486,7 @@ ROUTES = {
     ("POST", "/api/review/compare"): r_review_compare,
     ("POST", "/api/products/fit"): r_products_fit,
     ("POST", "/api/programs/judge"): r_programs_judge,
+    ("POST", "/api/rag/search"): r_rag_search,
 }
 
 
