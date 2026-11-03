@@ -111,3 +111,41 @@ def test_goal_analyze_puts_card_view_and_criterion_strips_it(monkeypatch):
     monkeypatch.setattr(P, "run_role", lambda key, inp, *a, **k: (seen.setdefault(key, inp), real(key, inp, *a, **k))[1])
     P.goal_criterion(fam, p["text"], {m["member_id"]: "좋아요" for m in fam["members"]}, sums, prov, su)
     assert seen["4b"]["proposal"] == C.strip(p["text"])  # 다음 역할에는 표시를 뗀 문장만
+
+
+# ---------- 방법 설계(역할 5)의 근거 ----------
+from llm.roles import design_note_errors  # noqa: E402
+
+
+def _notes(**why):
+    base = {"A": "[[card:C_essentials_first|꼭 써야 하는 지출을 먼저 빼는 게 기본이라서]] 여유 지출을 줄여요.",
+            "B": "[[card:C_emergency_fund|비상금은 따로 두는 게 기본이라서]] 예금 위주로 모아요.",
+            "C": "지금 생활의 여유를 먼저 지켜요."} | why
+    return {"options": [{"option_id": o, "label": o, "description": ""} for o in "ABC"],
+            "design_notes": [{"option_id": o, "intent": "x", "why": w} for o, w in base.items()]}
+
+
+@pytest.mark.parametrize("why, expect", [
+    ({}, None),
+    ({"C": ""}, "근거(why)가 없어요"),
+    ({"B": "[[card:C_pension_early_exit|연금은 깨지 않아서]] 예금 위주로 모아요."}, "주지 않은 카드"),
+    ({"B": "예금 위주로 모아요."}, "적어도 둘"),
+    ({"A": "[[card:C_essentials_first|지출을 먼저 빼는 게 기본이라서]] 우리은행에 모아요."}, "금융회사 이름"),
+])
+def test_role5_reason_checks(why, expect):
+    inp = {"cards": C.brief(C.for_family(F.preset("newly")))}
+    errs = design_note_errors(_notes(**why), inp)
+    assert errs == [] if expect is None else any(expect in e for e in errs), errs
+
+
+def test_role5_label_company_name_and_flow_with_mock():
+    o = _notes()
+    o["options"][0]["label"] = "우리은행 적금으로"
+    assert any("이름·설명" in e for e in design_note_errors(o, {"cards": C.brief(C.for_family(F.preset("newly")))}))
+    fam = F.validate(F.preset("newly"))
+    out = P.options_design(fam, {"type": "reach_target", "target_amount": 30000, "within_months": 60}, "기준",
+                           {m["member_id"]: {"keep": "a", "flexible": "b", "worry": "c"} for m in fam["members"]},
+                           get_provider("replay"), use_tools=False)
+    notes = {n["option_id"]: n for n in out["design_notes"]}
+    assert notes["B"]["cards"][0]["card_id"] == "C_short_money_no_risk" and "1~2년" in notes["B"]["why"]
+    assert not [v for v in out["verification"]["violations"] if v.get("severity") == "error"]  # 카드 설명의 숫자는 허용

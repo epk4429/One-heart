@@ -33,14 +33,39 @@ def _r1a(i):
     return {"family_stage": f"{len(i['members'])}명 가족 · {ages[0]}~{ages[-1]}세",
             "living": _clip(living) if living else "아직 이야기하지 않았어요",
             "shared_goal": _clip(goal) if goal else "아직 이야기하지 않았어요",
-            "differences": [_clip(d, 20) for d in diffs] or ["무엇을 먼저 할지"]}
+            "differences": [_clip(d, 20) for d in diffs] or ["무엇을 먼저 할지"],
+            "member_questions": _member_questions(i, ss)}
+
+
+MQ_RULES = [  # (이야기 속 말, 질문, 쉬운 질문)
+    ("휴직", "휴직은 몇 개월쯤 생각하세요?", "휴직은 얼마나 하실 거예요?"),
+    ("아이를", "아이는 언제쯤 갖고 싶으세요?", "아이는 언제쯤이 좋으세요?"),
+    ("전세 만기", "전세 만기 뒤에는 어디서 살고 싶으세요?", "만기 뒤엔 어디 살고 싶으세요?"),
+    ("병원비", "병원비는 한 달에 얼마쯤 드는지 아세요?", "병원비가 한 달에 얼마예요?"),
+    ("간병", "간병이 필요해지면 어떻게 하고 싶으세요?", "간병은 어떻게 하고 싶으세요?"),
+]
+
+
+def _member_questions(i, ss):
+    """이야기 속 말에 맞춘 질문. 문장에 이름·역할이 나온 사람에게, 아무도 안 나오면 성인 모두에게. 한 사람 2개까지."""
+    out, per = [], {}
+    for word, text, easy in MQ_RULES:
+        sent = next((x for x in ss if word in x), None)
+        if not sent:
+            continue
+        who = [m for m in i["members"] if m["name"] in sent or m["role"] in sent] or [m for m in i["members"] if m["age"] >= 19]
+        for m in who:
+            if per.get(m["member_id"], 0) < 2:
+                per[m["member_id"]] = per.get(m["member_id"], 0) + 1
+                out.append({"member_id": m["member_id"], "text": text, "easy": easy, "from": word})
+    return out
 
 
 def _r1b(i):
     ans = [a for _, a in i["qa"]] + ["", "", ""]
     out = {"keep": _clip(ans[0]) or "아직 말하지 않았어요", "worry": _clip(ans[1]) or "아직 말하지 않았어요",
            "flexible": _clip(ans[2]) or "아직 말하지 않았어요", "ambiguous": [], "question": "", "easy_question": "",
-           "choices": []}
+           "choices": [], "details": list(dict.fromkeys(_clip(x, 30) for x in ans[3:5] if x.strip() and "정하지 못" not in x))}
     if i.get("clarification"):
         out["keep"] = _clip(i["clarification"]["meaning"])
         return out
@@ -136,8 +161,31 @@ def _r5(i):
         loan = next(p for p in ctx["policies"] if p["policy"] == "extra_repayment")
         a = _spec("A", "빚 먼저", "매달 대출을 더 갚아요.", "safe",
                   pol=[{"policy": "extra_repayment", "item_id": loan["params"]["item_id"], "amount": cut}])
-    return {"options": [a, b, c], "design_notes": [{"option_id": o, "intent": x} for o, x in
-                                                   zip("ABC", ["목표 우선", "균형", "현재 여유"])]}
+    return {"options": [a, b, c], "design_notes": [{"option_id": o, "intent": x, "why": w} for o, x, w in
+                                                   zip("ABC", ["목표 우선", "균형", "현재 여유"], _why5(i, t))]}
+
+
+WHY5 = {  # 목표 종류 → 방법 A·B·C의 근거(카드 ID, 근거 문구, 뒷말). 그 가족에게 준 카드가 아니면 기본 카드로 바꾼다
+    "reach_target": [("C_essentials_first", "꼭 써야 하는 지출을 먼저 빼고 남는 돈으로 모으는 게 기본이라서", "여유 지출을 조금 줄여 더 모아요."),
+                     ("C_short_money_no_risk", "1~2년 안에 쓸 돈은 원금이 줄 수 있는 곳에 두지 않는 게 원칙이라서", "예금·적금 위주로 모아요."),
+                     (None, "", "지금 생활의 여유를 먼저 지키는 방법이에요.")],
+    "runway": [("C_emergency_fund", "갑자기 쓸 돈은 바로 꺼낼 수 있게 두는 게 기본이라서", "집은 그대로 두고 예금으로 생활해요."),
+               ("C_home_for_living", "집이 있으면 그 집에 살면서도 생활비를 마련하는 길이 있어서", "지금 집에 계속 사시는 걸 지켜요."),
+               (None, "", "다른 두 방법과 비교해 볼 수 있게 만든 방법이에요.")],
+    "debt_free": [("C_borrow_within_ability", "빚은 갚을 수 있는 만큼만 지는 게 기본이라서", "매달 조금 더 갚아 빨리 줄여요."),
+                  ("C_emergency_fund", "갑자기 쓸 돈은 바로 꺼낼 수 있게 따로 두는 게 기본이라서", "비상금을 지키면서 갚아요."),
+                  (None, "", "지금 생활의 여유를 먼저 지키는 방법이에요.")],
+}
+
+
+def _why5(i, t):
+    ids = [c["card_id"] for c in i.get("cards", [])]
+    out = []
+    for cid, phrase, tail in WHY5[t]:
+        if cid and cid not in ids:
+            cid, phrase = ("C_split_accounts", "쓰임새별로 돈을 나눠 두면 관리하기 쉬워서") if "C_split_accounts" in ids else (None, "")
+        out.append(f"[[card:{cid}|{phrase}]] {tail}" if cid else tail)
+    return out
 
 
 def _r5r(i):

@@ -355,7 +355,8 @@ def design_context(family: dict, goal: dict) -> dict:
     a = assumptions()
     b = _bounds(family)
     return {
-        "returns": [{"id": r["id"], "label": r["label"], "expected_return": r["expected_return"]} for r in a["returns"]],
+        "returns": [{"id": r["id"], "label": r["label"], "expected_return": r["expected_return"], "source": r.get("source", "")}
+                    for r in a["returns"]],  # source: 공시 통계로 정한 값인지 체험용 가정값인지(근거 문장에 쓸 수 있다)
         "inflation": f"생활비 같은 지출에 연 {pct(a['inflation']['rate'])} 물가 오름을 엔진이 자동으로 붙여요",
         "policies": policy_menu(family, goal),
         "limits": {"monthly_adjustment_abs_max": b["adjust"], "event_abs_max": b["event"],

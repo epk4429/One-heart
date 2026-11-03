@@ -87,7 +87,8 @@ def test_lump_repayment_and_result_spread_check():
              "policies": [{"policy": "lump_repayment", "item_id": "f8", "month": 1, "amount": 1500}]},
             {"option_id": "C", "label": "c", "return_id": "safe",
              "policies": [{"policy": "extra_repayment", "item_id": "f8", "amount": 100}]}]
-    assert _c5({"options": diff}, {"family": f, "goal_full": g}) == []
+    notes = [{"option_id": o, "intent": "x", "why": "근거 한 문장이에요."} for o in "ABC"]  # 카드를 주지 않은 호출이라 카드 근거는 없어도 된다
+    assert _c5({"options": diff, "design_notes": notes}, {"family": f, "goal_full": g}) == []
     with pytest.raises(PlanError):  # 가진 예금보다 많이 한 번에 갚을 수는 없다
         check_option(f, g, {"option_id": "A", "label": "x", "return_id": "safe",
                             "policies": [{"policy": "lump_repayment", "item_id": "f8", "month": 1, "amount": 9999}]})

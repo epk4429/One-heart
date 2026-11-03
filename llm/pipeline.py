@@ -27,12 +27,15 @@ def _members(fam: dict) -> list[dict]:
 
 
 def shared_summaries(summaries: dict, fam: dict) -> dict:
-    """공유 단계에는 본인이 확인한 요약 세 칸만(구성원이 아닌 키·다른 필드는 버린다)."""
+    """공유 단계에는 본인이 확인한 요약 세 칸과 맞춤 질문 답(details)만(구성원이 아닌 키·다른 필드는 버린다)."""
     mids = {m["member_id"] for m in fam["members"]}
     out = {}
     for mid, s in (summaries or {}).items():
         if mid in mids and isinstance(s, dict):
             out[mid] = {k: str(s.get(k, ""))[:80] for k in ("keep", "flexible", "worry")}
+            det = [str(x)[:40] for x in (s.get("details") or []) if isinstance(x, str) and x.strip()][:2]
+            if det:
+                out[mid]["details"] = det  # 맞춤 질문 답에서 정한 것(본인 확인 요약의 일부)
     return out
 
 
@@ -81,10 +84,14 @@ def story_understand(fam: dict, provider) -> dict:
     run = run_role("1a", inp, provider)
     out = {"run": run.__dict__}
     if run.ok:
+        mq = [{k: str(q[k]).strip() for k in ("member_id", "text", "easy", "from")} for q in run.output.get("member_questions") or []]
         texts = {k: v for k, v in run.output.items() if isinstance(v, str)}
         texts.update({f"differences.{i}": d for i, d in enumerate(run.output["differences"])})
+        texts.update({f"member_questions.{i}.{k}": q[k] for i, q in enumerate(mq) for k in ("text", "easy")})
         _, rec = verify_texts(texts, {}, role="1a", quotes=_user_texts(*_fam_texts(fam), _members(fam)))
-        out.update(result=run.output, verification=rec.to_dict())
+        questions = {m["member_id"]: [{k: q[k] for k in ("text", "easy", "from")} for q in mq if q["member_id"] == m["member_id"]]
+                     for m in fam["members"]}
+        out.update(result={**run.output, "member_questions": questions}, verification=rec.to_dict())
     return out
 
 
@@ -109,10 +116,11 @@ def interview_review(fam: dict, mid: str, qa, provider, clarification: dict | No
     out = {"run": run.__dict__}
     if run.ok:
         o = run.output
-        texts = {k: o[k] for k in ("keep", "flexible", "worry")}
+        details = [x.strip() for x in o.get("details") or []][:2]
+        texts = {k: o[k] for k in ("keep", "flexible", "worry")} | {f"details.{n}": x for n, x in enumerate(details)}
         _, rec = verify_texts(texts, {}, role="1b", quotes=_user_texts(qa, clar))
         amb = o.get("ambiguous") or []
-        out.update(result={"keep": o["keep"], "flexible": o["flexible"], "worry": o["worry"],
+        out.update(result={"keep": o["keep"], "flexible": o["flexible"], "worry": o["worry"], "details": details,
                            "ambiguous": amb[:1],
                            "question": o.get("question", "") if amb else "",
                            "easy_question": o.get("easy_question", "") if amb else "",
@@ -260,7 +268,8 @@ def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, p
                              "형식이 틀리면 error로 이유를 알려 준다. 숫자는 이 결과만 쓴다.",
               "input_schema": {"type": "object", "properties": {"options": {"type": "array", "items": {"type": "object"}}},
                                "required": ["options"]}}] if use_tools else None
-    inp = {"criterion": str(criterion)[:300], **_design_inputs(fam, goal, shared)}
+    given = cards.for_family(fam)  # 재무 원리 카드(근거는 design_notes.why 안에 녹인다)
+    inp = {"criterion": str(criterion)[:300], **_design_inputs(fam, goal, shared), "cards": cards.brief(given)}
     r5 = run_role("5", inp, provider, tools=tools, tool_handler=tool_handler if use_tools else None)
     out = {"design_run": r5.__dict__}
     if not r5.ok:
@@ -279,14 +288,21 @@ def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, p
     texts = {f"desc.{v['option_id']}": v["description"] or "" for v in views}
     texts.update({f"note.{n.get('option_id')}": str(n.get("intent", "")) for n in r5.output.get("design_notes", [])
                   if isinstance(n, dict)})
+    texts.update({f"why.{n.get('option_id')}": str(n.get("why", "")) for n in r5.output.get("design_notes", [])
+                  if isinstance(n, dict)})
+    rate_texts = [x for r in inp["context"]["returns"] for x in (r["source"], f"{r['label']} 연 {r['expected_return']:g}%")]
     if r6.ok:
         for oid, v in r6.output["per_option"].items():
             texts[f"{oid}.easy"] = v["easy"]
             texts.update({f"{oid}.member.{m}": t for m, t in v["per_member"].items()})
     rendered, rec = verify_texts(texts, facts, role="5+6a", run_id=sim["run_id"],
-                                 quotes=_user_texts(shared, views, *_fam_texts(fam)))
-    notes = [{"option_id": n.get("option_id"), "intent": rendered.get(f"note.{n.get('option_id')}", "")}
-             for n in r5.output.get("design_notes", []) if isinstance(n, dict)]
+                                 quotes=_user_texts(shared, views, *_fam_texts(fam), [c["text"] for c in given], rate_texts))
+    notes = []
+    for n in r5.output.get("design_notes", []):
+        if isinstance(n, dict):
+            why = rendered.get(f"why.{n.get('option_id')}", "")
+            notes.append({"option_id": n.get("option_id"), "intent": rendered.get(f"note.{n.get('option_id')}", ""),
+                          "why": why, "cards": [cards.view(c) for c in cards.used_ids(why)]})
     out.update(specs=specs, goal=goal, design_notes=notes, simulation=sim,
                views=[{"option_id": v["option_id"], "changes": v["changes"]} for v in views],
                interpretation={oid: {"easy": rendered.get(f"{oid}.easy"),

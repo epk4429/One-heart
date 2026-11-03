@@ -82,8 +82,17 @@ class Role:
 # ---------- 역할 1-a: 가족 이야기 구조화 ----------
 def _b1a(i):
     return f"""오늘은 {i['today']}이다. 가족방을 만든 사람이 쓴 가족 이야기와 구성원 목록을 읽고 4가지로 정리해라.
-출력 형식: {{"family_stage": "가족 단계(예: 결혼 1년 차 · 2년 안에 아이 계획 / 부모님 은퇴 후 12년)", "living": "사는 곳·주거 상황(만기 연월이 있으면 연월로)", "shared_goal": "함께 이루고 싶은 것", "differences": ["가족 안에서 생각이 다른 부분", ...]}}
+출력 형식: {{"family_stage": "가족 단계(예: 결혼 1년 차 · 2년 안에 아이 계획 / 부모님 은퇴 후 12년)", "living": "사는 곳·주거 상황(만기 연월이 있으면 연월로)", "shared_goal": "함께 이루고 싶은 것", "differences": ["가족 안에서 생각이 다른 부분", ...], "member_questions": [...]}}
 각 값은 짧은 명사구(20자 안팎). 이야기에 없으면 "아직 이야기하지 않았어요"처럼 쓴다. differences는 1~4개.
+
+또, 다음 단계에서 구성원 한 사람씩 AI와 1:1로 고정 질문 세 가지(지키고 싶은 것 / 돈 걱정 / 양보할 수 있는 것)를 나눈다.
+이야기에 어떤 구성원과 관련된 계획·사건이 있는데 그 시기·기간·금액을 알아야 계산이 달라지면(예: 육아휴직, 출산, 은퇴, 이사, 전세 만기, 병원비·간병, 학비),
+그 사람에게 따로 물을 맞춤 질문을 member_questions에 넣는다. 한 사람에게 0~2개, 필요 없으면 빈 배열.
+- 그 사람 본인의 계획을 묻는다. 다른 가족의 생각을 묻거나 전하지 않는다. 고정 질문 세 가지와 겹치는 질문은 하지 않는다.
+- text는 존댓말 질문 하나(60자 이내, "?"로 끝남), easy는 같은 뜻의 아주 짧고 쉬운 질문(30자 이내, 간편 모드용).
+- from은 그 질문을 하게 된 가족 이야기 속 구절을 글자 그대로(30자 이내) 옮긴다.
+- 상품이나 금융회사 이름은 쓰지 않는다.
+출력에 "member_questions": [{{"member_id": "구성원id", "text": "질문", "easy": "쉬운 질문", "from": "이야기 속 구절"}}] 를 함께 넣는다.
 
 구성원: {_dump(i['members'])}
 가족방을 만든 이유: {i['reason']}
@@ -98,7 +107,45 @@ def _c1a(o, i):
             _str(o, k, errs)
     if not isinstance(o.get("differences"), list) or not o.get("differences"):
         errs.append("'differences'는 1개 이상인 배열이어야 해요")
+    errs += member_question_errors(o.get("member_questions", []), i)
     return errs + _unknown_facts(o, set())
+
+
+MQ_MAX, MQ_LEN, MQ_EASY_LEN, MQ_FROM_LEN = 2, 60, 30, 30
+
+
+def _squash(t: str) -> str:
+    return re.sub(r"\s+", "", t or "")
+
+
+def member_question_errors(qs, i) -> list[str]:
+    """맞춤 질문 검사: 구성원 id, 한 사람에 2개까지, 길이·물음표, 근거 구절(from)이 이야기에 글자 그대로 있는지, 금융회사 이름 없음."""
+    if not isinstance(qs, list):
+        return ["'member_questions'는 배열이어야 해요"]
+    errs, per = [], {}
+    mids = {m["member_id"] for m in i["members"]}
+    story = _squash(i.get("story", ""))
+    for n, q in enumerate(qs):
+        if not isinstance(q, dict):
+            errs.append(f"member_questions[{n}]는 객체여야 해요")
+            continue
+        if q.get("member_id") not in mids:
+            errs.append(f"member_questions[{n}].member_id는 구성원 id여야 해요")
+        per[q.get("member_id")] = per.get(q.get("member_id"), 0) + 1
+        for k, lim in (("text", MQ_LEN), ("easy", MQ_EASY_LEN), ("from", MQ_FROM_LEN)):
+            v = q.get(k)
+            if not isinstance(v, str) or not v.strip() or len(v.strip()) > lim:
+                errs.append(f"member_questions[{n}].{k}는 1~{lim}자 글이어야 해요")
+        for k in ("text", "easy"):
+            if isinstance(q.get(k), str) and not q[k].strip().endswith("?"):
+                errs.append(f"member_questions[{n}].{k}는 질문(?로 끝남)이어야 해요")
+        if isinstance(q.get("from"), str) and _squash(q["from"]) not in story:
+            errs.append(f"member_questions[{n}].from은 가족 이야기 속 구절을 글자 그대로 옮겨야 해요")
+        names = sorted(x for x in provider_names() if any(x in str(q.get(k, "")) for k in ("text", "easy")))
+        if names:
+            errs.append(f"member_questions[{n}]에 금융회사 이름을 쓰면 안 돼요: {', '.join(names)}")
+    errs += [f"{m}에게 맞춤 질문은 {MQ_MAX}개까지예요" for m, c in per.items() if c > MQ_MAX]
+    return errs
 
 
 # ---------- 역할 1-b: 개인 대화 정리(요약 + 말뜻 확인 필요 여부) ----------
@@ -124,7 +171,8 @@ choices는 2~3개, 마지막은 반드시 "지금은 잘 모르겠다 (나중에
 없으면 ambiguous는 빈 배열, question·easy_question은 빈 문자열, choices는 빈 배열."""
     return f"""{m['name']}({m['role']}, {m['age']}세)님이 AI 상담사와 1:1로 나눈 대화다. 이 대화는 본인만 본다. {easy}
 가족에게 공유할 요약을 만들어라. 본인의 말에만 근거하고, 본인이 쓴 표현을 살려라. 답하지 않은 칸은 "아직 말하지 않았어요".
-출력 형식: {{"keep": "꼭 지키고 싶은 것", "flexible": "양보할 수 있는 것", "worry": "가장 큰 걱정", "ambiguous": [{{"word": "애매한 말", "why": "왜 계산이 달라지는지", "candidates": ["해석1", "해석2"]}}], "question": "처음 묻는 질문", "easy_question": "더 쉬운 말로 다시 묻는 질문", "choices": ["...", "지금은 잘 모르겠다 (나중에 답하기)"]}}
+네 번째 이후 질문(맞춤 질문)에 답했으면, 그 답에서 계획에 필요한 사실(시기·기간·금액 등)을 details에 짧게(30자 안팎, 0~2개) 적는다. 본인이 말한 숫자만 쓴다. 없으면 빈 배열.
+출력 형식: {{"keep": "꼭 지키고 싶은 것", "flexible": "양보할 수 있는 것", "worry": "가장 큰 걱정", "details": ["맞춤 질문 답에서 정한 것"], "ambiguous": [{{"word": "애매한 말", "why": "왜 계산이 달라지는지", "candidates": ["해석1", "해석2"]}}], "question": "처음 묻는 질문", "easy_question": "더 쉬운 말로 다시 묻는 질문", "choices": ["...", "지금은 잘 모르겠다 (나중에 답하기)"]}}
 keep·flexible·worry는 짧은 명사구(25자 안팎).{clar}
 
 대화(질문, 답):
@@ -136,6 +184,9 @@ def _c1b(o, i):
     for k in ("keep", "flexible", "worry"):
         if k in o:
             _str(o, k, errs)
+    det = o.get("details", [])
+    if not isinstance(det, list) or len(det) > 2 or any(not isinstance(x, str) or not x.strip() for x in det):
+        errs.append("'details'는 글 0~2개의 배열이어야 해요")
     amb = o.get("ambiguous")
     if not isinstance(amb, list):
         errs.append("'ambiguous'는 배열이어야 해요")
@@ -301,7 +352,10 @@ def _b5(i):
 대출 다 갚기(debt_free) 목표에서는 다 갚는 때가 '더 갚기(extra_repayment)'와 '한 번에 갚기(lump_repayment)'로만 바뀐다. 생활비를 줄이거나 투자 방식을 바꿔도 그 돈을 더 갚기에 넣지 않으면 다 갚는 때는 그대로다. 그래서 세 방법은 더 갚는 금액이나 한 번에 갚는 금액을 확실히 다르게 정한다.
 도구 run_simulation이 있으면 설계한 방법을 계산해 보고, 필요하면 고쳐서 한 번 더 계산한다(최대 2번). 그다음 최종 JSON만 출력한다.
 {_SPEC}
-출력 형식: {{"options": [방법 A, 방법 B, 방법 C], "design_notes": [{{"option_id": "A", "intent": "이 방법을 만든 의도(숫자 없이)"}}]}}
+design_notes에는 방법마다 의도(intent, 숫자 없이)와 근거(why, 한 문장)를 쓴다. why는 그 방법이 왜 그렇게 설계됐는지를 cards(공식 금융교육 자료로 만든 재무 원리 카드)의 원리로 "~이니까", "~라서"처럼 설명하고,
+그 원리 부분을 [[card:카드ID|근거 문구]]로 감싼다(세 방법 중 적어도 둘). 근거 문구 안에서는 카드 설명에 있는 숫자만 쓸 수 있다.
+돈을 불리는 방식(return_id)을 고른 이유에는 설계 재료 returns의 source(공시 통계인지 체험용 가정값인지)를 그대로 밝혀도 된다(예: "예금 금리는 은행 정기예금 공시 중간값으로 잡았어요"). 금융회사·상품 이름은 쓰지 않는다.
+출력 형식: {{"options": [방법 A, 방법 B, 방법 C], "design_notes": [{{"option_id": "A", "intent": "이 방법을 만든 의도(숫자 없이)", "why": "이 방법의 근거 한 문장"}}]}}
 
 동의한 기준: {i['criterion']}
 계산할 목표: {_dump(i['goal'])}
@@ -309,7 +363,30 @@ def _b5(i):
 요약(지키고 싶은 것/양보할 수 있는 것/걱정): {_dump(i['summaries'])}
 금융정보(본인이 고른 공개 범위대로): {_dump(i['finance'])}
 금융 합계(코드 계산): {_dump(i['finance_overview'])}
-설계 재료(가정값 표·정책·상한·오늘): {_dump(i['context'])}"""
+설계 재료(가정값 표·정책·상한·오늘): {_dump(i['context'])}
+cards: {_dump(i.get('cards', []))}"""
+
+
+def design_note_errors(o, i) -> list[str]:
+    """역할 5의 근거(design_notes.why) 검사: 방법마다 한 문장, 준 카드만(G11), 금융회사 이름 없음(G12), 카드 근거가 적어도 둘.
+    방법 이름·설명에도 금융회사 이름이 없어야 한다."""
+    allowed = {c["card_id"] for c in i.get("cards", [])}
+    notes = {n.get("option_id"): n for n in o.get("design_notes") or [] if isinstance(n, dict)}
+    errs = []
+    for oid in OPTION_IDS:
+        why = notes.get(oid, {}).get("why")
+        if not isinstance(why, str) or not why.strip():
+            errs.append(f"design_notes에 방법 {oid}의 근거(why)가 없어요")
+            continue
+        errs += [f"방법 {oid}의 근거: {e}" for e in cards.check_output(why, allowed, provider_names())]
+    if allowed and sum(bool(cards.used_ids(str(n.get("why", "")))) for n in notes.values()) < 2:
+        errs.append("세 방법 중 적어도 둘의 근거에 [[card:카드ID|근거 문구]]를 녹여 주세요")
+    for x in o.get("options") or []:
+        if isinstance(x, dict):
+            names = sorted(n for n in provider_names() if n in f"{x.get('label', '')} {x.get('description', '')}")
+            if names:
+                errs.append(f"방법 {x.get('option_id')}의 이름·설명에 금융회사 이름을 쓰면 안 돼요: {', '.join(names)}")
+    return errs
 
 
 def _c5(o, i):
@@ -336,7 +413,7 @@ def _c5(o, i):
             errs.append("세 방법의 결과가 거의 같아요(차이 3개월 미만: " + ", ".join(r["goal_hit_display"] for r in res["results"])
                         + "). 결과가 확실히 달라지도록 방법을 다르게 설계해 주세요"
                         + (". 대출 목표는 더 갚는 금액·한 번에 갚는 금액을 다르게 해야 결과가 달라져요" if i["goal_full"]["type"] == "debt_free" else ""))
-    return errs
+    return errs + design_note_errors(o, i)
 
 
 # ---------- 역할 5-r: 수정안(합의안 단계, 모든 방법에 반대가 있을 때) ----------

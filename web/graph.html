@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ONE-Heart · 온톨로지 그래프</title>
+<link rel="icon" href="img/favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root { --ink:#22302A; --sub:#5E6B64; --line:#D9D3C7; --paper:#FBF8F2; --bg:#F3EFE6; --green:#2F5D4A; --green-soft:#E6EFE8; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Pretendard, sans-serif; color:var(--ink); background:var(--bg); }
+  header { display:flex; align-items:baseline; gap:14px; padding:14px 20px; border-bottom:1px solid var(--line); background:var(--paper); }
+  header h1 { font-size:18px; margin:0; font-weight:700; }
+  header .st { font-size:13px; color:var(--sub); }
+  header a { margin-left:auto; font-size:13px; color:var(--green); }
+  main { display:grid; grid-template-columns:360px 1fr; height:calc(100vh - 53px); }
+  aside { border-right:1px solid var(--line); background:var(--paper); overflow:auto; padding:16px; }
+  #cy { width:100%; height:100%; background:var(--bg); }
+  h2 { font-size:14px; margin:18px 0 8px; color:var(--sub); font-weight:600; }
+  input[type=search] { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:6px; font:inherit; background:#fff; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { border:1px solid var(--line); background:#fff; border-radius:6px; padding:5px 9px; font:inherit; font-size:13px; cursor:pointer; }
+  .chip:hover { border-color:var(--green); }
+  .res { list-style:none; margin:8px 0 0; padding:0; }
+  .res li { padding:6px 4px; border-bottom:1px solid #EEE8DC; cursor:pointer; font-size:13.5px; display:flex; gap:8px; align-items:center; }
+  .res li:hover { background:var(--green-soft); }
+  .dot { width:10px; height:10px; border-radius:50%; flex:none; }
+  .ty { color:var(--sub); font-size:12px; margin-left:auto; white-space:nowrap; }
+  .sel { border:1px solid var(--line); border-radius:8px; background:#fff; padding:12px; }
+  .sel .lb { font-size:16px; font-weight:700; margin:2px 0 6px; }
+  .sel dl { margin:6px 0 0; font-size:12.5px; display:grid; grid-template-columns:90px 1fr; gap:3px 8px; }
+  .sel dt { color:var(--sub); }
+  .sel dd { margin:0; word-break:break-all; }
+  .grp { margin-top:12px; }
+  .grp .gh { font-size:13px; font-weight:600; display:flex; gap:6px; }
+  .grp .gh span { color:var(--sub); font-weight:400; }
+  .grp .it { font-size:13px; padding:4px 0 4px 16px; cursor:pointer; border-bottom:1px dashed #EEE8DC; }
+  .grp .it:hover { color:var(--green); }
+  .grp .it small { display:block; color:var(--sub); font-size:12px; }
+  .legend { display:grid; grid-template-columns:1fr 1fr; gap:4px 10px; font-size:12.5px; }
+  .legend div { display:flex; align-items:center; gap:6px; }
+  .note { font-size:12.5px; color:var(--sub); line-height:1.6; }
+  .crumbs { font-size:12.5px; color:var(--sub); margin-top:8px; }
+  .crumbs b { cursor:pointer; color:var(--green); font-weight:500; }
+</style>
+</head>
+<body>
+<header><h1>ONE-Heart 온톨로지 그래프</h1><span class="st" id="stats">불러오는 중…</span><a href="/">서비스로 돌아가기</a></header>
+<main>
+<aside>
+  <input type="search" id="q" placeholder="노드 이름으로 찾기 (예: 무주택, 적금, 65세, 농협)">
+  <ul class="res" id="res"></ul>
+  <h2>여기서 시작해 보기</h2>
+  <div class="chips" id="starts"></div>
+  <div class="crumbs" id="crumbs"></div>
+  <h2>지금 보는 노드</h2>
+  <div id="sel" class="note">노드를 고르면 여기에 항목과 이웃이 보여요. 그래프의 노드를 누르면 그 노드를 가운데로 옮겨요.</div>
+  <h2>노드 종류</h2>
+  <div class="legend" id="legend"></div>
+  <p class="note" style="margin-top:14px">실제 상품 하나하나가 노드이고, 금융회사·범주·가입 방법·우대 종류·사람 조건·원문은 여러 상품과 제도가 함께 가리키는 공유 노드예요. 판정과 비교 계산은 서비스 화면 7에서 해요. 이 화면은 연결을 보여 주기만 해요.</p>
+</aside>
+<div id="cy"></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+<script>
+const COLOR = { need:"#2F5D4A", constraint:"#8A5A44", ptype:"#4F6D8F", attr:"#9A9A93", category:"#5B7F95", product:"#9DB7AA",
+  provider:"#B08D57", channel:"#A3ADB8", benefit:"#C0896B", person:"#7A5C99", check:"#B5AEA4", program:"#3E7C6B",
+  card:"#6F8F3A", source:"#7D7D7D", chunk:"#C9B79C", more:"#FFFFFF" };
+const START = [["need:N_leave_fund", "필요: 육아휴직 동안 쓸 돈"], ["person:home:0", "조건: 무주택"], ["person:age:65-", "조건: 만 65세 이상"],
+  ["category:saving", "범주: 적금"], ["program:PG_beotimmok", "제도: 버팀목"], ["constraint:C_principal_protected", "제약: 원금 보장"]];
+let TYPES = {}, RELS = {}, history = [];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+const api = (p, b) => fetch(p, { method:"POST", headers:{ "Content-Type":"application/json" }, body:JSON.stringify(b || {}) }).then(r => r.json());
+
+const cy = cytoscape({ container: document.getElementById("cy"), wheelSensitivity: 0.25, maxZoom: 1.3, minZoom: 0.2,
+  style: [
+    { selector:"node", style:{ "background-color":"data(color)", "label":"data(short)", "font-family":"Pretendard, sans-serif", "font-size":11,
+      "color":"#22302A", "text-valign":"bottom", "text-margin-y":4, "text-wrap":"wrap", "text-max-width":120, "width":22, "height":22,
+      "border-width":1, "border-color":"#FFFFFF" } },
+    { selector:"node[type='product']", style:{ "width":14, "height":14 } },
+    { selector:"node.center", style:{ "width":44, "height":44, "font-size":13, "font-weight":700, "border-width":3, "border-color":"#22302A" } },
+    { selector:"node[type='more']", style:{ "shape":"round-rectangle", "width":70, "height":20, "border-color":"#9A9A93", "border-style":"dashed", "text-valign":"center", "text-margin-y":0, "font-size":10.5 } },
+    { selector:"edge", style:{ "width":1, "line-color":"#BDB5A6", "curve-style":"bezier", "target-arrow-shape":"triangle", "target-arrow-color":"#BDB5A6",
+      "arrow-scale":0.7, "label":"data(label)", "font-size":9, "color":"#8A8478", "text-rotation":"autorotate", "text-background-color":"#F3EFE6", "text-background-opacity":1 } },
+  ] });
+cy.on("tap", "node", e => { const id = e.target.id(); if (!id.startsWith("more:")) show(id); else showGroup(e.target.data("gi")); });
+
+let current = null;
+async function show(id, fromHistory) {
+  const r = await api("/api/graph/node", { id, limit: 30 });
+  if (r.error) { document.getElementById("sel").textContent = r.error.message; return; }
+  current = r;
+  if (!fromHistory) { history = history.filter(h => h[0] !== id); history.push([id, r.node.label]); history = history.slice(-6); }
+  drawGraph(r); drawPanel(r); drawCrumbs();
+}
+function shortLabel(s) { return s.length > 18 ? s.slice(0, 17) + "…" : s; }
+function drawGraph(r) {
+  const els = [{ data:{ id:r.node.id, label:r.node.label, short:shortLabel(r.node.label), type:r.node.type, color:COLOR[r.node.type] }, classes:"center" }];
+  const seen = new Set([r.node.id]);
+  const PER = 10;
+  r.groups.forEach((g, gi) => {
+    g.items.slice(0, PER).forEach(it => {
+      const n = it.node;
+      if (!seen.has(n.id)) { seen.add(n.id); els.push({ data:{ id:n.id, label:n.label, short:shortLabel(n.label), type:n.type, color:COLOR[n.type] } }); }
+      const s = g.dir === "out" ? r.node.id : n.id, t = g.dir === "out" ? n.id : r.node.id;
+      els.push({ data:{ id:`${s}|${g.rel}|${t}|${gi}`, source:s, target:t, label: r.groups.length <= 6 ? g.rel_label : "" } });
+    });
+    if (g.total > PER) {
+      const mid = `more:${gi}`;
+      els.push({ data:{ id:mid, label:"", short:`+${g.total - PER}개 더`, type:"more", color:COLOR.more, gi } });
+      els.push({ data:{ id:`${mid}|e`, source: g.dir === "out" ? r.node.id : mid, target: g.dir === "out" ? mid : r.node.id, label:"" } });
+    }
+  });
+  cy.elements().remove(); cy.add(els);
+  cy.layout({ name:"concentric", concentric: n => n.hasClass("center") ? 2 : 1, levelWidth: () => 1, minNodeSpacing: 26, animate:false, padding:40 }).run();
+}
+function propRows(p) {
+  const NAME = { provider:"금융회사", category:"범주", as_of:"공시월", base_rate_range:"기본금리 범위", terms:"기간(개월)", monthly_max:"월 한도", deposit_max:"최고 한도", loan_limit:"대출 한도", prepay_fee:"중도상환수수료", terms_status:"대출 조건 검사", benefit_status:"우대조건 검사", kind:"종류",
+    route:"길", summary:"설명", data_note:"데이터 메모", publisher:"기관", url:"원문 주소", fetched_at:"수집", effective_date:"시행일",
+    text:"글", published:"작성일", self_route:"직접 지킴", only_if:"해당 조건" };
+  return Object.entries(p || {}).map(([k, v]) => `<dt>${esc(NAME[k] || k)}</dt><dd>${k === "url" ? `<a href="${esc(v)}" target="_blank" rel="noopener">열기</a>` : esc(v)}</dd>`).join("");
+}
+function edgeNote(e) {
+  const bits = [];
+  if (e.add_pp != null) bits.push(`+${e.add_pp}%p`);
+  if (e.who) bits.push(e.who + " 기준");
+  if (e.rule) bits.push(e.rule);
+  if (e.quote) bits.push(`원문 “${e.quote.length > 60 ? e.quote.slice(0, 59) + "…" : e.quote}”`);
+  if (e.reason_if_not) bits.push(`없으면 제외: ${e.reason_if_not}`);
+  return bits.length ? `<small>${esc(bits.join(" · "))}</small>` : "";
+}
+function drawPanel(r) {
+  const n = r.node;
+  document.getElementById("sel").innerHTML = `<div class="sel"><div class="ty" style="margin:0"><span class="dot" style="display:inline-block;background:${COLOR[n.type]}"></span> ${esc(r.type_label)}</div>
+    <div class="lb">${esc(n.label)}</div><dl>${propRows(n.props)}</dl>
+    ${r.groups.map((g, gi) => `<div class="grp"><div class="gh">${g.dir === "out" ? "→" : "←"} ${esc(g.rel_label)} <span>· ${esc(g.type_label)} ${g.total}개</span></div>
+      ${g.items.map(it => `<div class="it" data-id="${esc(it.node.id)}">${esc(it.node.label)}${edgeNote(it.edge)}</div>`).join("")}
+      ${g.total > g.items.length ? `<div class="note" style="padding-left:16px">…외 ${g.total - g.items.length}개</div>` : ""}</div>`).join("")}</div>`;
+  document.querySelectorAll("#sel .it").forEach(el => el.onclick = () => show(el.dataset.id));
+}
+function showGroup(gi) { document.querySelectorAll("#sel .grp")[gi]?.scrollIntoView({ behavior:"smooth" }); }
+function drawCrumbs() {
+  document.getElementById("crumbs").innerHTML = history.length > 1 ? "지나온 노드: " + history.map(([id, l]) => `<b data-id="${esc(id)}">${esc(shortLabel(l))}</b>`).join(" › ") : "";
+  document.querySelectorAll("#crumbs b").forEach(el => el.onclick = () => show(el.dataset.id, true));
+}
+let timer = null;
+document.getElementById("q").addEventListener("input", e => {
+  clearTimeout(timer);
+  timer = setTimeout(async () => {
+    const r = await api("/api/graph/search", { q: e.target.value });
+    document.getElementById("res").innerHTML = (r.results || []).map(x => `<li data-id="${esc(x.id)}"><span class="dot" style="background:${COLOR[x.type]}"></span>${esc(x.label)}<span class="ty">${esc(x.type_label)} · 이웃 ${x.degree}</span></li>`).join("");
+    document.querySelectorAll("#res li").forEach(li => li.onclick = () => show(li.dataset.id));
+  }, 200);
+});
+api("/api/graph/stats").then(s => {
+  TYPES = s.types; RELS = s.rels;
+  document.getElementById("stats").textContent = `노드 ${s.nodes.toLocaleString()}개 · 관계 ${s.edges.toLocaleString()}개 (실제 상품 ${(s.by_type["실제 상품"] || 0).toLocaleString()}개)`;
+  document.getElementById("legend").innerHTML = Object.entries(TYPES).map(([k, l]) => `<div><span class="dot" style="background:${COLOR[k]}"></span>${esc(l)} ${s.by_type[l] ?? ""}</div>`).join("");
+});
+document.getElementById("starts").innerHTML = START.map(([id, l]) => `<button class="chip" data-id="${esc(id)}">${esc(l)}</button>`).join("");
+document.querySelectorAll("#starts .chip").forEach(b => b.onclick = () => show(b.dataset.id));
+show(new URLSearchParams(location.search).get("node") || "need:N_leave_fund");
+</script>
+</body>
+</html>

@@ -209,7 +209,10 @@ function s1() {
 
 /* ---------- 화면 2: 각자의 생각 ---------- */
 const ivState = mid => { const s = S(); return s.iv[mid] || (s.iv[mid] = { answers: [], review: {}, resolve: {}, clar: null, review2: {}, summary: null, confirmed: false }); };
-const qText = (mid, i) => { const q = CFG.questions[i]; return mem(mid).easy_mode ? q.easy : q.text; };
+// 질문 = 고정 3개 + 가족 이야기를 보고 AI가 만든 그 사람 맞춤 질문 0~2개(우리 가족 이야기 정리 때 함께 만듦). 대화를 시작하면 고정한다
+const ivQs = mid => { const st = ivState(mid); if (!st.qs || !st.answers.length) st.qs = [...CFG.questions.map(q => ({ text: q.text, easy: q.easy })), ...(S().story.result?.member_questions?.[mid] || []).map(q => ({ ...q, extra: true }))]; return st.qs; };
+const qText = (mid, i) => { const q = ivQs(mid)[i]; return mem(mid).easy_mode ? q.easy : q.text; };
+const KNUM = ["", "한", "두", "세", "네", "다섯"];
 function qaOf(mid) { return ivState(mid).answers.map((a, i) => [qText(mid, i), a]); }
 async function finishInterview(mid) {
   const st = ivState(mid);
@@ -244,10 +247,11 @@ function chatHtml(mid) {
   const m = mem(mid), st = ivState(mid);
   const ai = t => `<div class="msg ai"><span class="aimark">${AIMARK}</span><div><div class="who-l">AI 상담사</div><div class="bub">${t}</div></div></div>`;
   const me = t => `<div class="msg me">${av(mid, "sm")}<div><div class="who-l">${esc(m.name)}</div><div class="bub">${esc(t)}</div></div></div>`;
-  let h = ai(`${esc(m.name)}님, 안녕하세요. 세 가지만 여쭤볼게요. 이 대화는 ${esc(m.name)}님만 볼 수 있어요.`);
-  st.answers.forEach((a, i) => { h += ai(esc(qText(mid, i))) + me(a); });
-  if (st.answers.length < CFG.questions.length) h += ai(esc(qText(mid, st.answers.length)));
-  else if (!started(st.review) && st.review.status !== "error") h += `<div class="sysnote">세 가지 질문에 모두 답했어요</div>`;
+  const qs = ivQs(mid), qMsg = i => ai(esc(qText(mid, i)) + (qs[i].extra ? `<div class="cs">가족 이야기 속 “${esc(qs[i].from)}” 부분을 보고 ${esc(m.name)}님께 따로 여쭤봐요</div>` : ""));
+  let h = ai(`${esc(m.name)}님, 안녕하세요. ${KNUM[qs.length] || qs.length} 가지만 여쭤볼게요. 이 대화는 ${esc(m.name)}님만 볼 수 있어요.`);
+  st.answers.forEach((a, i) => { h += qMsg(i) + me(a); });
+  if (st.answers.length < qs.length) h += qMsg(st.answers.length);
+  else if (!started(st.review) && st.review.status !== "error") h += `<div class="sysnote">질문에 모두 답했어요</div>`;
   h += pend(st.review, "AI가 대화를 정리하고 있어요", `retry-review:${mid}`);
   const d = st.review.result;
   if (d && d.ambiguous && d.ambiguous.length && st.clar) {
@@ -263,15 +267,16 @@ function chatHtml(mid) {
     h += pend(st.review2, "AI가 요약을 다시 만들고 있어요", `retry-review2:${mid}`);
   }
   const sm = st.summary;
-  if (sm) h += ai(`가족에게 공유할 요약을 만들었어요. 확인해 주세요.<div class="sumcard"><dl><dt>꼭 지키고 싶은 것</dt><dd>${esc(sm.keep)}</dd><dt>양보할 수 있는 것</dt><dd>${esc(sm.flexible)}</dd><dt>가장 큰 걱정</dt><dd>${esc(sm.worry)}</dd></dl></div>${vbadge((st.review2.verification) || st.review.verification, st.review2.calls || st.review.calls)}`);
+  if (sm) h += ai(`가족에게 공유할 요약을 만들었어요. 확인해 주세요.<div class="sumcard"><dl><dt>꼭 지키고 싶은 것</dt><dd>${esc(sm.keep)}</dd><dt>양보할 수 있는 것</dt><dd>${esc(sm.flexible)}</dd><dt>가장 큰 걱정</dt><dd>${esc(sm.worry)}</dd>${sm.details?.length ? `<dt>그 밖에 정한 것</dt><dd>${sm.details.map(esc).join(" · ")}</dd>` : ""}</dl></div>${vbadge((st.review2.verification) || st.review.verification, st.review2.calls || st.review.calls)}`);
   return h;
 }
 function s2() {
   const s = S(), vw = viewer(), m = mem(vw), st = ivState(vw);
   let action = "";
-  if (st.answers.length < CFG.questions.length) {
+  if (st.answers.length < ivQs(vw).length) {
     const ex = s.scripts?.answers?.[vw]?.[st.answers.length];
-    action = DEMO ? `<textarea id="ans" readonly>${esc(ex || "")}</textarea><div class="crow"><span class="cs" style="flex:1">체험판이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
+    action = DEMO && !ex ? `<textarea id="ans" maxlength="500">아직 정하지 못했어요. 가족과 같이 정하고 싶어요.</textarea><div class="crow"><span class="cs" style="flex:1">맞춤 질문은 예시 답이 없어요. 고쳐 써도 돼요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
+      : DEMO ? `<textarea id="ans" readonly>${esc(ex || "")}</textarea><div class="crow"><span class="cs" style="flex:1">체험판이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
       : `<textarea id="ans" maxlength="500" placeholder="${esc(m.name)}님의 답을 적어 주세요">${esc(st.draft || "")}</textarea><div class="crow">${ex ? `<button class="btn sm" data-act="fill-ans">예시 답 넣기</button>` : ""}<button class="btn primary sm" data-act="send-ans">보내기</button></div>`;
   } else if (!started(st.review) && st.review.status !== "error") action = `<button class="btn primary" data-act="finish" data-mid="${vw}">대화 마치고 AI 요약 받기</button>`;
   else if (st.clar?.state === "asking" && DEMO) action = `<span class="cs">체험판이라 1번 답으로 이어가요</span>`;
@@ -283,19 +288,19 @@ function s2() {
     const xs = ivState(x.member_id), sm = xs.summary;
     const pending = xs.clar && xs.clar.state !== "done";
     let body;
-    if (xs.confirmed && sm) body = `<dl><dt>꼭 지키고 싶은 것</dt><dd>${esc(sm.keep)}${pending ? ` <span class="pend">· 뜻을 여쭤보는 중</span>` : ""}</dd><dt>양보할 수 있는 것</dt><dd>${esc(sm.flexible)}</dd><dt>가장 큰 걱정</dt><dd>${esc(sm.worry)}</dd></dl>
+    if (xs.confirmed && sm) body = `<dl><dt>꼭 지키고 싶은 것</dt><dd>${esc(sm.keep)}${pending ? ` <span class="pend">· 뜻을 여쭤보는 중</span>` : ""}</dd><dt>양보할 수 있는 것</dt><dd>${esc(sm.flexible)}</dd><dt>가장 큰 걱정</dt><dd>${esc(sm.worry)}</dd>${sm.details?.length ? `<dt>그 밖에 정한 것</dt><dd>${sm.details.map(esc).join(" · ")}</dd>` : ""}</dl>
       <div class="meta"><span>✓ 본인 확인 후 공유</span>${xs.clar?.state === "done" ? "<span>AI가 한 번 더 여쭤보고 정리했어요</span>" : ""}${x.member_id !== vw ? "<span>🔒 대화 내용 비공개</span>" : ""}</div>`;
     else if (xs.review.status === "loading") body = `<div class="pending"><span class="spin"></span>AI가 정리하고 있어요</div>`;
-    else body = `<div class="cs" style="margin:8px 0 0 44px">${xs.clar?.state === "later" ? "AI가 한 가지를 다시 여쭤보는 중이에요(나중에 답하기)" : xs.clar?.state === "asking" ? "AI가 한 가지를 다시 여쭤보는 중이에요" : xs.answers.length ? `대화 중이에요(${xs.answers.length}/${CFG.questions.length})` : "아직 대화하지 않았어요"}</div>`;
+    else body = `<div class="cs" style="margin:8px 0 0 44px">${xs.clar?.state === "later" ? "AI가 한 가지를 다시 여쭤보는 중이에요(나중에 답하기)" : xs.clar?.state === "asking" ? "AI가 한 가지를 다시 여쭤보는 중이에요" : xs.answers.length ? `대화 중이에요(${xs.answers.length}/${ivQs(x.member_id).length})` : "아직 대화하지 않았어요"}</div>`;
     return `<div class="fm"><div class="fh">${av(x.member_id)}<span class="nm">${esc(x.name)}</span><span class="rl">${esc(x.role)}</span>${x.member_id === vw ? '<span class="me">나</span>' : ""}</div>${body}</div>`;
   }).join("");
   const left = mids().filter(x => !ivState(x).confirmed);
-  return `<div class="head"><div class="eyebrow">각자의 생각</div><h1 class="h1">가족 한 사람씩 AI 상담사와 따로 이야기해요</h1><p class="lead">AI 상담사가 가족 모두에게 같은 세 가지를 물어요. 뜻이 분명하지 않은 말이 있으면 AI가 그 사람에게만 다시 여쭤봐요.</p></div>
+  return `<div class="head"><div class="eyebrow">각자의 생각</div><h1 class="h1">가족 한 사람씩 AI 상담사와 따로 이야기해요</h1><p class="lead">AI 상담사가 가족 모두에게 같은 세 가지를 묻고, 가족 이야기를 보고 그 사람에게 필요한 질문을 한두 개 더 해요. 뜻이 분명하지 않은 말이 있으면 AI가 그 사람에게만 다시 여쭤봐요.</p></div>
   <div class="privacy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" style="margin-top:2px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>대화 내용은 본인만 볼 수 있어요</b><span>가족에게는 AI가 정리하고 본인이 확인한 요약만 공유돼요. 공유 단계의 AI에도 원문 대화는 들어가지 않아요. 체험판에서는 같은 기기를 쓰니, 다른 사람 차례에는 화면을 넘겨 주세요.</span></div></div>
   <div class="cols keep2">
    <div class="chatwin"><div class="chatbar"><span class="aimark">${AIMARK}</span><div class="cb"><b>AI 상담사</b><span>${esc(m.name)}님과의 1:1 대화 · 나만 볼 수 있어요</span></div>${m.easy_mode ? `<span class="easy">간편 모드 · 큰 글씨</span>` : ""}</div>
     <div class="chat ${m.easy_mode ? "big" : ""}" id="chat">${chatHtml(vw)}</div>
-    <div class="composer ${st.answers.length < CFG.questions.length ? "col" : ""}" style="justify-content:flex-end">${action}</div></div>
+    <div class="composer ${st.answers.length < ivQs(vw).length ? "col" : ""}" style="justify-content:flex-end">${action}</div></div>
    <div class="card"><div class="ct">가족 모두의 의견</div><div class="cs" style="margin-bottom:8px">AI가 정리하고 본인이 확인한 요약이에요</div><div class="fam">${fam}</div>${turn(left, "대화")}</div>
   </div>${next("가족 모두의 생각 함께 보기", left.length > 0, "가족 모두 요약을 공유하면 다음으로 넘어갈 수 있어요")}`;
 }
@@ -310,7 +315,7 @@ function camp(is) {
   }).join("");
   return `<div class="camp-h"><h4>${esc(is.title)}</h4><span class="gap">생각 차이 · ${lv[1]}<span class="sq">${[1, 2, 3].map(k => `<i class="${k <= lv[0] ? "on" : ""}"></i>`).join("")}</span></span></div><div class="camps">${cols}</div><p class="ailine">${esc(is.note)}</p>`;
 }
-const summariesOf = () => Object.fromEntries(mids().map(m => [m, ivState(m).summary ? { keep: ivState(m).summary.keep, flexible: ivState(m).summary.flexible, worry: ivState(m).summary.worry } : null]).filter(x => x[1]));
+const summariesOf = () => Object.fromEntries(mids().map(m => [m, ivState(m).summary ? { keep: ivState(m).summary.keep, flexible: ivState(m).summary.flexible, worry: ivState(m).summary.worry, details: ivState(m).summary.details || [] } : null]).filter(x => x[1]));
 const clarList = () => mids().filter(m => ivState(m).clar?.state === "done").map(m => ({ member_id: m, word: ivState(m).clar.word, meaning: ivState(m).clar.meaning }));
 function goalForm() {
   const s = S(), g = s.goalForm, f = F(), chk = s.goalChk;
@@ -442,7 +447,7 @@ function s4() {
    ${d.specs.map((x, k) => `<button class="opt" data-act="pick" data-i="${k}" style="--c:${OC[k]}" aria-pressed="${k === i}"><span class="radio"></span><span><span class="ol">${esc(x.option_id)}. ${esc(x.label)}</span><span class="od">${esc(x.description)}</span></span><span class="res num">${esc(resultOf(k).goal_hit_display)}</span></button>`).join("")}</div>
    ${(d.design_notes || []).length ? `<p class="cs" style="margin-top:8px">설계 의도: ${d.design_notes.map(n => `${esc(n.option_id)} ${esc(n.intent)}`).join(" · ")}</p>` : ""}</section>
   <section class="sec"><h2 class="st">${esc(sp.option_id)}. ${esc(sp.label)}를 고르면</h2>
-   ${interp.easy ? `<div class="aibox easybox"><p><b>쉽게 말하면</b> ${esc(interp.easy)}</p></div>` : ""}${vbadge(d.verification, d.calls)}
+   ${interp.easy ? `<div class="aibox easybox"><p><b>쉽게 말하면</b> ${esc(interp.easy)}</p></div>` : ""}${(() => { const n = (d.design_notes || []).find(x => x.option_id === sp.option_id); return n?.why ? `<p class="why"><b>이렇게 설계한 근거</b> ${cardText(n.why, n.cards)}${n.cards?.length ? ` <span class="cs">(밑줄을 누르면 금융감독원 자료 원문)</span>` : ""}</p>` : ""; })()}${vbadge(d.verification, d.calls)}
    <div class="kpis"><div class="kpi ${ok ? "good" : "bad"}"><div class="kl">${METRIC[g.type]}</div><div class="kv">${esc(r.goal_hit_display)}</div><div class="kn">${kpiNote(r, g)}</div></div>
     <div class="kpi"><div class="kl">첫 달에 늘거나 줄어드는 돈</div><div class="kv" style="font-size:22px">${(r.monthly_flow > 0 ? "+" : "") + won(r.monthly_flow)}</div></div>
     <div class="kpi"><div class="kl">돈을 불리는 방식</div><div class="kv" style="font-size:19px;line-height:1.4;margin-top:4px">${T("수익률")} 연 ${ret}%</div></div></div>
@@ -559,7 +564,7 @@ function paper(a, dr) {
 /* ---------- 화면 6: 상품 추천 ---------- */
 function s6() {
   const s = S(), a = s.draft.result, rc = s.rec;
-  const head = `<div class="head"><div class="eyebrow">상품 추천</div><h1 class="h1">합의안의 약속을 지켜 줄 금융상품 유형이에요</h1><p class="lead">AI는 약속을 '필요'와 '제약'으로 바꾸기만 하고, 상품 유형은 금융 온톨로지를 따라 코드가 골라요. 그래서 왜 이 상품인지 경로로 설명할 수 있어요.</p></div>`;
+  const head = `<div class="head"><div class="eyebrow">상품 추천</div><h1 class="h1">합의안의 약속을 지켜 줄 금융상품 유형이에요</h1><p class="lead">AI는 약속을 '필요'와 '제약'으로 바꾸기만 하고, 상품 유형은 금융 온톨로지를 따라 코드가 골라요. 그래서 왜 이 상품인지 경로로 설명할 수 있어요. ${DEMO ? "" : `<a href="graph.html" target="_blank" rel="noopener">온톨로지 연결 그래프 보기 →</a>`}</p></div>`;
   if (!a || !mids().every(m => s.signed[m])) return head + `<div class="aibox"><p class="q">가족 모두 서명한 합의안이 먼저 필요해요.</p></div>`;
   if (!started(rc) && rc.status !== "error") setTimeout(() => run(rc, "/api/recommend", { family: F(), agreement: a }), 0);
   if (rc.status !== "done") return head + pend(rc.status ? rc : { status: "loading" }, "AI가 약속을 온톨로지 어휘로 바꾸고 있어요", "retry-rec");

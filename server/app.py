@@ -16,6 +16,7 @@ from llm import pipeline as P
 from llm.plan import GOAL_TYPES, PlanError, build_request, check_option, normalize_goal
 from llm.providers import DEFAULT_MODELS, LLMError, get_provider, load_env
 
+from ontology import graph as ontology_graph
 from ontology.fit import BAND_LABEL as FIT_BANDS
 from ontology.fit import REAL as FIT_REAL
 from ontology.fit import compare as fit_compare
@@ -396,6 +397,26 @@ def r_rag_search(b, _ctx):
             "note": "공식 원문을 그대로 보여 줘요(AI가 요약하지 않았어요). 자격·금리 판단은 위 판정을 보세요. 최종 판단은 기관이 해요."}
 
 
+def r_graph_stats(b, _ctx):
+    """온톨로지 그래프(ontology/graph.py)의 노드·관계 수. AI 없음."""
+    return ontology_graph.stats()
+
+
+def r_graph_node(b, _ctx):
+    """노드 하나와 이웃(관계·종류별로 limit개까지 + 전체 수). AI 없음."""
+    nid = str(b.get("id") or "")[:200]
+    limit = max(1, min(200, int(b.get("limit") or 30)))
+    out = ontology_graph.neighbors(nid, limit)
+    if out is None:
+        raise ApiError("not_found", "없는 노드예요", 404)
+    return out
+
+
+def r_graph_search(b, _ctx):
+    """이름으로 노드 찾기. AI 없음."""
+    return {"results": ontology_graph.search(str(b.get("q") or "")[:40])}
+
+
 def r_programs_judge(b, _ctx):
     """필요에 이어진 제도(정책금융·공적 제도)를 가족 정보로 판정(ontology/programs.py, 공식 원문 인용). AI 없음, 비용 없음."""
     _need(b, "need_id")
@@ -487,6 +508,9 @@ ROUTES = {
     ("POST", "/api/products/fit"): r_products_fit,
     ("POST", "/api/programs/judge"): r_programs_judge,
     ("POST", "/api/rag/search"): r_rag_search,
+    ("POST", "/api/graph/stats"): r_graph_stats,
+    ("POST", "/api/graph/node"): r_graph_node,
+    ("POST", "/api/graph/search"): r_graph_search,
 }
 
 
@@ -503,7 +527,7 @@ def dispatch(method: str, path: str, raw_body: bytes, headers: dict | None = Non
         if not isinstance(body, dict):
             raise ApiError("bad_json", "JSON 객체여야 해요")
         ctx = {"code_key": "local"}
-        if path not in ("/api/health", "/api/access", "/api/config", "/api/preset"):
+        if path not in ("/api/health", "/api/access", "/api/config", "/api/preset") and not path.startswith("/api/graph/"):  # 그래프 보기는 읽기만, AI 없음
             guard.check_rate(ip)
         if getattr(fn, "uses_llm", False):
             ctx["code_key"] = guard.check_code(headers.get("x-access-code"))
