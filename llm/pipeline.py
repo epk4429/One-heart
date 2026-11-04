@@ -10,12 +10,13 @@ from __future__ import annotations
 from engine import simulate
 from engine.api import tool_summary
 from engine.fmt import won
-from ontology import cards
 from ontology import load as load_ontology
 from ontology import recommend as ontology_recommend
 from verify import VerificationRecord, check_agreement, check_refs, find_numbers, verify_texts
 
+from . import evidence
 from . import family as F
+from . import goals
 from .plan import PlanError, build_request, check_option, design_context, engine_option, normalize_goal
 from .runner import run_role
 
@@ -74,13 +75,25 @@ def _fam_texts(fam: dict) -> list:
     """가족이 직접 넣은 글(이야기·이유·항목 이름)과 구성원 정보(인원·나이). 이 안의 숫자는 AI가 그대로 써도 된다."""
     ms = fam["members"]
     who = [f"{m['name']}({m['role']}, {m['age']}세)" for m in ms] + [f"가족 {len(ms)}명"]
-    return [fam["story"]["text"], fam["room"]["reason"], [i["label"] for i in fam["finance"]], who]
+    return [fam["story"]["text"], fam["room"]["reason"], [i["label"] for i in fam["finance"]], who, _goal_details(fam)]
+
+
+def _goal_details(fam: dict) -> list[str]:
+    """가족이 고른 목표 카테고리와 입력값을 글 줄로(AI가 '목표 상황'으로 읽는다)."""
+    gi = fam.get("goal_input")
+    return goals.details_text(gi, fam["members"]) if gi else []
+
+
+def _fixed_goal(fam: dict) -> dict | None:
+    """가족이 입력한 값으로 코드가 만든 계산 목표(없으면 None: 예전 방식으로 AI가 정한다)."""
+    gi = fam.get("goal_input")
+    return goals.derive_goal(gi, fam["members"]) if gi else None
 
 
 # ---------- 화면 2: 가족 이야기 ----------
 def story_understand(fam: dict, provider) -> dict:
     inp = {"story": fam["story"]["text"] or "(아직 쓰지 않았어요)", "today": F.today_label(fam),
-           "reason": fam["room"]["reason"] or "(없음)", "members": _members(fam)}
+           "reason": fam["room"]["reason"] or "(없음)", "members": _members(fam), "goal_details": _goal_details(fam)}
     run = run_role("1a", inp, provider)
     out = {"run": run.__dict__}
     if run.ok:
@@ -139,42 +152,153 @@ def interview_resolve(fam: dict, mid: str, detect: dict, answer: str, provider) 
 
 
 # ---------- 화면 4: 공동 목표 설정 ----------
+MAX_ROUNDS_PER_CYCLE = 3  # 제안은 최대 3번까지 고친다. 그래도 모이지 않으면 '이야기가 필요한 부분'을 안내한다(2026-11-04 형님 결정)
+MAX_ROUNDS = 12           # 서버가 받는 제안 쪽수의 한계(남용 방지)
+REPLY_KINDS = ("good", "cond", "other")
+
+
+def _analysis_in(a) -> dict:
+    """화면이 돌려보낸 쟁점 분석을 AI에 다시 넣을 만큼만 정리한다(길이·모양 제한)."""
+    a = a if isinstance(a, dict) else {}
+    issues = []
+    for it in (a.get("issues") or [])[:4]:
+        if isinstance(it, dict):
+            st = it.get("stances") if isinstance(it.get("stances"), dict) else {}
+            issues.append({"title": str(it.get("title") or "")[:80], "kind": str(it.get("kind") or "")[:10],
+                           "stances": {str(k)[:10]: str(v)[:60] for k, v in st.items()}, "shared": str(it.get("shared") or "")[:80]})
+    return {"headline": str(a.get("headline") or "")[:120], "agreed_points": [str(x)[:100] for x in (a.get("agreed_points") or [])[:4]],
+            "issues": issues}
+
+
+def _rounds_in(rounds, fam: dict) -> list[dict]:
+    """지금까지의 제안과 가족의 의견을 AI에 넣을 모양으로(근거 표시는 뗀다)."""
+    mids = {m["member_id"] for m in fam["members"]}
+    out = []
+    for r in (rounds or [])[:MAX_ROUNDS]:
+        if not isinstance(r, dict):
+            continue
+        reps = {}
+        for m, x in (r.get("replies") or {}).items():
+            if m in mids and isinstance(x, dict):
+                v = x.get("v") if x.get("v") in REPLY_KINDS else "good"
+                reps[m] = {"v": v, "text": str(x.get("text") or "")[:F.LIMITS["answer"]]}
+        out.append({"proposal": evidence.strip(str(r.get("proposal") or ""))[:400],
+                    "reasons": [evidence.strip(str(t))[:200] for t in (r.get("reasons") or [])[:3]], "replies": reps})
+    return out
+
+
+def _proposal_result(run, rendered: dict, extra: tuple = ()) -> dict:
+    """AI의 제안 출력을 화면에 줄 모양으로: 제안, 이유(꿀팁 근거 표시 포함), 모두를 챙겼는지(covers), 근거 원문."""
+    o = run.output
+    reasons = [rendered[f"reasons.{i}"] for i in range(len(o["reasons"]))]
+    used = evidence.used(rendered["proposal"]) + [u for r in reasons for u in evidence.used(r)]
+    res = {"text": rendered["proposal"], "reasons": reasons, "to": o["to"],
+           "covers": {m: rendered[f"covers.{m}"] for m in o["covers"]},
+           "tips": [v for v in (evidence.view(i, q) for i, q in dict.fromkeys(used)) if v]}
+    for k in extra:
+        res[k] = rendered.get(k) if isinstance(o.get(k), str) else {m: rendered[f"{k}.{m}"] for m in o.get(k, {})}
+    return res
+
+
+def _proposal_texts(o: dict, extra: tuple = ()) -> dict:
+    t = {"proposal": o["proposal"]}
+    t.update({f"reasons.{i}": r for i, r in enumerate(o["reasons"])})
+    t.update({f"covers.{m}": c for m, c in o["covers"].items()})
+    for k in extra:
+        v = o.get(k)
+        if isinstance(v, str):
+            t[k] = v
+        elif isinstance(v, dict):
+            t.update({f"{k}.{m}": x for m, x in v.items()})
+    return t
+
+
 def goal_analyze(fam: dict, summaries: dict, story_understanding: dict, provider,
                  clarifications: list[dict] | None = None) -> dict:
     shared = shared_summaries(summaries, fam)
     su = {k: story_understanding.get(k) for k in ("family_stage", "living", "shared_goal", "differences")}
+    details = _goal_details(fam)
     r3 = run_role("3", {"members": _members(fam), "story_understanding": su, "summaries": shared,
-                        "finance_overview": _overview(fam)}, provider)
+                        "finance_overview": _overview(fam), "goal_details": details}, provider)
     out = {"analysis_run": r3.__dict__}
     if not r3.ok:
         return out
-    facts = F.facts(fam)
+    facts = F.facts(fam, _fixed_goal(fam))
     clar = [{k: str(c.get(k, ""))[:80] for k in ("member_id", "word", "meaning")} for c in (clarifications or [])]
-    given = cards.for_family(fam)  # 재무 원리 카드: 가족 정보로 고른 묶음만 준다(docs/12 5·6절)
-    r4 = run_role("4a", {"members": _members(fam), "analysis": r3.output, "summaries": shared,
-                         "clarifications": clar, "cards": cards.brief(given), "facts": _facts_for_llm(facts)}, provider)
+    # 금융꿀팁 원문 조각(RAG): 가족 상황 주제 + 본인이 확인한 요약·공동 목표 문장으로 찾은 조각(원문 대화는 쓰지 않는다)
+    given = evidence.for_family(fam, evidence.context_texts(shared, [str(su.get("shared_goal") or "")]))
+    r4 = run_role("4a", {"members": _members(fam), "analysis": r3.output, "summaries": shared, "goal_details": details,
+                         "clarifications": clar, "tips": evidence.brief(given), "facts": _facts_for_llm(facts)}, provider)
     out["proposal_run"] = r4.__dict__
-    quotes = _user_texts(shared, su, clar, *_fam_texts(fam), [c["text"] for c in given])  # 카드 설명의 숫자(예: 1~2년)는 근거 문구에 써도 된다
+    quotes = _user_texts(shared, su, clar, *_fam_texts(fam), [c["text"] for c in given])  # 꿀팁 조각 글의 숫자(예: 1~2년)는 근거 문구에 써도 된다
     texts = {"headline": r3.output["headline"]}
     texts.update({f"agreed_points.{i}": t for i, t in enumerate(r3.output["agreed_points"])})
-    texts.update({f"issues.{i}.note": it["note"] for i, it in enumerate(r3.output["issues"])})
-    if r4.ok:
-        texts["proposal"] = r4.output["proposal"]
-        texts.update({f"bridges.{i}": b["how"] for i, b in enumerate(r4.output.get("bridges", []))})
-    rendered, rec = verify_texts(texts, facts, role="3+4a", quotes=quotes)
-    issues = []
     for i, it in enumerate(r3.output["issues"]):
-        pos = it["positions"]
-        gap = max(pos.values()) - min(pos.values())
-        issues.append({**it, "note": rendered.get(f"issues.{i}.note", it["note"]),
-                       "gap_level": "large" if gap >= 0.6 else "medium" if gap >= 0.35 else "small"})
+        texts[f"issues.{i}.shared"] = it["shared"]
+        texts.update({f"issues.{i}.stances.{m}": t for m, t in it["stances"].items()})
+    if r4.ok:
+        texts.update(_proposal_texts(r4.output))
+    rendered, rec = verify_texts(texts, facts, role="3+4a", quotes=quotes)
+    issues = [{**it, "shared": rendered[f"issues.{i}.shared"],
+               "stances": {m: rendered[f"issues.{i}.stances.{m}"] for m in it["stances"]}}
+              for i, it in enumerate(r3.output["issues"])]
     out.update(result={"headline": rendered["headline"],
                        "agreed_points": [rendered[f"agreed_points.{i}"] for i in range(len(r3.output["agreed_points"]))],
-                       "issues": issues,
-                       "proposal": ({"text": rendered["proposal"], "to": r4.output["to"],
-                                     "bridges": r4.output.get("bridges", []),
-                                     "cards": [cards.view(c) for c in cards.used_ids(rendered["proposal"])]} if r4.ok else None)},
+                       "issues": issues, "proposal": _proposal_result(r4, rendered) if r4.ok else None},
                verification=rec.to_dict())
+    return out
+
+
+def goal_revise(fam: dict, summaries: dict, analysis: dict, rounds: list, provider,
+                clarifications: list[dict] | None = None, discussion: str = "") -> dict:
+    """가족이 '좋아요' 말고 조건·다른 의견을 냈을 때: 의견을 모아 공평한 수정 제안을 만든다(역할 4c)."""
+    shared = shared_summaries(summaries, fam)
+    rs = _rounds_in(rounds, fam)
+    if not rs or len(rs) >= MAX_ROUNDS:
+        raise ValueError("제안과 가족의 의견이 필요해요")
+    last = rs[-1]["replies"]
+    if not last or all(v["v"] == "good" for v in last.values()):
+        raise ValueError("모두가 '좋아요'라서 수정 제안이 필요 없어요")
+    if any(v["v"] != "good" and not v["text"].strip() for v in last.values()):
+        raise ValueError("조건이나 다른 의견에는 내용을 적어 주세요")
+    discussion = str(discussion or "")[:300]
+    facts = F.facts(fam, _fixed_goal(fam))
+    clar = [{k: str(c.get(k, ""))[:80] for k in ("member_id", "word", "meaning")} for c in (clarifications or [])]
+    ctx_texts = [v["text"] for r in rs for v in r["replies"].values() if v["v"] != "good" and v["text"]] + ([discussion] if discussion else [])
+    given = evidence.for_family(fam, evidence.context_texts(shared, ctx_texts))
+    inp = {"members": _members(fam), "analysis": _analysis_in(analysis), "summaries": shared, "goal_details": _goal_details(fam),
+           "rounds": rs, "discussion": discussion, "tips": evidence.brief(given), "facts": _facts_for_llm(facts)}
+    run = run_role("4c", inp, provider)
+    out = {"proposal_run": run.__dict__}
+    if not run.ok:
+        return out
+    quotes = _user_texts(shared, clar, rs, discussion, *_fam_texts(fam), [c["text"] for c in given])
+    rendered, rec = verify_texts(_proposal_texts(run.output, ("heard", "changed")), facts, role="4c", quotes=quotes)
+    res = _proposal_result(run, rendered, ("heard", "changed"))
+    out.update(result={"proposal": res}, verification=rec.to_dict())
+    return out
+
+
+def goal_stuck(fam: dict, summaries: dict, rounds: list, provider) -> dict:
+    """제안을 여러 번 고쳐도 모이지 않을 때: 가족이 직접 이야기해야 할 부분을 정리해 안내한다(역할 4d). 결정은 대신하지 않는다."""
+    shared = shared_summaries(summaries, fam)
+    rs = _rounds_in(rounds, fam)
+    if not rs:
+        raise ValueError("제안과 가족의 의견이 필요해요")
+    facts = F.facts(fam, _fixed_goal(fam))
+    run = run_role("4d", {"members": _members(fam), "summaries": shared, "rounds": rs, "facts": _facts_for_llm(facts)}, provider)
+    out = {"run": run.__dict__}
+    if not run.ok:
+        return out
+    o = run.output
+    texts = {"message": o["message"]}
+    for i, t in enumerate(o["topics"]):
+        texts[f"topics.{i}.shared"] = t["shared"]
+        texts.update({f"topics.{i}.stances.{m}": x for m, x in t["stances"].items()})
+    rendered, rec = verify_texts(texts, facts, role="4d", quotes=_user_texts(shared, rs, *_fam_texts(fam)))
+    topics = [{**t, "shared": rendered[f"topics.{i}.shared"], "stances": {m: rendered[f"topics.{i}.stances.{m}"] for m in t["stances"]}}
+              for i, t in enumerate(o["topics"])]
+    out.update(result={"message": rendered["message"], "topics": topics}, verification=rec.to_dict())
     return out
 
 
@@ -186,21 +310,29 @@ def _traceable_amount(value: float, facts: dict, texts: list[str]) -> bool:
 
 
 def goal_criterion(fam: dict, proposal_text: str, replies: dict, summaries: dict, provider,
-                   story_understanding: dict | None = None) -> dict:
-    facts = F.facts(fam)
+                   story_understanding: dict | None = None, reasons: list | None = None) -> dict:
+    fixed = _fixed_goal(fam)  # 가족이 '우리 가족 이야기'에서 입력한 값으로 코드가 만든 목표(있으면 AI가 다시 정하지 않는다)
+    facts = F.facts(fam, fixed)
     shared = shared_summaries(summaries, fam)
     mids = {m["member_id"] for m in fam["members"]}
-    replies = {k: str(v)[:F.LIMITS["answer"]] for k, v in (replies or {}).items() if k in mids}
-    proposal_text = cards.strip(str(proposal_text))[:400]  # 카드 근거 표시는 떼고 문장만
+    replies = {k: str((v.get("text") if isinstance(v, dict) else v) or "")[:F.LIMITS["answer"]]
+               for k, v in (replies or {}).items() if k in mids}
+    proposal_text = evidence.strip(str(proposal_text))[:400]  # 근거 표시는 떼고 문장만
+    reasons = [evidence.strip(str(t))[:200] for t in (reasons or [])[:3]]
     has_loans = bool(F.profile(fam)["repaying_loans"])
     shared_goal = str((story_understanding or {}).get("shared_goal") or "")[:80]
-    run = run_role("4b", {"members": _members(fam), "proposal": proposal_text, "replies": replies, "summaries": shared,
-                          "facts": _facts_for_llm(facts), "has_repaying_loans": has_loans, "shared_goal": shared_goal}, provider)
+    run = run_role("4b", {"members": _members(fam), "proposal": proposal_text, "reasons": reasons, "replies": replies,
+                          "summaries": shared, "facts": _facts_for_llm(facts), "has_repaying_loans": has_loans,
+                          "shared_goal": shared_goal, "fixed_goal": fixed}, provider)
     out = {"run": run.__dict__}
     if not run.ok:
         return out
-    quotes = _user_texts(replies, proposal_text, shared, shared_goal, *_fam_texts(fam))
+    quotes = _user_texts(replies, proposal_text, reasons, shared, shared_goal, *_fam_texts(fam))
     rendered, rec = verify_texts({"criterion": run.output["criterion"]}, facts, role="4b", quotes=quotes)
+    if fixed:
+        out.update(result={"criterion": rendered["criterion"], "criterion_raw": run.output["criterion"], "goal": fixed},
+                   verification=rec.to_dict())
+        return out
     g = run.output["goal"]
     goal = {"type": g["type"], "label": str(g.get("label") or "")[:40] or None,
             "within_months": g.get("within_months") if isinstance(g.get("within_months"), int) else None,
@@ -268,8 +400,9 @@ def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, p
                              "형식이 틀리면 error로 이유를 알려 준다. 숫자는 이 결과만 쓴다.",
               "input_schema": {"type": "object", "properties": {"options": {"type": "array", "items": {"type": "object"}}},
                                "required": ["options"]}}] if use_tools else None
-    given = cards.for_family(fam)  # 재무 원리 카드(근거는 design_notes.why 안에 녹인다)
-    inp = {"criterion": str(criterion)[:300], **_design_inputs(fam, goal, shared), "cards": cards.brief(given)}
+    # 금융꿀팁 원문 조각(근거는 design_notes.why 안에 녹인다): 가족 상황 주제 + 확인된 요약·동의한 기준 + 계산할 목표 종류로 찾는다
+    given = evidence.for_family(fam, evidence.context_texts(shared, [str(criterion)[:200]]), goal["type"])
+    inp = {"criterion": str(criterion)[:300], **_design_inputs(fam, goal, shared), "tips": evidence.brief(given)}
     r5 = run_role("5", inp, provider, tools=tools, tool_handler=tool_handler if use_tools else None)
     out = {"design_run": r5.__dict__}
     if not r5.ok:
@@ -302,7 +435,7 @@ def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, p
         if isinstance(n, dict):
             why = rendered.get(f"why.{n.get('option_id')}", "")
             notes.append({"option_id": n.get("option_id"), "intent": rendered.get(f"note.{n.get('option_id')}", ""),
-                          "why": why, "cards": [cards.view(c) for c in cards.used_ids(why)]})
+                          "why": why, "tips": [v for v in (evidence.view(i, q) for i, q in evidence.used(why)) if v]})
     out.update(specs=specs, goal=goal, design_notes=notes, simulation=sim,
                views=[{"option_id": v["option_id"], "changes": v["changes"]} for v in views],
                interpretation={oid: {"easy": rendered.get(f"{oid}.easy"),
@@ -424,7 +557,8 @@ def agreement_draft(fam: dict, goal: dict, criterion: str, spec: dict, result: d
               "why": str(revision.get("why", ""))[:300]}
     inp = {"members": _members(fam), "today": F.today_label(fam), "criterion": str(criterion)[:300], "goal": _goal_view(goal),
            "option": view, "conditions": conditions, "revision": rv, "summaries": shared,
-           "contribution_facts": _facts_for_llm({f["fact_id"]: f for f in cfacts}), "facts": _facts_for_llm(facts)}
+           "contribution_facts": _facts_for_llm({f["fact_id"]: f for f in cfacts}), "facts": _facts_for_llm(facts),
+           "contribution_values": {f["fact_id"]: f["value"] for f in cfacts}}
     run = run_role("7", inp, provider)
     out = {"run": run.__dict__}
     if not run.ok:

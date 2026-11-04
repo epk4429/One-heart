@@ -26,7 +26,7 @@ PRESETS = ("newly", "elder")
 PY_DIRS = ("engine", "llm", "server", "verify", "ontology", "rag")
 PY_SKIP = {"llm/eval.py", "server/usage_report.py"}
 PY_DATA = ("data/assumptions.json", "data/presets/newly.json", "data/presets/elder.json", "knowledge/rag/chunks.jsonl",
-           "knowledge/sources/index.json")  # index.json: 카드 근거 원문 보기(ontology/cards.view)의 출처 이름·주소
+           "knowledge/sources/index.json")  # index.json: 근거 원문 보기의 출처 이름·주소
 # mock 체험판에서는 공개본 안내 문구 중 사실과 달라지는 것만 바꾼다.
 TEXT_SWAPS = [
     ("<title>ONE-Heart · 가족 금융목표 합의 서비스</title>", "<title>ONE-Heart · mock 체험</title>"),

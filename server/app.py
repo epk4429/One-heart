@@ -13,6 +13,7 @@ import os
 from engine import ENGINE_VERSION, compare, simulate
 from llm import family as F
 from llm import pipeline as P
+from llm import goals
 from llm.plan import GOAL_TYPES, PlanError, build_request, check_option, normalize_goal
 from llm.providers import DEFAULT_MODELS, LLMError, get_provider, load_env
 
@@ -25,10 +26,9 @@ from ontology.programs import judge as judge_program
 from ontology.routes import ROUTE_LABEL
 from ontology.routes import coverage as need_routes
 from ontology.products import load_products
-from ontology.programs import load as load_programs
-from ontology.search import load as load_ontology
 from rag.index import TOPICS as RAG_TOPICS
 from rag.index import available as rag_available
+from rag.index import laws as rag_laws
 from rag.index import search as rag_search
 
 from . import guard
@@ -197,7 +197,7 @@ def r_config(_b, _ctx):
             "rag": {"available": rag_available(), "topics": RAG_TOPICS},
             "route_labels": ROUTE_LABEL, "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
             "monthly_kinds": [k for k, v in F.KINDS.items() if v[0] == "monthly"], "loan_types": F.LOAN_TYPES,
-            "goal_types": GOAL_TYPES, "limits": F.LIMITS,
+            "goal_types": GOAL_TYPES, "limits": F.LIMITS, "goal_input": goals.public_config(),
             "assumptions": {"returns": a["returns"], "inflation": a["inflation"],
                             "reverse_mortgage": a["reverse_mortgage"]["source"], "sell_home": a["sell_home"]["source"]}}
 
@@ -252,11 +252,40 @@ def r_goal_analyze(b, ctx):
 
 
 @_llm
+def r_goal_revise(b, ctx):
+    """가족이 조건·다른 의견을 냈을 때 의견을 모은 수정 제안(역할 4c)."""
+    _need(b, "summaries", "analysis", "rounds")
+    fam = _family(b)
+    try:
+        return _strip(_err_if_failed(P.goal_revise(fam, b["summaries"], b["analysis"], b["rounds"], provider(ctx),
+                                                   b.get("clarifications"), b.get("discussion") or "")))
+    except ValueError as e:
+        raise ApiError("bad_request", str(e))
+
+
+@_llm
+def r_goal_stuck(b, ctx):
+    """제안을 여러 번 고쳐도 모이지 않을 때 이야기가 필요한 부분을 안내(역할 4d)."""
+    _need(b, "summaries", "rounds")
+    fam = _family(b)
+    try:
+        return _strip(_err_if_failed(P.goal_stuck(fam, b["summaries"], b["rounds"], provider(ctx))))
+    except ValueError as e:
+        raise ApiError("bad_request", str(e))
+
+
+@_llm
 def r_goal_criterion(b, ctx):
     _need(b, "proposal", "replies", "summaries")
     fam = _family(b)
-    return _strip(_err_if_failed(P.goal_criterion(fam, b["proposal"], b["replies"], b["summaries"], provider(ctx),
-                                                  b.get("story_understanding"))))
+    out = _strip(_err_if_failed(P.goal_criterion(fam, b["proposal"], b["replies"], b["summaries"], provider(ctx),
+                                                 b.get("story_understanding"), b.get("reasons"))))
+    # 확정된 목표를 계산할 수 있는지 서버가 바로 확인한다(화면에서 따로 계산 버튼을 누르지 않는다)
+    try:
+        out["goal_check"] = {"ok": True, "goal": normalize_goal(fam, out["result"]["goal"])}
+    except PlanError as e:
+        out["goal_check"] = {"ok": False, "message": str(e)}
+    return out
 
 
 @_llm
@@ -383,18 +412,18 @@ def r_products_fit(b, _ctx):
 
 
 def r_rag_search(b, _ctx):
-    """제도·법 원문 찾기(rag/index.py): 온톨로지로 고른 노드(제도·상품 유형)의 원문 조각 안에서만 찾는다. AI 없음, 비용 없음.
+    """법령 원문 찾기(rag/index.py): 색인된 법령 조문에서 찾는다. 온톨로지와 독립(제도·상품 ID를 받지 않는다). AI 없음, 비용 없음.
     결과는 원문 그대로이고 자격·금리 판단에는 쓰지 않는다."""
     if not rag_available():
         raise ApiError("not_available", "이 체험판에서는 원문 찾기를 쓰지 않아요", 404)
-    known = set(load_ontology()["types"]) | set(load_programs())
-    nodes = [n for n in (b.get("nodes") or []) if isinstance(n, str) and n in known][:6]
+    known = {x["doc_key"] for x in rag_laws()}
+    laws = [n for n in (b.get("laws") or []) if isinstance(n, str) and n in known][:7]
     q = str(b.get("query") or "").strip()[:80]
-    if not nodes or not q:
-        raise ApiError("bad_request", "찾을 제도와 질문이 필요해요")
+    if not q:
+        raise ApiError("bad_request", "찾을 질문이 필요해요")
     topic = any(q == t[1] for ts in RAG_TOPICS.values() for t in ts)
-    return {"query": q, "nodes": nodes, "results": rag_search(q, nodes, topic=topic),
-            "note": "공식 원문을 그대로 보여 줘요(AI가 요약하지 않았어요). 자격·금리 판단은 위 판정을 보세요. 최종 판단은 기관이 해요."}
+    return {"query": q, "results": rag_search(q, laws or None, topic=topic),
+            "note": "법령 원문을 그대로 보여 줘요(AI가 요약하지 않았어요). 자격·금리 판단은 위 판정을 보세요. 최종 판단은 기관이 해요."}
 
 
 def r_graph_stats(b, _ctx):
@@ -497,6 +526,8 @@ ROUTES = {
     ("POST", "/api/interview/review"): r_review,
     ("POST", "/api/interview/resolve"): r_resolve,
     ("POST", "/api/goal/analyze"): r_goal_analyze,
+    ("POST", "/api/goal/revise"): r_goal_revise,
+    ("POST", "/api/goal/stuck"): r_goal_stuck,
     ("POST", "/api/goal/criterion"): r_goal_criterion,
     ("POST", "/api/options/design"): r_options_design,
     ("POST", "/api/simulate"): r_simulate,

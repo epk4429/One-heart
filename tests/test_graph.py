@@ -25,7 +25,8 @@ def test_counts_match_source_data():
     core = load_core()
     total = sum(len(load_products(cat)) for cat in ("deposit", "saving", "mortgage", "rent_loan", "credit_loan", "busi_loan"))
     assert c["product"] == total == 2070
-    assert (c["need"], c["constraint"], c["ptype"], c["program"], c["card"]) == (len(core["needs"]), len(core["constraints"]), len(core["types"]), 8, 28)
+    assert (c["need"], c["constraint"], c["ptype"], c["program"]) == (len(core["needs"]), len(core["constraints"]), len(core["types"]), 8)
+    assert c["card"] == 0  # 재무 원리 카드는 없앴다(근거는 금융꿀팁 RAG)
     assert not [e for e in E if e["s"] not in N or e["t"] not in N]  # 끊어진 관계 없음
 
 
@@ -53,8 +54,7 @@ def test_service_bridge_and_rules():
     assert "ptype:P_installment_savings" in _in(protected, "hasAttr") and "ptype:P_balanced_fund" not in _in(protected, "hasAttr")
     assert "category:saving" in _out("ptype:P_installment_savings", "coversCategory")
     assert "program:PG_beotimmok" in _out("ptype:PP_rent_policy_loan", "judgedBy")
-    assert "need:N_leave_fund" in _out("card:C_short_money_no_risk", "supports")
-    assert any(e["rel"] == "about" and e["t"] == "program:PG_reverse_mortgage" for e in E)  # RAG 조각 → 제도
+    assert not any(e["rel"] == "about" for e in E) and not any(n["type"] == "chunk" for n in N.values())  # 법령 RAG는 온톨로지와 독립
 
 
 def test_edges_keep_original_quotes():

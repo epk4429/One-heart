@@ -181,3 +181,72 @@
 /* 미래 계산: 방법마다 설계 근거(재무 원리 카드) */
 .why{margin:10px 0 0;font-size:14.5px;line-height:1.7}
 .why b{color:var(--green);margin-right:6px}
+
+/* ---------- 2026-11-04: 목표 카테고리 · 금융정보 영역 · 생각이 갈리는 부분 · 제안 핑퐁 · 그래프 옆 조절 ---------- */
+/* 우리 가족 이야기: 목표 고르기 */
+.gcats{display:flex;flex-wrap:wrap;gap:8px}
+.gcat{border:1.5px solid var(--line);background:#fff;padding:10px 16px;font-size:15px;font-weight:600;color:var(--ink2)}
+.gcat:hover:not(:disabled){border-color:var(--green);color:var(--green)}
+.gcat.on{background:var(--green);border-color:var(--green);color:#fff}
+.gcat:disabled{cursor:default;opacity:.85}
+.gfields{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 18px}
+.gfields>p{grid-column:1/-1}
+.gfield{display:flex;flex-direction:column;gap:6px}
+.gfield .gl{font-size:13.5px;font-weight:600;color:var(--ink2)}
+.gfield .req{font-style:normal;font-size:11.5px;color:var(--warm);margin-left:4px}
+.gfield select{font:inherit;font-size:14.5px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:10px 12px}
+.gopts .chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.gopts .chip:disabled{cursor:default}
+/* 금융정보: 마이데이터 / 직접 입력 */
+.finblock{border:1px solid var(--line);padding:14px 16px;margin-top:12px;background:#fff}
+.finblock.mydata{background:var(--paper2);border-style:dashed}
+.finblock .fb-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.finblock .fb-h h3{margin:0}
+.tagsoft{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:1px 8px;background:#fff}
+/* 생각이 갈리는 부분: 한눈에 */
+.icard{border:1px solid var(--line);background:#fff;padding:14px 16px;margin-top:12px}
+.icard:first-of-type{margin-top:0}
+.ihead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.ihead h4{font-size:16px;font-weight:700;line-height:1.45}
+.itag{flex:none;font-size:12px;font-weight:600;padding:2px 10px;border:1px solid var(--warm);color:var(--warm);background:#fff}
+.strows{display:flex;flex-direction:column}
+.strow{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}
+.strow:first-child{border-top:0;padding-top:0}
+.strow .snm{font-size:12.5px;color:var(--muted);line-height:1.3}
+.strow .say{font-size:15.5px;font-weight:600;line-height:1.5}
+.ishared{display:flex;gap:9px;align-items:flex-start;margin-top:12px;padding:9px 12px;background:var(--green-soft);font-size:14px;color:var(--green-d)}
+.ishared .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--green);margin-top:7px}
+.ishared b{font-weight:700}
+/* 1단계 제안 핑퐁 */
+.pager{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px;font-size:14px}
+.aibox.prop .plabel{font-size:12.5px;font-weight:700;color:var(--green);margin-bottom:6px}
+.aibox.prop .chg{margin-top:10px;font-size:14px;color:var(--ink2)}
+.why3,.heard,.covers{margin-top:14px;padding-top:12px;border-top:1px solid rgba(47,93,74,.25);font-size:14.5px}
+.why3>b,.heard>b,.covers>b{display:block;font-size:13px;margin-bottom:6px;color:var(--green-d)}
+.why3 ul{margin:0;padding-left:18px}
+.why3 li{margin:3px 0;line-height:1.6}
+.hrow{display:flex;gap:8px;align-items:flex-start;margin-top:6px;line-height:1.55}
+.hrow .av{margin-top:2px}
+.replies2{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.reply2{display:flex;gap:10px;align-items:flex-start;border-left:3px solid var(--line);padding:6px 0 6px 12px;background:#fff}
+.reply2.v-good{border-left-color:var(--green)}
+.reply2.v-cond,.reply2.v-other{border-left-color:var(--warm)}
+.reply2 b{font-size:13px;color:var(--ink2)}
+.reply2 p{margin-top:2px;font-size:14.5px}
+.vtag{margin-left:8px;font-size:12px;font-weight:700;color:var(--green)}
+.reply2.v-cond .vtag,.reply2.v-other .vtag{color:var(--warm)}
+.rbtns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.rb{border:1.5px solid var(--line);background:#fff;padding:9px 16px;font-size:14.5px;font-weight:600;color:var(--ink2)}
+button.rb:hover{border-color:var(--green);color:var(--green)}
+.rb.on.v-good{background:var(--green);border-color:var(--green);color:#fff}
+.rb.on.v-cond,.rb.on.v-other{background:var(--warm);border-color:var(--warm);color:#fff}
+.stuck{margin-top:16px;border:1.5px solid var(--warm);padding:16px;background:#fff}
+.stuck .q2{font-size:15.5px;font-weight:600;margin:6px 0 12px;line-height:1.6}
+.goalcard{margin:12px 0;border:1px solid var(--line);background:#fff;padding:4px 16px}
+/* 미래 계산: 그래프와 숫자 조절을 붙여서 */
+.livebox{border:1px solid var(--line);background:#fff;padding:6px 16px 14px;margin-top:14px}
+.livebox .chart-wrap{margin-top:8px}
+.tuner{border-top:1px solid var(--line);margin-top:10px;padding-top:12px}
+.tuner-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tuner .sliders{margin-top:10px}
+.tuner-note{margin-top:8px}

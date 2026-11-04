@@ -173,7 +173,7 @@ def check_option(family: dict, goal: dict, spec: dict, *, allowed_ids=OPTION_IDS
     if spec.get("return_id") not in rets:
         raise PlanError(f"{w}.return_id는 {', '.join(rets)} 중 하나여야 해요")
     items = {i["item_id"]: i for i in family["finance"]}
-    hidden = {k for k, v in family["disclosure"].items() if v in ("hide", "summary_only")}
+    hidden = {k for k, v in family["disclosure"].items() if v == "hide"}
     out = {"option_id": oid, "label": _req_str(spec, "label", w, 30),
            "description": str(spec.get("description") or "")[:120], "return_id": spec["return_id"],
            "monthly_changes": [], "adjustments": [], "events": [], "lump_sums": [], "policies": []}

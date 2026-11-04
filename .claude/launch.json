@@ -2,6 +2,17 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "oneheart-replay-py",
+      "runtimeExecutable": "py",
+      "runtimeArgs": [
+        "-3.13",
+        "dev_server.py",
+        "8769",
+        "--replay"
+      ],
+      "port": 8769
+    },
+    {
       "name": "oneheart-replay",
       "runtimeExecutable": "python",
       "runtimeArgs": [

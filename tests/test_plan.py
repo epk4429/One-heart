@@ -49,7 +49,7 @@ def test_invented_conditions_are_rejected(bad, msg):
 
 
 def test_hidden_item_cannot_be_changed():
-    f = fam("elder")  # 아버지 예금 f1은 '합계만'
+    f = fam("elder")  # 아버지 예금 f1은 '비공개'
     f["disclosure"]["f6"] = "hide"
     g = normalize_goal(f, {"type": "runway"})
     with pytest.raises(PlanError):

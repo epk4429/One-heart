@@ -13,6 +13,8 @@ from pathlib import Path
 
 from engine.fmt import won
 
+from . import goals
+
 ROOT = Path(__file__).resolve().parents[1]
 
 # 종류 → (주기, 부호, 화면 이름)
@@ -28,7 +30,7 @@ KINDS = {
     "loan": ("once", -1, "대출"),
 }
 LOAN_TYPES = {"lease": "전세대출(이자만 내요)", "mortgage": "주택담보대출", "credit": "신용·기타 대출"}
-DISCLOSURE = ("share", "summary_only", "hide")
+DISCLOSURE = ("share", "hide")  # 공개 / 비공개. (예전 '합계만'은 2026-11-04에 없앴다. 저장된 값은 비공개로 읽는다)
 
 LIMITS = {"members": (2, 6), "finance": 30, "name": 20, "role": 12, "label": 30, "story": 1500, "reason": 300,
           "answer": 500, "room_name": 30, "amount": 1_000_000, "monthly_amount": 10_000}
@@ -134,7 +136,12 @@ def validate(raw: dict) -> dict:
         finance.append(item)
     if not any(f["kind"] in ("income", "transfer_in") for f in finance):
         raise FamilyError("매달 들어오는 돈(월급·연금 등)을 하나 이상 넣어 주세요")
-    disc = {k: v for k, v in (raw.get("disclosure") or {}).items() if k in ids and v in DISCLOSURE}
+    disc = {k: ("hide" if v == "summary_only" else v) for k, v in (raw.get("disclosure") or {}).items()
+            if k in ids and v in DISCLOSURE + ("summary_only",)}
+    try:
+        goal_input = goals.validate_input(raw.get("goal_input"), set(seen))
+    except goals.GoalInputError as e:
+        raise FamilyError(str(e))
     today = str(raw.get("today") or "2026-10")
     if not re.fullmatch(r"20\d\d-(0[1-9]|1[0-2])", today):
         raise FamilyError("오늘 날짜 형식이 잘못됐어요")
@@ -146,6 +153,7 @@ def validate(raw: dict) -> dict:
                  "host_member_id": host},
         "members": members,
         "story": {"author_id": author, "text": _s(story.get("text"), "가족 이야기", LIMITS["story"], required=False)},
+        "goal_input": goal_input,
         "finance": finance,
         "disclosure": disc,
     }
@@ -208,8 +216,8 @@ def facts(family: dict, goal: dict | None = None) -> dict[str, dict]:
         if p[key]:
             out.append(_fact(f"fin.{key[:-6]}", p[key], "만원", won(p[key]), label))
     for i in family["finance"]:
-        if family["disclosure"].get(i["item_id"]) in ("hide", "summary_only"):
-            continue  # 본인이 숨긴 항목은 공유 단계 AI에도 낱개로 주지 않는다
+        if family["disclosure"].get(i["item_id"]) == "hide":
+            continue  # 본인이 비공개로 한 항목은 공유 단계 AI에도 낱개로 주지 않는다
         unit = "만원/월" if KINDS[i["kind"]][0] == "monthly" else "만원"
         out.append(_fact(f"item.{i['item_id']}", i["amount"], unit,
                          ("월 " if unit == "만원/월" else "") + won(i["amount"]), i["label"]))
@@ -225,22 +233,14 @@ def facts(family: dict, goal: dict | None = None) -> dict[str, dict]:
 
 
 def shared_finance(family: dict) -> list[dict]:
-    """공유 단계 AI에 주는 금융정보: 본인이 고른 공개 범위를 따른다(숨김은 빼고, 합계만은 종류별 합계로)."""
-    out, summ = [], {}
+    """공유 단계 AI에 주는 금융정보: 본인이 고른 공개 범위를 따른다(비공개 항목은 낱개로 주지 않는다)."""
+    out = []
     for i in family["finance"]:
-        d = family["disclosure"].get(i["item_id"], "share")
-        if d == "hide":
-            continue
-        if d == "summary_only":
-            k = (i["owner_id"], i["kind"])
-            summ[k] = summ.get(k, 0) + i["amount"]
+        if family["disclosure"].get(i["item_id"], "share") == "hide":
             continue
         x = {k: i[k] for k in ("item_id", "owner_id", "kind", "label", "amount") if k in i}
         for k in ("loan_type", "rate", "payment"):
             if k in i:
                 x[k] = i[k]
         out.append(x)
-    for (owner, kind), amt in summ.items():
-        out.append({"item_id": None, "owner_id": owner, "kind": kind, "label": f"{KINDS[kind][2]} 합계(본인이 합계만 공개)",
-                    "amount": round(amt, 1)})
     return out

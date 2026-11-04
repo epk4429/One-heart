@@ -75,8 +75,18 @@ def evaluate(key: str, provider_name: str = "anthropic", model: str | None = Non
                     r = step(f"review2.{mid}", lambda: P.interview_review(fam, mid, qa, prov, c))["result"]
             summaries[mid] = {k: r[k] for k in ("keep", "flexible", "worry")}
         g = step("goal", lambda: P.goal_analyze(fam, summaries, su, prov, clars))["result"]
-        replies = scripts.get("replies") or {m["member_id"]: "좋아요." for m in fam["members"]}
-        cr = step("criterion", lambda: P.goal_criterion(fam, g["proposal"]["text"], replies, summaries, prov, su))["result"]
+        # 제안 핑퐁: scripts.rounds(쪽마다 구성원별 {v, text})대로 의견을 내고, 조건·다른 의견이 있으면 수정 제안(역할 4c)을 받는다. 없으면 모두 '좋아요'.
+        prop, rounds, script_rounds = g["proposal"], [], scripts.get("rounds") or []
+        analysis = {"headline": g["headline"], "agreed_points": g["agreed_points"], "issues": g["issues"]}
+        for n in range(4):
+            reps = script_rounds[n] if n < len(script_rounds) else {m["member_id"]: {"v": "good", "text": ""} for m in fam["members"]}
+            rounds.append({"proposal": prop["text"], "reasons": prop["reasons"], "replies": reps})
+            if all(r["v"] == "good" for r in reps.values()) or n == 3:
+                break
+            prop = step(f"revise_goal.{n}", lambda: P.goal_revise(fam, summaries, analysis, rounds, prov, clars))["result"]["proposal"]
+        replies = {m: (r.get("text") or "좋아요.") for m, r in rounds[-1]["replies"].items()}
+        rep["rounds"] = [{"proposal": r["proposal"], "replies": r["replies"]} for r in rounds]
+        cr = step("criterion", lambda: P.goal_criterion(fam, prop["text"], rounds[-1]["replies"], summaries, prov, su, prop["reasons"]))["result"]
         goal_raw = dict(cr["goal"])
         ex = scripts.get("goal_form") or {}
         if goal_raw["type"] == ex.get("type", goal_raw["type"]):

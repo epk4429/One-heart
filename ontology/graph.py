@@ -2,10 +2,10 @@
 
 실제 상품 2,070개가 하나하나 노드이고, 상품이 가진 항목(금융회사·범주·가입 방법·우대 종류·사람 조건·원문)은
 **여러 상품·제도가 함께 가리키는 공유 노드**가 된다. 예: "만 65세 이상" 노드 하나에 그 우대를 가진 적금들과 기초연금이 함께 이어진다.
-그 위에 서비스의 다리(약속이 들어오는 필요 → 상품 유형 → 범주·제도)와 재무 원리 카드·RAG 조각이 붙는다.
+그 위에 서비스의 다리(약속이 들어오는 필요 → 상품 유형 → 범주·제도)가 붙는다.
 
 판정·비교 계산은 지금처럼 fit.py·programs.py가 한다. 이 그래프는 같은 데이터를 '연결'로 보여 주고 찾아보기 위한 것이다
-(새 사실을 만들지 않는다: 모든 노드·관계는 vocab·product_types·rules·programs·conditions·products·cards·RAG 조각에서 그대로 나온다).
+(새 사실을 만들지 않는다: 모든 노드·관계는 vocab·product_types·rules·programs·conditions·products에서 그대로 나온다).
 
 사용: python -m ontology.graph   → 노드·관계 수 요약
 API:  /api/graph/stats, /api/graph/node, /api/graph/search (server/app.py), 화면 web/graph.html
@@ -210,30 +210,9 @@ def build() -> dict:
                 else:
                     g.edge(pid, "checkNeeded", g.node(f"check:{u['var']}", "check", f"가입대상 확인: {u['var']}"), quote=u.get("quote"))
 
-    # 4) 재무 원리 카드 → 필요, 원문
-    for c in json.loads((HERE / "cards.json").read_text(encoding="utf-8"))["cards"]:
-        cid = g.node(f"card:{c['id']}", "card", c["title"], text=c["text"], published=c["published"])
-        for n in c["needs"]:
-            g.edge(cid, "supports", f"need:{n}")
-        for q in c["quotes"]:
-            s = src(latest_doc.get(q["doc_key"]))
-            if s:
-                g.edge(cid, "source", s, quote=q["quote"])
+    # (재무 원리 카드는 없앴다. 금융꿀팁은 법령과 함께 RAG 쪽 자료다. 2026-11-04)
 
-    # 5) RAG 조각 → 다루는 제도·상품 유형, 원문
-    path = ROOT / "knowledge/rag/chunks.jsonl"
-    if path.exists():
-        for line in path.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            ch = json.loads(line)
-            kid = g.node(f"chunk:{ch['chunk_id']}", "chunk", ch.get("article") or ch.get("title") or ch["chunk_id"],
-                         text=ch["text"][:300])
-            for n in ch["nodes"]:
-                g.edge(kid, "about", f"program:{n}" if n.startswith("PG_") else f"ptype:{n}")
-            s = src(ch.get("source_id"))
-            if s:
-                g.edge(kid, "source", s)
+    # (법령 RAG 조각은 온톨로지와 독립이라 이 그래프에 넣지 않는다. 2026-11-04)
 
     dangling = [e for e in g.edges if e["s"] not in g.nodes or e["t"] not in g.nodes]
     assert not dangling, dangling[:3]

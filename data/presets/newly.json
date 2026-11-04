@@ -103,6 +103,36 @@
    "target_amount": 30000,
    "within_months": 60,
    "label": "집 살 때 필요한 우리 돈"
+  },
+  "rounds": [
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "cond",
+     "text": "괜찮아요, 단 육아휴직 중 생활비는 꼭 따로 지켜 주세요."
+    }
+   },
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    }
+   }
+  ]
+ },
+ "goal_input": {
+  "category": "home",
+  "fields": {
+   "target_amount": 30000,
+   "within_years": 5,
+   "living": "전세"
   }
  }
 }

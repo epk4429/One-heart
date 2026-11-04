@@ -1,0 +1,82 @@
+{
+ "today": "2026-10",
+ "room": {
+  "name": "할머니와 나",
+  "host_member_id": "m0"
+ },
+ "members": [
+  {
+   "member_id": "m0",
+   "name": "할머니",
+   "role": "할머니",
+   "age": 67
+  },
+  {
+   "member_id": "m1",
+   "name": "소율",
+   "role": "손녀",
+   "age": 13
+  }
+ ],
+ "story": {
+  "author_id": "m0",
+  "text": "손녀와 둘이 전세에서 살아요. 연금과 지원금으로 생활하는데 생활비가 빠듯해요. 내가 아프면 손녀가 걱정이에요."
+ },
+ "finance": [
+  {
+   "item_id": "f1",
+   "owner_id": "m0",
+   "kind": "income",
+   "label": "할머니 연금·지원금",
+   "amount": 70
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m0",
+   "kind": "lease_deposit",
+   "label": "전세 보증금",
+   "amount": 5000
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비",
+   "amount": 120
+  }
+ ],
+ "_note": "평가용 가상 가족(예시 아님, kb_families F12 기반): 67세 할머니와 13세 손녀. 소득보다 지출이 많은 경계 사례. 금액은 만원, 모두 가상값.",
+ "scripts": {
+  "answers": {
+   "m0": [
+    "소율이가 학교를 마칠 때까지 같이 사는 거요.",
+    "내가 아프면 병원비랑 소율이 돌봄이 걱정이에요.",
+    "먹는 건 아껴도 돼요. 전세는 지키고 싶어요."
+   ],
+   "m1": [
+    "할머니랑 계속 같이 사는 거요.",
+    "할머니가 많이 아프실까 봐요.",
+    "용돈은 안 받아도 돼요."
+   ]
+  },
+  "replies": {
+   "m0": "좋아요. 전세 보증금은 꼭 지키고 싶어요.",
+   "m1": "네, 좋아요."
+  },
+  "goal_form": {
+   "type": "reach_target",
+   "label": "아플 때를 대비한 돈 모으기",
+   "target_amount": 6000,
+   "within_months": 60
+  },
+  "_goal_form_note": "엔진은 전세 보증금 5,000만원을 이미 모은 돈으로 세므로, 보증금 + 새로 모을 1,000만원 = 6,000만원"
+ },
+ "goal_input": {
+  "category": "care",
+  "fields": {
+   "base_member_id": "m0",
+   "monthly_cost": 30,
+   "start_years": 0
+  }
+ }
+}

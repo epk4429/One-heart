@@ -7,37 +7,115 @@
   "host_member_id": "m1"
  },
  "members": [
-  {"member_id": "m0", "name": "준호", "role": "남편", "age": 39, "easy_mode": false},
-  {"member_id": "m1", "name": "지현", "role": "아내", "age": 37, "easy_mode": false}
+  {
+   "member_id": "m0",
+   "name": "준호",
+   "role": "남편",
+   "age": 39,
+   "easy_mode": false
+  },
+  {
+   "member_id": "m1",
+   "name": "지현",
+   "role": "아내",
+   "age": 37,
+   "easy_mode": false
+  }
  ],
  "story": {
   "author_id": "m1",
   "text": "결혼 6년 차 맞벌이 부부예요. 3년 전에 지금 사는 아파트를 사면서 주택담보대출을 받았고, 아직 3억 2천만원이 남아 있어요. 아이는 아직 없고 당분간 계획도 없어요. 남편은 이자가 아깝다며 남는 돈은 전부 대출 갚는 데 넣어서 10년 안에 다 갚자고 하고, 저는 대출도 갚되 비상금이랑 노후 준비도 같이 하고 싶어요. 요즘 금리가 오를까 봐 둘 다 신경이 쓰여요."
  },
  "finance": [
-  {"item_id": "f1", "owner_id": "m0", "kind": "income", "label": "준호 월급", "amount": 420},
-  {"item_id": "f2", "owner_id": "m1", "kind": "income", "label": "지현 월급", "amount": 300},
-  {"item_id": "f3", "owner_id": "joint", "kind": "expense", "label": "생활비(카드 월평균·보험 포함)", "amount": 340},
-  {"item_id": "f4", "owner_id": "joint", "kind": "transfer_out", "label": "양가 용돈", "amount": 30},
-  {"item_id": "f5", "owner_id": "joint", "kind": "deposit", "label": "예금", "amount": 2500},
-  {"item_id": "f6", "owner_id": "m1", "kind": "investment", "label": "지현 ETF", "amount": 1500},
-  {"item_id": "f7", "owner_id": "joint", "kind": "home", "label": "사는 아파트(시세 추정)", "amount": 60000},
-  {"item_id": "f8", "owner_id": "joint", "kind": "loan", "loan_type": "mortgage", "label": "주택담보대출", "amount": 32000, "rate": 4.2, "payment": 170}
+  {
+   "item_id": "f1",
+   "owner_id": "m0",
+   "kind": "income",
+   "label": "준호 월급",
+   "amount": 420
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m1",
+   "kind": "income",
+   "label": "지현 월급",
+   "amount": 300
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비(카드 월평균·보험 포함)",
+   "amount": 340
+  },
+  {
+   "item_id": "f4",
+   "owner_id": "joint",
+   "kind": "transfer_out",
+   "label": "양가 용돈",
+   "amount": 30
+  },
+  {
+   "item_id": "f5",
+   "owner_id": "joint",
+   "kind": "deposit",
+   "label": "예금",
+   "amount": 2500
+  },
+  {
+   "item_id": "f6",
+   "owner_id": "m1",
+   "kind": "investment",
+   "label": "지현 ETF",
+   "amount": 1500
+  },
+  {
+   "item_id": "f7",
+   "owner_id": "joint",
+   "kind": "home",
+   "label": "사는 아파트(시세 추정)",
+   "amount": 60000
+  },
+  {
+   "item_id": "f8",
+   "owner_id": "joint",
+   "kind": "loan",
+   "loan_type": "mortgage",
+   "label": "주택담보대출",
+   "amount": 32000,
+   "rate": 4.2,
+   "payment": 170
+  }
  ],
  "disclosure": {},
  "scripts": {
   "answers": {
-   "m0": ["빚 없는 우리 집에서 사는 거요. 10년 안에는 대출을 다 갚고 싶어요.",
-          "금리가 또 오르면 이자가 감당이 안 될까 봐요.",
-          "외식이나 여행은 줄일 수 있어요. 대출 빨리 갚는 건 양보하기 어려워요."],
-   "m1": ["대출도 갚으면서 우리 노후도 같이 챙기는 거요. 너무 빠듯하게 살고 싶진 않아요.",
-          "갑자기 큰돈 들 일이 생겼는데 비상금이 없을까 봐 걱정돼요.",
-          "대출 갚는 속도는 조금 늦어져도 괜찮아요. 비상금 6개월치는 꼭 남겨 두고 싶어요."]
+   "m0": [
+    "빚 없는 우리 집에서 사는 거요. 10년 안에는 대출을 다 갚고 싶어요.",
+    "금리가 또 오르면 이자가 감당이 안 될까 봐요.",
+    "외식이나 여행은 줄일 수 있어요. 대출 빨리 갚는 건 양보하기 어려워요."
+   ],
+   "m1": [
+    "대출도 갚으면서 우리 노후도 같이 챙기는 거요. 너무 빠듯하게 살고 싶진 않아요.",
+    "갑자기 큰돈 들 일이 생겼는데 비상금이 없을까 봐 걱정돼요.",
+    "대출 갚는 속도는 조금 늦어져도 괜찮아요. 비상금 6개월치는 꼭 남겨 두고 싶어요."
+   ]
   },
   "replies": {
    "m0": "좋아요. 대신 매달 더 갚는 돈은 금액을 딱 정해 두고 싶어요.",
    "m1": "좋아요. 비상금만 지켜진다면 찬성이에요."
   },
-  "goal_form": {"type": "debt_free", "label": "주택담보대출 다 갚기", "within_months": 120}
+  "goal_form": {
+   "type": "debt_free",
+   "label": "주택담보대출 다 갚기",
+   "within_months": 120
+  }
+ },
+ "goal_input": {
+  "category": "debt",
+  "fields": {
+   "within_years": 10,
+   "priority": "이자 부담 줄이기"
+  }
  }
 }

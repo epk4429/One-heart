@@ -93,7 +93,7 @@
   }
  ],
  "disclosure": {
-  "f1": "summary_only"
+  "f1": "hide"
  },
  "scripts": {
   "answers": {
@@ -134,6 +134,52 @@
    "type": "runway",
    "base_member_id": "m0",
    "label": "예금이 버티는 기간"
+  },
+  "rounds": [
+   {
+    "m0": {
+     "v": "cond",
+     "text": "괜찮아요, 단 이 집에 살 수 있어야 해요."
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    },
+    "m2": {
+     "v": "good",
+     "text": ""
+    },
+    "m3": {
+     "v": "cond",
+     "text": "괜찮아요, 단 간병을 누가 맡을지도 같이 봐 주세요."
+    }
+   },
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    },
+    "m2": {
+     "v": "good",
+     "text": ""
+    },
+    "m3": {
+     "v": "good",
+     "text": ""
+    }
+   }
+  ]
+ },
+ "goal_input": {
+  "category": "care",
+  "fields": {
+   "base_member_id": "m0",
+   "monthly_cost": 80,
+   "start_years": 0
   }
  }
 }

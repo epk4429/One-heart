@@ -1,30 +1,30 @@
 {
  "model": "claude-sonnet-5-5",
  "family": "single_parent",
- "started": "2026-10-06 23:48:12",
+ "started": "2026-11-04 14:20:15",
  "steps": {
   "story": {
-   "seconds": 1.9,
+   "seconds": 4.7,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 1.86,
+     "latency_s": 4.43,
      "usage": {
-      "input_tokens": 982,
-      "output_tokens": 112,
-      "cost_usd": 0.003573
+      "input_tokens": 1523,
+      "output_tokens": 419,
+      "cost_usd": 0.007236
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_1a55b33378",
+    "verification_id": "ver_301b4b35c0",
     "run_id": null,
     "role": "1a",
-    "checked_numbers": 2,
+    "checked_numbers": 0,
     "facts_used": [],
     "violations": [],
     "regenerated": false,
@@ -32,34 +32,56 @@
     "status": "pass"
    },
    "result": {
-    "family_stage": "한부모 가정 · 자녀 17세·14세",
-    "living": "월세 거주 (만기 연월은 아직 이야기하지 않았어요)",
+    "family_stage": "한부모 가정 · 자녀 둘 키우는 중",
+    "living": "월세 거주",
     "shared_goal": "빚을 언제 다 갚을지 함께 보기",
     "differences": [
      "아직 이야기하지 않았어요"
-    ]
+    ],
+    "member_questions": {
+     "m0": [
+      {
+       "text": "도윤이가 대학에 갈 때 등록금은 언제쯤 필요할 것 같으세요?",
+       "easy": "등록금은 언제쯤 필요해요?",
+       "from": "도윤이는 대학 갈 때 등록금이 걱정"
+      },
+      {
+       "text": "남은 신용대출은 매달 얼마씩 갚고 계시고, 남은 기간은 어느 정도인가요?",
+       "easy": "빚은 매달 얼마씩 갚고 있어요?",
+       "from": "신용대출이 남아 있어요"
+      }
+     ],
+     "m1": [
+      {
+       "text": "대학에 간다면 언제쯤, 어떤 방식으로 가고 싶은지 생각해 둔 게 있나요?",
+       "easy": "대학은 언제쯤 가고 싶어요?",
+       "from": "도윤이는 대학 갈 때 등록금이 걱정"
+      }
+     ],
+     "m2": []
+    }
    },
    "error": null
   },
   "review.m0": {
-   "seconds": 1.6,
+   "seconds": 1.9,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 1.56,
+     "latency_s": 1.82,
      "usage": {
-      "input_tokens": 1722,
-      "output_tokens": 108,
-      "cost_usd": 0.005383
+      "input_tokens": 1857,
+      "output_tokens": 109,
+      "cost_usd": 0.004804
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_da3d331af2",
+    "verification_id": "ver_46124e26b4",
     "run_id": null,
     "role": "1b",
     "checked_numbers": 0,
@@ -73,6 +95,7 @@
     "keep": "아이들이 하고 싶은 공부를 돈 걱정 없이 하는 것",
     "flexible": "외식은 줄일 수 있어요",
     "worry": "대출 이자가 계속 나가는 것",
+    "details": [],
     "ambiguous": [],
     "question": "",
     "easy_question": "",
@@ -81,24 +104,24 @@
    "error": null
   },
   "review.m1": {
-   "seconds": 1.6,
+   "seconds": 2.0,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 1.59,
+     "latency_s": 1.86,
      "usage": {
-      "input_tokens": 1679,
-      "output_tokens": 87,
-      "cost_usd": 0.005065
+      "input_tokens": 1814,
+      "output_tokens": 92,
+      "cost_usd": 0.004548
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_624115ea40",
+    "verification_id": "ver_a2be533bb8",
     "run_id": null,
     "role": "1b",
     "checked_numbers": 0,
@@ -112,6 +135,7 @@
     "keep": "엄마가 덜 힘들었으면 좋겠어요",
     "flexible": "용돈은 줄여도 돼요",
     "worry": "등록금",
+    "details": [],
     "ambiguous": [],
     "question": "",
     "easy_question": "",
@@ -120,24 +144,24 @@
    "error": null
   },
   "review.m2": {
-   "seconds": 1.6,
+   "seconds": 1.9,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 1.61,
+     "latency_s": 1.78,
      "usage": {
-      "input_tokens": 1685,
-      "output_tokens": 97,
-      "cost_usd": 0.005181
+      "input_tokens": 1820,
+      "output_tokens": 102,
+      "cost_usd": 0.00466
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_b29baf6a0b",
+    "verification_id": "ver_5e3dc7c114",
     "run_id": null,
     "role": "1b",
     "checked_numbers": 0,
@@ -148,9 +172,10 @@
     "status": "pass"
    },
    "result": {
-    "keep": "지금처럼 셋이 같이 사는 거",
+    "keep": "지금처럼 셋이 같이 사는 것",
     "flexible": "새 휴대폰은 나중에 사도 돼요",
     "worry": "아직 말하지 않았어요",
+    "details": [],
     "ambiguous": [],
     "question": "",
     "easy_question": "",
@@ -159,17 +184,17 @@
    "error": null
   },
   "goal": {
-   "seconds": 11.4,
+   "seconds": 13.8,
    "runs": {
     "analysis_run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 6.13,
+     "latency_s": 5.25,
      "usage": {
-      "input_tokens": 1492,
-      "output_tokens": 756,
-      "cost_usd": 0.011288
+      "input_tokens": 1472,
+      "output_tokens": 644,
+      "cost_usd": 0.009384
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
@@ -178,130 +203,24 @@
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 5.26,
+     "latency_s": 8.13,
      "usage": {
-      "input_tokens": 2410,
-      "output_tokens": 661,
-      "cost_usd": 0.012633
+      "input_tokens": 11323,
+      "output_tokens": 985,
+      "cost_usd": 0.032496
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_fa771eb4ce",
+    "verification_id": "ver_f76caefcbb",
     "run_id": null,
     "role": "3+4a",
-    "checked_numbers": 2,
+    "checked_numbers": 4,
     "facts_used": [
-     "fin.liquid_total",
-     "fin.loan"
-    ],
-    "violations": [
-     {
-      "type": "unknown_fact",
-      "id": "savings",
-      "severity": "error",
-      "path": "issues.2.note"
-     }
-    ],
-    "regenerated": false,
-    "fallback_used": false,
-    "status": "fail"
-   },
-   "result": {
-    "headline": "서로를 아끼는 마음은 같아요. 걱정하는 부분이 조금씩 다를 뿐이에요.",
-    "agreed_points": [
-     "가족이 함께 지내며 서로 덜 힘들었으면 하는 마음이 같아요.",
-     "각자 조금씩 아껴 쓸 수 있다는 데 마음이 열려 있어요. 외식, 용돈, 새 휴대폰이 그 예예요.",
-     "아이들의 공부와 생활이 돈 때문에 흔들리지 않았으면 해요."
-    ],
-    "issues": [
-     {
-      "title": "가장 걱정되는 것",
-      "left_label": "대출 이자 부담",
-      "right_label": "앞으로 들어갈 학비",
-      "positions": {
-       "m0": 0.2,
-       "m1": 0.9,
-       "m2": 0.5
-      },
-      "note": "엄마는 이자를, 도윤이는 등록금을 걱정해요. 서아의 걱정은 아직 듣지 못했어요.",
-      "gap_level": "large"
-     },
-     {
-      "title": "아껴 쓰는 방법",
-      "left_label": "가족 모두 조금씩 줄이기",
-      "right_label": "아이들 몫을 먼저 줄이기",
-      "positions": {
-       "m0": 0.2,
-       "m1": 0.7,
-       "m2": 0.6
-      },
-      "note": "엄마는 외식을 줄이자고 했고, 아이들은 자기 몫(용돈, 휴대폰)을 줄이겠다고 했어요. 아이들이 마음을 너무 쓰는 건 아닌지 함께 이야기해 보면 좋아요.",
-      "gap_level": "medium"
-     },
-     {
-      "title": "빚을 갚는 속도",
-      "left_label": "천천히, 여유 있게 갚기",
-      "right_label": "빨리 갚아서 이자 줄이기",
-      "positions": {
-       "m0": 0.7,
-       "m1": 0.5,
-       "m2": 0.3
-      },
-      "note": "아직 직접 이야기한 적이 없어요. 모아 둔 돈 [?]을 어디에 쓸지 함께 정해 보면 좋아요.",
-      "gap_level": "medium"
-     }
-    ],
-    "proposal": {
-     "text": "모아 둔 돈 600만원은 아이들 공부에 쓸 몫을 먼저 따로 지켜 두고, 나머지로 대출 1,800만원을 갚아 나가면 어떨까요? 그리고 아끼는 일은 아이들만 맡지 않고 외식, 용돈, 새 휴대폰을 가족 모두가 조금씩 나눠 맡으면 어떨까요? 빚을 갚는 속도는 날짜로 정하지 말고, 공부에 쓸 돈이 안전하게 지켜지는 선에서 갚을 수 있는 만큼 갚는 것으로 정하면 어떨까요?",
-     "to": [
-      "m0",
-      "m1",
-      "m2"
-     ],
-     "bridges": [
-      {
-       "issue_title": "가장 걱정되는 것",
-       "how": "엄마의 이자 걱정과 도윤이의 등록금 걱정을 둘 중 하나로 고르지 않아요. 공부에 쓸 몫을 먼저 지키고 나머지로 대출을 갚으면 두 걱정을 함께 살필 수 있어요."
-      },
-      {
-       "issue_title": "아껴 쓰는 방법",
-       "how": "엄마는 외식을, 아이들은 용돈과 휴대폰을 줄이겠다고 했어요. 모두가 조금씩 나눠 맡으면 아이들만 마음을 쓰지 않아도 되고, 엄마도 덜 힘들 수 있어요."
-      },
-      {
-       "issue_title": "빚을 갚는 속도",
-       "how": "'천천히'와 '빨리' 중 하나를 고르지 않고, 공부에 쓸 돈이 지켜진다는 조건 안에서 갚을 수 있는 만큼 갚는 기준을 써요. 그러면 이자를 줄이면서도 여유를 지킬 수 있어요."
-      }
-     ]
-    }
-   },
-   "error": null
-  },
-  "criterion": {
-   "seconds": 2.4,
-   "runs": {
-    "run": {
-     "ok": true,
-     "attempts": 1,
-     "errors": [],
-     "latency_s": 2.34,
-     "usage": {
-      "input_tokens": 2255,
-      "output_tokens": 265,
-      "cost_usd": 0.008285
-     },
-     "tool_calls": 0,
-     "model": "claude-sonnet-5-5"
-    }
-   },
-   "verification": {
-    "verification_id": "ver_9772d5a072",
-    "run_id": null,
-    "role": "4b",
-    "checked_numbers": 2,
-    "facts_used": [
+     "fin.expense_total",
+     "fin.income_total",
      "fin.liquid_total",
      "fin.loan"
     ],
@@ -311,11 +230,122 @@
     "status": "pass"
    },
    "result": {
-    "criterion": "아이들 공부에 쓸 돈은 먼저 지켜 두고, 모아 둔 600만원에서 나머지로 대출 1,800만원을 갚아 나가요. 아끼는 일은 외식, 용돈, 새 휴대폰을 가족 모두가 조금씩 나눠 맡고, 갚는 속도는 날짜로 정하지 않고 공부 돈이 안전하게 지켜지는 선에서 갚을 수 있는 만큼으로 해요.",
-    "criterion_raw": "아이들 공부에 쓸 돈은 먼저 지켜 두고, 모아 둔 {{fact:fin.liquid_total}}에서 나머지로 대출 {{fact:fin.loan}}을 갚아 나가요. 아끼는 일은 외식, 용돈, 새 휴대폰을 가족 모두가 조금씩 나눠 맡고, 갚는 속도는 날짜로 정하지 않고 공부 돈이 안전하게 지켜지는 선에서 갚을 수 있는 만큼으로 해요.",
+    "headline": "서로를 아끼는 마음은 같아요. 걱정하는 부분만 조금씩 달라요.",
+    "agreed_points": [
+     "각자 조금씩 양보할 수 있다고 생각해요. 엄마는 외식, 도윤이는 용돈, 서아는 새 휴대폰을 나중으로 미룰 수 있어요.",
+     "가족이 함께 지내며 서로 덜 힘들었으면 하는 마음이 같아요.",
+     "빚을 언제 다 갚을지 함께 살펴보자는 목표가 같아요."
+    ],
+    "issues": [
+     {
+      "title": "지금 가장 걱정되는 것",
+      "left_label": "대출 이자 부담",
+      "right_label": "앞으로 들어갈 학비",
+      "positions": {
+       "m0": 0.2,
+       "m1": 0.85,
+       "m2": 0.5
+      },
+      "note": "엄마는 이자를, 도윤이는 등록금을 걱정해요. 서아의 걱정은 아직 듣지 못했어요.",
+      "gap_level": "large"
+     },
+     {
+      "title": "아이들 교육에 대한 마음",
+      "left_label": "하고 싶은 공부를 마음껏",
+      "right_label": "엄마 부담부터 줄이기",
+      "positions": {
+       "m0": 0.15,
+       "m1": 0.7,
+       "m2": 0.5
+      },
+      "note": "엄마는 공부를 지켜주고 싶어 하고, 도윤이는 엄마가 덜 힘들길 바라요.",
+      "gap_level": "medium"
+     },
+     {
+      "title": "줄일 수 있는 지출",
+      "left_label": "어른 지출(외식)부터",
+      "right_label": "아이들 지출(용돈·휴대폰)부터",
+      "positions": {
+       "m0": 0.2,
+       "m1": 0.8,
+       "m2": 0.8
+      },
+      "note": "아이들이 스스로 양보하겠다고 하고 있어요. 누가 얼마나 줄일지는 함께 정해보면 좋아요.",
+      "gap_level": "large"
+     }
+    ],
+    "proposal": {
+     "text": "엄마는 대출 이자가, 도윤이는 등록금이, 서아는 셋이 함께 사는 것이 마음에 걸리고 있어요. 그래서 '누구 걱정이 더 큰가'를 따지지 않고, 세 분이 지키고 싶은 것을 한 줄로 묶어 보면 어떨까요? '지금처럼 셋이 함께 지내면서, 아이들의 공부는 이어가고, 엄마의 이자 부담은 조금씩 줄여 간다'는 기준이에요. 매달 들어오는 돈 월 320만원에서 나가는 돈 월 230만원을 빼고 남는 돈과 지금 모아 둔 600만원을 먼저 보고, 외식·용돈·새 휴대폰을 나중으로 미루면서 남는 돈을 어디에 얼마나 쓸지 함께 정해 보는 거예요. 대출 1,800만원은 한 번에 갚는 게 아니라 '언제쯤 다 갚을지' 함께 살펴보는 것부터 시작하고요. 이자가 걱정될 때는 [[tip:C_fss_tip_040_003|승진이나 급여가 오르는 등 상황이 달라지면 은행에 이자를 낮춰 달라고 요구할 수 있어서|대출을 받은 후 신용등급 상향에 영향을 줄 수 있는 승진이나 급여상승 등이 있는 경우]] 그때를 대비해 알아 두면 좋겠어요. 이렇게 세 분의 걱정을 한 기준 안에서 함께 살펴보면 어떨까요?",
+     "to": [
+      "m0",
+      "m1",
+      "m2"
+     ],
+     "bridges": [
+      {
+       "issue_title": "지금 가장 걱정되는 것",
+       "how": "이자와 등록금 중 무엇이 더 급한지 겨루지 않고, 남는 돈을 이자와 학비에 어떻게 나눌지 함께 보는 기준으로 바꿔요. 서아의 걱정도 이 자리에서 들을 수 있어요."
+      },
+      {
+       "issue_title": "아이들 교육에 대한 마음",
+       "how": "공부를 지키고 싶은 엄마의 마음과 엄마가 덜 힘들길 바라는 도윤이의 마음을 '공부는 이어가고 부담은 조금씩 줄이기'라는 한 기준에 함께 담아요."
+      },
+      {
+       "issue_title": "줄일 수 있는 지출",
+       "how": "엄마의 외식과 아이들의 용돈·휴대폰을 함께 나중으로 미루는 것으로 보아, 아이들만 양보하지 않고 각자 조금씩 나눠서 줄이도록 해요."
+      }
+     ],
+     "tips": [
+      {
+       "tip_id": "C_fss_tip_040_003",
+       "text": "* 예금담보대출, 특정 고정금리 등 일부 상품의 경우 거래실적에 따른 추가 금리감면을 제공하지 않을 수 있음\n④금리인하 요구권 적극 활용\n은행들은 대출이용 기간 중 직위, 연소득, 신용등급 등에 변동이 있는 고객이 대출금리 인하를 요구할 경우 자체심사를 통해 대출금리의 일부를 인하해주는 ‘금리인하 요구권’ 제도를 운영하고 있습니다.\n따라서, 대출을 받은 후 신용등급 상향에 영향을 줄 수 있는 승진이나 급여상승 등이 있는 경우, 은행창구를 방문하여 금리인하를 적극 요구함으로써 대출이자 부담을 줄일 수 있습니다.\n⑤상환여력 부족시 이자 일부만이라도 납입\n은행들은 대출이자 최종납입일 이후 1개월이 지난 시점에 이자를 내지 않으면 그 다음날부터 미납이자에 대한 고금리 연체이자*를 부과합니다. 그렇지만 이자 납입일에 일부이자만 납입하여도 최종납입일이 연장되기 때문에 당장 대출이자가 연체되는 것을 막을 수 있습니다.\n* 통상 정상이자에 6.0∼8.0%p 추가\n따라서, 이자 납입일에 1개월치 이자 중 일부가 부족한 경우 가용할 수 있는 이자*만 납입해도 연체이자에 대한 부담을 줄일 수 있습니다.\n* 만기일시상환 대출인 경우에만 가능(마이너스통장, 분할상환대출 등은 제외)\n< (예시) 이자일부 우선 납입 >",
+       "quote": "대출을 받은 후 신용등급 상향에 영향을 줄 수 있는 승진이나 급여상승 등이 있는 경우",
+       "publisher": "금융감독원",
+       "source_title": "금융꿀팁 200선 (40) 은행거래 100% 활용법(4): 대출이자 부담줄이기",
+       "url": "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=34667&menuNo=200498",
+       "fetched_at": "2026-11-03"
+      }
+     ]
+    }
+   },
+   "error": null
+  },
+  "criterion": {
+   "seconds": 2.6,
+   "runs": {
+    "run": {
+     "ok": true,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 2.47,
+     "usage": {
+      "input_tokens": 2525,
+      "output_tokens": 153,
+      "cost_usd": 0.00658
+     },
+     "tool_calls": 0,
+     "model": "claude-sonnet-5-5"
+    }
+   },
+   "verification": {
+    "verification_id": "ver_08b1892435",
+    "run_id": null,
+    "role": "4b",
+    "checked_numbers": 1,
+    "facts_used": [
+     "fin.loan"
+    ],
+    "violations": [],
+    "regenerated": false,
+    "fallback_used": false,
+    "status": "pass"
+   },
+   "result": {
+    "criterion": "지금처럼 셋이 함께 지내면서, 아이들의 공부는 이어가고, 대출 1,800만원을 조금씩 갚아 엄마의 이자 부담을 줄여 가요.",
+    "criterion_raw": "지금처럼 셋이 함께 지내면서, 아이들의 공부는 이어가고, 대출 {{fact:fin.loan}}을 조금씩 갚아 엄마의 이자 부담을 줄여 가요.",
     "goal": {
      "type": "debt_free",
-     "label": "대출 다 갚는 시기 보기",
+     "label": "대출 다 갚는 때 보기",
      "within_months": null,
      "base_member_id": null,
      "target_amount": null,
@@ -325,97 +355,299 @@
    "error": null
   },
   "design": {
-   "seconds": 34.6,
+   "seconds": 28.8,
    "runs": {
     "design_run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 17.38,
+     "latency_s": 19.94,
      "usage": {
-      "input_tokens": 10997,
-      "output_tokens": 2541,
-      "cost_usd": 0.044564
+      "input_tokens": 30277,
+      "output_tokens": 2726,
+      "cost_usd": 0.072177
      },
      "tool_calls": 1,
      "model": "claude-sonnet-5-5"
     },
     "interpret_run": {
      "ok": true,
-     "attempts": 2,
-     "errors": [
-      "'per_option' 키가 없어요",
-      "'per_option' 키는 ['A', 'B', 'C']여야 해요"
-     ],
-     "latency_s": 17.16,
+     "attempts": 1,
+     "errors": [],
+     "latency_s": 8.42,
      "usage": {
-      "input_tokens": 9069,
-      "output_tokens": 2480,
-      "cost_usd": 0.038239
+      "input_tokens": 3817,
+      "output_tokens": 1019,
+      "cost_usd": 0.017824
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_72a38614a5",
-    "run_id": "run_211d2d20602d",
+    "verification_id": "ver_b30f06f7c8",
+    "run_id": "run_ac4b7ff438de",
     "role": "5+6a",
-    "checked_numbers": 13,
+    "checked_numbers": 10,
     "facts_used": [
-     "A.cashflow.2",
-     "A.cashflow.3",
-     "A.cashflow.4",
+     "A.age_at_hit",
      "A.debt_free_years",
-     "A.loan_payment",
-     "B.cashflow.2",
-     "B.cashflow.3",
-     "B.cashflow.4",
+     "A.min_pool",
+     "B.age_at_hit",
      "B.debt_free_years",
-     "B.loan_payment",
+     "B.min_pool",
+     "C.age_at_hit",
      "C.debt_free_years",
-     "C.loan_payment"
+     "C.min_pool"
     ],
     "violations": [],
     "regenerated": false,
     "fallback_used": false,
     "status": "pass"
    },
-   "result": null,
+   "result": {
+    "options": [
+     {
+      "option_id": "A",
+      "label": "빨리 갚기",
+      "description": "예금으로 한 번에 크게 갚고 매달에도 더 갚아 대출을 가장 빨리 끝내는 방법이에요.",
+      "changes": [
+       "돈을 불리는 방식: 예금·적금만(연 3.3% 가정)",
+       "생활비·월세 월 230만원 → 215만원 (현주님이 외식은 줄일 수 있다고, 도윤이가 용돈은 줄여도 된다고 했어요. 그래서 생활비를 조금 줄이는 것으로 가정했어요.)",
+       "1개월째 예금 600만원으로 신용대출 한 번에 갚기",
+       "신용대출 한 달 30만원 더 갚기"
+      ],
+      "hit": "약 1.6년",
+      "monthly_flow": -565.0,
+      "range": null,
+      "basis": [
+       [
+        "출발 금액",
+        "600만원",
+        "예금·투자 600만원"
+       ],
+       [
+        "한 달에 늘거나 줄어드는 돈",
+        "-565만원",
+        "월급 320 − 생활비·월세 215 − 대출 상환 670"
+       ],
+       [
+        "1년에 불어나는 비율",
+        "연 3.3%",
+        ""
+       ],
+       [
+        "물가 오름(생활비에 반영)",
+        "연 2%",
+        ""
+       ],
+       [
+        "신용대출",
+        "-1,800만원",
+        "연 7.5% · 한 달 40만원씩 갚아요"
+       ],
+       [
+        "신용대출 더 갚기",
+        "-30만원 / 한 달",
+        "1개월째부터"
+       ],
+       [
+        "신용대출 한 번에 갚기",
+        "-600만원",
+        "1개월째, 예금에서"
+       ],
+       [
+        "가족이 정한 기준",
+        "대출 다 갚는 때 보기",
+        ""
+       ]
+      ]
+     },
+     {
+      "option_id": "B",
+      "label": "함께 지키며 갚기",
+      "description": "예금 일부만 쓰고 조금씩 더 갚아서, 공부와 셋이 함께 사는 생활을 지키는 균형 방법이에요.",
+      "changes": [
+       "돈을 불리는 방식: 예금·적금만(연 3.3% 가정)",
+       "생활비·월세 월 230만원 → 222만원 (외식과 용돈을 조금만 줄이는 것으로 가정했어요. 그래서 아이들 공부에 쓸 여유를 남겨요.)",
+       "1개월째 예금 300만원으로 신용대출 한 번에 갚기",
+       "신용대출 한 달 10만원 더 갚기"
+      ],
+      "hit": "약 2.8년",
+      "monthly_flow": -252.0,
+      "range": null,
+      "basis": [
+       [
+        "출발 금액",
+        "600만원",
+        "예금·투자 600만원"
+       ],
+       [
+        "한 달에 늘거나 줄어드는 돈",
+        "-252만원",
+        "월급 320 − 생활비·월세 222 − 대출 상환 350"
+       ],
+       [
+        "1년에 불어나는 비율",
+        "연 3.3%",
+        ""
+       ],
+       [
+        "물가 오름(생활비에 반영)",
+        "연 2%",
+        ""
+       ],
+       [
+        "신용대출",
+        "-1,800만원",
+        "연 7.5% · 한 달 40만원씩 갚아요"
+       ],
+       [
+        "신용대출 더 갚기",
+        "-10만원 / 한 달",
+        "1개월째부터"
+       ],
+       [
+        "신용대출 한 번에 갚기",
+        "-300만원",
+        "1개월째, 예금에서"
+       ],
+       [
+        "가족이 정한 기준",
+        "대출 다 갚는 때 보기",
+        ""
+       ]
+      ]
+     },
+     {
+      "option_id": "C",
+      "label": "여유 지키며 갚기",
+      "description": "지금 생활을 그대로 두고 정해진 상환만 이어가는 방법이에요.",
+      "changes": [
+       "돈을 불리는 방식: 예금·적금 위주(연 3.8% 가정)"
+      ],
+      "hit": "약 4.5년",
+      "monthly_flow": 50.0,
+      "range": null,
+      "basis": [
+       [
+        "출발 금액",
+        "600만원",
+        "예금·투자 600만원"
+       ],
+       [
+        "한 달에 늘거나 줄어드는 돈",
+        "+50만원",
+        "월급 320 − 생활비·월세 230 − 대출 상환 40"
+       ],
+       [
+        "1년에 불어나는 비율",
+        "연 3.8%",
+        ""
+       ],
+       [
+        "물가 오름(생활비에 반영)",
+        "연 2%",
+        ""
+       ],
+       [
+        "신용대출",
+        "-1,800만원",
+        "연 7.5% · 한 달 40만원씩 갚아요"
+       ],
+       [
+        "가족이 정한 기준",
+        "대출 다 갚는 때 보기",
+        ""
+       ]
+      ]
+     }
+    ],
+    "design_notes": [
+     {
+      "option_id": "A",
+      "intent": "대출 이자 부담을 가장 빨리 끝내는 데 집중한 방법이에요. 예금이 많이 줄어드는 점은 함께 살펴봐 주세요.",
+      "why": "예금 이자보다 대출 이자가 훨씬 높아서, 예금으로 먼저 갚으면 이자를 가장 많이 줄일 수 있어요. 예금은 공시 통계(은행 정기예금 중간값)를 기준으로 잡았어요.",
+      "tips": []
+     },
+     {
+      "option_id": "B",
+      "intent": "대출은 줄이되 예금도 어느 정도 남겨서, 공부와 엄마의 부담을 함께 챙기려는 방법이에요.",
+      "why": "예금을 한꺼번에 다 쓰지 않고 나눠 쓰면, 갑자기 돈이 필요할 때 쓸 여유가 남아서 이렇게 설계했어요.",
+      "tips": []
+     },
+     {
+      "option_id": "C",
+      "intent": "생활 여유와 예금을 그대로 두고 천천히 갚는 방법이에요. 대신 이자를 내는 기간이 길어요.",
+      "why": "생활비를 줄이지 않고 지금의 여유를 우선하는 방법이라서, 갚는 속도는 가장 느려요.",
+      "tips": []
+     }
+    ],
+    "interpretation": {
+     "A": {
+      "easy": "이 방법은 대출을 약 1.6년이면 다 갚고, 그때 현주님은 42세쯤이에요.",
+      "per_member": {
+       "m0": "대출 이자가 계속 나가는 걱정은 가장 빨리 끝나지만, 예금이 가장 적을 때는 37만원까지 줄어서 아이들 공부에 갑자기 돈이 필요할 때 여유가 많지 않을 수 있어요.",
+       "m1": "엄마의 대출 부담이 가장 빨리 끝나서 덜 힘들어질 수 있고, 도윤이가 말한 대로 용돈을 줄이는 것이 생활비를 줄이는 가정에 들어가 있어요.",
+       "m2": "셋이 같이 사는 생활은 그대로 이어지지만, 서아가 말한 새 휴대폰을 나중에 사는 것도 생활비를 줄이는 가정에 함께 들어갈 수 있어요."
+      }
+     },
+     "B": {
+      "easy": "이 방법은 대출을 약 2.8년이면 다 갚고, 그때 현주님은 43세쯤이에요.",
+      "per_member": {
+       "m0": "대출은 약 2.8년이 걸리지만 예금이 가장 적을 때도 350만원은 남아서, 아이들이 하고 싶은 공부에 쓸 여유를 지키기 쉬워요.",
+       "m1": "엄마가 대출을 갚는 시간은 조금 더 걸리지만, 등록금 같은 큰돈이 필요할 때 쓸 예금을 어느 정도 남겨 둘 수 있어요.",
+       "m2": "생활을 크게 바꾸지 않고 외식과 용돈만 조금 줄여서, 지금처럼 셋이 같이 사는 생활을 이어가기에 부담이 덜해요."
+      }
+     },
+     "C": {
+      "easy": "이 방법은 대출을 약 4.5년이면 다 갚고, 그때 현주님은 45세쯤이에요.",
+      "per_member": {
+       "m0": "생활은 그대로 두고 아이들 공부 여유도 지킬 수 있지만, 대출 이자가 나가는 기간은 세 방법 중 가장 길어요.",
+       "m1": "용돈을 줄이지 않아도 되지만, 엄마가 대출을 갚는 시간이 가장 오래 이어져요. 등록금을 위한 예금은 가장 적을 때도 652만원이 남아요.",
+       "m2": "생활이 지금과 같아서 새 휴대폰을 미루지 않아도 되고, 셋이 같이 사는 모습도 그대로 이어져요."
+      }
+     }
+    }
+   },
    "error": null
   },
   "check": {
-   "seconds": 6.6,
+   "seconds": 6.2,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 6.54,
+     "latency_s": 6.07,
      "usage": {
-      "input_tokens": 3776,
-      "output_tokens": 904,
-      "cost_usd": 0.018478
+      "input_tokens": 4071,
+      "output_tokens": 899,
+      "cost_usd": 0.017132
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_16e85bbd9b",
-    "run_id": "run_211d2d20602d",
+    "verification_id": "ver_cff9194ae2",
+    "run_id": "run_ac4b7ff438de",
     "role": "6b",
-    "checked_numbers": 12,
+    "checked_numbers": 13,
     "facts_used": [
      "A.debt_free_years",
-     "A.end_pool",
      "A.loan_payment",
+     "A.min_pool",
+     "A.monthly_flow",
+     "B.cashflow.1",
      "B.debt_free_years",
-     "B.end_pool",
      "B.loan_payment",
+     "B.min_pool",
+     "B.monthly_flow",
      "C.debt_free_years",
-     "C.end_pool",
-     "C.loan_payment"
+     "C.loan_payment",
+     "C.min_pool",
+     "C.monthly_flow"
     ],
     "violations": [],
     "regenerated": false,
@@ -426,73 +658,73 @@
     "keep_check": {
      "A": {
       "m0": {
-       "ok": true,
-       "reason": "대출을 약 1.5년에 다 갚고 나면 7년이 끝날 때 8,383만원이 남아요. 다만 공부 돈을 따로 떼어 두는 계획은 없어서, 가족이 한 번 더 이야기해 보면 좋아요."
+       "ok": false,
+       "reason": "예금이 가장 적을 때 37만원까지 내려가요. 아이들 공부에 갑자기 돈이 필요하면 쓸 여유가 거의 없어요."
       },
       "m1": {
        "ok": false,
-       "reason": "외식·용돈·휴대폰을 줄이고 한 달 대출 상환도 110만원로 가장 커서 엄마의 부담이 제일 클 수 있어요."
+       "reason": "한 달 대출 상환이 670만원이고 매달 -565만원씩 부족해요. 생활비와 용돈도 줄여야 해서 엄마의 부담이 가장 커 보여요."
       },
       "m2": {
        "ok": true,
-       "reason": "생활 방식을 바꾸는 계획이 아니어서 지금처럼 셋이 같이 살 수 있어요. 새 휴대폰만 미루면 돼요."
+       "reason": "대출은 약 1.6년이면 끝나고, 지금 생활을 이어가는 데 필요한 큰 변화는 없어요."
       }
      },
      "B": {
       "m0": {
        "ok": true,
-       "reason": "대출을 약 2.1년에 다 갚고, 7년이 끝날 때 7,398만원이 남아서 공부 돈을 준비할 여유가 있어요."
+       "reason": "예금이 가장 적을 때도 350만원이 남아요. 생활비도 222만원으로 조금만 줄여서 공부에 쓸 여유를 남겨요."
       },
       "m1": {
-       "ok": true,
-       "reason": "한 달 대출 상환이 80만원로 A보다 가벼워서 엄마의 부담이 덜해요. 그래도 외식 줄이기는 계속해야 해요."
+       "ok": false,
+       "reason": "한 달 대출 상환이 350만원이고 매달 -252만원씩 부족해요. 엄마의 부담이 아직 작지 않아요."
       },
       "m2": {
        "ok": true,
-       "reason": "생활 방식이 크게 달라지지 않아서 지금처럼 셋이 같이 살 수 있어요."
+       "reason": "대출은 약 2.8년이면 끝나고, 셋이 같이 사는 생활을 바꾸지 않아도 돼요."
       }
      },
      "C": {
       "m0": {
        "ok": true,
-       "reason": "7년이 끝날 때 5,417만원이 남아요. 다만 대출을 다 갚는 때가 약 3.4년로 가장 늦어요."
+       "reason": "예금이 가장 적을 때도 652만원이 남아요. 생활을 그대로 두어서 공부에 쓸 돈을 지키기 쉬워요."
       },
       "m1": {
        "ok": true,
-       "reason": "줄이는 것이 없고 한 달 대출 상환도 50만원로 가장 가벼워서 엄마의 부담이 가장 적어요."
+       "reason": "한 달 대출 상환이 40만원이고, 매달 50만원이 남아요. 엄마의 부담이 가장 적어요."
       },
       "m2": {
        "ok": true,
-       "reason": "생활을 바꾸지 않아도 되니 지금처럼 셋이 같이 살 수 있어요."
+       "reason": "지금 생활을 그대로 이어가서 셋이 같이 사는 모습이 가장 안정적이에요."
       }
      }
     },
-    "note": "A는 대출을 가장 빨리 갚지만 엄마의 부담이 커 보이고, C는 부담이 적은 대신 갚는 시기가 가장 늦어요. B는 그 중간이에요. 어떤 방법을 고를지는 가족이 함께 이야기해서 정해요."
+    "note": "세 가지 방법 중 모두를 만족하는 것은 C뿐이지만, 대출이 약 4.5년으로 가장 늦게 끝나요. 어떤 방법이 맞을지는 가족이 함께 이야기해서 정해 주세요."
    },
    "error": null
   },
   "revise": {
-   "seconds": 14.3,
+   "seconds": 11.1,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 14.29,
+     "latency_s": 11.05,
      "usage": {
-      "input_tokens": 6827,
-      "output_tokens": 1700,
-      "cost_usd": 0.034065
+      "input_tokens": 6864,
+      "output_tokens": 1321,
+      "cost_usd": 0.026938
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_bf2f61535e",
-    "run_id": "run_9270c336c33e",
+    "verification_id": "ver_6032e42e44",
+    "run_id": "run_140d049d35c4",
     "role": "5r",
-    "checked_numbers": 0,
+    "checked_numbers": 3,
     "facts_used": [],
     "violations": [],
     "regenerated": false,
@@ -501,148 +733,135 @@
    },
    "result": {
     "from_option_id": "B",
-    "label": "함께 지키며 갚기 · 공부 돈 따로 모으기 조정안",
+    "label": "함께 지키며 갚기 · 한 번에 갚는 돈 조정안",
     "spec": {
      "option_id": "B2",
-     "label": "함께 지키며 갚기 · 공부 돈 따로 모으기 조정안",
-     "description": "공부 돈을 매달 따로 떼어 두고, 나머지로 대출을 더 갚아요.",
-     "return_id": "deposit_heavy",
-     "monthly_changes": [],
-     "adjustments": [
+     "label": "함께 지키며 갚기 · 한 번에 갚는 돈 조정안",
+     "description": "예금을 더 남겨 아이들 공부에 쓸 여유를 지키면서, 매달 조금씩 더 갚는 균형 방법이에요.",
+     "return_id": "safe",
+     "monthly_changes": [
       {
-       "label": "외식 줄이기",
-       "amount": 10.0,
-       "reason": "현주님이 외식은 줄일 수 있다고 했어요",
-       "member_id": "m0"
-      },
-      {
-       "label": "용돈 줄이기",
-       "amount": 5.0,
-       "reason": "도윤이가 용돈은 줄여도 된다고 했어요",
-       "member_id": "m1"
-      },
-      {
-       "label": "새 휴대폰 미루기",
-       "amount": 5.0,
-       "reason": "서아가 새 휴대폰은 나중에 사도 된다고 했어요",
-       "member_id": "m2"
-      },
-      {
-       "label": "공부 돈 따로 모으기",
-       "amount": -15.0,
-       "reason": "현주님이 아이들이 돈 걱정 없이 공부하는 것을 지키고 싶다고 했어요. 매달 남는 돈의 일부만 쓰도록 했어요",
-       "member_id": "m0"
+       "item_id": "f2",
+       "amount": 222.0,
+       "reason": "현주님이 외식은 줄일 수 있다고, 도윤이가 용돈은 줄여도 된다고 했어요. 그래서 생활비를 조금만 줄이는 것으로 가정했어요."
       }
      ],
+     "adjustments": [],
      "events": [],
      "lump_sums": [],
      "policies": [
       {
+       "policy": "lump_repayment",
+       "item_id": "f4",
+       "month": 1,
+       "amount": 150.0
+      },
+      {
        "policy": "extra_repayment",
        "item_id": "f4",
-       "amount": 40.0
+       "amount": 10.0
       }
      ]
     },
     "changes": [
      {
-      "field": "공부 돈 따로 모으기",
-      "before": "따로 떼어 두지 않음",
-      "after": "매달 남는 돈 중 일부를 공부 돈으로 따로 모아요",
+      "field": "1개월째 예금으로 신용대출 한 번에 갚기",
+      "before": "300만원",
+      "after": "150만원",
       "reason_member_id": "m0"
      }
     ],
-    "why": "현주님이 지키고 싶은 아이들 공부 돈을 매달 먼저 떼어 두도록 했어요. 대출을 더 갚는 금액과 줄이는 항목은 그대로 두어서 이자 걱정과 도윤이, 서아의 바람은 건드리지 않았어요.",
+    "why": "세 방법 모두 반대가 하나씩이라 공부와 함께 사는 생활을 같이 챙기는 방법을 바탕으로 삼았어요. 현주님이 지키고 싶은 '공부를 돈 걱정 없이 하는 것'을 위해 예금을 더 남기도록 한 번에 갚는 돈만 줄였고, 매달 더 갚는 돈과 생활비는 그대로 두어 다른 가족분들이 좋다고 한 부분은 건드리지 않았어요.",
     "simulation": {
-     "run_id": "run_9270c336c33e",
+     "run_id": "run_140d049d35c4",
      "engine_version": "0.2.0",
      "scenario_id": "custom",
      "goal": {
       "type": "debt_free",
       "target_amount": 0.0,
-      "label": "대출 다 갚는 시기 보기"
+      "label": "대출 다 갚는 때 보기"
      },
      "horizon_months": 84,
      "inflation": 2.0,
      "results": [
       {
        "option_id": "B2",
-       "label": "함께 지키며 갚기 · 공부 돈 따로 모으기 조정안",
-       "goal_hit_month": 25,
-       "goal_hit_years": 2.08,
-       "goal_hit_display": "약 2.1년",
-       "end_pool": 5956.7,
-       "monthly_flow": 15.0,
-       "debt_free_month": 25,
+       "label": "함께 지키며 갚기 · 한 번에 갚는 돈 조정안",
+       "goal_hit_month": 38,
+       "goal_hit_years": 3.17,
+       "goal_hit_display": "약 3.2년",
+       "end_pool": 6152.5,
+       "monthly_flow": -102.0,
+       "debt_free_month": 38,
        "start_debt": 1800.0,
        "yearly": [
         {
          "year": 1,
          "start": 600.0,
-         "net_flow": 154.8,
-         "interest": 26.1,
-         "end": 780.9,
-         "net_worth_end": -165.1,
-         "loan_payment": 960.0,
-         "debt_end": 946.0
+         "net_flow": 401.7,
+         "interest": 24.1,
+         "end": 1025.7,
+         "net_worth_end": -132.3,
+         "loan_payment": 750.0,
+         "debt_end": 1158.0
         },
         {
          "year": 2,
-         "start": 780.9,
-         "net_flow": 99.1,
-         "interest": 32.1,
-         "end": 912.1,
-         "net_worth_end": 886.3,
-         "loan_payment": 960.0,
-         "debt_end": 25.8
+         "start": 1025.7,
+         "net_flow": 497.9,
+         "interest": 42.1,
+         "end": 1565.8,
+         "net_worth_end": 938.9,
+         "loan_payment": 600.0,
+         "debt_end": 626.9
         },
         {
          "year": 3,
-         "start": 912.1,
-         "net_flow": 976.3,
-         "interest": 52.2,
-         "end": 1940.6,
-         "net_worth_end": 1940.6,
-         "loan_payment": 25.9,
-         "debt_end": 0.0
+         "start": 1565.8,
+         "net_flow": 443.1,
+         "interest": 59.4,
+         "end": 2068.2,
+         "net_worth_end": 2013.7,
+         "loan_payment": 600.0,
+         "debt_end": 54.5
         },
         {
          "year": 4,
-         "start": 1940.6,
-         "net_flow": 944.3,
-         "interest": 91.8,
-         "end": 2976.8,
-         "net_worth_end": 2976.8,
-         "loan_payment": 0.0,
+         "start": 2068.2,
+         "net_flow": 932.3,
+         "interest": 82.8,
+         "end": 3083.3,
+         "net_worth_end": 3083.3,
+         "loan_payment": 54.9,
          "debt_end": 0.0
         },
         {
          "year": 5,
-         "start": 2976.8,
-         "net_flow": 885.2,
-         "interest": 130.9,
-         "end": 3992.8,
-         "net_worth_end": 3992.8,
+         "start": 3083.3,
+         "net_flow": 930.1,
+         "interest": 117.7,
+         "end": 4131.0,
+         "net_worth_end": 4131.0,
          "loan_payment": 0.0,
          "debt_end": 0.0
         },
         {
          "year": 6,
-         "start": 3992.8,
-         "net_flow": 824.9,
-         "interest": 169.1,
-         "end": 4986.9,
-         "net_worth_end": 4986.9,
+         "start": 4131.0,
+         "net_flow": 871.9,
+         "interest": 151.9,
+         "end": 5154.8,
+         "net_worth_end": 5154.8,
          "loan_payment": 0.0,
          "debt_end": 0.0
         },
         {
          "year": 7,
-         "start": 4986.9,
-         "net_flow": 763.4,
-         "interest": 206.5,
-         "end": 5956.7,
-         "net_worth_end": 5956.7,
+         "start": 5154.8,
+         "net_flow": 812.5,
+         "interest": 185.3,
+         "end": 6152.5,
+         "net_worth_end": 6152.5,
          "loan_payment": 0.0,
          "debt_end": 0.0
         }
@@ -654,31 +873,31 @@
         },
         {
          "m": 12,
-         "value": -165.1
+         "value": -132.3
         },
         {
          "m": 24,
-         "value": 886.3
+         "value": 938.9
         },
         {
          "m": 36,
-         "value": 1940.6
+         "value": 2013.7
         },
         {
          "m": 48,
-         "value": 2976.8
+         "value": 3083.3
         },
         {
          "m": 60,
-         "value": 3992.8
+         "value": 4131.0
         },
         {
          "m": 72,
-         "value": 4986.9
+         "value": 5154.8
         },
         {
          "m": 84,
-         "value": 5956.7
+         "value": 6152.5
         }
        ],
        "range": null,
@@ -694,17 +913,17 @@
         {
          "key": "monthly_flow",
          "label": "한 달에 늘거나 줄어드는 돈",
-         "value": 15.0,
-         "display": "+15만원",
-         "detail": "월급 320 − 생활비·월세 230 + 외식 줄이기 10 + 용돈 줄이기 5 + 새 휴대폰 미루기 5 − 공부 돈 따로 모으기 15 − 대출 상환 80",
+         "value": -102.0,
+         "display": "-102만원",
+         "detail": "월급 320 − 생활비·월세 222 − 대출 상환 200",
          "source": "option"
         },
         {
          "key": "return",
          "label": "1년에 불어나는 비율",
-         "value": 3.8,
-         "display": "연 3.8%",
-         "source": "assumption:deposit_heavy"
+         "value": 3.3,
+         "display": "연 3.3%",
+         "source": "assumption:safe"
         },
         {
          "key": "inflation",
@@ -724,55 +943,70 @@
         {
          "key": "extra:f4",
          "label": "신용대출 더 갚기",
-         "value": -40.0,
-         "display": "-40만원 / 한 달",
+         "value": -10.0,
+         "display": "-10만원 / 한 달",
          "detail": "1개월째부터",
+         "source": "option"
+        },
+        {
+         "key": "prepay:f4:1",
+         "label": "신용대출 한 번에 갚기",
+         "value": -150.0,
+         "display": "-150만원",
+         "detail": "1개월째, 예금에서",
          "source": "option"
         },
         {
          "key": "goal",
          "label": "가족이 정한 기준",
          "value": 0.0,
-         "display": "대출 다 갚는 시기 보기",
+         "display": "대출 다 갚는 때 보기",
          "source": "goal_setting"
         }
        ],
        "facts": [
         {
          "fact_id": "B2.goal_hit_month",
-         "value": 25,
+         "value": 38,
          "unit": "month",
-         "display": "25개월"
+         "display": "38개월"
         },
         {
          "fact_id": "B2.goal_hit_years",
-         "value": 2.08,
+         "value": 3.17,
          "unit": "year",
-         "display": "약 2.1년"
+         "display": "약 3.2년"
         },
         {
          "fact_id": "B2.monthly_flow",
-         "value": 15.0,
+         "value": -102.0,
          "unit": "만원/월",
-         "display": "15만원"
+         "display": "-102만원"
         },
         {
          "fact_id": "B2.return",
-         "value": 3.8,
+         "value": 3.3,
          "unit": "%/년",
-         "display": "연 3.8%"
+         "display": "연 3.3%"
         },
         {
          "fact_id": "B2.end_pool",
-         "value": 5956.7,
+         "value": 6152.5,
          "unit": "만원",
-         "display": "5,957만원"
+         "display": "6,153만원"
+        },
+        {
+         "fact_id": "B2.min_pool",
+         "value": 499.6,
+         "unit": "만원",
+         "display": "500만원",
+         "label": "기간 중 예금이 가장 적을 때"
         },
         {
          "fact_id": "B2.end_net_worth",
-         "value": 5956.7,
+         "value": 6152.5,
          "unit": "만원",
-         "display": "5,957만원"
+         "display": "6,153만원"
         },
         {
          "fact_id": "goal.target_amount",
@@ -794,9 +1028,9 @@
         },
         {
          "fact_id": "B2.age_at_hit",
-         "value": 43,
+         "value": 44,
          "unit": "세",
-         "display": "43세쯤"
+         "display": "44세쯤"
         },
         {
          "fact_id": "B2.cashflow.0",
@@ -807,51 +1041,23 @@
         },
         {
          "fact_id": "B2.cashflow.1",
-         "value": -230.0,
+         "value": -222.0,
          "unit": "만원/월",
-         "display": "-230만원",
+         "display": "222만원",
          "label": "생활비·월세"
         },
         {
-         "fact_id": "B2.cashflow.2",
-         "value": 10.0,
-         "unit": "만원/월",
-         "display": "10만원",
-         "label": "외식 줄이기"
-        },
-        {
-         "fact_id": "B2.cashflow.3",
-         "value": 5.0,
-         "unit": "만원/월",
-         "display": "5만원",
-         "label": "용돈 줄이기"
-        },
-        {
-         "fact_id": "B2.cashflow.4",
-         "value": 5.0,
-         "unit": "만원/월",
-         "display": "5만원",
-         "label": "새 휴대폰 미루기"
-        },
-        {
-         "fact_id": "B2.cashflow.5",
-         "value": -15.0,
-         "unit": "만원/월",
-         "display": "-15만원",
-         "label": "공부 돈 따로 모으기"
-        },
-        {
          "fact_id": "B2.loan_payment",
-         "value": 80.0,
+         "value": 200.0,
          "unit": "만원/월",
-         "display": "80만원",
+         "display": "200만원",
          "label": "한 달 대출 상환"
         },
         {
          "fact_id": "B2.debt_free_years",
-         "value": 2.08,
+         "value": 3.17,
          "unit": "year",
-         "display": "약 2.1년",
+         "display": "약 3.2년",
          "label": "대출을 다 갚는 때"
         },
         {
@@ -862,1062 +1068,1060 @@
          "label": "기간 끝 대출 잔액"
         }
        ],
-       "age_at_hit": 43,
+       "age_at_hit": 44,
        "monthly": [
         {
          "m": 1,
          "start": 600.0,
-         "interest": 1.9,
-         "inflow": 340.0,
-         "outflow": -325.0,
+         "interest": 1.7,
+         "inflow": 320.0,
+         "outflow": -422.0,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1731.2,
-         "end": 616.9,
-         "net_worth": -1114.3
+         "loan_payment": 200.0,
+         "debt": 1611.2,
+         "end": 499.6,
+         "net_worth": -1111.6
         },
         {
          "m": 2,
-         "start": 616.9,
-         "interest": 2.0,
-         "inflow": 340.0,
-         "outflow": -325.4,
+         "start": 499.6,
+         "interest": 1.4,
+         "inflow": 320.0,
+         "outflow": -272.4,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1662.1,
-         "end": 633.5,
-         "net_worth": -1028.6
+         "loan_payment": 50.0,
+         "debt": 1571.3,
+         "end": 548.7,
+         "net_worth": -1022.7
         },
         {
          "m": 3,
-         "start": 633.5,
-         "interest": 2.0,
-         "inflow": 340.0,
-         "outflow": -325.8,
+         "start": 548.7,
+         "interest": 1.5,
+         "inflow": 320.0,
+         "outflow": -272.7,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1592.5,
-         "end": 649.7,
-         "net_worth": -942.7
+         "loan_payment": 50.0,
+         "debt": 1531.1,
+         "end": 597.4,
+         "net_worth": -933.7
         },
         {
          "m": 4,
-         "start": 649.7,
-         "interest": 2.1,
-         "inflow": 340.0,
-         "outflow": -326.1,
+         "start": 597.4,
+         "interest": 1.6,
+         "inflow": 320.0,
+         "outflow": -273.1,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1522.4,
-         "end": 665.6,
-         "net_worth": -856.8
+         "loan_payment": 50.0,
+         "debt": 1490.7,
+         "end": 646.0,
+         "net_worth": -844.7
         },
         {
          "m": 5,
-         "start": 665.6,
-         "interest": 2.1,
-         "inflow": 340.0,
-         "outflow": -326.5,
+         "start": 646.0,
+         "interest": 1.8,
+         "inflow": 320.0,
+         "outflow": -273.5,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1451.9,
-         "end": 681.2,
-         "net_worth": -770.7
+         "loan_payment": 50.0,
+         "debt": 1450.0,
+         "end": 694.3,
+         "net_worth": -755.7
         },
         {
          "m": 6,
-         "start": 681.2,
-         "interest": 2.2,
-         "inflow": 340.0,
-         "outflow": -326.9,
+         "start": 694.3,
+         "interest": 1.9,
+         "inflow": 320.0,
+         "outflow": -273.8,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1381.0,
-         "end": 696.5,
-         "net_worth": -684.5
+         "loan_payment": 50.0,
+         "debt": 1409.1,
+         "end": 742.3,
+         "net_worth": -666.7
         },
         {
          "m": 7,
-         "start": 696.5,
-         "interest": 2.2,
-         "inflow": 340.0,
-         "outflow": -327.3,
+         "start": 742.3,
+         "interest": 2.0,
+         "inflow": 320.0,
+         "outflow": -274.2,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1309.6,
-         "end": 711.4,
-         "net_worth": -598.2
+         "loan_payment": 50.0,
+         "debt": 1367.9,
+         "end": 790.2,
+         "net_worth": -577.7
         },
         {
          "m": 8,
-         "start": 711.4,
-         "interest": 2.3,
-         "inflow": 340.0,
-         "outflow": -327.7,
+         "start": 790.2,
+         "interest": 2.2,
+         "inflow": 320.0,
+         "outflow": -274.6,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1237.8,
-         "end": 726.0,
-         "net_worth": -511.8
+         "loan_payment": 50.0,
+         "debt": 1326.4,
+         "end": 837.8,
+         "net_worth": -488.7
         },
         {
          "m": 9,
-         "start": 726.0,
+         "start": 837.8,
          "interest": 2.3,
-         "inflow": 340.0,
-         "outflow": -328.1,
+         "inflow": 320.0,
+         "outflow": -275.0,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1165.6,
-         "end": 740.2,
-         "net_worth": -425.3
+         "loan_payment": 50.0,
+         "debt": 1284.7,
+         "end": 885.1,
+         "net_worth": -399.6
         },
         {
          "m": 10,
-         "start": 740.2,
-         "interest": 2.3,
-         "inflow": 340.0,
-         "outflow": -328.4,
+         "start": 885.1,
+         "interest": 2.4,
+         "inflow": 320.0,
+         "outflow": -275.3,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1092.8,
-         "end": 754.1,
-         "net_worth": -338.7
+         "loan_payment": 50.0,
+         "debt": 1242.8,
+         "end": 932.2,
+         "net_worth": -310.5
         },
         {
          "m": 11,
-         "start": 754.1,
-         "interest": 2.4,
-         "inflow": 340.0,
-         "outflow": -328.8,
+         "start": 932.2,
+         "interest": 2.6,
+         "inflow": 320.0,
+         "outflow": -275.7,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 1019.7,
-         "end": 767.7,
-         "net_worth": -252.0
+         "loan_payment": 50.0,
+         "debt": 1200.5,
+         "end": 979.1,
+         "net_worth": -221.4
         },
         {
          "m": 12,
-         "start": 767.7,
-         "interest": 2.4,
-         "inflow": 340.0,
-         "outflow": -329.2,
+         "start": 979.1,
+         "interest": 2.7,
+         "inflow": 320.0,
+         "outflow": -276.1,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 946.0,
-         "end": 780.9,
-         "net_worth": -165.1
+         "loan_payment": 50.0,
+         "debt": 1158.0,
+         "end": 1025.7,
+         "net_worth": -132.3
         },
         {
          "m": 13,
-         "start": 780.9,
-         "interest": 2.5,
-         "inflow": 340.0,
-         "outflow": -329.6,
+         "start": 1025.7,
+         "interest": 2.8,
+         "inflow": 320.0,
+         "outflow": -276.4,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 872.0,
-         "end": 793.8,
-         "net_worth": -78.2
+         "loan_payment": 50.0,
+         "debt": 1115.3,
+         "end": 1072.1,
+         "net_worth": -43.2
         },
         {
          "m": 14,
-         "start": 793.8,
-         "interest": 2.5,
-         "inflow": 340.0,
-         "outflow": -330.0,
+         "start": 1072.1,
+         "interest": 2.9,
+         "inflow": 320.0,
+         "outflow": -276.8,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 797.4,
-         "end": 806.3,
-         "net_worth": 8.9
+         "loan_payment": 50.0,
+         "debt": 1072.2,
+         "end": 1118.3,
+         "net_worth": 46.0
         },
         {
          "m": 15,
-         "start": 806.3,
-         "interest": 2.6,
-         "inflow": 340.0,
-         "outflow": -330.4,
+         "start": 1118.3,
+         "interest": 3.1,
+         "inflow": 320.0,
+         "outflow": -277.2,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 722.4,
-         "end": 818.5,
-         "net_worth": 96.1
+         "loan_payment": 50.0,
+         "debt": 1028.9,
+         "end": 1164.1,
+         "net_worth": 135.2
         },
         {
          "m": 16,
-         "start": 818.5,
-         "interest": 2.6,
-         "inflow": 340.0,
-         "outflow": -330.8,
+         "start": 1164.1,
+         "interest": 3.2,
+         "inflow": 320.0,
+         "outflow": -277.6,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 646.9,
-         "end": 830.3,
-         "net_worth": 183.4
+         "loan_payment": 50.0,
+         "debt": 985.4,
+         "end": 1209.8,
+         "net_worth": 224.4
         },
         {
          "m": 17,
-         "start": 830.3,
-         "interest": 2.6,
-         "inflow": 340.0,
-         "outflow": -331.2,
+         "start": 1209.8,
+         "interest": 3.3,
+         "inflow": 320.0,
+         "outflow": -277.9,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 570.9,
-         "end": 841.8,
-         "net_worth": 270.8
+         "loan_payment": 50.0,
+         "debt": 941.5,
+         "end": 1255.2,
+         "net_worth": 313.6
         },
         {
          "m": 18,
-         "start": 841.8,
-         "interest": 2.7,
-         "inflow": 340.0,
-         "outflow": -331.5,
+         "start": 1255.2,
+         "interest": 3.5,
+         "inflow": 320.0,
+         "outflow": -278.3,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 494.5,
-         "end": 852.9,
-         "net_worth": 358.4
+         "loan_payment": 50.0,
+         "debt": 897.4,
+         "end": 1300.3,
+         "net_worth": 402.9
         },
         {
          "m": 19,
-         "start": 852.9,
-         "interest": 2.7,
-         "inflow": 340.0,
-         "outflow": -331.9,
+         "start": 1300.3,
+         "interest": 3.6,
+         "inflow": 320.0,
+         "outflow": -278.7,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 417.6,
-         "end": 863.7,
-         "net_worth": 446.1
+         "loan_payment": 50.0,
+         "debt": 853.0,
+         "end": 1345.2,
+         "net_worth": 492.2
         },
         {
          "m": 20,
-         "start": 863.7,
-         "interest": 2.7,
-         "inflow": 340.0,
-         "outflow": -332.3,
+         "start": 1345.2,
+         "interest": 3.7,
+         "inflow": 320.0,
+         "outflow": -279.1,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 340.2,
-         "end": 874.1,
-         "net_worth": 533.9
+         "loan_payment": 50.0,
+         "debt": 808.4,
+         "end": 1389.8,
+         "net_worth": 581.4
         },
         {
          "m": 21,
-         "start": 874.1,
-         "interest": 2.8,
-         "inflow": 340.0,
-         "outflow": -332.7,
+         "start": 1389.8,
+         "interest": 3.8,
+         "inflow": 320.0,
+         "outflow": -279.4,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 262.3,
-         "end": 884.1,
-         "net_worth": 621.8
+         "loan_payment": 50.0,
+         "debt": 763.4,
+         "end": 1434.2,
+         "net_worth": 670.8
         },
         {
          "m": 22,
-         "start": 884.1,
-         "interest": 2.8,
-         "inflow": 340.0,
-         "outflow": -333.1,
+         "start": 1434.2,
+         "interest": 3.9,
+         "inflow": 320.0,
+         "outflow": -279.8,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 184.0,
-         "end": 893.8,
-         "net_worth": 709.8
+         "loan_payment": 50.0,
+         "debt": 718.2,
+         "end": 1478.3,
+         "net_worth": 760.1
         },
         {
          "m": 23,
-         "start": 893.8,
-         "interest": 2.8,
-         "inflow": 340.0,
-         "outflow": -333.5,
+         "start": 1478.3,
+         "interest": 4.1,
+         "inflow": 320.0,
+         "outflow": -280.2,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 105.1,
-         "end": 903.1,
-         "net_worth": 798.0
+         "loan_payment": 50.0,
+         "debt": 672.7,
+         "end": 1522.2,
+         "net_worth": 849.5
         },
         {
          "m": 24,
-         "start": 903.1,
-         "interest": 2.9,
-         "inflow": 340.0,
-         "outflow": -333.9,
+         "start": 1522.2,
+         "interest": 4.2,
+         "inflow": 320.0,
+         "outflow": -280.6,
          "lump": 0,
-         "loan_payment": 80.0,
-         "debt": 25.8,
-         "end": 912.1,
-         "net_worth": 886.3
+         "loan_payment": 50.0,
+         "debt": 626.9,
+         "end": 1565.8,
+         "net_worth": 938.9
         },
         {
          "m": 25,
-         "start": 912.1,
-         "interest": 2.9,
-         "inflow": 340.0,
-         "outflow": -280.2,
+         "start": 1565.8,
+         "interest": 4.3,
+         "inflow": 320.0,
+         "outflow": -281.0,
          "lump": 0,
-         "loan_payment": 25.9,
-         "debt": 0.0,
-         "end": 974.7,
-         "net_worth": 974.7
+         "loan_payment": 50.0,
+         "debt": 580.8,
+         "end": 1609.1,
+         "net_worth": 1028.3
         },
         {
          "m": 26,
-         "start": 974.7,
-         "interest": 3.1,
-         "inflow": 340.0,
-         "outflow": -254.7,
+         "start": 1609.1,
+         "interest": 4.4,
+         "inflow": 320.0,
+         "outflow": -281.4,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1063.1,
-         "net_worth": 1063.1
+         "loan_payment": 50.0,
+         "debt": 534.4,
+         "end": 1652.2,
+         "net_worth": 1117.7
         },
         {
          "m": 27,
-         "start": 1063.1,
-         "interest": 3.4,
-         "inflow": 340.0,
-         "outflow": -255.1,
+         "start": 1652.2,
+         "interest": 4.5,
+         "inflow": 320.0,
+         "outflow": -281.7,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1151.4,
-         "net_worth": 1151.4
+         "loan_payment": 50.0,
+         "debt": 487.8,
+         "end": 1695.0,
+         "net_worth": 1207.2
         },
         {
          "m": 28,
-         "start": 1151.4,
-         "interest": 3.6,
-         "inflow": 340.0,
-         "outflow": -255.5,
+         "start": 1695.0,
+         "interest": 4.7,
+         "inflow": 320.0,
+         "outflow": -282.1,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1239.6,
-         "net_worth": 1239.6
+         "loan_payment": 50.0,
+         "debt": 440.8,
+         "end": 1737.5,
+         "net_worth": 1296.7
         },
         {
          "m": 29,
-         "start": 1239.6,
-         "interest": 3.9,
-         "inflow": 340.0,
-         "outflow": -255.9,
+         "start": 1737.5,
+         "interest": 4.8,
+         "inflow": 320.0,
+         "outflow": -282.5,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1327.6,
-         "net_worth": 1327.6
+         "loan_payment": 50.0,
+         "debt": 393.6,
+         "end": 1779.8,
+         "net_worth": 1386.2
         },
         {
          "m": 30,
-         "start": 1327.6,
-         "interest": 4.2,
-         "inflow": 340.0,
-         "outflow": -256.3,
+         "start": 1779.8,
+         "interest": 4.9,
+         "inflow": 320.0,
+         "outflow": -282.9,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1415.6,
-         "net_worth": 1415.6
+         "loan_payment": 50.0,
+         "debt": 346.0,
+         "end": 1821.8,
+         "net_worth": 1475.8
         },
         {
          "m": 31,
-         "start": 1415.6,
-         "interest": 4.5,
-         "inflow": 340.0,
-         "outflow": -256.7,
+         "start": 1821.8,
+         "interest": 5.0,
+         "inflow": 320.0,
+         "outflow": -283.3,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1503.4,
-         "net_worth": 1503.4
+         "loan_payment": 50.0,
+         "debt": 298.2,
+         "end": 1863.6,
+         "net_worth": 1565.4
         },
         {
          "m": 32,
-         "start": 1503.4,
-         "interest": 4.8,
-         "inflow": 340.0,
-         "outflow": -257.1,
+         "start": 1863.6,
+         "interest": 5.1,
+         "inflow": 320.0,
+         "outflow": -283.7,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1591.1,
-         "net_worth": 1591.1
+         "loan_payment": 50.0,
+         "debt": 250.1,
+         "end": 1905.0,
+         "net_worth": 1655.0
         },
         {
          "m": 33,
-         "start": 1591.1,
-         "interest": 5.0,
-         "inflow": 340.0,
-         "outflow": -257.5,
+         "start": 1905.0,
+         "interest": 5.2,
+         "inflow": 320.0,
+         "outflow": -284.0,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1678.6,
-         "net_worth": 1678.6
+         "loan_payment": 50.0,
+         "debt": 201.6,
+         "end": 1946.2,
+         "net_worth": 1744.6
         },
         {
          "m": 34,
-         "start": 1678.6,
-         "interest": 5.3,
-         "inflow": 340.0,
-         "outflow": -257.9,
+         "start": 1946.2,
+         "interest": 5.4,
+         "inflow": 320.0,
+         "outflow": -284.4,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1766.1,
-         "net_worth": 1766.1
+         "loan_payment": 50.0,
+         "debt": 152.9,
+         "end": 1987.2,
+         "net_worth": 1834.3
         },
         {
          "m": 35,
-         "start": 1766.1,
-         "interest": 5.6,
-         "inflow": 340.0,
-         "outflow": -258.3,
+         "start": 1987.2,
+         "interest": 5.5,
+         "inflow": 320.0,
+         "outflow": -284.8,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1853.4,
-         "net_worth": 1853.4
+         "loan_payment": 50.0,
+         "debt": 103.8,
+         "end": 2027.8,
+         "net_worth": 1924.0
         },
         {
          "m": 36,
-         "start": 1853.4,
-         "interest": 5.9,
-         "inflow": 340.0,
-         "outflow": -258.7,
+         "start": 2027.8,
+         "interest": 5.6,
+         "inflow": 320.0,
+         "outflow": -285.2,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 1940.6,
-         "net_worth": 1940.6
+         "loan_payment": 50.0,
+         "debt": 54.5,
+         "end": 2068.2,
+         "net_worth": 2013.7
         },
         {
          "m": 37,
-         "start": 1940.6,
-         "interest": 6.1,
-         "inflow": 340.0,
-         "outflow": -259.1,
+         "start": 2068.2,
+         "interest": 5.7,
+         "inflow": 320.0,
+         "outflow": -285.6,
          "lump": 0,
-         "loan_payment": 0.0,
-         "debt": 0.0,
-         "end": 2027.7,
-         "net_worth": 2027.7
+         "loan_payment": 50.0,
+         "debt": 4.8,
+         "end": 2108.3,
+         "net_worth": 2103.5
         },
         {
          "m": 38,
-         "start": 2027.7,
-         "interest": 6.4,
-         "inflow": 340.0,
-         "outflow": -259.5,
+         "start": 2108.3,
+         "interest": 5.8,
+         "inflow": 320.0,
+         "outflow": -240.8,
          "lump": 0,
-         "loan_payment": 0.0,
+         "loan_payment": 4.9,
          "debt": 0.0,
-         "end": 2114.6,
-         "net_worth": 2114.6
+         "end": 2193.3,
+         "net_worth": 2193.3
         },
         {
          "m": 39,
-         "start": 2114.6,
-         "interest": 6.7,
-         "inflow": 340.0,
-         "outflow": -259.9,
+         "start": 2193.3,
+         "interest": 6.0,
+         "inflow": 320.0,
+         "outflow": -236.4,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2201.4,
-         "net_worth": 2201.4
+         "end": 2282.9,
+         "net_worth": 2282.9
         },
         {
          "m": 40,
-         "start": 2201.4,
-         "interest": 7.0,
-         "inflow": 340.0,
-         "outflow": -260.3,
+         "start": 2282.9,
+         "interest": 6.3,
+         "inflow": 320.0,
+         "outflow": -236.8,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2288.1,
-         "net_worth": 2288.1
+         "end": 2372.4,
+         "net_worth": 2372.4
         },
         {
          "m": 41,
-         "start": 2288.1,
-         "interest": 7.2,
-         "inflow": 340.0,
-         "outflow": -260.7,
+         "start": 2372.4,
+         "interest": 6.5,
+         "inflow": 320.0,
+         "outflow": -237.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2374.6,
-         "net_worth": 2374.6
+         "end": 2461.8,
+         "net_worth": 2461.8
         },
         {
          "m": 42,
-         "start": 2374.6,
-         "interest": 7.5,
-         "inflow": 340.0,
-         "outflow": -261.1,
+         "start": 2461.8,
+         "interest": 6.8,
+         "inflow": 320.0,
+         "outflow": -237.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2461.1,
-         "net_worth": 2461.1
+         "end": 2551.0,
+         "net_worth": 2551.0
         },
         {
          "m": 43,
-         "start": 2461.1,
-         "interest": 7.8,
-         "inflow": 340.0,
-         "outflow": -261.5,
+         "start": 2551.0,
+         "interest": 7.0,
+         "inflow": 320.0,
+         "outflow": -237.9,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2547.4,
-         "net_worth": 2547.4
+         "end": 2640.1,
+         "net_worth": 2640.1
         },
         {
          "m": 44,
-         "start": 2547.4,
-         "interest": 8.1,
-         "inflow": 340.0,
-         "outflow": -261.9,
+         "start": 2640.1,
+         "interest": 7.3,
+         "inflow": 320.0,
+         "outflow": -238.3,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2633.5,
-         "net_worth": 2633.5
+         "end": 2729.1,
+         "net_worth": 2729.1
         },
         {
          "m": 45,
-         "start": 2633.5,
-         "interest": 8.3,
-         "inflow": 340.0,
-         "outflow": -262.3,
+         "start": 2729.1,
+         "interest": 7.5,
+         "inflow": 320.0,
+         "outflow": -238.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2719.5,
-         "net_worth": 2719.5
+         "end": 2817.8,
+         "net_worth": 2817.8
         },
         {
          "m": 46,
-         "start": 2719.5,
-         "interest": 8.6,
-         "inflow": 340.0,
-         "outflow": -262.7,
+         "start": 2817.8,
+         "interest": 7.7,
+         "inflow": 320.0,
+         "outflow": -239.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2805.4,
-         "net_worth": 2805.4
+         "end": 2906.5,
+         "net_worth": 2906.5
         },
         {
          "m": 47,
-         "start": 2805.4,
-         "interest": 8.9,
-         "inflow": 340.0,
-         "outflow": -263.1,
+         "start": 2906.5,
+         "interest": 8.0,
+         "inflow": 320.0,
+         "outflow": -239.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2891.2,
-         "net_worth": 2891.2
+         "end": 2995.0,
+         "net_worth": 2995.0
         },
         {
          "m": 48,
-         "start": 2891.2,
-         "interest": 9.2,
-         "inflow": 340.0,
-         "outflow": -263.5,
+         "start": 2995.0,
+         "interest": 8.2,
+         "inflow": 320.0,
+         "outflow": -239.9,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 2976.8,
-         "net_worth": 2976.8
+         "end": 3083.3,
+         "net_worth": 3083.3
         },
         {
          "m": 49,
-         "start": 2976.8,
-         "interest": 9.4,
-         "inflow": 340.0,
-         "outflow": -264.0,
+         "start": 3083.3,
+         "interest": 8.5,
+         "inflow": 320.0,
+         "outflow": -240.3,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3062.2,
-         "net_worth": 3062.2
+         "end": 3171.5,
+         "net_worth": 3171.5
         },
         {
          "m": 50,
-         "start": 3062.2,
-         "interest": 9.7,
-         "inflow": 340.0,
-         "outflow": -264.4,
+         "start": 3171.5,
+         "interest": 8.7,
+         "inflow": 320.0,
+         "outflow": -240.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3147.6,
-         "net_worth": 3147.6
+         "end": 3259.5,
+         "net_worth": 3259.5
         },
         {
          "m": 51,
-         "start": 3147.6,
-         "interest": 10.0,
-         "inflow": 340.0,
-         "outflow": -264.8,
+         "start": 3259.5,
+         "interest": 9.0,
+         "inflow": 320.0,
+         "outflow": -241.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3232.7,
-         "net_worth": 3232.7
+         "end": 3347.4,
+         "net_worth": 3347.4
         },
         {
          "m": 52,
-         "start": 3232.7,
-         "interest": 10.2,
-         "inflow": 340.0,
-         "outflow": -265.2,
+         "start": 3347.4,
+         "interest": 9.2,
+         "inflow": 320.0,
+         "outflow": -241.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3317.8,
-         "net_worth": 3317.8
+         "end": 3435.1,
+         "net_worth": 3435.1
         },
         {
          "m": 53,
-         "start": 3317.8,
-         "interest": 10.5,
-         "inflow": 340.0,
-         "outflow": -265.6,
+         "start": 3435.1,
+         "interest": 9.4,
+         "inflow": 320.0,
+         "outflow": -241.9,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3402.7,
-         "net_worth": 3402.7
+         "end": 3522.6,
+         "net_worth": 3522.6
         },
         {
          "m": 54,
-         "start": 3402.7,
-         "interest": 10.8,
-         "inflow": 340.0,
-         "outflow": -266.0,
+         "start": 3522.6,
+         "interest": 9.7,
+         "inflow": 320.0,
+         "outflow": -242.3,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3487.4,
-         "net_worth": 3487.4
+         "end": 3610.0,
+         "net_worth": 3610.0
         },
         {
          "m": 55,
-         "start": 3487.4,
-         "interest": 11.0,
-         "inflow": 340.0,
-         "outflow": -266.4,
+         "start": 3610.0,
+         "interest": 9.9,
+         "inflow": 320.0,
+         "outflow": -242.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3572.0,
-         "net_worth": 3572.0
+         "end": 3697.3,
+         "net_worth": 3697.3
         },
         {
          "m": 56,
-         "start": 3572.0,
-         "interest": 11.3,
-         "inflow": 340.0,
-         "outflow": -266.9,
+         "start": 3697.3,
+         "interest": 10.2,
+         "inflow": 320.0,
+         "outflow": -243.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3656.5,
-         "net_worth": 3656.5
+         "end": 3784.4,
+         "net_worth": 3784.4
         },
         {
          "m": 57,
-         "start": 3656.5,
-         "interest": 11.6,
-         "inflow": 340.0,
-         "outflow": -267.3,
+         "start": 3784.4,
+         "interest": 10.4,
+         "inflow": 320.0,
+         "outflow": -243.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3740.8,
-         "net_worth": 3740.8
+         "end": 3871.3,
+         "net_worth": 3871.3
         },
         {
          "m": 58,
-         "start": 3740.8,
-         "interest": 11.8,
-         "inflow": 340.0,
-         "outflow": -267.7,
+         "start": 3871.3,
+         "interest": 10.6,
+         "inflow": 320.0,
+         "outflow": -243.9,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3825.0,
-         "net_worth": 3825.0
+         "end": 3958.0,
+         "net_worth": 3958.0
         },
         {
          "m": 59,
-         "start": 3825.0,
-         "interest": 12.1,
-         "inflow": 340.0,
-         "outflow": -268.1,
+         "start": 3958.0,
+         "interest": 10.9,
+         "inflow": 320.0,
+         "outflow": -244.3,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3909.0,
-         "net_worth": 3909.0
+         "end": 4044.6,
+         "net_worth": 4044.6
         },
         {
          "m": 60,
-         "start": 3909.0,
-         "interest": 12.4,
-         "inflow": 340.0,
-         "outflow": -268.5,
+         "start": 4044.6,
+         "interest": 11.1,
+         "inflow": 320.0,
+         "outflow": -244.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 3992.8,
-         "net_worth": 3992.8
+         "end": 4131.0,
+         "net_worth": 4131.0
         },
         {
          "m": 61,
-         "start": 3992.8,
-         "interest": 12.6,
-         "inflow": 340.0,
-         "outflow": -268.9,
+         "start": 4131.0,
+         "interest": 11.4,
+         "inflow": 320.0,
+         "outflow": -245.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4076.5,
-         "net_worth": 4076.5
+         "end": 4217.3,
+         "net_worth": 4217.3
         },
         {
          "m": 62,
-         "start": 4076.5,
-         "interest": 12.9,
-         "inflow": 340.0,
-         "outflow": -269.4,
+         "start": 4217.3,
+         "interest": 11.6,
+         "inflow": 320.0,
+         "outflow": -245.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4160.1,
-         "net_worth": 4160.1
+         "end": 4303.4,
+         "net_worth": 4303.4
         },
         {
          "m": 63,
-         "start": 4160.1,
-         "interest": 13.2,
-         "inflow": 340.0,
-         "outflow": -269.8,
+         "start": 4303.4,
+         "interest": 11.8,
+         "inflow": 320.0,
+         "outflow": -245.9,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4243.5,
-         "net_worth": 4243.5
+         "end": 4389.3,
+         "net_worth": 4389.3
         },
         {
          "m": 64,
-         "start": 4243.5,
-         "interest": 13.4,
-         "inflow": 340.0,
-         "outflow": -270.2,
+         "start": 4389.3,
+         "interest": 12.1,
+         "inflow": 320.0,
+         "outflow": -246.3,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4326.7,
-         "net_worth": 4326.7
+         "end": 4475.0,
+         "net_worth": 4475.0
         },
         {
          "m": 65,
-         "start": 4326.7,
-         "interest": 13.7,
-         "inflow": 340.0,
-         "outflow": -270.6,
+         "start": 4475.0,
+         "interest": 12.3,
+         "inflow": 320.0,
+         "outflow": -246.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4409.8,
-         "net_worth": 4409.8
+         "end": 4560.6,
+         "net_worth": 4560.6
         },
         {
          "m": 66,
-         "start": 4409.8,
-         "interest": 14.0,
-         "inflow": 340.0,
-         "outflow": -271.0,
+         "start": 4560.6,
+         "interest": 12.5,
+         "inflow": 320.0,
+         "outflow": -247.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4492.7,
-         "net_worth": 4492.7
+         "end": 4646.0,
+         "net_worth": 4646.0
         },
         {
          "m": 67,
-         "start": 4492.7,
-         "interest": 14.2,
-         "inflow": 340.0,
-         "outflow": -271.5,
+         "start": 4646.0,
+         "interest": 12.8,
+         "inflow": 320.0,
+         "outflow": -247.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4575.5,
-         "net_worth": 4575.5
+         "end": 4731.2,
+         "net_worth": 4731.2
         },
         {
          "m": 68,
-         "start": 4575.5,
-         "interest": 14.5,
-         "inflow": 340.0,
-         "outflow": -271.9,
+         "start": 4731.2,
+         "interest": 13.0,
+         "inflow": 320.0,
+         "outflow": -248.0,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4658.1,
-         "net_worth": 4658.1
+         "end": 4816.3,
+         "net_worth": 4816.3
         },
         {
          "m": 69,
-         "start": 4658.1,
-         "interest": 14.8,
-         "inflow": 340.0,
-         "outflow": -272.3,
+         "start": 4816.3,
+         "interest": 13.2,
+         "inflow": 320.0,
+         "outflow": -248.4,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4740.5,
-         "net_worth": 4740.5
+         "end": 4901.2,
+         "net_worth": 4901.2
         },
         {
          "m": 70,
-         "start": 4740.5,
-         "interest": 15.0,
-         "inflow": 340.0,
-         "outflow": -272.7,
+         "start": 4901.2,
+         "interest": 13.5,
+         "inflow": 320.0,
+         "outflow": -248.8,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4822.8,
-         "net_worth": 4822.8
+         "end": 4985.9,
+         "net_worth": 4985.9
         },
         {
          "m": 71,
-         "start": 4822.8,
-         "interest": 15.3,
-         "inflow": 340.0,
-         "outflow": -273.2,
+         "start": 4985.9,
+         "interest": 13.7,
+         "inflow": 320.0,
+         "outflow": -249.2,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4904.9,
-         "net_worth": 4904.9
+         "end": 5070.4,
+         "net_worth": 5070.4
         },
         {
          "m": 72,
-         "start": 4904.9,
-         "interest": 15.5,
-         "inflow": 340.0,
-         "outflow": -273.6,
+         "start": 5070.4,
+         "interest": 13.9,
+         "inflow": 320.0,
+         "outflow": -249.6,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 4986.9,
-         "net_worth": 4986.9
+         "end": 5154.8,
+         "net_worth": 5154.8
         },
         {
          "m": 73,
-         "start": 4986.9,
-         "interest": 15.8,
-         "inflow": 340.0,
-         "outflow": -274.0,
+         "start": 5154.8,
+         "interest": 14.2,
+         "inflow": 320.0,
+         "outflow": -250.0,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5068.6,
-         "net_worth": 5068.6
+         "end": 5238.9,
+         "net_worth": 5238.9
         },
         {
          "m": 74,
-         "start": 5068.6,
-         "interest": 16.1,
-         "inflow": 340.0,
-         "outflow": -274.4,
+         "start": 5238.9,
+         "interest": 14.4,
+         "inflow": 320.0,
+         "outflow": -250.4,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5150.2,
-         "net_worth": 5150.2
+         "end": 5322.9,
+         "net_worth": 5322.9
         },
         {
          "m": 75,
-         "start": 5150.2,
-         "interest": 16.3,
-         "inflow": 340.0,
-         "outflow": -274.9,
+         "start": 5322.9,
+         "interest": 14.6,
+         "inflow": 320.0,
+         "outflow": -250.8,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5231.7,
-         "net_worth": 5231.7
+         "end": 5406.7,
+         "net_worth": 5406.7
         },
         {
          "m": 76,
-         "start": 5231.7,
-         "interest": 16.6,
-         "inflow": 340.0,
-         "outflow": -275.3,
+         "start": 5406.7,
+         "interest": 14.9,
+         "inflow": 320.0,
+         "outflow": -251.2,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5312.9,
-         "net_worth": 5312.9
+         "end": 5490.3,
+         "net_worth": 5490.3
         },
         {
          "m": 77,
-         "start": 5312.9,
-         "interest": 16.8,
-         "inflow": 340.0,
-         "outflow": -275.7,
+         "start": 5490.3,
+         "interest": 15.1,
+         "inflow": 320.0,
+         "outflow": -251.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5394.0,
-         "net_worth": 5394.0
+         "end": 5573.8,
+         "net_worth": 5573.8
         },
         {
          "m": 78,
-         "start": 5394.0,
-         "interest": 17.1,
-         "inflow": 340.0,
-         "outflow": -276.2,
+         "start": 5573.8,
+         "interest": 15.3,
+         "inflow": 320.0,
+         "outflow": -252.1,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5474.9,
-         "net_worth": 5474.9
+         "end": 5657.0,
+         "net_worth": 5657.0
         },
         {
          "m": 79,
-         "start": 5474.9,
-         "interest": 17.3,
-         "inflow": 340.0,
-         "outflow": -276.6,
+         "start": 5657.0,
+         "interest": 15.6,
+         "inflow": 320.0,
+         "outflow": -252.5,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5555.7,
-         "net_worth": 5555.7
+         "end": 5740.1,
+         "net_worth": 5740.1
         },
         {
          "m": 80,
-         "start": 5555.7,
-         "interest": 17.6,
-         "inflow": 340.0,
-         "outflow": -277.0,
+         "start": 5740.1,
+         "interest": 15.8,
+         "inflow": 320.0,
+         "outflow": -252.9,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5636.3,
-         "net_worth": 5636.3
+         "end": 5823.0,
+         "net_worth": 5823.0
         },
         {
          "m": 81,
-         "start": 5636.3,
-         "interest": 17.8,
-         "inflow": 340.0,
-         "outflow": -277.5,
+         "start": 5823.0,
+         "interest": 16.0,
+         "inflow": 320.0,
+         "outflow": -253.3,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5716.6,
-         "net_worth": 5716.6
+         "end": 5905.6,
+         "net_worth": 5905.6
         },
         {
          "m": 82,
-         "start": 5716.6,
-         "interest": 18.1,
-         "inflow": 340.0,
-         "outflow": -277.9,
+         "start": 5905.6,
+         "interest": 16.2,
+         "inflow": 320.0,
+         "outflow": -253.7,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5796.8,
-         "net_worth": 5796.8
+         "end": 5988.1,
+         "net_worth": 5988.1
         },
         {
          "m": 83,
-         "start": 5796.8,
-         "interest": 18.4,
-         "inflow": 340.0,
-         "outflow": -278.3,
+         "start": 5988.1,
+         "interest": 16.5,
+         "inflow": 320.0,
+         "outflow": -254.2,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5876.9,
-         "net_worth": 5876.9
+         "end": 6070.4,
+         "net_worth": 6070.4
         },
         {
          "m": 84,
-         "start": 5876.9,
-         "interest": 18.6,
-         "inflow": 340.0,
-         "outflow": -278.8,
+         "start": 6070.4,
+         "interest": 16.7,
+         "inflow": 320.0,
+         "outflow": -254.6,
          "lump": 0,
          "loan_payment": 0.0,
          "debt": 0.0,
-         "end": 5956.7,
-         "net_worth": 5956.7
+         "end": 6152.5,
+         "net_worth": 6152.5
         }
        ]
       }
      ]
     },
     "view_changes": [
-     "돈을 불리는 방식: 예금·적금 위주(연 3.8% 가정)",
-     "외식 줄이기 월 +10만원 (현주님이 외식은 줄일 수 있다고 했어요)",
-     "용돈 줄이기 월 +5만원 (도윤이가 용돈은 줄여도 된다고 했어요)",
-     "새 휴대폰 미루기 월 +5만원 (서아가 새 휴대폰은 나중에 사도 된다고 했어요)",
-     "공부 돈 따로 모으기 월 -15만원 (현주님이 아이들이 돈 걱정 없이 공부하는 것을 지키고 싶다고 했어요. 매달 남는 돈의 일부만 쓰도록 했어요)",
-     "신용대출 한 달 40만원 더 갚기"
+     "돈을 불리는 방식: 예금·적금만(연 3.3% 가정)",
+     "생활비·월세 월 230만원 → 222만원 (현주님이 외식은 줄일 수 있다고, 도윤이가 용돈은 줄여도 된다고 했어요. 그래서 생활비를 조금만 줄이는 것으로 가정했어요.)",
+     "1개월째 예금 150만원으로 신용대출 한 번에 갚기",
+     "신용대출 한 달 10만원 더 갚기"
     ]
    },
    "error": null
   },
   "draft": {
-   "seconds": 11.1,
+   "seconds": 11.0,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 11.09,
+     "latency_s": 10.95,
      "usage": {
-      "input_tokens": 5453,
-      "output_tokens": 1760,
-      "cost_usd": 0.031231
+      "input_tokens": 4699,
+      "output_tokens": 1654,
+      "cost_usd": 0.025938
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_9f75da5d42",
+    "verification_id": "ver_0f7123e8ac",
     "run_id": null,
     "role": "7",
-    "checked_numbers": 12,
+    "checked_numbers": 16,
     "facts_used": [
+     "B2.cashflow.1",
+     "B2.debt_free_years",
      "B2.end_debt",
      "B2.goal_hit_month",
-     "B2.goal_hit_years",
-     "B2.loan_payment",
-     "agree.adj.3",
+     "B2.min_pool",
+     "B2.return",
      "agree.extra.f4",
-     "fin.loan",
-     "start.pool"
+     "fin.loan"
     ],
     "violations": [],
     "regenerated": false,
@@ -1925,64 +2129,43 @@
     "status": "pass"
    },
    "result": {
-    "goal": "아이들 공부 돈은 먼저 지키면서 대출을 모두 갚아 나가요",
+    "goal": "지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고, 대출을 다 갚아 엄마의 이자 부담을 없애요",
     "method": {
-     "display_label": "함께 지키며 갚기 · 공부 돈 따로 모으기 조정안",
-     "monthly_flow": 15.0
+     "display_label": "함께 지키며 갚기 · 한 번에 갚는 돈 조정안",
+     "monthly_flow": -102.0
     },
     "target_amount": {
-     "label": "대출 잔액을 0만원으로 만드는 것 (지금 대출 1,800만원, 모아 둔 돈 600만원에서 시작해요)"
+     "label": "대출 잔액 0만원 만들기 (지금 대출 1,800만원)"
     },
     "contribution": [
      {
-      "label": "현주님 · 외식 줄이기",
-      "amount": 10.0,
-      "fact_id": "agree.adj.0"
-     },
-     {
-      "label": "도윤님 · 용돈 줄이기",
-      "amount": 5.0,
-      "fact_id": "agree.adj.1"
-     },
-     {
-      "label": "서아님 · 새 휴대폰 미루기",
-      "amount": 5.0,
-      "fact_id": "agree.adj.2"
-     },
-     {
-      "label": "현주님 · 공부 돈 따로 모으기",
-      "amount": 15.0,
-      "fact_id": "agree.adj.3"
-     },
-     {
       "label": "신용대출 더 갚기",
-      "amount": 40.0,
+      "amount": 10.0,
       "fact_id": "agree.extra.f4"
      }
     ],
     "timing": {
-     "text": "2026년 10월부터 시작해요. 공부 돈을 먼저 떼어 둔 뒤 남는 돈으로 갚고, 대출을 다 갚는 때는 약 2.1년(25개월)쯤으로 보고 있어요."
+     "text": "대출을 다 갚는 때는 약 3.2년 뒤(38개월째)를 목표로 해요. 1개월째에 예금으로 신용대출을 한 번에 갚는 것부터 시작해요."
     },
     "review": {
      "interval_months": 6,
      "interval_label": "6개월마다",
      "next": "2027년 4월",
      "events": [
-      "가족 중 누군가의 일이나 수입이 바뀌었을 때",
-      "아이들 학교나 진학이 바뀌어 공부에 드는 돈이 달라질 때",
-      "대출 이자나 갚는 조건이 바뀌었을 때",
-      "갑자기 큰돈이 필요한 일이 생겼을 때"
+      "엄마의 월급이나 일자리가 바뀔 때",
+      "도윤이나 서아의 학교·진학 등으로 큰 교육비가 생길 때",
+      "갑자기 큰 병원비나 집 문제로 목돈이 필요할 때",
+      "생활비나 대출 상환 금액이 계획과 크게 달라질 때"
      ]
     },
     "change_conditions": [
-     "6개월마다 가족이 함께 모여 계획을 다시 봐요.",
-     "공부 돈이 안전하게 지켜지지 않으면 대출 갚는 속도를 늦춰요.",
-     "가족 누구라도 힘들다고 하면 함께 모여 다시 이야기해요."
+     "예금이 500만원 아래로 내려갈 것 같으면 가족이 함께 모여 계획을 다시 봐요",
+     "계획을 바꿀 때는 세 사람이 함께 이야기하고 모두 동의해요"
     ],
     "commitments": [
      {
       "commitment_id": "c1",
-      "text": "6개월마다 가족이 꼭 같이 모여 계획을 다시 봐요.",
+      "text": "6개월마다 꼭 같이 모여 계획을 다시 살펴봐요.",
       "source": {
        "type": "condition",
        "member_id": "m0"
@@ -1990,84 +2173,85 @@
      },
      {
       "commitment_id": "c2",
-      "text": "아이들 공부 돈은 매달 먼저 떼어 두고, 남는 돈으로 대출을 갚아요.",
+      "text": "지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고 대출을 조금씩 갚아 가요.",
+      "source": {
+       "type": "goal_setting"
+      }
+     },
+     {
+      "commitment_id": "c3",
+      "text": "1개월째에 예금 중 일부만 써서 신용대출을 한 번에 갚고, 나머지 예금은 아이들 공부를 위해 남겨 둬요.",
       "source": {
        "type": "revision",
        "member_id": "m0"
       }
      },
      {
-      "commitment_id": "c3",
-      "text": "갚는 속도는 날짜에 맞추지 않고, 공부 돈이 안전하게 지켜지는 선에서 갚을 수 있는 만큼으로 해요.",
-      "source": {
-       "type": "goal_setting"
-      }
-     },
-     {
       "commitment_id": "c4",
-      "text": "외식, 용돈, 새 휴대폰은 가족 모두가 조금씩 나눠서 아껴요.",
-      "source": {
-       "type": "goal_setting"
-      }
-     },
-     {
-      "commitment_id": "c5",
-      "text": "아이들이 하고 싶은 공부를 돈 걱정 없이 할 수 있도록 함께 지켜요.",
+      "text": "아이들이 하고 싶은 공부를 돈 걱정 없이 할 수 있도록 예금을 지켜요.",
       "source": {
        "type": "keep",
        "member_id": "m0"
       }
      },
      {
-      "commitment_id": "c6",
-      "text": "엄마가 덜 힘들도록 도윤이와 서아도 각자 맡은 부분을 함께 해요.",
+      "commitment_id": "c5",
+      "text": "엄마가 덜 힘들도록 도윤이는 용돈을 줄이고, 엄마는 외식을 줄여 생활비를 222만원으로 맞춰요.",
       "source": {
        "type": "keep",
        "member_id": "m1"
+      }
+     },
+     {
+      "commitment_id": "c6",
+      "text": "지금처럼 셋이 같이 사는 생활을 지키고, 서아는 새 휴대폰을 나중에 사요.",
+      "source": {
+       "type": "keep",
+       "member_id": "m2"
       }
      }
     ],
     "report": {
      "reasons": [
-      "현주님이 가장 지키고 싶은 아이들 공부 돈을 매달 먼저 떼어 두는 방법이라서 골랐어요.",
-      "대출 이자가 계속 나가는 걱정을 줄이려고 신용대출을 월 40만원 더 갚도록 했어요.",
-      "외식은 현주님이, 용돈은 도윤이가, 새 휴대폰은 서아가 줄일 수 있다고 한 것만 반영해서 모두가 조금씩 나눠 맡아요.",
-      "가족 중 반대하는 사람이 없었던 방법이에요."
+      "세 가지 방법에 각각 반대가 하나씩 있어서, 공부와 함께 사는 생활을 같이 챙기는 방법을 바탕으로 삼았어요.",
+      "현주님이 지키고 싶은 '공부를 돈 걱정 없이 하는 것'을 위해 예금을 더 남기도록 한 번에 갚는 돈만 줄였어요.",
+      "매달 더 갚는 돈(월 10만원)과 생활비는 다른 가족분들이 좋다고 한 부분이라 그대로 두었어요.",
+      "돈은 예금·적금만으로 불리는 것(가정 연 3.3%)이라 큰 위험 없이 갚아 갈 수 있어요."
      ],
      "outcomes": [
       {
        "label": "대출을 다 갚는 때",
-       "display": "약 2.1년"
-      },
-      {
-       "label": "한 달 대출 상환",
-       "display": "80만원"
+       "display": "약 3.2년"
       },
       {
        "label": "기간 끝 대출 잔액",
        "display": "0만원"
       },
       {
-       "label": "기간 끝 모인 돈",
-       "display": "5,957만원"
+       "label": "기간 중 예금이 가장 적을 때",
+       "display": "500만원"
+      },
+      {
+       "label": "기간 끝 예금",
+       "display": "6,153만원"
       }
      ],
      "action_plan": [
       {
-       "when": "이번 달(2026년 10월)",
-       "what": "공부 돈으로 매달 월 15만원을 따로 모으는 통장을 정해요."
+       "when": "지금부터",
+       "what": "생활비를 222만원 수준으로 맞추고, 신용대출을 매달 10만원씩 더 갚기 시작해요."
       },
       {
-       "when": "이번 달(2026년 10월)",
-       "what": "외식, 용돈, 새 휴대폰 줄이기를 시작하고 대출을 월 40만원 더 갚아요."
-      },
-      {
-       "when": "매달",
-       "what": "공부 돈을 먼저 떼어 두고, 한 달 대출 상환 80만원을 갚아요."
+       "when": "1개월째",
+       "what": "예금 일부로 신용대출을 한 번에 갚아요."
       },
       {
        "when": "6개월마다",
-       "what": "가족이 함께 모여 잘 지키고 있는지 보고 필요하면 고쳐요."
+       "what": "세 사람이 모여 예금, 대출, 생활비가 계획대로인지 함께 살펴봐요."
+      },
+      {
+       "when": "38개월째",
+       "what": "대출을 다 갚았는지 확인하고, 그다음 가족 목표를 함께 이야기해요."
       }
      ]
     },
@@ -2076,24 +2260,24 @@
    "error": null
   },
   "recommend": {
-   "seconds": 7.2,
+   "seconds": 5.9,
    "runs": {
     "run": {
      "ok": true,
      "attempts": 1,
      "errors": [],
-     "latency_s": 7.19,
+     "latency_s": 5.8,
      "usage": {
-      "input_tokens": 2150,
-      "output_tokens": 742,
-      "cost_usd": 0.012793
+      "input_tokens": 2434,
+      "output_tokens": 773,
+      "cost_usd": 0.012598
      },
      "tool_calls": 0,
      "model": "claude-sonnet-5-5"
     }
    },
    "verification": {
-    "verification_id": "ver_7e857c578e",
+    "verification_id": "ver_b038200546",
     "run_id": null,
     "role": "8",
     "checked_numbers": 0,
@@ -2111,7 +2295,7 @@
       "constraint_ids": [
        "C_shared_visibility"
       ],
-      "why": "6개월마다 가족이 함께 모여 계획을 다시 보는 약속이라, 가족이 함께 확인할 수 있어야 한다는 제약과 맞아요."
+      "why": "6개월마다 모여 계획을 함께 다시 보는 약속이라 가족이 함께 확인할 수 있어야 해요."
      },
      {
       "commitment_id": "c2",
@@ -2119,38 +2303,43 @@
        "N_education_fund",
        "N_debt_repayment"
       ],
-      "constraint_ids": [],
-      "why": "공부 돈을 먼저 떼어 두고 남는 돈으로 대출을 갚는다는 뜻이라 교육비 모으기와 대출 갚기에 해당해요."
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
+      "why": "셋이 지금처럼 함께 살고, 공부를 잇고, 대출을 갚아 가는 약속이에요. 다만 대출을 매달 원금으로 갚는 상황인지는 입력에 없어서 확인이 필요해요."
      },
      {
       "commitment_id": "c3",
       "need_ids": [
-       "N_debt_repayment"
+       "N_debt_repayment",
+       "N_education_fund"
+      ],
+      "constraint_ids": [],
+      "why": "신용대출을 한 번에 갚고 남은 예금은 아이들 공부를 위해 남겨 두는 약속이에요. 매달 갚는 대출인지는 확인이 필요해요."
+     },
+     {
+      "commitment_id": "c4",
+      "need_ids": [
+       "N_education_fund"
       ],
       "constraint_ids": [
        "C_principal_protected"
       ],
-      "why": "공부 돈이 안전하게 지켜지는 선에서 갚는다는 말은 공부 돈의 원금이 줄면 안 된다는 뜻으로 볼 수 있어요. 날짜에 맞추지 않는다고 했으니 기한 제약은 넣지 않았어요."
-     },
-     {
-      "commitment_id": "c4",
-      "need_ids": [],
-      "constraint_ids": [],
-      "why": "함께 아끼는 생활 습관에 대한 약속이라 어휘 목록에 딱 맞는 필요나 제약이 없어요."
+      "why": "아이들 공부 돈을 걱정 없이 쓰도록 예금을 지키는 약속이라 원금이 줄지 않게 해야 해요."
      },
      {
       "commitment_id": "c5",
-      "need_ids": [
-       "N_education_fund"
-      ],
+      "need_ids": [],
       "constraint_ids": [],
-      "why": "아이들이 하고 싶은 공부를 돈 걱정 없이 하도록 지킨다는 약속이라 교육비 모으기와 이어져요."
+      "why": "용돈과 외식을 줄여 생활비를 맞추는 생활 습관 약속이라 맞는 필요가 어휘에 없어요."
      },
      {
       "commitment_id": "c6",
       "need_ids": [],
-      "constraint_ids": [],
-      "why": "가족이 일을 나눠 맡는 약속이라 금융 필요나 제약에 해당하지 않아요."
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
+      "why": "지금 집에서 계속 같이 사는 것이 제약이에요. 휴대폰을 나중에 사는 건 맞는 필요가 없어요."
      },
      {
       "commitment_id": "goal",
@@ -2158,8 +2347,10 @@
        "N_education_fund",
        "N_debt_repayment"
       ],
-      "constraint_ids": [],
-      "why": "목표에서 바로 나오는 필요는 아이들 공부 돈을 지키는 것과 대출을 모두 갚아 나가는 것이에요."
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
+      "why": "목표에서 바로 나오는 필요는 아이들 공부를 잇는 것과 대출을 갚는 것이고, 지금 집에서 함께 지내는 것이 제약이에요."
      }
     ],
     "recommendations": [
@@ -2167,7 +2358,10 @@
       "commitment_id": "c2",
       "need_id": "N_education_fund",
       "need_label": "자녀 교육비 미리 모으기",
-      "constraint_ids": [],
+      "constraint_ids": [
+       "C_keep_residence",
+       "C_principal_protected"
+      ],
       "product_type_id": "P_installment_savings",
       "product_label": "적금(원금 보장)",
       "kind": "product",
@@ -2187,51 +2381,48 @@
         "N_education_fund"
        ],
        [
-        "N_education_fund",
-        "satisfiedBy",
-        "P_installment_savings"
-       ]
-      ],
-      "excluded": [],
-      "reason_text": "약속 2 '아이들 공부 돈은 매달 먼저 떼어 두고, 남는 돈으로 대출을 갚아요.' → 자녀 교육비 미리 모으기 → 적금(원금 보장)을 연결했어요."
-     },
-     {
-      "commitment_id": "c2",
-      "need_id": "N_education_fund",
-      "need_label": "자녀 교육비 미리 모으기",
-      "constraint_ids": [],
-      "product_type_id": "P_balanced_fund",
-      "product_label": "혼합형 투자 상품",
-      "kind": "product",
-      "summary": "예금과 주식에 나눠 투자하는 상품이에요. 오를 수도 내릴 수도 있어요.",
-      "attributes": {
-       "rate": "변동",
-       "term": "자유",
-       "risk": "중간",
-       "liquidity": "단기",
-       "tax": "해당 없음",
-       "eligibility": "누구나"
-      },
-      "path": [
+        "c2",
+        "constrainedBy",
+        "C_keep_residence"
+       ],
        [
         "c2",
-        "requires",
-        "N_education_fund"
+        "constrainedBy",
+        "C_principal_protected"
        ],
        [
         "N_education_fund",
         "satisfiedBy",
-        "P_balanced_fund"
+        "P_installment_savings"
+       ],
+       [
+        "P_installment_savings",
+        "hasAttribute",
+        "requires_home_sale=False"
+       ],
+       [
+        "P_installment_savings",
+        "hasAttribute",
+        "risk=원금보장"
        ]
       ],
-      "excluded": [],
-      "reason_text": "약속 2 '아이들 공부 돈은 매달 먼저 떼어 두고, 남는 돈으로 대출을 갚아요.' → 자녀 교육비 미리 모으기 → 혼합형 투자 상품을 연결했어요."
+      "excluded": [
+       {
+        "product_type_id": "P_balanced_fund",
+        "label": "혼합형 투자 상품",
+        "constraint_id": "C_principal_protected",
+        "reason": "원금 보장이 아니라서"
+       }
+      ],
+      "reason_text": "약속 2 '지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고 대출을 조금씩 갚아 가요.' → 자녀 교육비 미리 모으기 (지금 집에 계속 살아야 해요 · 원금이 줄면 안 돼요) → 적금(원금 보장)을 연결했어요."
      },
      {
       "commitment_id": "c2",
       "need_id": "N_debt_repayment",
       "need_label": "대출을 계획대로 빨리 갚기",
-      "constraint_ids": [],
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
       "product_type_id": "P_prepay_plan",
       "product_label": "대출 미리 갚기(중도상환) 계획",
       "kind": "action",
@@ -2251,19 +2442,31 @@
         "N_debt_repayment"
        ],
        [
+        "c2",
+        "constrainedBy",
+        "C_keep_residence"
+       ],
+       [
         "N_debt_repayment",
         "satisfiedBy",
         "P_prepay_plan"
+       ],
+       [
+        "P_prepay_plan",
+        "hasAttribute",
+        "requires_home_sale=False"
        ]
       ],
       "excluded": [],
-      "reason_text": "약속 2 '아이들 공부 돈은 매달 먼저 떼어 두고, 남는 돈으로 대출을 갚아요.' → 대출을 계획대로 빨리 갚기 → 대출 미리 갚기(중도상환) 계획을 연결했어요."
+      "reason_text": "약속 2 '지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고 대출을 조금씩 갚아 가요.' → 대출을 계획대로 빨리 갚기 (지금 집에 계속 살아야 해요) → 대출 미리 갚기(중도상환) 계획을 연결했어요."
      },
      {
       "commitment_id": "c2",
       "need_id": "N_debt_repayment",
       "need_label": "대출을 계획대로 빨리 갚기",
-      "constraint_ids": [],
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
       "product_type_id": "P_refinance_consult",
       "product_label": "대출 갈아타기 상담(금리 비교)",
       "kind": "consult",
@@ -2283,22 +2486,121 @@
         "N_debt_repayment"
        ],
        [
+        "c2",
+        "constrainedBy",
+        "C_keep_residence"
+       ],
+       [
         "N_debt_repayment",
         "satisfiedBy",
         "P_refinance_consult"
+       ],
+       [
+        "P_refinance_consult",
+        "hasAttribute",
+        "requires_home_sale=False"
        ]
       ],
       "excluded": [],
-      "reason_text": "약속 2 '아이들 공부 돈은 매달 먼저 떼어 두고, 남는 돈으로 대출을 갚아요.' → 대출을 계획대로 빨리 갚기 → 대출 갈아타기 상담(금리 비교)을 연결했어요."
+      "reason_text": "약속 2 '지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고 대출을 조금씩 갚아 가요.' → 대출을 계획대로 빨리 갚기 (지금 집에 계속 살아야 해요) → 대출 갈아타기 상담(금리 비교)을 연결했어요."
+     },
+     {
+      "commitment_id": "c2",
+      "need_id": "N_debt_repayment",
+      "need_label": "대출을 계획대로 빨리 갚기",
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
+      "product_type_id": "P_mortgage_loan",
+      "product_label": "주택담보대출",
+      "kind": "product",
+      "summary": "집을 담보로 집 살 돈을 빌려요. 한도는 집값의 일정 비율(LTV)이에요.",
+      "attributes": {
+       "rate": "공시(실제 상품 비교)",
+       "term": "장기",
+       "risk": "해당 없음",
+       "liquidity": "해당 없음",
+       "tax": "해당 없음",
+       "eligibility": "상품별(실제 상품 비교)"
+      },
+      "path": [
+       [
+        "c2",
+        "requires",
+        "N_debt_repayment"
+       ],
+       [
+        "c2",
+        "constrainedBy",
+        "C_keep_residence"
+       ],
+       [
+        "N_debt_repayment",
+        "satisfiedBy",
+        "P_mortgage_loan"
+       ],
+       [
+        "P_mortgage_loan",
+        "hasAttribute",
+        "requires_home_sale=False"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 2 '지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고 대출을 조금씩 갚아 가요.' → 대출을 계획대로 빨리 갚기 (지금 집에 계속 살아야 해요) → 주택담보대출을 연결했어요."
+     },
+     {
+      "commitment_id": "c2",
+      "need_id": "N_debt_repayment",
+      "need_label": "대출을 계획대로 빨리 갚기",
+      "constraint_ids": [
+       "C_keep_residence"
+      ],
+      "product_type_id": "P_credit_loan",
+      "product_label": "개인신용대출",
+      "kind": "product",
+      "summary": "담보 없이 신용으로 빌려요. 금리는 신용점수에 따라 달라요.",
+      "attributes": {
+       "rate": "공시(신용점수 구간별)",
+       "term": "단기~중기",
+       "risk": "해당 없음",
+       "liquidity": "해당 없음",
+       "tax": "해당 없음",
+       "eligibility": "상품별(실제 상품 비교)"
+      },
+      "path": [
+       [
+        "c2",
+        "requires",
+        "N_debt_repayment"
+       ],
+       [
+        "c2",
+        "constrainedBy",
+        "C_keep_residence"
+       ],
+       [
+        "N_debt_repayment",
+        "satisfiedBy",
+        "P_credit_loan"
+       ],
+       [
+        "P_credit_loan",
+        "hasAttribute",
+        "requires_home_sale=False"
+       ]
+      ],
+      "excluded": [],
+      "reason_text": "약속 2 '지금처럼 셋이 함께 지내면서 아이들 공부는 이어가고 대출을 조금씩 갚아 가요.' → 대출을 계획대로 빨리 갚기 (지금 집에 계속 살아야 해요) → 개인신용대출을 연결했어요."
      }
-    ]
+    ],
+    "dropped_needs": []
    },
    "error": null
   }
  },
  "goal": {
   "type": "debt_free",
-  "label": "대출 다 갚는 시기 보기",
+  "label": "대출 다 갚는 때 보기",
   "base_member_id": "m0",
   "horizon_months": 84,
   "base_age": 41,
@@ -2309,20 +2611,178 @@
  "options": [
   {
    "option_id": "A",
-   "hit": "약 1.5년",
-   "flow": 10.0
+   "hit": "약 1.6년",
+   "flow": -565.0
   },
   {
    "option_id": "B",
-   "hit": "약 2.1년",
-   "flow": 30.0
+   "hit": "약 2.8년",
+   "flow": -252.0
   },
   {
    "option_id": "C",
-   "hit": "약 3.4년",
-   "flow": 40.0
+   "hit": "약 4.5년",
+   "flow": 50.0
   }
  ],
+ "inputs": {
+  "family": {
+   "today": "2026-10",
+   "room": {
+    "name": "우리 셋의 내일",
+    "reason": "빚을 언제 다 갚을 수 있는지 아이들과 함께 보고 싶어요.",
+    "host_member_id": "m0"
+   },
+   "members": [
+    {
+     "member_id": "m0",
+     "name": "현주",
+     "role": "엄마",
+     "age": 41
+    },
+    {
+     "member_id": "m1",
+     "name": "도윤",
+     "role": "아들",
+     "age": 17
+    },
+    {
+     "member_id": "m2",
+     "name": "서아",
+     "role": "딸",
+     "age": 14
+    }
+   ],
+   "story": {
+    "author_id": "m0",
+    "text": "혼자 아이 둘을 키워요. 월세에 살고, 신용대출이 남아 있어요. 도윤이는 대학 갈 때 등록금이 걱정이에요."
+   },
+   "finance": [
+    {
+     "item_id": "f1",
+     "owner_id": "m0",
+     "kind": "income",
+     "label": "월급",
+     "amount": 320
+    },
+    {
+     "item_id": "f2",
+     "owner_id": "joint",
+     "kind": "expense",
+     "label": "생활비·월세",
+     "amount": 230
+    },
+    {
+     "item_id": "f3",
+     "owner_id": "m0",
+     "kind": "deposit",
+     "label": "적금",
+     "amount": 600
+    },
+    {
+     "item_id": "f4",
+     "owner_id": "m0",
+     "kind": "loan",
+     "loan_type": "credit",
+     "label": "신용대출",
+     "amount": 1800,
+     "rate": 7.5,
+     "payment": 40
+    }
+   ],
+   "_note": "평가용 가상 가족(예시 아님): 한부모 + 자녀 둘, 신용대출 상환 중",
+   "scripts": {
+    "answers": {
+     "m0": [
+      "아이들이 하고 싶은 공부를 돈 걱정 없이 하는 거요.",
+      "대출 이자가 계속 나가는 게 걱정이에요.",
+      "외식은 줄일 수 있어요. 아이들 학원은 못 줄여요."
+     ],
+     "m1": [
+      "엄마가 덜 힘들었으면 좋겠어요.",
+      "등록금이요.",
+      "용돈은 줄여도 돼요."
+     ],
+     "m2": [
+      "지금처럼 셋이 같이 사는 거요.",
+      "잘 모르겠어요.",
+      "새 휴대폰은 나중에 사도 돼요."
+     ]
+    },
+    "replies": {
+     "m0": "좋아요. 아이들 공부는 꼭 지키고 싶어요.",
+     "m1": "좋아요.",
+     "m2": "네, 좋아요."
+    }
+   }
+  },
+  "summaries": {
+   "m0": {
+    "keep": "아이들이 하고 싶은 공부를 돈 걱정 없이 하는 것",
+    "flexible": "외식은 줄일 수 있어요",
+    "worry": "대출 이자가 계속 나가는 것"
+   },
+   "m1": {
+    "keep": "엄마가 덜 힘들었으면 좋겠어요",
+    "flexible": "용돈은 줄여도 돼요",
+    "worry": "등록금"
+   },
+   "m2": {
+    "keep": "지금처럼 셋이 같이 사는 것",
+    "flexible": "새 휴대폰은 나중에 사도 돼요",
+    "worry": "아직 말하지 않았어요"
+   }
+  },
+  "replies": {
+   "m0": "좋아요. 아이들 공부는 꼭 지키고 싶어요.",
+   "m1": "좋아요.",
+   "m2": "네, 좋아요."
+  }
+ },
+ "stances": {
+  "m0": {
+   "A": {
+    "v": "no",
+    "text": "지키고 싶은 것이 깨져서 어려워요"
+   },
+   "B": {
+    "v": "no",
+    "text": "지키고 싶은 것이 깨져서 어려워요"
+   },
+   "C": {
+    "v": "no",
+    "text": "지키고 싶은 것이 깨져서 어려워요"
+   }
+  },
+  "m1": {
+   "A": {
+    "v": "good",
+    "text": ""
+   },
+   "B": {
+    "v": "good",
+    "text": ""
+   },
+   "C": {
+    "v": "good",
+    "text": ""
+   }
+  },
+  "m2": {
+   "A": {
+    "v": "good",
+    "text": ""
+   },
+   "B": {
+    "v": "good",
+    "text": ""
+   },
+   "C": {
+    "v": "good",
+    "text": ""
+   }
+  }
+ },
  "status": "done",
- "cost_usd": 0.2308
+ "cost_usd": 0.2423
 }

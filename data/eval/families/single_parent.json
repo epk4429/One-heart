@@ -86,5 +86,12 @@
    "m1": "좋아요.",
    "m2": "네, 좋아요."
   }
+ },
+ "goal_input": {
+  "category": "debt",
+  "fields": {
+   "within_years": 5,
+   "priority": "생활이 흔들리지 않게 천천히"
+  }
  }
 }

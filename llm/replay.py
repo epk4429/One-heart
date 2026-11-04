@@ -89,27 +89,73 @@ def _r2b(i):
 
 
 def _r3(i):
-    mids = [m["member_id"] for m in i["members"]]
-    n = max(1, len(mids) - 1)
+    sums = i["summaries"]
+    stances = {m["member_id"]: _clip((sums.get(m["member_id"]) or {}).get("keep") or "함께 정하고 싶어요", 28) for m in i["members"]}
     return {"headline": "가족 모두 함께 계획을 세우고 싶어 해요. 무엇을 먼저 할지가 조금 달라요.",
             "agreed_points": ["가족이 함께 정하고 싶어 해요", "꼭 지키고 싶은 것이 각자 있어요"],
-            "issues": [{"title": "무엇을 먼저 할까", "left_label": "목표를 먼저", "right_label": "지금 생활을 먼저",
-                        "positions": {m: round(k / n, 2) for k, m in enumerate(mids)}, "note": "우선순위 차이"}]}
+            "issues": [{"title": "무엇을 먼저 할까", "kind": "order", "stances": stances,
+                        "shared": "서로가 지키고 싶은 것을 함께 지키는 것"}]}
+
+
+def _tip_tag(i, k: int, phrase: str) -> str:
+    """받은 꿀팁 조각(tips) 중 k번째에서 숫자·표시 글자가 없는 한 줄(15~80자)을 그대로 떼어 근거 표시를 만든다. 없으면 빈 글."""
+    tips = i.get("tips") or []
+    if not tips or not phrase:
+        return ""
+    for t in tips[k % len(tips):] + tips[: k % len(tips)]:
+        for line in t["text"].split("\n"):
+            q = line.strip(" □◦◈☞-*·")
+            if 15 <= len(q) <= 80 and not re.search(r"[\d|\[\]]", q):
+                return f"[[tip:{t['tip_id']}|{phrase}|{q}]] "
+    return ""
+
+
+def _covers(i) -> dict:
+    sums = i["summaries"]
+    return {m["member_id"]: _clip((sums.get(m["member_id"]) or {}).get("keep") or "함께 정하고 싶은 것", 22) + "을(를) 지키는 조건으로 정해요"
+            for m in i["members"]}
 
 
 def _r4a(i):
-    ids = [c["card_id"] for c in i.get("cards", [])]
-    pick = next((c for c in ("C_short_money_no_risk", "C_home_for_living", "C_emergency_fund") if c in ids), ids[0] if ids else None)
-    why = {"C_short_money_no_risk": "1~2년 안에 쓸 돈은 원금이 줄 수 있는 곳에 두지 않는 게 원칙이라서",
-           "C_home_for_living": "집이 있으면 그 집에 살면서도 생활비를 마련하는 길이 있어서",
-           "C_emergency_fund": "갑자기 쓸 돈은 바로 꺼낼 수 있게 따로 두는 게 기본이라서"}.get(pick, "")
-    lead = f"[[card:{pick}|{why}]] " if pick and why else ""
-    return {"proposal": lead + "각자 꼭 지키고 싶다고 한 것을 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 계산해 보면 어떨까요?",
-            "to": [m["member_id"] for m in i["members"]],
-            "bridges": [{"issue_title": "무엇을 먼저 할까", "how": "순서 대신 조건으로 정하면 둘 다 지킬 수 있어요."}]}
+    lead = _tip_tag(i, 0, "금융감독원 금융꿀팁이 알려 주는 기본 원칙이라서")
+    return {"proposal": "각자 꼭 지키고 싶다고 한 것을 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 정해 보면 어떨까요?",
+            "reasons": [lead + "서로 지키고 싶은 것이 달라서 순서보다 조건으로 정하는 편이 모두를 챙길 수 있어요",
+                        "함께 정한 목표를 이루려면 필요한 돈이 모이는 때가 분명해야 해서"],
+            "covers": _covers(i), "to": [m["member_id"] for m in i["members"]]}
+
+
+def _r4c(i):
+    last = i["rounds"][-1]["replies"]
+    names = {m["member_id"]: m["name"] for m in i["members"]}
+    spk = {m: r for m, r in last.items() if r.get("v") != "good"}
+    cond = ", ".join(f"{names.get(m, '가족')}님의 '{_clip(r.get('text', ''), 24)}'" for m, r in spk.items()) or "가족의 의견"
+    lead = _tip_tag(i, 1, "금융감독원 금융꿀팁이 알려 주는 기본 원칙이라서")
+    return {"proposal": f"앞 제안에 {cond}을(를) 조건으로 더해서, 모두가 지키고 싶은 것을 함께 지키는 기준으로 정해 보면 어떨까요?",
+            "reasons": [lead + "의견을 낸 분의 지키고 싶은 것을 조건으로 넣으면 모두가 받아들이기 쉬워서",
+                        "이미 좋다고 한 분의 지키고 싶은 것도 그대로 지켜져서"],
+            "covers": _covers(i),
+            "heard": {m: f"'{_clip(r.get('text', ''), 24)}'을(를) 이번 제안의 조건으로 넣었어요" for m, r in spk.items()},
+            "changed": "의견을 낸 분의 조건을 제안에 더했어요", "to": [m["member_id"] for m in i["members"]]}
+
+
+def _r4d(i):
+    last = i["rounds"][-1]["replies"]
+    sums = i["summaries"]
+    stances = {}
+    for m in i["members"]:
+        r = last.get(m["member_id"]) or {}
+        stances[m["member_id"]] = _clip(r.get("text") or (sums.get(m["member_id"]) or {}).get("keep") or "제안대로 괜찮아요", 28)
+    return {"message": "아직 서로 다르게 바라는 부분이 있어요. 아래 부분에 대해 서로 이야기를 나눠 보면 좋겠어요.",
+            "topics": [{"title": "무엇을 더 지켜야 할까", "kind": "value", "stances": stances,
+                        "shared": "모두 가족이 함께 지내는 것을 지키고 싶어 해요"}]}
 
 
 def _r4b(i):
+    fg = i.get("fixed_goal")
+    if fg:
+        if fg.get("target_amount"):
+            return {"criterion": "각자 꼭 지키고 싶은 것을 모두 지키면서 목표 금액 {{fact:goal.target_amount}}을 함께 모아 가요."}
+        return {"criterion": "각자 꼭 지키고 싶은 것을 모두 지키면서, 정한 목표를 향해 함께 나아가요."}
     text = " ".join(list(i["replies"].values()) + [s.get("keep", "") for s in i["summaries"].values()])
     oldest = max(i["members"], key=lambda m: m["age"])
     nums = [f for f in i["facts"] if f["fact_id"].startswith("item.")]
@@ -165,27 +211,21 @@ def _r5(i):
                                                    zip("ABC", ["목표 우선", "균형", "현재 여유"], _why5(i, t))]}
 
 
-WHY5 = {  # 목표 종류 → 방법 A·B·C의 근거(카드 ID, 근거 문구, 뒷말). 그 가족에게 준 카드가 아니면 기본 카드로 바꾼다
-    "reach_target": [("C_essentials_first", "꼭 써야 하는 지출을 먼저 빼고 남는 돈으로 모으는 게 기본이라서", "여유 지출을 조금 줄여 더 모아요."),
-                     ("C_short_money_no_risk", "1~2년 안에 쓸 돈은 원금이 줄 수 있는 곳에 두지 않는 게 원칙이라서", "예금·적금 위주로 모아요."),
-                     (None, "", "지금 생활의 여유를 먼저 지키는 방법이에요.")],
-    "runway": [("C_emergency_fund", "갑자기 쓸 돈은 바로 꺼낼 수 있게 두는 게 기본이라서", "집은 그대로 두고 예금으로 생활해요."),
-               ("C_home_for_living", "집이 있으면 그 집에 살면서도 생활비를 마련하는 길이 있어서", "지금 집에 계속 사시는 걸 지켜요."),
-               (None, "", "다른 두 방법과 비교해 볼 수 있게 만든 방법이에요.")],
-    "debt_free": [("C_borrow_within_ability", "빚은 갚을 수 있는 만큼만 지는 게 기본이라서", "매달 조금 더 갚아 빨리 줄여요."),
-                  ("C_emergency_fund", "갑자기 쓸 돈은 바로 꺼낼 수 있게 따로 두는 게 기본이라서", "비상금을 지키면서 갚아요."),
-                  (None, "", "지금 생활의 여유를 먼저 지키는 방법이에요.")],
+WHY5 = {  # 목표 종류 → 방법 A·B·C의 근거(근거 문구, 뒷말). 근거 문구가 있으면 받은 꿀팁 조각에서 원문 한 줄을 인용해 붙인다
+    "reach_target": [("꼭 써야 하는 지출을 먼저 챙기고 남는 돈으로 모으는 게 기본이라서", "여유 지출을 조금 줄여 더 모아요."),
+                     ("쓸 시기가 가까운 돈은 안전한 곳에 두는 게 원칙이라서", "예금·적금 위주로 모아요."),
+                     (None, "지금 생활의 여유를 먼저 지키는 방법이에요.")],
+    "runway": [("갑자기 쓸 돈은 바로 꺼낼 수 있게 두는 게 기본이라서", "집은 그대로 두고 예금으로 생활해요."),
+               ("생활비 쓰임새에 맞춰 돈을 나눠 두는 게 도움이 돼서", "지금 집에 계속 사시는 걸 지켜요."),
+               (None, "다른 두 방법과 비교해 볼 수 있게 만든 방법이에요.")],
+    "debt_free": [("빚은 갚을 수 있는 만큼만 지는 게 기본이라서", "매달 조금 더 갚아 빨리 줄여요."),
+                  ("갑자기 쓸 돈은 바로 꺼낼 수 있게 따로 두는 게 기본이라서", "비상금을 지키면서 갚아요."),
+                  (None, "지금 생활의 여유를 먼저 지키는 방법이에요.")],
 }
 
 
 def _why5(i, t):
-    ids = [c["card_id"] for c in i.get("cards", [])]
-    out = []
-    for cid, phrase, tail in WHY5[t]:
-        if cid and cid not in ids:
-            cid, phrase = ("C_split_accounts", "쓰임새별로 돈을 나눠 두면 관리하기 쉬워서") if "C_split_accounts" in ids else (None, "")
-        out.append(f"[[card:{cid}|{phrase}]] {tail}" if cid else tail)
-    return out
+    return [_tip_tag(i, k, phrase) + tail for k, (phrase, tail) in enumerate(WHY5[t])]
 
 
 def _r5r(i):
@@ -257,7 +297,7 @@ def _r8(i):
     return {"mappings": out}
 
 
-_FN = {"1a": _r1a, "1b": _r1b, "2b": _r2b, "3": _r3, "4a": _r4a, "4b": _r4b, "5": _r5, "5r": _r5r,
+_FN = {"1a": _r1a, "1b": _r1b, "2b": _r2b, "3": _r3, "4a": _r4a, "4b": _r4b, "4c": _r4c, "4d": _r4d, "5": _r5, "5r": _r5r,
        "6a": _r6a, "6b": _r6b, "7": _r7, "8": _r8}
 
 
