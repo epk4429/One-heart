@@ -464,7 +464,7 @@ RAG(Retrieval-Augmented Generation, 검색 증강 생성)는 **AI가 답하기 �
 | 정답 사례 테스트(G7) | 규칙 코드화 실수 | 사람이 원문을 읽고 적은 정답(`tests/test_conditions.py`, `test_person.py`) |
 | 보수적 기본값(G8) | 애매한 걸 단정 | 모르면 unknown·확인 필요 |
 | G11 실행 중 인용 검사 | AI가 주지 않은 카드·조각을 말함 | `cards.check_output`, `rag.check_citation` |
-| G12 단계별 노출 검사 | 앞 단계에서 상품·회사 언급 | 공시 금융회사 158곳 이름 검사(역할 1a·4a·5) |
+| G12 단계별 노출 검사 | 앞 단계에서 상품·회사 언급 | 공시 금융회사 158곳 + 브랜드 상품 이름 1,188개 검사(역할 1a·4a~4d·5·5r·6a·6b·7, 2026-11-08) |
 | 6단계 검증 묶음 | 실제 서비스에서 만날 다양한 가족 | `python -m ontology.kb_eval` |
 
 **6단계 검증 묶음 (`ontology/kb_eval.py`, `data/eval/kb_families.json`)**

@@ -14,6 +14,7 @@ from engine import ENGINE_VERSION, compare, simulate
 from llm import family as F
 from llm import pipeline as P
 from llm import goals
+from llm import goal_size
 from llm.plan import GOAL_TYPES, PlanError, build_request, check_option, normalize_goal
 from llm.providers import DEFAULT_MODELS, LLMError, get_provider, load_env
 
@@ -219,6 +220,25 @@ def r_goal_check(b, _ctx):
     return {"goal": _goal(fam, b)}
 
 
+def _size(fam: dict, values, world=None) -> dict | None:
+    try:
+        out = goal_size.size(fam, values if isinstance(values, dict) else {}, world if isinstance(world, dict) else None)
+    except PlanError as e:
+        raise ApiError("bad_goal", str(e))
+    if out:
+        out["anchors"] = {k: v for k, v in out["anchors"].items() if k != "facts"}
+    return out
+
+
+def r_goal_size(b, _ctx):
+    """공동 목표 설정 2단계: 가족이 숫자(목표 금액·기한)를 바꿀 때마다 우리 가족 기준과 계산할 목표를 돌려준다(AI 없음)."""
+    fam = _family(b)
+    out = _size(fam, b.get("values"), b.get("world"))
+    if out is None:
+        raise ApiError("bad_goal", "목표 카테고리가 없는 가족이에요")
+    return out
+
+
 # ---------- AI 라우트 ----------
 @_llm
 def r_story(b, ctx):
@@ -280,6 +300,13 @@ def r_goal_criterion(b, ctx):
     fam = _family(b)
     out = _strip(_err_if_failed(P.goal_criterion(fam, b["proposal"], b["replies"], b["summaries"], provider(ctx),
                                                  b.get("story_understanding"), b.get("reasons"))))
+    # 목표 카테고리로 정한 가족: 숫자는 2단계에서 가족이 정한다(우리 가족 기준과 함께 내려 준다)
+    size = _size(fam, {})
+    if size is not None:
+        out["size"] = size
+        out["goal_check"] = ({"ok": True, "goal": size["goal"]} if size["goal"]
+                             else {"ok": False, "message": size["message"] or "목표 숫자를 정해 주세요"})
+        return out
     # 확정된 목표를 계산할 수 있는지 서버가 바로 확인한다(화면에서 따로 계산 버튼을 누르지 않는다)
     try:
         out["goal_check"] = {"ok": True, "goal": normalize_goal(fam, out["result"]["goal"])}
@@ -522,6 +549,7 @@ ROUTES = {
     ("POST", "/api/preset"): r_preset,
     ("POST", "/api/family/check"): r_family_check,
     ("POST", "/api/goal/check"): r_goal_check,
+    ("POST", "/api/goal/size"): r_goal_size,
     ("POST", "/api/story/understand"): r_story,
     ("POST", "/api/interview/review"): r_review,
     ("POST", "/api/interview/resolve"): r_resolve,

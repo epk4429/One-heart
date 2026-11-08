@@ -126,7 +126,7 @@ def strip(text: str) -> str:
 
 def check_output(text: str, allowed: set[str], providers: set[str] | frozenset = frozenset()) -> list[str]:
     """G11: 쓴 조각이 이 호출에 준 조각인지, 원문 인용이 그 조각에 글자 그대로 있는지, 근거 문구의 숫자가 인용에 있는지.
-    G12: 앞 단계 글에 금융회사 이름이 없는지. 고칠 말을 돌려준다."""
+    G12: 앞 단계 글에 금융회사·상품 이름이 없는지(원문 인용 속 이름은 괜찮다). 고칠 말을 돌려준다."""
     errs = []
     for m in TAG.finditer(text or ""):
         tid, phrase, quote = m.group(1), m.group(2).strip(), m.group(3).strip()
@@ -140,5 +140,5 @@ def check_output(text: str, allowed: set[str], providers: set[str] | frozenset =
         errs.append("근거 표시는 [[tip:tip_id|근거 문구|원문 인용]] 모양이어야 해요.")
     names = sorted(n for n in providers if n and n in strip(text))
     if names:
-        errs.append(f"금융회사 이름을 쓰면 안 돼요: {', '.join(names)}. 상품·회사 이야기는 조건 비교 단계에서만 해요.")
+        errs.append(f"금융회사 이름·상품 이름을 쓰면 안 돼요: {', '.join(names)}. 상품·회사 이야기는 조건 비교 단계에서만 해요.")
     return errs

@@ -24,7 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "knowledge/sources/docs"
 INDEX = ROOT / "knowledge/sources/index.json"
-ALLOWED = {"www.hf.go.kr", "nhuf.molit.go.kr", "basicpension.mohw.go.kr", "www.law.go.kr", "www.fss.or.kr"}
+ALLOWED = {"www.hf.go.kr", "nhuf.molit.go.kr", "basicpension.mohw.go.kr", "www.law.go.kr", "www.fss.or.kr", "www.nhis.or.kr"}
 FSS_TIPS = {  # source_id 꼬리 → (제목, 게시글 주소). 금융감독원 '금융꿀팁 200선'. 본문은 첨부 한글(HWP) 파일이다. 재무 원리 카드(ontology/cards.json)의 출처
     "fss_tip_001": ("금융꿀팁 200선 (1) 현명한 신용관리요령", "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=34628&menuNo=200498"),
     "fss_tip_026": ("금융꿀팁 200선 (26) 은행거래 100% 활용법(2): 예적금 수익률 높이기", "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=34653&menuNo=200498"),
@@ -53,6 +53,10 @@ LAWS = {  # source_id 꼬리 → 법령 이름(국가법령정보센터 현행 �
     "law_housing_supply_rule": "주택공급에 관한 규칙",
     "law_depositor_protection": "예금자보호법",
     "law_tax_special": "조세특례제한법",
+    # 공동 목표 설정 2단계 '세상 기준'(docs/17). RAG 목록(rag/index.py)에는 넣지 않았다
+    "law_local_tax": "지방세법",
+    "law_realtor_rule": "공인중개사법 시행규칙",
+    "law_ltc_insurance": "노인장기요양보험법",
 }
 DOCS = {  # source_id 꼬리 → (기관, 제목, 주소)
     "hf_reverse_mortgage": ("한국주택금융공사", "주택연금이란(가입요건)", "https://www.hf.go.kr/ko/sub03/sub03_01_01_01.do"),
@@ -65,6 +69,9 @@ DOCS = {  # source_id 꼬리 → (기관, 제목, 주소)
     "nhuf_subscription": ("주택도시기금", "주택청약종합저축", "https://nhuf.molit.go.kr/FP/FP07/FP0701/FP07010101.jsp"),
     "mohw_basic_pension_target": ("보건복지부 기초연금", "기초연금 대상자 안내", "https://basicpension.mohw.go.kr/menu.es?mid=a10102010000"),
     "mohw_basic_pension_amount": ("보건복지부 기초연금", "기초연금액 산정", "https://basicpension.mohw.go.kr/menu.es?mid=a10103010000"),
+    # 공동 목표 설정 2단계 '세상 기준'(docs/17): 장기요양 급여비용(보건복지부 고시, 건강보험공단 법령 정보)
+    "nhis_ltc_cost_notice": ("국민건강보험공단", "장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시",
+                             "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=1637"),
 }
 
 

@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass
 from typing import Callable
 
-from ontology.products import provider_names
+from ontology.products import banned_names_in, stage_banned_names
 
 from . import evidence
 from .plan import OPTION_IDS, PlanError, check_option
@@ -119,7 +119,7 @@ def _squash(t: str) -> str:
 
 
 def member_question_errors(qs, i) -> list[str]:
-    """맞춤 질문 검사: 구성원 id, 한 사람에 2개까지, 길이·물음표, 근거 구절(from)이 이야기에 글자 그대로 있는지, 금융회사 이름 없음."""
+    """맞춤 질문 검사: 구성원 id, 한 사람에 2개까지, 길이·물음표, 근거 구절(from)이 이야기에 글자 그대로 있는지, 금융회사·상품 이름 없음(G12)."""
     if not isinstance(qs, list):
         return ["'member_questions'는 배열이어야 해요"]
     errs, per = [], {}
@@ -141,9 +141,9 @@ def member_question_errors(qs, i) -> list[str]:
                 errs.append(f"member_questions[{n}].{k}는 질문(?로 끝남)이어야 해요")
         if isinstance(q.get("from"), str) and _squash(q["from"]) not in story:
             errs.append(f"member_questions[{n}].from은 가족 이야기 속 구절을 글자 그대로 옮겨야 해요")
-        names = sorted(x for x in provider_names() if any(x in str(q.get(k, "")) for k in ("text", "easy")))
+        names = banned_names_in(" ".join(str(q.get(k, "")) for k in ("text", "easy")))
         if names:
-            errs.append(f"member_questions[{n}]에 금융회사 이름을 쓰면 안 돼요: {', '.join(names)}")
+            errs.append(f"member_questions[{n}]에 금융회사 이름·상품 이름을 쓰면 안 돼요: {', '.join(names)}")
     errs += [f"{m}에게 맞춤 질문은 {MQ_MAX}개까지예요" for m, c in per.items() if c > MQ_MAX]
     return errs
 
@@ -238,6 +238,8 @@ def _b3(i):
 kind는 차이의 종류 하나: "order"(무엇을 먼저 할지) / "method"(어떻게 할지) / "amount"(얼마나 할지) / "value"(무엇이 더 소중한지).
 shared는 그 쟁점에서도 모두가 함께 지키고 싶어 하는 것 한 줄(요약에서 찾는다. 정말 없으면 "서로 생각을 더 들어 봐야 해요").
 headline은 가족 전체를 한 문장으로("가고 싶은 곳은 같아요. 가는 순서가 다를 뿐이에요." 같은 톤).
+agreed_points(1~3개)는 '금융 목표·계획과 직접 관련된, 구성원 모두에게 해당하는 같은 생각'만 쓴다. 예: 목표 자체(목표 종류·시기·금액), 지켜야 할 생활 수준·안전자금, 가장 걱정되는 재무 위험(병원비, 대출 이자 등), 돈을 쓰는 우선순위, 위험을 얼마나 감수할지.
+"가족이 함께 정하고 싶어 해요", "각자 지키고 싶은 것이 있어요"처럼 금융과 상관없이 어느 가족에나 해당하는 말은 쓰지 않는다. 모두에게 해당하는 금융 관련 공통점이 정말 없으면 가족이 고른 목표와 요약에서 가장 가까운 공통점을 쓴다.
 출력 형식: {{"headline": "...", "agreed_points": ["이미 같은 생각", ...], "issues": [{{"title": "쟁점을 질문처럼(예: 집을 먼저 살까, 아이를 먼저 가질까)", "kind": "order", "stances": {{"구성원id": "그 사람의 한 줄 입장"}}, "shared": "함께 지키고 싶은 것"}}]}}
 
 구성원: {_dump(i['members'])}
@@ -294,7 +296,8 @@ def _b4a(i):
     return f"""쟁점 분석 결과와 가족의 요약이다. 차이를 좁히는 공동 목표 제안을 하나 만들어라.
 좋은 제안은 누가 이기는 게 아니라 양쪽이 지키고 싶은 것을 함께 지키는 기준을 찾는다.
 (예: 집 사는 시기를 날짜가 아니라 '필요한 돈이 모이면'이라는 조건으로 정하기 / 집을 물려주는 것보다 사시는 것을 먼저 지키기)
-가족이 고른 목표(종류·금액·기한)는 이미 정해져 있으니 그 안에서 제안한다. 목표 금액이나 기한을 바꾸자고 하지 않는다.
+가족이 고른 목표 종류는 이미 정해져 있으니 그 안에서 제안한다. 가족이 적은 목표 금액·기한이 있으면 바꾸자고 하지 않는다.
+목표 금액·기한이 '아직 정하지 않았어요'이면 이 제안에서 숫자를 정하지 않는다. 방향과 지킬 조건만 제안한다(숫자는 2단계에서 가족이 함께 정한다).
 {_FORMAT_4}
 출력 형식: {{"proposal": "...", "reasons": ["...", "..."], "covers": {{"구성원id": "..."}}, "to": ["받는 구성원id", ...]}}
 
@@ -330,10 +333,10 @@ def _proposal_errs(o, i) -> list[str]:
     if isinstance(o.get("proposal"), str):
         if "[[" in o["proposal"]:
             errs.append("proposal에는 근거 표시를 쓰지 말고 reasons에만 쓰세요")
-        errs += evidence.check_output(o["proposal"], allowed, provider_names())
+        errs += evidence.check_output(o["proposal"], allowed, stage_banned_names())
     for n, r in enumerate(rs):
         if isinstance(r, str):
-            errs += [f"reasons[{n}]: {e}" for e in evidence.check_output(r, allowed, provider_names())]
+            errs += [f"reasons[{n}]: {e}" for e in evidence.check_output(r, allowed, stage_banned_names())]
     return errs
 
 
@@ -346,10 +349,10 @@ def _b4c(i):
     return f"""가족에게 공동 목표를 제안했는데, 모두가 '좋아요'는 아니었다. 지금까지의 제안과 가족의 의견을 모아 더 공평한 수정 제안을 하나 만들어라.
 - 각 가족의 의견(조건·다른 의견)을 빠뜨리지 말고 반영한다. 한 사람 편만 들지 않는다. 의견끼리 부딪히면 둘 다 지켜지는 조건을 찾는다.
 - 이미 '좋아요'라고 한 사람의 지키고 싶은 것도 계속 지켜져야 한다.
-- 가족이 고른 목표(종류·금액·기한)는 바꾸지 않는다.
+- 가족이 고른 목표 종류와 가족이 적은 금액·기한은 바꾸지 않는다. 금액·기한이 '아직 정하지 않았어요'이면 숫자를 정하지 않고 방향과 조건만 제안한다(숫자는 2단계에서 가족이 정한다).
 - heard: 조건이나 다른 의견을 낸 사람마다, 그 의견을 이번 제안에서 어떻게 반영했는지(또는 왜 그대로 반영하기 어려운지)를 한 문장으로 쓴다.
 - changed: 앞 제안에서 무엇이 바뀌었는지 한 문장(40자 안팎).
-{("- 가족이 직접 이야기를 나눈 뒤 남긴 말: " + i['discussion']) if i.get('discussion') else ""}
+{("- 가족이 직접 이야기를 나눈 뒤(또는 합의안 단계에서 공동 목표로 돌아오며) 남긴 말: " + i['discussion'] + " → 이 말을 꼭 반영하고, changed에 무엇을 바꿨는지 쓴다") if i.get('discussion') else ""}
 {_FORMAT_4}
 출력 형식: {{"proposal": "...", "reasons": ["...", "..."], "covers": {{"구성원id": "..."}}, "heard": {{"의견을 낸 구성원id": "..."}}, "changed": "...", "to": ["받는 구성원id", ...]}}
 
@@ -359,6 +362,25 @@ def _b4c(i):
 지금까지의 제안과 가족의 의견(오래된 순): {_dump(i['rounds'])}
 tips(금융감독원 금융꿀팁 원문 조각, from은 조각이 나온 문서): {_dump(i.get('tips', []))}
 facts: {_dump(i['facts'])}"""
+
+
+def stage_name_errors(o, where: str = "") -> list[str]:
+    """G12(단계별 노출 검사): 조건 비교 화면 앞 단계 출력의 모든 글에 금융회사·상품 이름이 없어야 한다.
+    상품·회사는 조건 비교 단계에서만 보여 준다(임의결정 52, 89)."""
+    texts: list[str] = []
+
+    def walk(x):
+        if isinstance(x, str):
+            texts.append(x)
+        elif isinstance(x, dict):
+            for v in x.values():
+                walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v)
+    walk(o)
+    names = banned_names_in("\n".join(texts))
+    return [f"{where}금융회사 이름·상품 이름을 쓰면 안 돼요: {', '.join(names)}. 상품·회사 이야기는 조건 비교 단계에서만 해요."] if names else []
 
 
 def _c4c(o, i):
@@ -378,7 +400,7 @@ def _c4c(o, i):
 # ---------- 역할 4-d: 제안이 모이지 않을 때의 안내 ----------
 def _b4d(i):
     return f"""공동 목표 제안을 여러 번 고쳤는데도 가족의 의견이 모이지 않았다. AI는 결정을 대신하지 않는다.
-가족이 직접 이야기를 나눠야 할 부분을 정리해라. 누구 말이 맞는지 판단하거나 한쪽 편을 들지 않는다.
+가족이 직접 이야기를 나눠야 할 부분을 정리해라. 누구 말이 맞는지 판단하거나 한쪽 편을 들지 않는다. 금융회사·상품 이름은 쓰지 않는다.
 - topics: 이야기가 필요한 부분 1~3개. 부분마다 구성원 한 사람씩 지금 그 사람이 바라는 것을 그 사람의 말 그대로 한 줄(25자 안팎)로 쓴다(stances, 구성원 모두).
   shared는 그 부분에서도 함께 지키고 싶어 하는 것 한 줄. kind는 order/method/amount/value 중 하나.
 - message: 가족에게 하는 안내 한두 문장. "~에 대해 서로 이야기를 나눠 보면 좋겠어요"처럼, 이야기할 거리를 짚어 준다. 결정을 재촉하지 않는다.
@@ -405,7 +427,7 @@ def _c4d(o, i):
         if t.get("kind") not in ISSUE_KINDS:
             errs.append(f"topics[{n}].kind는 {', '.join(ISSUE_KINDS)} 중 하나여야 해요")
         errs += _stances_errs(f"topics[{n}]", t.get("stances"), mids)
-    return errs + _unknown_facts(o, _ids(i["facts"]))
+    return errs + _unknown_facts(o, _ids(i["facts"])) + stage_name_errors(o)
 
 
 # ---------- 역할 4-b: 2단계 기준 문장 + 계산할 목표 ----------
@@ -421,7 +443,7 @@ goal은 가족이 함께 이루고 싶은 큰 목표(아래 '함께 이루고 �
 - goal.target_source: target_amount의 근거. facts의 fact_id 또는 가족이 말한 문장 그대로. 없으면 null.
 - goal.within_months: 가족이 기한을 말했으면 개월 수(예: 5년 → 60), 아니면 null.
 - goal.base_member_id: runway에서 나이 기준이 될 구성원 id(예금의 주인). 아니면 null.
-기준 문장에서 금액은 facts의 {{{{fact:ID}}}}로만 쓴다.
+기준 문장에서 금액은 facts의 {{{{fact:ID}}}}로만 쓴다. 금융회사·상품 이름은 쓰지 않는다.
 출력 형식: {{"criterion": "기준 문장", "goal": {{"type": "...", "label": "목표를 짧게(20자 안팎)", "target_amount": null, "target_source": null, "within_months": null, "base_member_id": null}}}}
 
 구성원: {_dump(i['members'])}
@@ -435,12 +457,18 @@ facts: {_dump(i['facts'])}"""
 
 def _b4b_fixed(i):
     return f"""공동 목표 제안에 가족 모두가 '좋아요'라고 했다. 최종 제안을 그대로 옮기되, 가족 모두가 마지막으로 동의할 '기준 문장'을 한 문장으로 만들어라.
-계산할 목표(종류·금액·기한)는 가족이 이미 직접 정했으니 다시 정하지 않는다. 기준 문장은 그 목표를 이루기 위해 가족이 함께 지킬 조건을 담는다.
-제안의 내용을 바꾸거나 새 조건을 더하지 말고, 최종 제안에서 정한 것만 쓴다. 기준 문장에서 금액은 facts의 {{{{fact:ID}}}}로만 쓴다.
-출력 형식: {{"criterion": "기준 문장"}}
+목표 종류는 가족이 이미 골랐다. 목표 숫자(금액·기한 등)는 이 다음에 가족이 화면에서 직접 정하거나 고친다.
+- criterion: 그 목표를 이루기 위해 가족이 함께 지킬 조건을 담은 한 문장. 목표 금액·기한 숫자는 쓰지 않는다(가족이 곧 바꿀 수 있다).
+  제안의 내용을 바꾸거나 새 조건을 더하지 말고, 최종 제안에서 정한 것만 쓴다.
+- size_note: 가족이 목표 숫자를 정할 때 함께 생각해 볼 점 1~2문장(80자 안팎씩). 아래 '우리 가족 기준'과 요약(지키고 싶은 것·걱정)을 잇는다.
+  예: "지금처럼 모으면 5년 뒤 {{{{fact:size.after_5y}}}}이 돼요. 휴직 중 생활비를 지키려면 기한을 너무 짧게 잡지 않는 게 좋아요."
+  숫자는 facts의 {{{{fact:ID}}}}로만 쓴다. AI가 목표 금액이나 기한을 정해 주지 않는다("○억이 적당해요" 같은 말 금지). 결정은 가족이 한다.
+금융회사·상품 이름은 쓰지 않는다.
+출력 형식: {{"criterion": "기준 문장", "size_note": "숫자를 정할 때 생각해 볼 점"}}
 
 구성원: {_dump(i['members'])}
-가족이 정한 목표: {_dump(i['fixed_goal'])}
+가족이 고른 목표: {_dump(i.get('goal_numbers') or i['fixed_goal'])}
+우리 가족 기준(엔진 계산, '지금처럼' 한 가지 조건): {_dump(i.get('size_lines', []))}
 최종 제안: {i['proposal']}
 제안의 이유: {_dump(i.get('reasons', []))}
 요약: {_dump(i['summaries'])}
@@ -451,7 +479,12 @@ def _c4b(o, i):
     if i.get("fixed_goal"):
         errs = _req(o, ["criterion"])
         _str(o, "criterion", errs, min_len=10)
-        return errs + _unknown_facts(o.get("criterion", ""), _ids(i["facts"]))
+        if "size_note" in o and not isinstance(o["size_note"], str):
+            errs.append("'size_note'는 문장이어야 해요")
+        if re.search(r"fact:goal\.", str(o.get("criterion", "")) + str(o.get("size_note", ""))):
+            errs.append("목표 금액·기한은 가족이 다음 화면에서 정해요. criterion·size_note에 goal 숫자를 쓰지 마세요")
+        return (errs + _unknown_facts(o.get("criterion", ""), _ids(i["facts"]))
+                + _unknown_facts(str(o.get("size_note", "")), _ids(i["facts"])) + stage_name_errors(o))
     errs = _req(o, ["criterion", "goal"])
     _str(o, "criterion", errs, min_len=10)
     g = o.get("goal")
@@ -459,7 +492,7 @@ def _c4b(o, i):
         errs.append("goal.type은 reach_target, runway, debt_free 중 하나여야 해요")
     elif g["type"] == "debt_free" and not i["has_repaying_loans"]:
         errs.append("갚아 나가는 대출이 없어서 debt_free를 쓸 수 없어요")
-    return errs + _unknown_facts(o.get("criterion", ""), _ids(i["facts"]))
+    return errs + _unknown_facts(o.get("criterion", ""), _ids(i["facts"])) + stage_name_errors(o)
 
 
 # ---------- 역할 5: 선택지 설계 ----------
@@ -500,8 +533,8 @@ tips: {_dump(i.get('tips', []))}"""
 
 
 def design_note_errors(o, i) -> list[str]:
-    """역할 5의 근거(design_notes.why) 검사: 방법마다 한 문장, 준 조각만·원문 인용 일치(G11), 금융회사 이름 없음(G12), 꿀팁 근거는 꼭 달지 않아도 된다(맞는 조각이 없을 수 있다).
-    방법 이름·설명에도 금융회사 이름이 없어야 한다."""
+    """역할 5의 근거(design_notes.why) 검사: 방법마다 한 문장, 준 조각만·원문 인용 일치(G11), 금융회사·상품 이름 없음(G12), 꿀팁 근거는 꼭 달지 않아도 된다(맞는 조각이 없을 수 있다).
+    방법 이름·설명에도 금융회사·상품 이름이 없어야 한다."""
     allowed = {c["tip_id"] for c in i.get("tips", [])}
     notes = {n.get("option_id"): n for n in o.get("design_notes") or [] if isinstance(n, dict)}
     errs = []
@@ -510,12 +543,12 @@ def design_note_errors(o, i) -> list[str]:
         if not isinstance(why, str) or not why.strip():
             errs.append(f"design_notes에 방법 {oid}의 근거(why)가 없어요")
             continue
-        errs += [f"방법 {oid}의 근거: {e}" for e in evidence.check_output(why, allowed, provider_names())]
+        errs += [f"방법 {oid}의 근거: {e}" for e in evidence.check_output(why, allowed, stage_banned_names())]
     for x in o.get("options") or []:
         if isinstance(x, dict):
-            names = sorted(n for n in provider_names() if n in f"{x.get('label', '')} {x.get('description', '')}")
+            names = banned_names_in(f"{x.get('label', '')} {x.get('description', '')}")
             if names:
-                errs.append(f"방법 {x.get('option_id')}의 이름·설명에 금융회사 이름을 쓰면 안 돼요: {', '.join(names)}")
+                errs.append(f"방법 {x.get('option_id')}의 이름·설명에 금융회사 이름·상품 이름을 쓰면 안 돼요: {', '.join(names)}")
     return errs
 
 
@@ -553,7 +586,7 @@ def _b5r(i):
 그 방법을 좋다고 한 사람의 '꼭 지키고 싶은 것'은 건드리지 않는다. 바꾸는 것은 꼭 필요한 만큼만.
 option은 바탕 방법의 형식 그대로 쓰되 option_id는 바탕 방법의 id와 같게 둔다.
 label은 "원래 이름 · 무엇을 조정한 안" 형태(예: "둘 다 챙기기 · 주식 비중 조정안").
-changes의 before·after에는 실제 값(금액은 "월 30만원"처럼, 방식은 이름으로)을 쓴다. "조금 더"처럼 흐리게 쓰지 않는다.
+changes의 before·after에는 실제 값(금액은 "월 30만원"처럼, 방식은 이름으로)을 쓴다. "조금 더"처럼 흐리게 쓰지 않는다. 금융회사·상품 이름은 쓰지 않는다.
 {_SPEC}
 출력 형식: {{"from_option_id": "B", "label": "...", "option": {{...방법 전체...}}, "changes": [{{"field": "무엇을", "before": "...", "after": "...", "reason_member_id": "반대한 구성원id"}}], "why": "어떤 반대를 어떻게 해결했는지 한두 문장(숫자 없이)"}}
 
@@ -579,14 +612,14 @@ def _c5r(o, i):
         errs.append(str(e))
     if not isinstance(o.get("changes"), list) or not o["changes"]:
         errs.append("'changes'는 1개 이상이어야 해요")
-    return errs + _unknown_facts({"changes": o.get("changes"), "why": o.get("why")}, _opt_ids(i["options"]))
+    return errs + _unknown_facts({"changes": o.get("changes"), "why": o.get("why")}, _opt_ids(i["options"])) + stage_name_errors(o)
 
 
 # ---------- 역할 6-a: 결과 해석 ----------
 def _b6a(i):
     return f"""계산엔진이 방법별로 계산한 결과다. 방법마다 결과를 쉬운 말로 풀어라.
 easy: 결과를 한 문장으로(반드시 {{{{fact:ID}}}}를 써서). per_member: 구성원마다 이 방법을 고르면 달라지는 점 한 문장(그 사람의 지키고 싶은 것·걱정과 연결).
-어느 방법이 좋다고 결론 내리지 않는다.
+어느 방법이 좋다고 결론 내리지 않는다. 금융회사·상품 이름은 쓰지 않는다.
 출력 형식: {{"per_option": {{"A": {{"easy": "...", "per_member": {{"구성원id": "..."}}}}, ...}}}}
 
 계산할 목표: {_dump(i['goal'])}
@@ -607,14 +640,14 @@ def _c6a(o, i):
             errs.append(f"per_option.{oid}.easy에 {{{{fact:ID}}}}가 들어간 문장이 필요해요")
         if not isinstance(v, dict) or not isinstance(v.get("per_member"), dict) or set(v["per_member"]) != mids:
             errs.append(f"per_option.{oid}.per_member는 구성원 전원이 키여야 해요")
-    return errs + _unknown_facts(po, _opt_ids(i["options"]))
+    return errs + _unknown_facts(po, _opt_ids(i["options"])) + stage_name_errors(po)
 
 
 # ---------- 역할 6-b: 꼭 지키고 싶은 것 점검표 ----------
 def _b6b(i):
     return f"""방법마다 구성원 각자의 '꼭 지키고 싶은 것'이 지켜지는지 점검표를 만들어라.
 ok는 true/false, reason은 짧은 근거(계산 숫자는 {{{{fact:ID}}}}로).
-note는 점검표 전체를 한두 문장으로 요약하되, 결정은 가족이 한다는 점을 분명히 한다.
+note는 점검표 전체를 한두 문장으로 요약하되, 결정은 가족이 한다는 점을 분명히 한다. 금융회사·상품 이름은 쓰지 않는다.
 출력 형식: {{"keep_check": {{"A": {{"구성원id": {{"ok": true, "reason": "..."}}}}, ...}}, "note": "..."}}
 
 계산할 목표: {_dump(i['goal'])}
@@ -637,13 +670,13 @@ def _c6b(o, i):
         for mid, cell in row.items():
             if not isinstance(cell, dict) or not isinstance(cell.get("ok"), bool):
                 errs.append(f"keep_check.{oid}.{mid}.ok는 true/false여야 해요")
-    return errs + _unknown_facts(o, _opt_ids(i["options"]) | _ids(i.get("family_facts", [])))
+    return errs + _unknown_facts(o, _opt_ids(i["options"]) | _ids(i.get("family_facts", []))) + stage_name_errors(o)
 
 
 # ---------- 역할 7: 합의안·합의 리포트 작성 ----------
 def _b7(i):
     return f"""가족이 반대 없이 고른 방법으로 합의안과 합의 리포트를 작성해라. 법적 합의문이 아니라 '가족이 함께 정한 의사결정 기록'이다.
-- 숫자는 전부 facts의 {{{{fact:ID}}}}로만 쓴다.
+- 숫자는 전부 facts의 {{{{fact:ID}}}}로만 쓴다. 금융회사·상품 이름은 쓰지 않는다. 상품은 다음 단계(조건 비교)에서 가족이 직접 본다.
 - contribution(분담방식): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}.
   매달 모이는 돈(agree.monthly_saving)을 용도별로 나눠 적고 싶으면 {{"label": "용도", "amount": 만원, "part_of": "agree.monthly_saving"}}로 쓰고,
   나눈 금액의 합은 매달 모이는 돈과 정확히 같아야 한다(나누지 않으면 fact_id 한 줄로).
@@ -702,7 +735,7 @@ def _c7(o, i):
         for cond in i["conditions"]:
             if cond["member_id"] not in covered:
                 errs.append(f"{cond['member_id']}의 조건 \"{cond['text']}\"이 약속에 반영되지 않았어요")
-    return errs + _unknown_facts(o, _ids(i["facts"]) | _ids(i["contribution_facts"]))
+    return errs + _unknown_facts(o, _ids(i["facts"]) | _ids(i["contribution_facts"])) + stage_name_errors(o)
 
 
 # ---------- 역할 8: 온톨로지 매핑 ----------

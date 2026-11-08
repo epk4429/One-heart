@@ -1,0 +1,5476 @@
+{
+ "source_id": "S_reb_house_price_202609",
+ "title": "한국부동산원 「전국주택가격동향조사」 지역·주택 종류별 평균·중위 매매가격·전세가격",
+ "publisher": "한국부동산원(국가승인통계 제304004호)",
+ "page": "https://www.index.go.kr/unify/idx-info.do?idxCd=1240",
+ "download_url": null,
+ "sheet": "가격",
+ "month": "2026-09",
+ "unit": "만원(원본 천원을 10으로 나눔)",
+ "raw_file": "reb_house_price_202609.xlsx",
+ "raw_sha256": "2578a6b967b9b99cba96c406e4928ce406c2c00b9a2fd013adf898229967aebd",
+ "fetched": "2026-11-08",
+ "note": "평균·중위가격은 표본 기준이라 표본 교체 때 불연속이 있을 수 있다(원본 개요). 연립·단독은 시도 단위까지만 공표.",
+ "regions": [
+  {
+   "code": "00000",
+   "name": "전국",
+   "group": "00.전국",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 27614.1,
+     "median_jeonse": 18951.2,
+     "mean_sale": 44936.3,
+     "mean_jeonse": 25356.7
+    },
+    "apt": {
+     "median_sale": 32900.0,
+     "median_jeonse": 23700.0,
+     "mean_sale": 52324.6,
+     "mean_jeonse": 30251.6
+    },
+    "row": {
+     "median_sale": 13600.0,
+     "median_jeonse": 9350.0,
+     "mean_sale": 21633.5,
+     "mean_jeonse": 13713.2
+    },
+    "detached": {
+     "median_sale": 19700.0,
+     "median_jeonse": 8700.0,
+     "mean_sale": 37778.3,
+     "mean_jeonse": 16625.7
+    }
+   }
+  },
+  {
+   "code": "00001",
+   "name": "수도권",
+   "group": "01.수도권",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 48200.0,
+     "median_jeonse": 29663.4,
+     "mean_sale": 67776.0,
+     "mean_jeonse": 36384.4
+    },
+    "apt": {
+     "median_sale": 57500.0,
+     "median_jeonse": 36000.0,
+     "mean_sale": 80976.9,
+     "mean_jeonse": 43435.7
+    },
+    "row": {
+     "median_sale": 19500.0,
+     "median_jeonse": 13500.0,
+     "mean_sale": 28283.8,
+     "mean_jeonse": 17718.6
+    },
+    "detached": {
+     "median_sale": 60050.0,
+     "median_jeonse": 26500.0,
+     "mean_sale": 80468.3,
+     "mean_jeonse": 35114.6
+    }
+   }
+  },
+  {
+   "code": "00002",
+   "name": "지방권",
+   "group": "02.지방권",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 17961.4,
+     "median_jeonse": 12653.7,
+     "mean_sale": 24083.5,
+     "mean_jeonse": 15369.6
+    },
+    "apt": {
+     "median_sale": 20500.0,
+     "median_jeonse": 15800.0,
+     "mean_sale": 26334.9,
+     "mean_jeonse": 18292.6
+    },
+    "row": {
+     "median_sale": 8100.0,
+     "median_jeonse": 5400.0,
+     "mean_sale": 10268.7,
+     "mean_jeonse": 6868.4
+    },
+    "detached": {
+     "median_sale": 14300.0,
+     "median_jeonse": 6280.0,
+     "mean_sale": 22709.6,
+     "mean_jeonse": 10099.5
+    }
+   }
+  },
+  {
+   "code": "00008",
+   "name": "4대광역시",
+   "group": "10.4대광역시",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 25206.6,
+     "median_jeonse": 17220.3,
+     "mean_sale": 31762.4,
+     "mean_jeonse": 19853.2
+    },
+    "apt": {
+     "median_sale": 27200.0,
+     "median_jeonse": 19700.0,
+     "mean_sale": 34350.7,
+     "mean_jeonse": 22430.1
+    },
+    "row": {
+     "median_sale": 9725.0,
+     "median_jeonse": 6375.0,
+     "mean_sale": 11397.5,
+     "mean_jeonse": 7319.6
+    },
+    "detached": {
+     "median_sale": 28750.0,
+     "median_jeonse": 11800.0,
+     "mean_sale": 36671.4,
+     "mean_jeonse": 15696.0
+    }
+   }
+  },
+  {
+   "code": "00009",
+   "name": "5대광역시",
+   "group": "08.5대광역시",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 25941.4,
+     "median_jeonse": 17789.1,
+     "mean_sale": 31795.3,
+     "mean_jeonse": 20122.1
+    },
+    "apt": {
+     "median_sale": 29000.0,
+     "median_jeonse": 20900.0,
+     "mean_sale": 35427.9,
+     "mean_jeonse": 23255.2
+    },
+    "row": {
+     "median_sale": 9550.0,
+     "median_jeonse": 6350.0,
+     "mean_sale": 11113.4,
+     "mean_jeonse": 7344.7
+    },
+    "detached": {
+     "median_sale": 29300.0,
+     "median_jeonse": 12300.0,
+     "mean_sale": 37851.4,
+     "mean_jeonse": 16733.3
+    }
+   }
+  },
+  {
+   "code": "00010",
+   "name": "7개도",
+   "group": "11.7개도",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 14176.1,
+     "median_jeonse": 10065.3,
+     "mean_sale": 18957.0,
+     "mean_jeonse": 12609.4
+    },
+    "apt": {
+     "median_sale": 16400.0,
+     "median_jeonse": 13100.0,
+     "mean_sale": 20482.3,
+     "mean_jeonse": 15404.9
+    },
+    "row": {
+     "median_sale": 7200.0,
+     "median_jeonse": 4950.0,
+     "mean_sale": 9631.7,
+     "mean_jeonse": 6667.2
+    },
+    "detached": {
+     "median_sale": 11400.0,
+     "median_jeonse": 5150.0,
+     "mean_sale": 18214.9,
+     "mean_jeonse": 8396.3
+    }
+   }
+  },
+  {
+   "code": "00011",
+   "name": "8개도",
+   "group": "09.8개도",
+   "sido": null,
+   "level": "group",
+   "values": {
+    "all": {
+     "median_sale": 23573.3,
+     "median_jeonse": 16587.6,
+     "mean_sale": 34772.7,
+     "mean_jeonse": 21319.9
+    },
+    "apt": {
+     "median_sale": 28700.0,
+     "median_jeonse": 21300.0,
+     "mean_sale": 40417.2,
+     "mean_jeonse": 25883.3
+    },
+    "row": {
+     "median_sale": 10500.0,
+     "median_jeonse": 7400.0,
+     "mean_sale": 16238.2,
+     "mean_jeonse": 10785.7
+    },
+    "detached": {
+     "median_sale": 15000.0,
+     "median_jeonse": 6800.0,
+     "mean_sale": 28124.7,
+     "mean_jeonse": 12945.3
+    }
+   }
+  },
+  {
+   "code": "11000",
+   "name": "서울",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 81673.0,
+     "median_jeonse": 43255.6,
+     "mean_sale": 103418.7,
+     "mean_jeonse": 49768.6
+    },
+    "apt": {
+     "median_sale": 108600.0,
+     "median_jeonse": 56500.0,
+     "mean_sale": 137006.7,
+     "mean_jeonse": 64100.0
+    },
+    "row": {
+     "median_sale": 31400.0,
+     "median_jeonse": 20550.0,
+     "mean_sale": 39810.3,
+     "mean_jeonse": 24156.6
+    },
+    "detached": {
+     "median_sale": 96000.0,
+     "median_jeonse": 40200.0,
+     "mean_sale": 125783.4,
+     "mean_jeonse": 51674.5
+    }
+   }
+  },
+  {
+   "code": "11001",
+   "name": "서울 강북권역",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 70358.9,
+     "median_jeonse": 39063.1,
+     "mean_sale": 84114.2,
+     "mean_jeonse": 43329.0
+    },
+    "apt": {
+     "median_sale": 93100.0,
+     "median_jeonse": 51300.0,
+     "mean_sale": 108995.1,
+     "mean_jeonse": 55661.2
+    },
+    "row": {
+     "median_sale": 30000.0,
+     "median_jeonse": 19600.0,
+     "mean_sale": 38657.5,
+     "mean_jeonse": 22853.1
+    },
+    "detached": {
+     "median_sale": 79000.0,
+     "median_jeonse": 34500.0,
+     "mean_sale": 98885.2,
+     "mean_jeonse": 42250.2
+    }
+   }
+  },
+  {
+   "code": "11002",
+   "name": "서울 강남권역",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 99508.5,
+     "median_jeonse": 48263.7,
+     "mean_sale": 123264.5,
+     "mean_jeonse": 56502.7
+    },
+    "apt": {
+     "median_sale": 133600.0,
+     "median_jeonse": 62200.0,
+     "mean_sale": 164128.3,
+     "mean_jeonse": 72270.7
+    },
+    "row": {
+     "median_sale": 32500.0,
+     "median_jeonse": 21700.0,
+     "mean_sale": 41538.8,
+     "mean_jeonse": 26110.8
+    },
+    "detached": {
+     "median_sale": 127700.0,
+     "median_jeonse": 54550.0,
+     "mean_sale": 165938.6,
+     "mean_jeonse": 65743.6
+    }
+   }
+  },
+  {
+   "code": "11011",
+   "name": "서울 도심권",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 107855.4,
+     "median_jeonse": 49824.5,
+     "mean_sale": 119572.5,
+     "mean_jeonse": 56776.0
+    },
+    "apt": {
+     "median_sale": 159800.0,
+     "median_jeonse": 70950.0,
+     "mean_sale": 162945.3,
+     "mean_jeonse": 76837.7
+    },
+    "row": {
+     "median_sale": 43000.0,
+     "median_jeonse": 25200.0,
+     "mean_sale": 63653.2,
+     "mean_jeonse": 33008.0
+    },
+    "detached": {
+     "median_sale": 85250.0,
+     "median_jeonse": 34750.0,
+     "mean_sale": 106627.1,
+     "mean_jeonse": 43747.9
+    }
+   }
+  },
+  {
+   "code": "11012",
+   "name": "서울 동북권",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 65639.8,
+     "median_jeonse": 37590.4,
+     "mean_sale": 76652.9,
+     "mean_jeonse": 40520.2
+    },
+    "apt": {
+     "median_sale": 82900.0,
+     "median_jeonse": 47600.0,
+     "mean_sale": 96929.7,
+     "mean_jeonse": 50845.8
+    },
+    "row": {
+     "median_sale": 28000.0,
+     "median_jeonse": 18100.0,
+     "mean_sale": 30774.8,
+     "mean_jeonse": 19522.4
+    },
+    "detached": {
+     "median_sale": 74150.0,
+     "median_jeonse": 34300.0,
+     "mean_sale": 92490.0,
+     "mean_jeonse": 40265.0
+    }
+   }
+  },
+  {
+   "code": "11013",
+   "name": "서울 서북권",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 70657.5,
+     "median_jeonse": 38314.0,
+     "mean_sale": 78506.6,
+     "mean_jeonse": 41008.9
+    },
+    "apt": {
+     "median_sale": 104950.0,
+     "median_jeonse": 55300.0,
+     "mean_sale": 113126.2,
+     "mean_jeonse": 57511.5
+    },
+    "row": {
+     "median_sale": 28500.0,
+     "median_jeonse": 19000.0,
+     "mean_sale": 34002.8,
+     "mean_jeonse": 21135.5
+    },
+    "detached": {
+     "median_sale": 83000.0,
+     "median_jeonse": 34500.0,
+     "mean_sale": 103277.0,
+     "mean_jeonse": 44326.2
+    }
+   }
+  },
+  {
+   "code": "11021",
+   "name": "서울 서남권",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 74072.9,
+     "median_jeonse": 38354.4,
+     "mean_sale": 80524.2,
+     "mean_jeonse": 40640.9
+    },
+    "apt": {
+     "median_sale": 100150.0,
+     "median_jeonse": 50500.0,
+     "mean_sale": 109998.2,
+     "mean_jeonse": 53834.9
+    },
+    "row": {
+     "median_sale": 29500.0,
+     "median_jeonse": 19000.0,
+     "mean_sale": 30850.1,
+     "mean_jeonse": 19659.3
+    },
+    "detached": {
+     "median_sale": 93550.0,
+     "median_jeonse": 40100.0,
+     "mean_sale": 98864.3,
+     "mean_jeonse": 42310.7
+    }
+   }
+  },
+  {
+   "code": "11022",
+   "name": "서울 동남권",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 160571.2,
+     "median_jeonse": 69202.7,
+     "mean_sale": 182648.2,
+     "mean_jeonse": 78411.9
+    },
+    "apt": {
+     "median_sale": 208600.0,
+     "median_jeonse": 86500.0,
+     "mean_sale": 233566.7,
+     "mean_jeonse": 95920.1
+    },
+    "row": {
+     "median_sale": 44000.0,
+     "median_jeonse": 28100.0,
+     "mean_sale": 58662.6,
+     "mean_jeonse": 36446.4
+    },
+    "detached": {
+     "median_sale": 236100.0,
+     "median_jeonse": 88000.0,
+     "mean_sale": 266550.0,
+     "mean_jeonse": 100892.9
+    }
+   }
+  },
+  {
+   "code": "11110",
+   "name": "서울 종로",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 70730.2,
+     "median_jeonse": 37719.2,
+     "mean_sale": 82380.7,
+     "mean_jeonse": 45361.1
+    },
+    "apt": {
+     "median_sale": 108800.0,
+     "median_jeonse": 56700.0,
+     "mean_sale": 112963.3,
+     "mean_jeonse": 62500.0
+    }
+   }
+  },
+  {
+   "code": "11140",
+   "name": "서울 중",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 100092.6,
+     "median_jeonse": 50922.9,
+     "mean_sale": 95075.8,
+     "mean_jeonse": 50574.3
+    },
+    "apt": {
+     "median_sale": 134000.0,
+     "median_jeonse": 66500.0,
+     "mean_sale": 123455.9,
+     "mean_jeonse": 65561.7
+    }
+   }
+  },
+  {
+   "code": "11170",
+   "name": "서울 용산",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 144792.4,
+     "median_jeonse": 59975.2,
+     "mean_sale": 170139.2,
+     "mean_jeonse": 71244.5
+    },
+    "apt": {
+     "median_sale": 200350.0,
+     "median_jeonse": 79250.0,
+     "mean_sale": 219075.7,
+     "mean_jeonse": 92901.3
+    }
+   }
+  },
+  {
+   "code": "11200",
+   "name": "서울 성동",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 147625.9,
+     "median_jeonse": 65459.8,
+     "mean_sale": 157843.9,
+     "mean_jeonse": 69966.6
+    },
+    "apt": {
+     "median_sale": 176500.0,
+     "median_jeonse": 76900.0,
+     "mean_sale": 187040.8,
+     "mean_jeonse": 82096.7
+    }
+   }
+  },
+  {
+   "code": "11215",
+   "name": "서울 광진",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 90496.9,
+     "median_jeonse": 44779.0,
+     "mean_sale": 93220.1,
+     "mean_jeonse": 46932.5
+    },
+    "apt": {
+     "median_sale": 150300.0,
+     "median_jeonse": 71800.0,
+     "mean_sale": 149420.5,
+     "mean_jeonse": 72797.0
+    }
+   }
+  },
+  {
+   "code": "11230",
+   "name": "서울 동대문",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 81496.4,
+     "median_jeonse": 43105.1,
+     "mean_sale": 82447.0,
+     "mean_jeonse": 43440.3
+    },
+    "apt": {
+     "median_sale": 96800.0,
+     "median_jeonse": 52500.0,
+     "mean_sale": 98909.1,
+     "mean_jeonse": 53064.4
+    }
+   }
+  },
+  {
+   "code": "11260",
+   "name": "서울 중랑",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 50871.3,
+     "median_jeonse": 30466.7,
+     "mean_sale": 51047.7,
+     "mean_jeonse": 30474.8
+    },
+    "apt": {
+     "median_sale": 69400.0,
+     "median_jeonse": 43000.0,
+     "mean_sale": 69171.6,
+     "mean_jeonse": 41889.8
+    }
+   }
+  },
+  {
+   "code": "11290",
+   "name": "서울 성북",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 71318.5,
+     "median_jeonse": 41206.4,
+     "mean_sale": 74445.3,
+     "mean_jeonse": 42181.2
+    },
+    "apt": {
+     "median_sale": 94000.0,
+     "median_jeonse": 54500.0,
+     "mean_sale": 94532.9,
+     "mean_jeonse": 53993.6
+    }
+   }
+  },
+  {
+   "code": "11305",
+   "name": "서울 강북",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 43037.2,
+     "median_jeonse": 24417.0,
+     "mean_sale": 41660.9,
+     "mean_jeonse": 24605.1
+    },
+    "apt": {
+     "median_sale": 70350.0,
+     "median_jeonse": 41950.0,
+     "mean_sale": 66890.2,
+     "mean_jeonse": 41386.0
+    }
+   }
+  },
+  {
+   "code": "11320",
+   "name": "서울 도봉",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 45934.6,
+     "median_jeonse": 27581.0,
+     "mean_sale": 48950.3,
+     "mean_jeonse": 28599.1
+    },
+    "apt": {
+     "median_sale": 58700.0,
+     "median_jeonse": 33500.0,
+     "mean_sale": 63100.9,
+     "mean_jeonse": 34834.5
+    }
+   }
+  },
+  {
+   "code": "11350",
+   "name": "서울 노원",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 61038.8,
+     "median_jeonse": 32724.7,
+     "mean_sale": 65941.3,
+     "mean_jeonse": 36336.3
+    },
+    "apt": {
+     "median_sale": 66100.0,
+     "median_jeonse": 35100.0,
+     "mean_sale": 70975.5,
+     "mean_jeonse": 38708.4
+    }
+   }
+  },
+  {
+   "code": "11380",
+   "name": "서울 은평",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 53261.5,
+     "median_jeonse": 31305.6,
+     "mean_sale": 55905.5,
+     "mean_jeonse": 32658.0
+    },
+    "apt": {
+     "median_sale": 84500.0,
+     "median_jeonse": 48000.0,
+     "mean_sale": 84316.3,
+     "mean_jeonse": 47809.6
+    }
+   }
+  },
+  {
+   "code": "11410",
+   "name": "서울 서대문",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 70058.1,
+     "median_jeonse": 38424.1,
+     "mean_sale": 77118.8,
+     "mean_jeonse": 41163.6
+    },
+    "apt": {
+     "median_sale": 98100.0,
+     "median_jeonse": 52850.0,
+     "mean_sale": 103601.6,
+     "mean_jeonse": 55073.6
+    }
+   }
+  },
+  {
+   "code": "11440",
+   "name": "서울 마포",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 104251.5,
+     "median_jeonse": 48549.7,
+     "mean_sale": 107248.9,
+     "mean_jeonse": 51387.4
+    },
+    "apt": {
+     "median_sale": 146000.0,
+     "median_jeonse": 65700.0,
+     "mean_sale": 148122.9,
+     "mean_jeonse": 68626.1
+    }
+   }
+  },
+  {
+   "code": "11470",
+   "name": "서울 양천",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 101704.1,
+     "median_jeonse": 41718.5,
+     "mean_sale": 104615.6,
+     "mean_jeonse": 46502.5
+    },
+    "apt": {
+     "median_sale": 146150.0,
+     "median_jeonse": 56200.0,
+     "mean_sale": 151392.7,
+     "mean_jeonse": 63778.8
+    }
+   }
+  },
+  {
+   "code": "11500",
+   "name": "서울 강서",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 65637.3,
+     "median_jeonse": 33604.8,
+     "mean_sale": 68509.4,
+     "mean_jeonse": 35767.9
+    },
+    "apt": {
+     "median_sale": 94500.0,
+     "median_jeonse": 46300.0,
+     "mean_sale": 96021.1,
+     "mean_jeonse": 49492.1
+    }
+   }
+  },
+  {
+   "code": "11530",
+   "name": "서울 구로",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 55587.4,
+     "median_jeonse": 31771.5,
+     "mean_sale": 59617.5,
+     "mean_jeonse": 33914.9
+    },
+    "apt": {
+     "median_sale": 73450.0,
+     "median_jeonse": 40950.0,
+     "mean_sale": 75188.5,
+     "mean_jeonse": 42262.4
+    }
+   }
+  },
+  {
+   "code": "11545",
+   "name": "서울 금천",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 46769.6,
+     "median_jeonse": 28014.0,
+     "mean_sale": 49116.0,
+     "mean_jeonse": 27909.8
+    },
+    "apt": {
+     "median_sale": 59150.0,
+     "median_jeonse": 37050.0,
+     "mean_sale": 64893.3,
+     "mean_jeonse": 37168.6
+    }
+   }
+  },
+  {
+   "code": "11560",
+   "name": "서울 영등포",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 109856.9,
+     "median_jeonse": 52144.1,
+     "mean_sale": 117439.8,
+     "mean_jeonse": 54620.6
+    },
+    "apt": {
+     "median_sale": 132950.0,
+     "median_jeonse": 62050.0,
+     "mean_sale": 142257.1,
+     "mean_jeonse": 65098.0
+    }
+   }
+  },
+  {
+   "code": "11590",
+   "name": "서울 동작",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 97110.8,
+     "median_jeonse": 48842.6,
+     "mean_sale": 99749.4,
+     "mean_jeonse": 49764.0
+    },
+    "apt": {
+     "median_sale": 130850.0,
+     "median_jeonse": 64450.0,
+     "mean_sale": 132229.2,
+     "mean_jeonse": 65347.2
+    }
+   }
+  },
+  {
+   "code": "11620",
+   "name": "서울 관악",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 62519.1,
+     "median_jeonse": 35105.4,
+     "mean_sale": 63651.2,
+     "mean_jeonse": 35531.6
+    },
+    "apt": {
+     "median_sale": 85800.0,
+     "median_jeonse": 46100.0,
+     "mean_sale": 82150.8,
+     "mean_jeonse": 45124.8
+    }
+   }
+  },
+  {
+   "code": "11650",
+   "name": "서울 서초",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 207648.3,
+     "median_jeonse": 85925.6,
+     "mean_sale": 225252.5,
+     "mean_jeonse": 97239.9
+    },
+    "apt": {
+     "median_sale": 261000.0,
+     "median_jeonse": 103400.0,
+     "mean_sale": 278224.7,
+     "mean_jeonse": 114953.4
+    }
+   }
+  },
+  {
+   "code": "11680",
+   "name": "서울 강남",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 213785.0,
+     "median_jeonse": 84506.7,
+     "mean_sale": 232757.2,
+     "mean_jeonse": 94383.3
+    },
+    "apt": {
+     "median_sale": 258500.0,
+     "median_jeonse": 98750.0,
+     "mean_sale": 278197.7,
+     "mean_jeonse": 107817.5
+    }
+   }
+  },
+  {
+   "code": "11710",
+   "name": "서울 송파",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 154536.9,
+     "median_jeonse": 65812.7,
+     "mean_sale": 165723.6,
+     "mean_jeonse": 69855.7
+    },
+    "apt": {
+     "median_sale": 219500.0,
+     "median_jeonse": 88850.0,
+     "mean_sale": 235722.2,
+     "mean_jeonse": 94815.5
+    }
+   }
+  },
+  {
+   "code": "11740",
+   "name": "서울 강동",
+   "group": "99.시도",
+   "sido": "11.서울",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 97147.4,
+     "median_jeonse": 47752.2,
+     "mean_sale": 102300.2,
+     "mean_jeonse": 49900.3
+    },
+    "apt": {
+     "median_sale": 121700.0,
+     "median_jeonse": 60000.0,
+     "mean_sale": 123415.8,
+     "mean_jeonse": 61006.4
+    }
+   }
+  },
+  {
+   "code": "26000",
+   "name": "부산",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 24921.6,
+     "median_jeonse": 16784.8,
+     "mean_sale": 32188.9,
+     "mean_jeonse": 19562.1
+    },
+    "apt": {
+     "median_sale": 28250.0,
+     "median_jeonse": 19900.0,
+     "mean_sale": 37048.9,
+     "mean_jeonse": 23259.6
+    },
+    "row": {
+     "median_sale": 9550.0,
+     "median_jeonse": 6050.0,
+     "mean_sale": 10830.9,
+     "mean_jeonse": 6839.3
+    },
+    "detached": {
+     "median_sale": 27500.0,
+     "median_jeonse": 11200.0,
+     "mean_sale": 33572.9,
+     "mean_jeonse": 12893.0
+    }
+   }
+  },
+  {
+   "code": "26001",
+   "name": "부산 중부산권",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22822.2,
+     "median_jeonse": 15294.8,
+     "mean_sale": 30307.1,
+     "mean_jeonse": 18370.1
+    },
+    "apt": {
+     "median_sale": 27700.0,
+     "median_jeonse": 19250.0,
+     "mean_sale": 36960.8,
+     "mean_jeonse": 23073.7
+    },
+    "row": {
+     "median_sale": 7700.0,
+     "median_jeonse": 5150.0,
+     "mean_sale": 10000.9,
+     "mean_jeonse": 6137.4
+    },
+    "detached": {
+     "median_sale": 21000.0,
+     "median_jeonse": 8600.0,
+     "mean_sale": 27028.2,
+     "mean_jeonse": 10823.6
+    }
+   }
+  },
+  {
+   "code": "26002",
+   "name": "부산 동부산권",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 30931.0,
+     "median_jeonse": 19471.3,
+     "mean_sale": 40755.1,
+     "mean_jeonse": 23135.3
+    },
+    "apt": {
+     "median_sale": 34700.0,
+     "median_jeonse": 22700.0,
+     "mean_sale": 46487.0,
+     "mean_jeonse": 26995.3
+    },
+    "row": {
+     "median_sale": 11300.0,
+     "median_jeonse": 7350.0,
+     "mean_sale": 12659.7,
+     "mean_jeonse": 8268.8
+    },
+    "detached": {
+     "median_sale": 35500.0,
+     "median_jeonse": 11950.0,
+     "mean_sale": 43420.8,
+     "mean_jeonse": 15057.5
+    }
+   }
+  },
+  {
+   "code": "26003",
+   "name": "부산 서부산권",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21158.8,
+     "median_jeonse": 15214.1,
+     "mean_sale": 25343.8,
+     "mean_jeonse": 17368.0
+    },
+    "apt": {
+     "median_sale": 22100.0,
+     "median_jeonse": 17000.0,
+     "mean_sale": 26922.6,
+     "mean_jeonse": 19471.8
+    },
+    "row": {
+     "median_sale": 9825.0,
+     "median_jeonse": 6075.0,
+     "mean_sale": 10032.8,
+     "mean_jeonse": 6307.4
+    },
+    "detached": {
+     "median_sale": 29150.0,
+     "median_jeonse": 11800.0,
+     "mean_sale": 33189.3,
+     "mean_jeonse": 13788.8
+    }
+   }
+  },
+  {
+   "code": "26110",
+   "name": "부산 중",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 12380.7,
+     "median_jeonse": 8253.3,
+     "mean_sale": 16168.2,
+     "mean_jeonse": 8996.7
+    },
+    "apt": {
+     "median_sale": 15800.0,
+     "median_jeonse": 12000.0,
+     "mean_sale": 16032.9,
+     "mean_jeonse": 11893.9
+    }
+   }
+  },
+  {
+   "code": "26140",
+   "name": "부산 서",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18769.6,
+     "median_jeonse": 13239.0,
+     "mean_sale": 24857.9,
+     "mean_jeonse": 16605.9
+    },
+    "apt": {
+     "median_sale": 24100.0,
+     "median_jeonse": 18300.0,
+     "mean_sale": 32602.0,
+     "mean_jeonse": 22883.9
+    }
+   }
+  },
+  {
+   "code": "26170",
+   "name": "부산 동",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17990.1,
+     "median_jeonse": 12685.4,
+     "mean_sale": 21899.2,
+     "mean_jeonse": 14712.7
+    },
+    "apt": {
+     "median_sale": 21600.0,
+     "median_jeonse": 15900.0,
+     "mean_sale": 26668.4,
+     "mean_jeonse": 18616.0
+    }
+   }
+  },
+  {
+   "code": "26200",
+   "name": "부산 영도",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 14093.7,
+     "median_jeonse": 10169.8,
+     "mean_sale": 17442.9,
+     "mean_jeonse": 11805.1
+    },
+    "apt": {
+     "median_sale": 16000.0,
+     "median_jeonse": 12200.0,
+     "mean_sale": 19230.8,
+     "mean_jeonse": 13976.1
+    }
+   }
+  },
+  {
+   "code": "26230",
+   "name": "부산 부산진",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22972.8,
+     "median_jeonse": 16357.0,
+     "mean_sale": 27005.6,
+     "mean_jeonse": 17608.1
+    },
+    "apt": {
+     "median_sale": 24400.0,
+     "median_jeonse": 18500.0,
+     "mean_sale": 28231.5,
+     "mean_jeonse": 19503.7
+    }
+   }
+  },
+  {
+   "code": "26260",
+   "name": "부산 동래",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 34934.2,
+     "median_jeonse": 21757.6,
+     "mean_sale": 41046.7,
+     "mean_jeonse": 24121.5
+    },
+    "apt": {
+     "median_sale": 39300.0,
+     "median_jeonse": 25200.0,
+     "mean_sale": 46497.0,
+     "mean_jeonse": 27901.2
+    }
+   }
+  },
+  {
+   "code": "26290",
+   "name": "부산 남",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 25227.7,
+     "median_jeonse": 18286.3,
+     "mean_sale": 34688.6,
+     "mean_jeonse": 21522.7
+    },
+    "apt": {
+     "median_sale": 31900.0,
+     "median_jeonse": 23900.0,
+     "mean_sale": 44274.3,
+     "mean_jeonse": 28320.0
+    }
+   }
+  },
+  {
+   "code": "26320",
+   "name": "부산 북",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22202.6,
+     "median_jeonse": 17073.6,
+     "mean_sale": 27206.3,
+     "mean_jeonse": 19393.0
+    },
+    "apt": {
+     "median_sale": 24400.0,
+     "median_jeonse": 19400.0,
+     "mean_sale": 30197.3,
+     "mean_jeonse": 22091.0
+    }
+   }
+  },
+  {
+   "code": "26350",
+   "name": "부산 해운대",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 42937.0,
+     "median_jeonse": 23337.6,
+     "mean_sale": 55212.1,
+     "mean_jeonse": 27978.2
+    },
+    "apt": {
+     "median_sale": 47500.0,
+     "median_jeonse": 26200.0,
+     "mean_sale": 61646.4,
+     "mean_jeonse": 31392.8
+    }
+   }
+  },
+  {
+   "code": "26380",
+   "name": "부산 사하",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17572.5,
+     "median_jeonse": 12268.1,
+     "mean_sale": 20062.0,
+     "mean_jeonse": 13987.8
+    },
+    "apt": {
+     "median_sale": 19300.0,
+     "median_jeonse": 14300.0,
+     "mean_sale": 21831.2,
+     "mean_jeonse": 16096.9
+    }
+   }
+  },
+  {
+   "code": "26410",
+   "name": "부산 금정",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 24393.3,
+     "median_jeonse": 15890.9,
+     "mean_sale": 28879.7,
+     "mean_jeonse": 18383.9
+    },
+    "apt": {
+     "median_sale": 29100.0,
+     "median_jeonse": 20250.0,
+     "mean_sale": 35631.7,
+     "mean_jeonse": 23910.4
+    }
+   }
+  },
+  {
+   "code": "26440",
+   "name": "부산 강서",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 36737.6,
+     "median_jeonse": 23667.6,
+     "mean_sale": 40127.8,
+     "mean_jeonse": 25031.4
+    },
+    "apt": {
+     "median_sale": 37900.0,
+     "median_jeonse": 26100.0,
+     "mean_sale": 40803.7,
+     "mean_jeonse": 27307.4
+    }
+   }
+  },
+  {
+   "code": "26470",
+   "name": "부산 연제",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 30421.9,
+     "median_jeonse": 20955.2,
+     "mean_sale": 36705.2,
+     "mean_jeonse": 23058.7
+    },
+    "apt": {
+     "median_sale": 33800.0,
+     "median_jeonse": 24400.0,
+     "mean_sale": 41819.4,
+     "mean_jeonse": 27110.1
+    }
+   }
+  },
+  {
+   "code": "26500",
+   "name": "부산 수영",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 40149.6,
+     "median_jeonse": 19228.0,
+     "mean_sale": 45554.5,
+     "mean_jeonse": 21252.8
+    },
+    "apt": {
+     "median_sale": 53800.0,
+     "median_jeonse": 25500.0,
+     "mean_sale": 62375.5,
+     "mean_jeonse": 29074.6
+    }
+   }
+  },
+  {
+   "code": "26530",
+   "name": "부산 사상",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17082.0,
+     "median_jeonse": 13114.0,
+     "mean_sale": 20236.1,
+     "mean_jeonse": 14333.8
+    },
+    "apt": {
+     "median_sale": 17400.0,
+     "median_jeonse": 14200.0,
+     "mean_sale": 20546.5,
+     "mean_jeonse": 15542.3
+    }
+   }
+  },
+  {
+   "code": "26710",
+   "name": "부산 기장",
+   "group": "99.시도",
+   "sido": "12.부산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 26854.2,
+     "median_jeonse": 18105.4,
+     "mean_sale": 27626.2,
+     "mean_jeonse": 18187.8
+    },
+    "apt": {
+     "median_sale": 27800.0,
+     "median_jeonse": 20700.0,
+     "mean_sale": 28782.6,
+     "mean_jeonse": 20487.4
+    }
+   }
+  },
+  {
+   "code": "27000",
+   "name": "대구",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 24466.6,
+     "median_jeonse": 16489.4,
+     "mean_sale": 31691.0,
+     "mean_jeonse": 19122.9
+    },
+    "apt": {
+     "median_sale": 25200.0,
+     "median_jeonse": 18400.0,
+     "mean_sale": 32205.5,
+     "mean_jeonse": 20845.1
+    },
+    "row": {
+     "median_sale": 11450.0,
+     "median_jeonse": 7825.0,
+     "mean_sale": 13386.7,
+     "mean_jeonse": 8470.1
+    },
+    "detached": {
+     "median_sale": 27800.0,
+     "median_jeonse": 10200.0,
+     "mean_sale": 39469.5,
+     "mean_jeonse": 15139.9
+    }
+   }
+  },
+  {
+   "code": "27110",
+   "name": "대구 중",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 42770.6,
+     "median_jeonse": 24803.4,
+     "mean_sale": 43238.1,
+     "mean_jeonse": 24455.6
+    },
+    "apt": {
+     "median_sale": 46000.0,
+     "median_jeonse": 27200.0,
+     "mean_sale": 45259.7,
+     "mean_jeonse": 26339.3
+    }
+   }
+  },
+  {
+   "code": "27140",
+   "name": "대구 동",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21642.7,
+     "median_jeonse": 15201.9,
+     "mean_sale": 25086.1,
+     "mean_jeonse": 16188.7
+    },
+    "apt": {
+     "median_sale": 23450.0,
+     "median_jeonse": 17700.0,
+     "mean_sale": 26764.0,
+     "mean_jeonse": 18470.0
+    }
+   }
+  },
+  {
+   "code": "27170",
+   "name": "대구 서",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19709.5,
+     "median_jeonse": 11131.5,
+     "mean_sale": 22365.4,
+     "mean_jeonse": 12744.4
+    },
+    "apt": {
+     "median_sale": 22100.0,
+     "median_jeonse": 13400.0,
+     "mean_sale": 24395.1,
+     "mean_jeonse": 15159.7
+    }
+   }
+  },
+  {
+   "code": "27200",
+   "name": "대구 남",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22689.8,
+     "median_jeonse": 13643.9,
+     "mean_sale": 24667.9,
+     "mean_jeonse": 14402.8
+    },
+    "apt": {
+     "median_sale": 25450.0,
+     "median_jeonse": 18250.0,
+     "mean_sale": 28777.7,
+     "mean_jeonse": 19691.7
+    }
+   }
+  },
+  {
+   "code": "27230",
+   "name": "대구 북",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18817.8,
+     "median_jeonse": 14532.6,
+     "mean_sale": 24313.1,
+     "mean_jeonse": 16693.0
+    },
+    "apt": {
+     "median_sale": 19550.0,
+     "median_jeonse": 16050.0,
+     "mean_sale": 23741.4,
+     "mean_jeonse": 17663.0
+    }
+   }
+  },
+  {
+   "code": "27260",
+   "name": "대구 수성",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 41794.0,
+     "median_jeonse": 24186.2,
+     "mean_sale": 54702.8,
+     "mean_jeonse": 29139.2
+    },
+    "apt": {
+     "median_sale": 42100.0,
+     "median_jeonse": 25800.0,
+     "mean_sale": 55807.5,
+     "mean_jeonse": 31026.6
+    }
+   }
+  },
+  {
+   "code": "27290",
+   "name": "대구 달서",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 26115.0,
+     "median_jeonse": 18055.6,
+     "mean_sale": 30502.3,
+     "mean_jeonse": 19357.1
+    },
+    "apt": {
+     "median_sale": 23850.0,
+     "median_jeonse": 18350.0,
+     "mean_sale": 28496.4,
+     "mean_jeonse": 19733.9
+    }
+   }
+  },
+  {
+   "code": "27710",
+   "name": "대구 달성",
+   "group": "99.시도",
+   "sido": "13.대구",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 20755.4,
+     "median_jeonse": 14597.3,
+     "mean_sale": 22034.2,
+     "mean_jeonse": 15079.7
+    },
+    "apt": {
+     "median_sale": 21400.0,
+     "median_jeonse": 15700.0,
+     "mean_sale": 22650.2,
+     "mean_jeonse": 16192.8
+    }
+   }
+  },
+  {
+   "code": "28000",
+   "name": "인천",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 27591.9,
+     "median_jeonse": 19396.3,
+     "mean_sale": 31859.3,
+     "mean_jeonse": 20912.4
+    },
+    "apt": {
+     "median_sale": 33800.0,
+     "median_jeonse": 24400.0,
+     "mean_sale": 38737.1,
+     "mean_jeonse": 25790.0
+    },
+    "row": {
+     "median_sale": 8750.0,
+     "median_jeonse": 6350.0,
+     "mean_sale": 10242.2,
+     "mean_jeonse": 7421.6
+    },
+    "detached": {
+     "median_sale": 34850.0,
+     "median_jeonse": 16450.0,
+     "mean_sale": 42954.5,
+     "mean_jeonse": 21219.4
+    }
+   }
+  },
+  {
+   "code": "28125",
+   "name": "인천 제물포구",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 15342.3,
+     "median_jeonse": 11658.1,
+     "mean_sale": 16273.8,
+     "mean_jeonse": 11360.5
+    },
+    "apt": {
+     "median_sale": 19200.0,
+     "median_jeonse": 15350.0,
+     "mean_sale": 19616.7,
+     "mean_jeonse": 14302.0
+    }
+   }
+  },
+  {
+   "code": "28155",
+   "name": "인천 영종구",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 37346.5,
+     "median_jeonse": 23168.4,
+     "mean_sale": 37006.7,
+     "mean_jeonse": 23535.1
+    },
+    "apt": {
+     "median_sale": 38350.0,
+     "median_jeonse": 24250.0,
+     "mean_sale": 37653.3,
+     "mean_jeonse": 24550.0
+    }
+   }
+  },
+  {
+   "code": "28177",
+   "name": "인천 미추홀",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19688.7,
+     "median_jeonse": 14500.1,
+     "mean_sale": 22215.2,
+     "mean_jeonse": 15819.7
+    },
+    "apt": {
+     "median_sale": 26550.0,
+     "median_jeonse": 19950.0,
+     "mean_sale": 29100.4,
+     "mean_jeonse": 21045.5
+    }
+   }
+  },
+  {
+   "code": "28185",
+   "name": "인천 연수",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 53918.3,
+     "median_jeonse": 32854.0,
+     "mean_sale": 59014.8,
+     "mean_jeonse": 34346.0
+    },
+    "apt": {
+     "median_sale": 56000.0,
+     "median_jeonse": 34350.0,
+     "mean_sale": 61421.0,
+     "mean_jeonse": 35830.9
+    }
+   }
+  },
+  {
+   "code": "28200",
+   "name": "인천 남동",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 27851.1,
+     "median_jeonse": 20456.7,
+     "mean_sale": 28321.6,
+     "mean_jeonse": 20273.6
+    },
+    "apt": {
+     "median_sale": 35100.0,
+     "median_jeonse": 26000.0,
+     "mean_sale": 35353.0,
+     "mean_jeonse": 25413.6
+    }
+   }
+  },
+  {
+   "code": "28237",
+   "name": "인천 부평",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 27654.9,
+     "median_jeonse": 19570.1,
+     "mean_sale": 29533.6,
+     "mean_jeonse": 20465.4
+    },
+    "apt": {
+     "median_sale": 34000.0,
+     "median_jeonse": 24500.0,
+     "mean_sale": 35999.7,
+     "mean_jeonse": 25398.2
+    }
+   }
+  },
+  {
+   "code": "28245",
+   "name": "인천 계양",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22169.1,
+     "median_jeonse": 16777.3,
+     "mean_sale": 23308.2,
+     "mean_jeonse": 16478.1
+    },
+    "apt": {
+     "median_sale": 26000.0,
+     "median_jeonse": 20600.0,
+     "mean_sale": 27513.2,
+     "mean_jeonse": 20013.7
+    }
+   }
+  },
+  {
+   "code": "28275",
+   "name": "인천 서해구",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 35866.5,
+     "median_jeonse": 22899.8,
+     "mean_sale": 35873.8,
+     "mean_jeonse": 22300.2
+    },
+    "apt": {
+     "median_sale": 47300.0,
+     "median_jeonse": 30900.0,
+     "mean_sale": 46799.6,
+     "mean_jeonse": 29314.3
+    }
+   }
+  },
+  {
+   "code": "28290",
+   "name": "인천 검단구",
+   "group": "99.시도",
+   "sido": "14.인천",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 32829.7,
+     "median_jeonse": 24855.0,
+     "mean_sale": 36321.8,
+     "mean_jeonse": 25140.3
+    },
+    "apt": {
+     "median_sale": 34150.0,
+     "median_jeonse": 26150.0,
+     "mean_sale": 38495.8,
+     "mean_jeonse": 26786.5
+    }
+   }
+  },
+  {
+   "code": "30000",
+   "name": "대전",
+   "group": "99.시도",
+   "sido": "16.대전",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 27488.7,
+     "median_jeonse": 18854.3,
+     "mean_sale": 31438.8,
+     "mean_jeonse": 20721.8
+    },
+    "apt": {
+     "median_sale": 29950.0,
+     "median_jeonse": 21700.0,
+     "mean_sale": 33590.1,
+     "mean_jeonse": 22954.5
+    },
+    "row": {
+     "median_sale": 8300.0,
+     "median_jeonse": 4800.0,
+     "mean_sale": 11753.5,
+     "mean_jeonse": 7165.6
+    },
+    "detached": {
+     "median_sale": 26700.0,
+     "median_jeonse": 10600.0,
+     "mean_sale": 33380.7,
+     "mean_jeonse": 16529.7
+    }
+   }
+  },
+  {
+   "code": "30110",
+   "name": "대전 동",
+   "group": "99.시도",
+   "sido": "16.대전",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21860.8,
+     "median_jeonse": 15819.9,
+     "mean_sale": 22266.1,
+     "mean_jeonse": 15465.4
+    },
+    "apt": {
+     "median_sale": 24700.0,
+     "median_jeonse": 19150.0,
+     "mean_sale": 24989.3,
+     "mean_jeonse": 18420.1
+    }
+   }
+  },
+  {
+   "code": "30140",
+   "name": "대전 중",
+   "group": "99.시도",
+   "sido": "16.대전",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 24865.7,
+     "median_jeonse": 16760.3,
+     "mean_sale": 27945.0,
+     "mean_jeonse": 18702.4
+    },
+    "apt": {
+     "median_sale": 28300.0,
+     "median_jeonse": 20400.0,
+     "mean_sale": 30767.3,
+     "mean_jeonse": 21604.1
+    }
+   }
+  },
+  {
+   "code": "30170",
+   "name": "대전 서",
+   "group": "99.시도",
+   "sido": "16.대전",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 30372.3,
+     "median_jeonse": 20649.6,
+     "mean_sale": 35422.5,
+     "mean_jeonse": 22258.3
+    },
+    "apt": {
+     "median_sale": 32300.0,
+     "median_jeonse": 23200.0,
+     "mean_sale": 37265.0,
+     "mean_jeonse": 24387.2
+    }
+   }
+  },
+  {
+   "code": "30200",
+   "name": "대전 유성",
+   "group": "99.시도",
+   "sido": "16.대전",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 39322.8,
+     "median_jeonse": 27195.7,
+     "mean_sale": 42738.5,
+     "mean_jeonse": 28134.1
+    },
+    "apt": {
+     "median_sale": 40600.0,
+     "median_jeonse": 28800.0,
+     "mean_sale": 43609.2,
+     "mean_jeonse": 29228.7
+    }
+   }
+  },
+  {
+   "code": "30230",
+   "name": "대전 대덕",
+   "group": "99.시도",
+   "sido": "16.대전",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19666.2,
+     "median_jeonse": 13217.4,
+     "mean_sale": 21635.4,
+     "mean_jeonse": 14784.7
+    },
+    "apt": {
+     "median_sale": 20600.0,
+     "median_jeonse": 15400.0,
+     "mean_sale": 22028.7,
+     "mean_jeonse": 16053.1
+    }
+   }
+  },
+  {
+   "code": "31000",
+   "name": "울산",
+   "group": "99.시도",
+   "sido": "17.울산",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 26376.7,
+     "median_jeonse": 18343.8,
+     "mean_sale": 31022.0,
+     "mean_jeonse": 20928.9
+    },
+    "apt": {
+     "median_sale": 26800.0,
+     "median_jeonse": 19900.0,
+     "mean_sale": 31715.1,
+     "mean_jeonse": 22576.3
+    },
+    "row": {
+     "median_sale": 9650.0,
+     "median_jeonse": 7300.0,
+     "mean_sale": 10747.7,
+     "mean_jeonse": 7735.6
+    },
+    "detached": {
+     "median_sale": 35450.0,
+     "median_jeonse": 16550.0,
+     "mean_sale": 40921.9,
+     "mean_jeonse": 20076.6
+    }
+   }
+  },
+  {
+   "code": "31110",
+   "name": "울산 중",
+   "group": "99.시도",
+   "sido": "17.울산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 29287.2,
+     "median_jeonse": 18351.6,
+     "mean_sale": 32909.9,
+     "mean_jeonse": 21566.5
+    },
+    "apt": {
+     "median_sale": 30800.0,
+     "median_jeonse": 20700.0,
+     "mean_sale": 35536.4,
+     "mean_jeonse": 24753.8
+    }
+   }
+  },
+  {
+   "code": "31140",
+   "name": "울산 남",
+   "group": "99.시도",
+   "sido": "17.울산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 34468.0,
+     "median_jeonse": 22537.9,
+     "mean_sale": 41086.9,
+     "mean_jeonse": 26467.6
+    },
+    "apt": {
+     "median_sale": 36550.0,
+     "median_jeonse": 24750.0,
+     "mean_sale": 43569.2,
+     "mean_jeonse": 29029.1
+    }
+   }
+  },
+  {
+   "code": "31170",
+   "name": "울산 동",
+   "group": "99.시도",
+   "sido": "17.울산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16840.5,
+     "median_jeonse": 12891.1,
+     "mean_sale": 22527.8,
+     "mean_jeonse": 15873.7
+    },
+    "apt": {
+     "median_sale": 15300.0,
+     "median_jeonse": 12600.0,
+     "mean_sale": 21524.2,
+     "mean_jeonse": 16333.8
+    }
+   }
+  },
+  {
+   "code": "31200",
+   "name": "울산 북",
+   "group": "99.시도",
+   "sido": "17.울산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 27578.4,
+     "median_jeonse": 20511.9,
+     "mean_sale": 28839.2,
+     "mean_jeonse": 20731.3
+    },
+    "apt": {
+     "median_sale": 28000.0,
+     "median_jeonse": 21500.0,
+     "mean_sale": 28586.6,
+     "mean_jeonse": 21299.2
+    }
+   }
+  },
+  {
+   "code": "31710",
+   "name": "울산 울주",
+   "group": "99.시도",
+   "sido": "17.울산",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18673.7,
+     "median_jeonse": 13763.2,
+     "mean_sale": 24924.0,
+     "mean_jeonse": 17414.3
+    },
+    "apt": {
+     "median_sale": 18100.0,
+     "median_jeonse": 15100.0,
+     "mean_sale": 24289.8,
+     "mean_jeonse": 18550.7
+    }
+   }
+  },
+  {
+   "code": "36000",
+   "name": "세종",
+   "group": "99.시도",
+   "sido": "18.세종",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 50645.1,
+     "median_jeonse": 24149.7,
+     "mean_sale": 51713.4,
+     "mean_jeonse": 23935.8
+    },
+    "apt": {
+     "median_sale": 53450.0,
+     "median_jeonse": 25650.0,
+     "mean_sale": 52889.4,
+     "mean_jeonse": 24758.9
+    },
+    "row": {
+     "median_sale": 6575.0,
+     "median_jeonse": 4100.0,
+     "mean_sale": 9151.2,
+     "mean_jeonse": 5944.5
+    },
+    "detached": {
+     "median_sale": 34850.0,
+     "median_jeonse": 14600.0,
+     "mean_sale": 52615.2,
+     "mean_jeonse": 20881.4
+    }
+   }
+  },
+  {
+   "code": "41000",
+   "name": "경기",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 40768.2,
+     "median_jeonse": 26661.5,
+     "mean_sale": 52322.2,
+     "mean_jeonse": 31021.2
+    },
+    "apt": {
+     "median_sale": 47800.0,
+     "median_jeonse": 32000.0,
+     "mean_sale": 59941.4,
+     "mean_jeonse": 36145.9
+    },
+    "row": {
+     "median_sale": 13200.0,
+     "median_jeonse": 9375.0,
+     "mean_sale": 19973.9,
+     "mean_jeonse": 13114.5
+    },
+    "detached": {
+     "median_sale": 43700.0,
+     "median_jeonse": 20500.0,
+     "mean_sale": 61201.7,
+     "mean_jeonse": 28128.8
+    }
+   }
+  },
+  {
+   "code": "41001",
+   "name": "경기 경부1권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 74593.2,
+     "median_jeonse": 41509.0,
+     "mean_sale": 94925.0,
+     "mean_jeonse": 48450.5
+    },
+    "apt": {
+     "median_sale": 84750.0,
+     "median_jeonse": 46950.0,
+     "mean_sale": 104460.8,
+     "mean_jeonse": 53000.5
+    },
+    "row": {
+     "median_sale": 29500.0,
+     "median_jeonse": 19300.0,
+     "mean_sale": 49059.6,
+     "mean_jeonse": 29090.8
+    },
+    "detached": {
+     "median_sale": 76300.0,
+     "median_jeonse": 34500.0,
+     "mean_sale": 110886.2,
+     "mean_jeonse": 45794.6
+    }
+   }
+  },
+  {
+   "code": "41002",
+   "name": "경기 경부2권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 49881.3,
+     "median_jeonse": 30152.1,
+     "mean_sale": 55841.7,
+     "mean_jeonse": 33478.1
+    },
+    "apt": {
+     "median_sale": 58800.0,
+     "median_jeonse": 36000.0,
+     "mean_sale": 64238.2,
+     "mean_jeonse": 38855.4
+    },
+    "row": {
+     "median_sale": 10100.0,
+     "median_jeonse": 6950.0,
+     "mean_sale": 13539.7,
+     "mean_jeonse": 9361.6
+    },
+    "detached": {
+     "median_sale": 43500.0,
+     "median_jeonse": 20400.0,
+     "mean_sale": 59203.7,
+     "mean_jeonse": 29884.1
+    }
+   }
+  },
+  {
+   "code": "41003",
+   "name": "경기 서해안권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 36439.6,
+     "median_jeonse": 23406.2,
+     "mean_sale": 42625.3,
+     "mean_jeonse": 25669.1
+    },
+    "apt": {
+     "median_sale": 41500.0,
+     "median_jeonse": 28000.0,
+     "mean_sale": 48761.0,
+     "mean_jeonse": 30000.6
+    },
+    "row": {
+     "median_sale": 10500.0,
+     "median_jeonse": 7125.0,
+     "mean_sale": 15599.1,
+     "mean_jeonse": 10239.5
+    },
+    "detached": {
+     "median_sale": 72600.0,
+     "median_jeonse": 30900.0,
+     "mean_sale": 71040.8,
+     "mean_jeonse": 33007.1
+    }
+   }
+  },
+  {
+   "code": "41004",
+   "name": "경기 동부1권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 50877.9,
+     "median_jeonse": 32444.5,
+     "mean_sale": 57373.5,
+     "mean_jeonse": 35817.3
+    },
+    "apt": {
+     "median_sale": 60450.0,
+     "median_jeonse": 39300.0,
+     "mean_sale": 67254.9,
+     "mean_jeonse": 43024.5
+    },
+    "row": {
+     "median_sale": 18350.0,
+     "median_jeonse": 13450.0,
+     "mean_sale": 21241.7,
+     "mean_jeonse": 14634.2
+    },
+    "detached": {
+     "median_sale": 65600.0,
+     "median_jeonse": 28100.0,
+     "mean_sale": 81407.8,
+     "mean_jeonse": 35451.6
+    }
+   }
+  },
+  {
+   "code": "41005",
+   "name": "경기 동부2권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16670.8,
+     "median_jeonse": 11089.3,
+     "mean_sale": 22524.1,
+     "mean_jeonse": 14193.7
+    },
+    "apt": {
+     "median_sale": 16800.0,
+     "median_jeonse": 14400.0,
+     "mean_sale": 20954.9,
+     "mean_jeonse": 16915.2
+    },
+    "row": {
+     "median_sale": 7250.0,
+     "median_jeonse": 4950.0,
+     "mean_sale": 9045.2,
+     "mean_jeonse": 6409.0
+    },
+    "detached": {
+     "median_sale": 21300.0,
+     "median_jeonse": 10850.0,
+     "mean_sale": 30917.5,
+     "mean_jeonse": 15380.4
+    }
+   }
+  },
+  {
+   "code": "41006",
+   "name": "경기 경의권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 37687.6,
+     "median_jeonse": 27353.8,
+     "mean_sale": 42409.1,
+     "mean_jeonse": 29673.2
+    },
+    "apt": {
+     "median_sale": 41500.0,
+     "median_jeonse": 31000.0,
+     "mean_sale": 46060.9,
+     "mean_jeonse": 33176.6
+    },
+    "row": {
+     "median_sale": 15800.0,
+     "median_jeonse": 11500.0,
+     "mean_sale": 19066.9,
+     "mean_jeonse": 13619.1
+    },
+    "detached": {
+     "median_sale": 40600.0,
+     "median_jeonse": 19550.0,
+     "mean_sale": 50153.7,
+     "mean_jeonse": 23886.8
+    }
+   }
+  },
+  {
+   "code": "41007",
+   "name": "경기 경원권",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21803.6,
+     "median_jeonse": 14990.3,
+     "mean_sale": 24300.7,
+     "mean_jeonse": 16311.4
+    },
+    "apt": {
+     "median_sale": 25000.0,
+     "median_jeonse": 17800.0,
+     "mean_sale": 27789.5,
+     "mean_jeonse": 19319.4
+    },
+    "row": {
+     "median_sale": 7650.0,
+     "median_jeonse": 5800.0,
+     "mean_sale": 8923.8,
+     "mean_jeonse": 6611.0
+    },
+    "detached": {
+     "median_sale": 24950.0,
+     "median_jeonse": 12650.0,
+     "mean_sale": 27622.7,
+     "mean_jeonse": 13588.3
+    }
+   }
+  },
+  {
+   "code": "41110",
+   "name": "경기 수원",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 48571.2,
+     "median_jeonse": 28870.3,
+     "mean_sale": 55693.6,
+     "mean_jeonse": 33015.4
+    },
+    "apt": {
+     "median_sale": 56100.0,
+     "median_jeonse": 33900.0,
+     "mean_sale": 64443.6,
+     "mean_jeonse": 38230.5
+    }
+   }
+  },
+  {
+   "code": "41111",
+   "name": "경기 수원 장안",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 41347.4,
+     "median_jeonse": 24733.8,
+     "mean_sale": 43867.7,
+     "mean_jeonse": 26073.9
+    },
+    "apt": {
+     "median_sale": 50100.0,
+     "median_jeonse": 30700.0,
+     "mean_sale": 53857.9,
+     "mean_jeonse": 32537.7
+    }
+   }
+  },
+  {
+   "code": "41113",
+   "name": "경기 수원 권선",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 39007.9,
+     "median_jeonse": 24787.7,
+     "mean_sale": 42396.9,
+     "mean_jeonse": 26396.2
+    },
+    "apt": {
+     "median_sale": 46600.0,
+     "median_jeonse": 30350.0,
+     "mean_sale": 49963.1,
+     "mean_jeonse": 31695.8
+    }
+   }
+  },
+  {
+   "code": "41115",
+   "name": "경기 수원 팔달",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 46764.8,
+     "median_jeonse": 25504.3,
+     "mean_sale": 45809.3,
+     "mean_jeonse": 26273.4
+    },
+    "apt": {
+     "median_sale": 59300.0,
+     "median_jeonse": 32300.0,
+     "mean_sale": 56202.6,
+     "mean_jeonse": 32286.4
+    }
+   }
+  },
+  {
+   "code": "41117",
+   "name": "경기 수원 영통",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 73928.4,
+     "median_jeonse": 46387.1,
+     "mean_sale": 87717.9,
+     "mean_jeonse": 51116.0
+    },
+    "apt": {
+     "median_sale": 72000.0,
+     "median_jeonse": 44700.0,
+     "mean_sale": 87895.6,
+     "mean_jeonse": 50508.1
+    }
+   }
+  },
+  {
+   "code": "41130",
+   "name": "경기 성남",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 117426.2,
+     "median_jeonse": 53690.7,
+     "mean_sale": 124365.4,
+     "mean_jeonse": 58707.0
+    },
+    "apt": {
+     "median_sale": 142100.0,
+     "median_jeonse": 63000.0,
+     "mean_sale": 141112.6,
+     "mean_jeonse": 65005.2
+    }
+   }
+  },
+  {
+   "code": "41131",
+   "name": "경기 성남 수정",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 76295.4,
+     "median_jeonse": 44116.8,
+     "mean_sale": 89718.2,
+     "mean_jeonse": 46799.4
+    },
+    "apt": {
+     "median_sale": 98200.0,
+     "median_jeonse": 57400.0,
+     "mean_sale": 110365.2,
+     "mean_jeonse": 57085.6
+    }
+   }
+  },
+  {
+   "code": "41133",
+   "name": "경기 성남 중원",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 56266.2,
+     "median_jeonse": 33011.1,
+     "mean_sale": 63325.4,
+     "mean_jeonse": 36606.0
+    },
+    "apt": {
+     "median_sale": 76100.0,
+     "median_jeonse": 45400.0,
+     "mean_sale": 78664.7,
+     "mean_jeonse": 44672.8
+    }
+   }
+  },
+  {
+   "code": "41135",
+   "name": "경기 성남 분당",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 165527.3,
+     "median_jeonse": 71154.7,
+     "mean_sale": 172200.7,
+     "mean_jeonse": 74853.1
+    },
+    "apt": {
+     "median_sale": 175000.0,
+     "median_jeonse": 74200.0,
+     "mean_sale": 178520.4,
+     "mean_jeonse": 76349.4
+    }
+   }
+  },
+  {
+   "code": "41150",
+   "name": "경기 의정부",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 29730.5,
+     "median_jeonse": 21405.5,
+     "mean_sale": 31211.7,
+     "mean_jeonse": 21761.4
+    },
+    "apt": {
+     "median_sale": 32850.0,
+     "median_jeonse": 23950.0,
+     "mean_sale": 33939.9,
+     "mean_jeonse": 24105.7
+    }
+   }
+  },
+  {
+   "code": "41170",
+   "name": "경기 안양",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 60918.7,
+     "median_jeonse": 34979.6,
+     "mean_sale": 65637.4,
+     "mean_jeonse": 36856.6
+    },
+    "apt": {
+     "median_sale": 71000.0,
+     "median_jeonse": 40800.0,
+     "mean_sale": 76486.4,
+     "mean_jeonse": 42788.6
+    }
+   }
+  },
+  {
+   "code": "41171",
+   "name": "경기 안양 만안",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 41686.5,
+     "median_jeonse": 27351.0,
+     "mean_sale": 44733.5,
+     "mean_jeonse": 28098.1
+    },
+    "apt": {
+     "median_sale": 51900.0,
+     "median_jeonse": 34800.0,
+     "mean_sale": 56188.9,
+     "mean_jeonse": 35374.9
+    }
+   }
+  },
+  {
+   "code": "41173",
+   "name": "경기 안양 동안",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 77051.2,
+     "median_jeonse": 40530.9,
+     "mean_sale": 81850.6,
+     "mean_jeonse": 43592.8
+    },
+    "apt": {
+     "median_sale": 83450.0,
+     "median_jeonse": 43900.0,
+     "mean_sale": 89189.1,
+     "mean_jeonse": 47428.3
+    }
+   }
+  },
+  {
+   "code": "41190",
+   "name": "경기 부천",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 38148.6,
+     "median_jeonse": 24607.0,
+     "mean_sale": 38919.2,
+     "mean_jeonse": 24790.5
+    },
+    "apt": {
+     "median_sale": 49700.0,
+     "median_jeonse": 33050.0,
+     "mean_sale": 50338.4,
+     "mean_jeonse": 32924.2
+    }
+   }
+  },
+  {
+   "code": "41192",
+   "name": "경기 부천 원미",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 45314.2,
+     "median_jeonse": 28899.2,
+     "mean_sale": 45997.6,
+     "mean_jeonse": 29370.1
+    },
+    "apt": {
+     "median_sale": 57050.0,
+     "median_jeonse": 37300.0,
+     "mean_sale": 57000.2,
+     "mean_jeonse": 37094.9
+    }
+   }
+  },
+  {
+   "code": "41194",
+   "name": "경기 부천 소사",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 41396.1,
+     "median_jeonse": 26904.9,
+     "mean_sale": 40910.3,
+     "mean_jeonse": 26012.2
+    },
+    "apt": {
+     "median_sale": 48500.0,
+     "median_jeonse": 33200.0,
+     "mean_sale": 47454.3,
+     "mean_jeonse": 31737.2
+    }
+   }
+  },
+  {
+   "code": "41196",
+   "name": "경기 부천 오정",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19397.8,
+     "median_jeonse": 12272.3,
+     "mean_sale": 20252.4,
+     "mean_jeonse": 13109.8
+    },
+    "apt": {
+     "median_sale": 28100.0,
+     "median_jeonse": 16800.0,
+     "mean_sale": 31035.6,
+     "mean_jeonse": 19361.0
+    }
+   }
+  },
+  {
+   "code": "41210",
+   "name": "경기 광명",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 75736.2,
+     "median_jeonse": 37464.0,
+     "mean_sale": 80754.3,
+     "mean_jeonse": 40381.6
+    },
+    "apt": {
+     "median_sale": 81400.0,
+     "median_jeonse": 41000.0,
+     "mean_sale": 87932.9,
+     "mean_jeonse": 44326.5
+    }
+   }
+  },
+  {
+   "code": "41220",
+   "name": "경기 평택",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 25038.0,
+     "median_jeonse": 17389.9,
+     "mean_sale": 29013.8,
+     "mean_jeonse": 18949.9
+    },
+    "apt": {
+     "median_sale": 24450.0,
+     "median_jeonse": 18850.0,
+     "mean_sale": 27428.3,
+     "mean_jeonse": 19508.3
+    }
+   }
+  },
+  {
+   "code": "41250",
+   "name": "경기 동두천",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13295.8,
+     "median_jeonse": 9542.6,
+     "mean_sale": 14552.2,
+     "mean_jeonse": 10153.6
+    },
+    "apt": {
+     "median_sale": 16100.0,
+     "median_jeonse": 12250.0,
+     "mean_sale": 17139.7,
+     "mean_jeonse": 12559.2
+    }
+   }
+  },
+  {
+   "code": "41270",
+   "name": "경기 안산",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 31985.8,
+     "median_jeonse": 20549.8,
+     "mean_sale": 32598.7,
+     "mean_jeonse": 20102.6
+    },
+    "apt": {
+     "median_sale": 41150.0,
+     "median_jeonse": 27350.0,
+     "mean_sale": 43452.5,
+     "mean_jeonse": 27398.8
+    }
+   }
+  },
+  {
+   "code": "41271",
+   "name": "경기 안산 상록",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 25883.1,
+     "median_jeonse": 16306.1,
+     "mean_sale": 26405.8,
+     "mean_jeonse": 16821.7
+    },
+    "apt": {
+     "median_sale": 39350.0,
+     "median_jeonse": 25400.0,
+     "mean_sale": 40857.5,
+     "mean_jeonse": 26390.4
+    }
+   }
+  },
+  {
+   "code": "41273",
+   "name": "경기 안산 단원",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 37389.5,
+     "median_jeonse": 23293.9,
+     "mean_sale": 38884.8,
+     "mean_jeonse": 23424.9
+    },
+    "apt": {
+     "median_sale": 43700.0,
+     "median_jeonse": 28050.0,
+     "mean_sale": 45550.2,
+     "mean_jeonse": 28214.0
+    }
+   }
+  },
+  {
+   "code": "41280",
+   "name": "경기 고양",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 42684.2,
+     "median_jeonse": 30457.7,
+     "mean_sale": 46915.5,
+     "mean_jeonse": 32717.1
+    },
+    "apt": {
+     "median_sale": 46900.0,
+     "median_jeonse": 34400.0,
+     "mean_sale": 51388.8,
+     "mean_jeonse": 36684.3
+    }
+   }
+  },
+  {
+   "code": "41281",
+   "name": "경기 고양 덕양",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 44403.4,
+     "median_jeonse": 31116.3,
+     "mean_sale": 47360.7,
+     "mean_jeonse": 31991.1
+    },
+    "apt": {
+     "median_sale": 51100.0,
+     "median_jeonse": 36900.0,
+     "mean_sale": 53914.0,
+     "mean_jeonse": 37315.8
+    }
+   }
+  },
+  {
+   "code": "41285",
+   "name": "경기 고양 일산동",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 48954.0,
+     "median_jeonse": 34988.7,
+     "mean_sale": 50805.5,
+     "mean_jeonse": 35803.0
+    },
+    "apt": {
+     "median_sale": 55000.0,
+     "median_jeonse": 40600.0,
+     "mean_sale": 56899.8,
+     "mean_jeonse": 41140.0
+    }
+   }
+  },
+  {
+   "code": "41287",
+   "name": "경기 고양 일산서",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 38751.9,
+     "median_jeonse": 28539.6,
+     "mean_sale": 42615.0,
+     "mean_jeonse": 30902.6
+    },
+    "apt": {
+     "median_sale": 39950.0,
+     "median_jeonse": 29900.0,
+     "mean_sale": 43957.4,
+     "mean_jeonse": 32344.4
+    }
+   }
+  },
+  {
+   "code": "41290",
+   "name": "경기 과천",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 194045.1,
+     "median_jeonse": 91486.5,
+     "mean_sale": 204260.2,
+     "mean_jeonse": 93383.0
+    },
+    "apt": {
+     "median_sale": 208400.0,
+     "median_jeonse": 98100.0,
+     "mean_sale": 215902.2,
+     "mean_jeonse": 99964.0
+    }
+   }
+  },
+  {
+   "code": "41310",
+   "name": "경기 구리",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 65972.1,
+     "median_jeonse": 40647.7,
+     "mean_sale": 66497.5,
+     "mean_jeonse": 39774.1
+    },
+    "apt": {
+     "median_sale": 71800.0,
+     "median_jeonse": 45050.0,
+     "mean_sale": 72812.4,
+     "mean_jeonse": 43857.9
+    }
+   }
+  },
+  {
+   "code": "41360",
+   "name": "경기 남양주",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 38828.3,
+     "median_jeonse": 28514.4,
+     "mean_sale": 46055.4,
+     "mean_jeonse": 31031.1
+    },
+    "apt": {
+     "median_sale": 44050.0,
+     "median_jeonse": 33300.0,
+     "mean_sale": 51430.0,
+     "mean_jeonse": 36316.8
+    }
+   }
+  },
+  {
+   "code": "41370",
+   "name": "경기 오산",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 30265.6,
+     "median_jeonse": 21844.4,
+     "mean_sale": 31854.6,
+     "mean_jeonse": 21911.4
+    },
+    "apt": {
+     "median_sale": 33400.0,
+     "median_jeonse": 24800.0,
+     "mean_sale": 34947.9,
+     "mean_jeonse": 24613.3
+    }
+   }
+  },
+  {
+   "code": "41390",
+   "name": "경기 시흥",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 32211.6,
+     "median_jeonse": 21728.5,
+     "mean_sale": 34652.8,
+     "mean_jeonse": 22437.8
+    },
+    "apt": {
+     "median_sale": 34600.0,
+     "median_jeonse": 24100.0,
+     "mean_sale": 37169.9,
+     "mean_jeonse": 24868.0
+    }
+   }
+  },
+  {
+   "code": "41410",
+   "name": "경기 군포",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 45206.8,
+     "median_jeonse": 28410.6,
+     "mean_sale": 47514.9,
+     "mean_jeonse": 30216.2
+    },
+    "apt": {
+     "median_sale": 49500.0,
+     "median_jeonse": 31700.0,
+     "mean_sale": 52319.4,
+     "mean_jeonse": 33752.2
+    }
+   }
+  },
+  {
+   "code": "41430",
+   "name": "경기 의왕",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 60392.2,
+     "median_jeonse": 38101.3,
+     "mean_sale": 67088.5,
+     "mean_jeonse": 39619.6
+    },
+    "apt": {
+     "median_sale": 66550.0,
+     "median_jeonse": 42300.0,
+     "mean_sale": 73931.6,
+     "mean_jeonse": 43766.7
+    }
+   }
+  },
+  {
+   "code": "41450",
+   "name": "경기 하남",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 110323.4,
+     "median_jeonse": 63771.7,
+     "mean_sale": 111159.9,
+     "mean_jeonse": 62937.5
+    },
+    "apt": {
+     "median_sale": 115300.0,
+     "median_jeonse": 67250.0,
+     "mean_sale": 114973.9,
+     "mean_jeonse": 65749.2
+    }
+   }
+  },
+  {
+   "code": "41460",
+   "name": "경기 용인",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 62837.9,
+     "median_jeonse": 38799.5,
+     "mean_sale": 66436.4,
+     "mean_jeonse": 39974.3
+    },
+    "apt": {
+     "median_sale": 71800.0,
+     "median_jeonse": 44900.0,
+     "mean_sale": 73975.5,
+     "mean_jeonse": 45027.2
+    }
+   }
+  },
+  {
+   "code": "41461",
+   "name": "경기 용인 처인",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 25927.6,
+     "median_jeonse": 16464.5,
+     "mean_sale": 26710.8,
+     "mean_jeonse": 17077.3
+    },
+    "apt": {
+     "median_sale": 34700.0,
+     "median_jeonse": 22850.0,
+     "mean_sale": 34402.6,
+     "mean_jeonse": 23277.9
+    }
+   }
+  },
+  {
+   "code": "41463",
+   "name": "경기 용인 기흥",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 61050.5,
+     "median_jeonse": 39714.7,
+     "mean_sale": 66289.6,
+     "mean_jeonse": 41556.0
+    },
+    "apt": {
+     "median_sale": 63500.0,
+     "median_jeonse": 42000.0,
+     "mean_sale": 67273.9,
+     "mean_jeonse": 43075.9
+    }
+   }
+  },
+  {
+   "code": "41465",
+   "name": "경기 용인 수지",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 93467.2,
+     "median_jeonse": 54316.8,
+     "mean_sale": 98251.5,
+     "mean_jeonse": 56467.2
+    },
+    "apt": {
+     "median_sale": 96500.0,
+     "median_jeonse": 56300.0,
+     "mean_sale": 101394.2,
+     "mean_jeonse": 58374.6
+    }
+   }
+  },
+  {
+   "code": "41480",
+   "name": "경기 파주",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 28609.1,
+     "median_jeonse": 21280.3,
+     "mean_sale": 30956.5,
+     "mean_jeonse": 21946.5
+    },
+    "apt": {
+     "median_sale": 32500.0,
+     "median_jeonse": 25050.0,
+     "mean_sale": 34060.9,
+     "mean_jeonse": 25275.6
+    }
+   }
+  },
+  {
+   "code": "41500",
+   "name": "경기 이천",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17245.6,
+     "median_jeonse": 12012.7,
+     "mean_sale": 23709.1,
+     "mean_jeonse": 15817.6
+    },
+    "apt": {
+     "median_sale": 17450.0,
+     "median_jeonse": 15050.0,
+     "mean_sale": 21110.6,
+     "mean_jeonse": 17330.8
+    }
+   }
+  },
+  {
+   "code": "41550",
+   "name": "경기 안성",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 15325.9,
+     "median_jeonse": 10712.4,
+     "mean_sale": 17365.9,
+     "mean_jeonse": 11694.3
+    },
+    "apt": {
+     "median_sale": 15750.0,
+     "median_jeonse": 12350.0,
+     "mean_sale": 17913.6,
+     "mean_jeonse": 13377.9
+    }
+   }
+  },
+  {
+   "code": "41570",
+   "name": "경기 김포",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 41519.4,
+     "median_jeonse": 29205.6,
+     "mean_sale": 43807.5,
+     "mean_jeonse": 30537.8
+    },
+    "apt": {
+     "median_sale": 42300.0,
+     "median_jeonse": 31000.0,
+     "mean_sale": 44090.7,
+     "mean_jeonse": 31880.0
+    }
+   }
+  },
+  {
+   "code": "41590",
+   "name": "경기 화성",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 52961.2,
+     "median_jeonse": 33829.6,
+     "mean_sale": 61442.5,
+     "mean_jeonse": 35211.9
+    },
+    "apt": {
+     "median_sale": 56200.0,
+     "median_jeonse": 36500.0,
+     "mean_sale": 64568.8,
+     "mean_jeonse": 37387.9
+    }
+   }
+  },
+  {
+   "code": "41591",
+   "name": "경기 화성 만세",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 33449.4,
+     "median_jeonse": 21877.8,
+     "mean_sale": 33251.1,
+     "mean_jeonse": 21018.3
+    },
+    "apt": {
+     "median_sale": 38600.0,
+     "median_jeonse": 28050.0,
+     "mean_sale": 36916.0,
+     "mean_jeonse": 25995.4
+    }
+   }
+  },
+  {
+   "code": "41593",
+   "name": "경기 화성 효행",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 28438.2,
+     "median_jeonse": 21258.4,
+     "mean_sale": 30730.5,
+     "mean_jeonse": 21728.7
+    },
+    "apt": {
+     "median_sale": 31800.0,
+     "median_jeonse": 24700.0,
+     "mean_sale": 34124.9,
+     "mean_jeonse": 24633.7
+    }
+   }
+  },
+  {
+   "code": "41595",
+   "name": "경기 화성 병점",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 37483.5,
+     "median_jeonse": 27761.9,
+     "mean_sale": 41830.8,
+     "mean_jeonse": 28405.2
+    },
+    "apt": {
+     "median_sale": 39900.0,
+     "median_jeonse": 30250.0,
+     "mean_sale": 45179.7,
+     "mean_jeonse": 31116.3
+    }
+   }
+  },
+  {
+   "code": "41597",
+   "name": "경기 화성 동탄",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 87513.6,
+     "median_jeonse": 46420.5,
+     "mean_sale": 94401.2,
+     "mean_jeonse": 48955.9
+    },
+    "apt": {
+     "median_sale": 87000.0,
+     "median_jeonse": 46150.0,
+     "mean_sale": 94212.6,
+     "mean_jeonse": 48845.3
+    }
+   }
+  },
+  {
+   "code": "41610",
+   "name": "경기 광주",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 30855.4,
+     "median_jeonse": 22275.3,
+     "mean_sale": 33179.0,
+     "mean_jeonse": 22680.6
+    },
+    "apt": {
+     "median_sale": 42000.0,
+     "median_jeonse": 32000.0,
+     "mean_sale": 44070.4,
+     "mean_jeonse": 31859.7
+    }
+   }
+  },
+  {
+   "code": "41630",
+   "name": "경기 양주",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22665.2,
+     "median_jeonse": 15030.0,
+     "mean_sale": 25783.4,
+     "mean_jeonse": 16414.6
+    },
+    "apt": {
+     "median_sale": 24700.0,
+     "median_jeonse": 16600.0,
+     "mean_sale": 28104.7,
+     "mean_jeonse": 18055.9
+    }
+   }
+  },
+  {
+   "code": "41650",
+   "name": "경기 포천",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16720.1,
+     "median_jeonse": 10441.4,
+     "mean_sale": 16840.5,
+     "mean_jeonse": 10513.2
+    },
+    "apt": {
+     "median_sale": 15700.0,
+     "median_jeonse": 12450.0,
+     "mean_sale": 16714.3,
+     "mean_jeonse": 12680.6
+    }
+   }
+  },
+  {
+   "code": "41670",
+   "name": "경기 여주",
+   "group": "99.시도",
+   "sido": "19.경기",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 14439.2,
+     "median_jeonse": 9153.2,
+     "mean_sale": 18451.0,
+     "mean_jeonse": 12137.1
+    },
+    "apt": {
+     "median_sale": 14700.0,
+     "median_jeonse": 11350.0,
+     "mean_sale": 18060.8,
+     "mean_jeonse": 14363.6
+    }
+   }
+  },
+  {
+   "code": "51000",
+   "name": "강원",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 14060.2,
+     "median_jeonse": 9976.5,
+     "mean_sale": 17478.7,
+     "mean_jeonse": 11807.9
+    },
+    "apt": {
+     "median_sale": 15900.0,
+     "median_jeonse": 12500.0,
+     "mean_sale": 18847.3,
+     "mean_jeonse": 14174.9
+    },
+    "row": {
+     "median_sale": 6100.0,
+     "median_jeonse": 4325.0,
+     "mean_sale": 8253.9,
+     "mean_jeonse": 5862.9
+    },
+    "detached": {
+     "median_sale": 11900.0,
+     "median_jeonse": 6100.0,
+     "mean_sale": 16444.8,
+     "mean_jeonse": 8283.4
+    }
+   }
+  },
+  {
+   "code": "51110",
+   "name": "강원 춘천",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21134.7,
+     "median_jeonse": 16235.2,
+     "mean_sale": 24791.7,
+     "mean_jeonse": 17681.6
+    },
+    "apt": {
+     "median_sale": 21350.0,
+     "median_jeonse": 18100.0,
+     "mean_sale": 25186.8,
+     "mean_jeonse": 19501.5
+    }
+   }
+  },
+  {
+   "code": "51130",
+   "name": "강원 원주",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18347.8,
+     "median_jeonse": 13508.8,
+     "mean_sale": 20123.5,
+     "mean_jeonse": 14459.3
+    },
+    "apt": {
+     "median_sale": 19050.0,
+     "median_jeonse": 15000.0,
+     "mean_sale": 19650.0,
+     "mean_jeonse": 15321.9
+    }
+   }
+  },
+  {
+   "code": "51150",
+   "name": "강원 강릉",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17079.1,
+     "median_jeonse": 12459.3,
+     "mean_sale": 20628.6,
+     "mean_jeonse": 14426.2
+    },
+    "apt": {
+     "median_sale": 16100.0,
+     "median_jeonse": 13500.0,
+     "mean_sale": 19612.2,
+     "mean_jeonse": 15487.2
+    }
+   }
+  },
+  {
+   "code": "51170",
+   "name": "강원 동해",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9402.9,
+     "median_jeonse": 6377.2,
+     "mean_sale": 13843.5,
+     "mean_jeonse": 8804.4
+    },
+    "apt": {
+     "median_sale": 11000.0,
+     "median_jeonse": 7875.0,
+     "mean_sale": 14139.7,
+     "mean_jeonse": 9658.6
+    }
+   }
+  },
+  {
+   "code": "51190",
+   "name": "강원 태백",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 6933.2,
+     "median_jeonse": 4359.1,
+     "mean_sale": 7485.1,
+     "mean_jeonse": 4985.1
+    },
+    "apt": {
+     "median_sale": 8655.0,
+     "median_jeonse": 5515.0,
+     "mean_sale": 9272.0,
+     "mean_jeonse": 6422.7
+    }
+   }
+  },
+  {
+   "code": "51210",
+   "name": "강원 속초",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 15602.3,
+     "median_jeonse": 11414.2,
+     "mean_sale": 20123.5,
+     "mean_jeonse": 13677.2
+    },
+    "apt": {
+     "median_sale": 16100.0,
+     "median_jeonse": 12700.0,
+     "mean_sale": 21110.6,
+     "mean_jeonse": 15164.1
+    }
+   }
+  },
+  {
+   "code": "51230",
+   "name": "강원 삼척",
+   "group": "99.시도",
+   "sido": "20.강원",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 8570.0,
+     "median_jeonse": 5414.4,
+     "mean_sale": 10699.4,
+     "mean_jeonse": 6608.1
+    },
+    "apt": {
+     "median_sale": 9250.0,
+     "median_jeonse": 6200.0,
+     "mean_sale": 12020.8,
+     "mean_jeonse": 7963.2
+    }
+   }
+  },
+  {
+   "code": "43000",
+   "name": "충북",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 14830.7,
+     "median_jeonse": 10617.8,
+     "mean_sale": 19612.9,
+     "mean_jeonse": 13421.7
+    },
+    "apt": {
+     "median_sale": 16800.0,
+     "median_jeonse": 13600.0,
+     "mean_sale": 21406.0,
+     "mean_jeonse": 16463.5
+    },
+    "row": {
+     "median_sale": 6550.0,
+     "median_jeonse": 4200.0,
+     "mean_sale": 7979.7,
+     "mean_jeonse": 5610.9
+    },
+    "detached": {
+     "median_sale": 12200.0,
+     "median_jeonse": 5300.0,
+     "mean_sale": 18109.6,
+     "mean_jeonse": 8273.4
+    }
+   }
+  },
+  {
+   "code": "43110",
+   "name": "충북 청주",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18326.5,
+     "median_jeonse": 14303.7,
+     "mean_sale": 24267.5,
+     "mean_jeonse": 17224.1
+    },
+    "apt": {
+     "median_sale": 18500.0,
+     "median_jeonse": 15800.0,
+     "mean_sale": 24344.4,
+     "mean_jeonse": 18747.7
+    }
+   }
+  },
+  {
+   "code": "43111",
+   "name": "충북 청주 상당",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18060.8,
+     "median_jeonse": 13551.1,
+     "mean_sale": 22816.3,
+     "mean_jeonse": 16218.3
+    },
+    "apt": {
+     "median_sale": 17500.0,
+     "median_jeonse": 14800.0,
+     "mean_sale": 21313.9,
+     "mean_jeonse": 17201.4
+    }
+   }
+  },
+  {
+   "code": "43112",
+   "name": "충북 청주 서원",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16601.9,
+     "median_jeonse": 13285.4,
+     "mean_sale": 20114.1,
+     "mean_jeonse": 15278.1
+    },
+    "apt": {
+     "median_sale": 15100.0,
+     "median_jeonse": 13800.0,
+     "mean_sale": 18632.6,
+     "mean_jeonse": 15992.9
+    }
+   }
+  },
+  {
+   "code": "43113",
+   "name": "충북 청주 흥덕",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21711.1,
+     "median_jeonse": 16881.4,
+     "mean_sale": 29916.3,
+     "mean_jeonse": 20365.2
+    },
+    "apt": {
+     "median_sale": 23200.0,
+     "median_jeonse": 19100.0,
+     "mean_sale": 32407.7,
+     "mean_jeonse": 22931.3
+    }
+   }
+  },
+  {
+   "code": "43114",
+   "name": "충북 청주 청원",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18780.6,
+     "median_jeonse": 14268.9,
+     "mean_sale": 22597.1,
+     "mean_jeonse": 16089.7
+    },
+    "apt": {
+     "median_sale": 19700.0,
+     "median_jeonse": 16100.0,
+     "mean_sale": 22549.7,
+     "mean_jeonse": 17563.5
+    }
+   }
+  },
+  {
+   "code": "43130",
+   "name": "충북 충주",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13904.2,
+     "median_jeonse": 9889.2,
+     "mean_sale": 17063.1,
+     "mean_jeonse": 11809.3
+    },
+    "apt": {
+     "median_sale": 15400.0,
+     "median_jeonse": 12500.0,
+     "mean_sale": 18760.0,
+     "mean_jeonse": 14794.5
+    }
+   }
+  },
+  {
+   "code": "43150",
+   "name": "충북 제천",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 10641.4,
+     "median_jeonse": 7982.6,
+     "mean_sale": 14853.5,
+     "mean_jeonse": 9941.3
+    },
+    "apt": {
+     "median_sale": 13400.0,
+     "median_jeonse": 11200.0,
+     "mean_sale": 16577.5,
+     "mean_jeonse": 12628.4
+    }
+   }
+  },
+  {
+   "code": "43770",
+   "name": "충북 음성",
+   "group": "99.시도",
+   "sido": "21.충북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9462.6,
+     "median_jeonse": 5731.2,
+     "mean_sale": 11784.9,
+     "mean_jeonse": 7476.3
+    },
+    "apt": {
+     "median_sale": 8880.0,
+     "median_jeonse": 6440.0,
+     "mean_sale": 12116.8,
+     "mean_jeonse": 9005.2
+    }
+   }
+  },
+  {
+   "code": "44000",
+   "name": "충남",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 15006.5,
+     "median_jeonse": 10734.7,
+     "mean_sale": 19153.7,
+     "mean_jeonse": 12811.6
+    },
+    "apt": {
+     "median_sale": 17600.0,
+     "median_jeonse": 13900.0,
+     "mean_sale": 19936.7,
+     "mean_jeonse": 15159.7
+    },
+    "row": {
+     "median_sale": 5350.0,
+     "median_jeonse": 4100.0,
+     "mean_sale": 6568.2,
+     "mean_jeonse": 4787.5
+    },
+    "detached": {
+     "median_sale": 11500.0,
+     "median_jeonse": 4775.0,
+     "mean_sale": 21249.6,
+     "mean_jeonse": 9402.7
+    }
+   }
+  },
+  {
+   "code": "44130",
+   "name": "충남 천안",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 20659.3,
+     "median_jeonse": 15753.8,
+     "mean_sale": 25540.8,
+     "mean_jeonse": 17970.0
+    },
+    "apt": {
+     "median_sale": 19550.0,
+     "median_jeonse": 16400.0,
+     "mean_sale": 23724.6,
+     "mean_jeonse": 18375.5
+    }
+   }
+  },
+  {
+   "code": "44131",
+   "name": "충남 천안 동남",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 20785.9,
+     "median_jeonse": 14797.8,
+     "mean_sale": 23470.2,
+     "mean_jeonse": 16238.4
+    },
+    "apt": {
+     "median_sale": 18800.0,
+     "median_jeonse": 15300.0,
+     "mean_sale": 20271.7,
+     "mean_jeonse": 16138.5
+    }
+   }
+  },
+  {
+   "code": "44133",
+   "name": "충남 천안 서북",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21432.1,
+     "median_jeonse": 16314.9,
+     "mean_sale": 27349.9,
+     "mean_jeonse": 19334.7
+    },
+    "apt": {
+     "median_sale": 20550.0,
+     "median_jeonse": 16950.0,
+     "mean_sale": 26172.2,
+     "mean_jeonse": 19961.3
+    }
+   }
+  },
+  {
+   "code": "44150",
+   "name": "충남 공주",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 11095.8,
+     "median_jeonse": 7452.7,
+     "mean_sale": 16279.2,
+     "mean_jeonse": 9684.8
+    },
+    "apt": {
+     "median_sale": 13700.0,
+     "median_jeonse": 11000.0,
+     "mean_sale": 17327.1,
+     "mean_jeonse": 12575.4
+    }
+   }
+  },
+  {
+   "code": "44180",
+   "name": "충남 보령",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 11873.5,
+     "median_jeonse": 7670.8,
+     "mean_sale": 14443.3,
+     "mean_jeonse": 9476.9
+    },
+    "apt": {
+     "median_sale": 14800.0,
+     "median_jeonse": 10200.0,
+     "mean_sale": 17683.1,
+     "mean_jeonse": 12920.6
+    }
+   }
+  },
+  {
+   "code": "44200",
+   "name": "충남 아산",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18744.5,
+     "median_jeonse": 14357.6,
+     "mean_sale": 20042.5,
+     "mean_jeonse": 14285.9
+    },
+    "apt": {
+     "median_sale": 19200.0,
+     "median_jeonse": 16000.0,
+     "mean_sale": 20296.3,
+     "mean_jeonse": 15563.5
+    }
+   }
+  },
+  {
+   "code": "44210",
+   "name": "충남 서산",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 14907.8,
+     "median_jeonse": 11165.5,
+     "mean_sale": 19227.0,
+     "mean_jeonse": 12961.9
+    },
+    "apt": {
+     "median_sale": 16800.0,
+     "median_jeonse": 14300.0,
+     "mean_sale": 18564.0,
+     "mean_jeonse": 14976.2
+    }
+   }
+  },
+  {
+   "code": "44230",
+   "name": "충남 논산",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 10024.7,
+     "median_jeonse": 6121.0,
+     "mean_sale": 11858.0,
+     "mean_jeonse": 7514.2
+    },
+    "apt": {
+     "median_sale": 15050.0,
+     "median_jeonse": 10450.0,
+     "mean_sale": 17076.1,
+     "mean_jeonse": 12389.2
+    }
+   }
+  },
+  {
+   "code": "44250",
+   "name": "충남 계룡",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17596.4,
+     "median_jeonse": 13759.6,
+     "mean_sale": 20045.0,
+     "mean_jeonse": 14312.7
+    },
+    "apt": {
+     "median_sale": 16900.0,
+     "median_jeonse": 13900.0,
+     "mean_sale": 19466.9,
+     "mean_jeonse": 14486.3
+    }
+   }
+  },
+  {
+   "code": "44270",
+   "name": "충남 당진",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 14677.1,
+     "median_jeonse": 10257.0,
+     "mean_sale": 17661.1,
+     "mean_jeonse": 11283.5
+    },
+    "apt": {
+     "median_sale": 15900.0,
+     "median_jeonse": 13100.0,
+     "mean_sale": 16495.2,
+     "mean_jeonse": 12802.0
+    }
+   }
+  },
+  {
+   "code": "44800",
+   "name": "충남 홍성",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 14553.6,
+     "median_jeonse": 9342.4,
+     "mean_sale": 14115.2,
+     "mean_jeonse": 8732.0
+    },
+    "apt": {
+     "median_sale": 18000.0,
+     "median_jeonse": 12300.0,
+     "mean_sale": 16203.8,
+     "mean_jeonse": 11010.4
+    }
+   }
+  },
+  {
+   "code": "44810",
+   "name": "충남 예산",
+   "group": "99.시도",
+   "sido": "22.충남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9327.8,
+     "median_jeonse": 5599.6,
+     "mean_sale": 11205.6,
+     "mean_jeonse": 6783.8
+    },
+    "apt": {
+     "median_sale": 9765.0,
+     "median_jeonse": 6800.0,
+     "mean_sale": 13213.7,
+     "mean_jeonse": 9067.4
+    }
+   }
+  },
+  {
+   "code": "52000",
+   "name": "전북",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 12017.3,
+     "median_jeonse": 8803.9,
+     "mean_sale": 16916.6,
+     "mean_jeonse": 11745.0
+    },
+    "apt": {
+     "median_sale": 15300.0,
+     "median_jeonse": 12050.0,
+     "mean_sale": 20228.0,
+     "mean_jeonse": 15343.3
+    },
+    "row": {
+     "median_sale": 4585.0,
+     "median_jeonse": 3285.0,
+     "mean_sale": 7987.7,
+     "mean_jeonse": 5413.6
+    },
+    "detached": {
+     "median_sale": 6450.0,
+     "median_jeonse": 3000.0,
+     "mean_sale": 11534.3,
+     "mean_jeonse": 5346.4
+    }
+   }
+  },
+  {
+   "code": "52110",
+   "name": "전북 전주",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19254.2,
+     "median_jeonse": 13899.6,
+     "mean_sale": 25633.5,
+     "mean_jeonse": 18230.3
+    },
+    "apt": {
+     "median_sale": 20800.0,
+     "median_jeonse": 15800.0,
+     "mean_sale": 27196.8,
+     "mean_jeonse": 20395.6
+    }
+   }
+  },
+  {
+   "code": "52111",
+   "name": "전북 전주 완산",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18693.0,
+     "median_jeonse": 14171.0,
+     "mean_sale": 24880.9,
+     "mean_jeonse": 17548.3
+    },
+    "apt": {
+     "median_sale": 19700.0,
+     "median_jeonse": 15800.0,
+     "mean_sale": 25612.6,
+     "mean_jeonse": 19106.2
+    }
+   }
+  },
+  {
+   "code": "52113",
+   "name": "전북 전주 덕진",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19192.2,
+     "median_jeonse": 13600.4,
+     "mean_sale": 26203.6,
+     "mean_jeonse": 18804.6
+    },
+    "apt": {
+     "median_sale": 21500.0,
+     "median_jeonse": 15900.0,
+     "mean_sale": 28892.5,
+     "mean_jeonse": 21775.9
+    }
+   }
+  },
+  {
+   "code": "52130",
+   "name": "전북 군산",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 10461.4,
+     "median_jeonse": 8267.6,
+     "mean_sale": 13550.8,
+     "mean_jeonse": 10380.6
+    },
+    "apt": {
+     "median_sale": 11600.0,
+     "median_jeonse": 9780.0,
+     "mean_sale": 14987.6,
+     "mean_jeonse": 12014.9
+    }
+   }
+  },
+  {
+   "code": "52140",
+   "name": "전북 익산",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9433.4,
+     "median_jeonse": 7766.9,
+     "mean_sale": 13870.9,
+     "mean_jeonse": 10468.9
+    },
+    "apt": {
+     "median_sale": 10850.0,
+     "median_jeonse": 9645.0,
+     "mean_sale": 14555.7,
+     "mean_jeonse": 12112.8
+    }
+   }
+  },
+  {
+   "code": "52180",
+   "name": "전북 정읍",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 6746.8,
+     "median_jeonse": 4382.6,
+     "mean_sale": 10604.7,
+     "mean_jeonse": 6702.2
+    },
+    "apt": {
+     "median_sale": 9030.0,
+     "median_jeonse": 6435.0,
+     "mean_sale": 15100.2,
+     "mean_jeonse": 10250.3
+    }
+   }
+  },
+  {
+   "code": "52190",
+   "name": "전북 남원",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9176.5,
+     "median_jeonse": 5131.8,
+     "mean_sale": 12818.3,
+     "mean_jeonse": 6626.0
+    },
+    "apt": {
+     "median_sale": 13400.0,
+     "median_jeonse": 9400.0,
+     "mean_sale": 15597.9,
+     "mean_jeonse": 10469.3
+    }
+   }
+  },
+  {
+   "code": "52210",
+   "name": "전북 김제",
+   "group": "99.시도",
+   "sido": "23.전북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 5948.1,
+     "median_jeonse": 3619.5,
+     "mean_sale": 7906.6,
+     "mean_jeonse": 4896.8
+    },
+    "apt": {
+     "median_sale": 7775.0,
+     "median_jeonse": 5650.0,
+     "mean_sale": 12022.6,
+     "mean_jeonse": 8618.2
+    }
+   }
+  },
+  {
+   "code": "47000",
+   "name": "경북",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 11762.9,
+     "median_jeonse": 7803.6,
+     "mean_sale": 15246.4,
+     "mean_jeonse": 9862.5
+    },
+    "apt": {
+     "median_sale": 14000.0,
+     "median_jeonse": 10700.0,
+     "mean_sale": 16775.6,
+     "mean_jeonse": 12854.9
+    },
+    "row": {
+     "median_sale": 6300.0,
+     "median_jeonse": 4000.0,
+     "mean_sale": 7113.4,
+     "mean_jeonse": 4700.0
+    },
+    "detached": {
+     "median_sale": 9400.0,
+     "median_jeonse": 4000.0,
+     "mean_sale": 14632.9,
+     "mean_jeonse": 6213.6
+    }
+   }
+  },
+  {
+   "code": "47110",
+   "name": "경북 포항",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13557.3,
+     "median_jeonse": 10574.8,
+     "mean_sale": 17248.8,
+     "mean_jeonse": 12262.8
+    },
+    "apt": {
+     "median_sale": 14850.0,
+     "median_jeonse": 12850.0,
+     "mean_sale": 17133.5,
+     "mean_jeonse": 13937.9
+    }
+   }
+  },
+  {
+   "code": "47111",
+   "name": "경북 포항 남",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13847.8,
+     "median_jeonse": 10910.1,
+     "mean_sale": 18992.5,
+     "mean_jeonse": 12735.3
+    },
+    "apt": {
+     "median_sale": 16200.0,
+     "median_jeonse": 14650.0,
+     "mean_sale": 18238.3,
+     "mean_jeonse": 14831.7
+    }
+   }
+  },
+  {
+   "code": "47113",
+   "name": "경북 포항 북",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13635.7,
+     "median_jeonse": 10723.5,
+     "mean_sale": 16079.7,
+     "mean_jeonse": 11916.4
+    },
+    "apt": {
+     "median_sale": 14300.0,
+     "median_jeonse": 12200.0,
+     "mean_sale": 16325.8,
+     "mean_jeonse": 13284.4
+    }
+   }
+  },
+  {
+   "code": "47130",
+   "name": "경북 경주",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 12314.5,
+     "median_jeonse": 7533.1,
+     "mean_sale": 15001.9,
+     "mean_jeonse": 9239.1
+    },
+    "apt": {
+     "median_sale": 12400.0,
+     "median_jeonse": 9415.0,
+     "mean_sale": 16554.0,
+     "mean_jeonse": 12346.0
+    }
+   }
+  },
+  {
+   "code": "47150",
+   "name": "경북 김천",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 12731.6,
+     "median_jeonse": 8842.6,
+     "mean_sale": 16116.6,
+     "mean_jeonse": 10833.6
+    },
+    "apt": {
+     "median_sale": 15750.0,
+     "median_jeonse": 12150.0,
+     "mean_sale": 18985.2,
+     "mean_jeonse": 14237.7
+    }
+   }
+  },
+  {
+   "code": "47170",
+   "name": "경북 안동",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 11304.5,
+     "median_jeonse": 6639.1,
+     "mean_sale": 15440.2,
+     "mean_jeonse": 9643.8
+    },
+    "apt": {
+     "median_sale": 13900.0,
+     "median_jeonse": 8990.0,
+     "mean_sale": 17907.0,
+     "mean_jeonse": 12836.4
+    }
+   }
+  },
+  {
+   "code": "47190",
+   "name": "경북 구미",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13759.4,
+     "median_jeonse": 10182.7,
+     "mean_sale": 17557.9,
+     "mean_jeonse": 12354.4
+    },
+    "apt": {
+     "median_sale": 14050.0,
+     "median_jeonse": 11500.0,
+     "mean_sale": 16470.7,
+     "mean_jeonse": 13219.4
+    }
+   }
+  },
+  {
+   "code": "47210",
+   "name": "경북 영주",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9072.3,
+     "median_jeonse": 5767.3,
+     "mean_sale": 10518.8,
+     "mean_jeonse": 6742.7
+    },
+    "apt": {
+     "median_sale": 13050.0,
+     "median_jeonse": 9100.0,
+     "mean_sale": 15403.3,
+     "mean_jeonse": 10957.6
+    }
+   }
+  },
+  {
+   "code": "47230",
+   "name": "경북 영천",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 8152.2,
+     "median_jeonse": 4445.3,
+     "mean_sale": 13684.6,
+     "mean_jeonse": 7481.2
+    },
+    "apt": {
+     "median_sale": 8500.0,
+     "median_jeonse": 5875.0,
+     "mean_sale": 11729.4,
+     "mean_jeonse": 8391.4
+    }
+   }
+  },
+  {
+   "code": "47250",
+   "name": "경북 상주",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 7434.5,
+     "median_jeonse": 3981.9,
+     "mean_sale": 9767.0,
+     "mean_jeonse": 5095.0
+    },
+    "apt": {
+     "median_sale": 13850.0,
+     "median_jeonse": 8515.0,
+     "mean_sale": 16125.2,
+     "mean_jeonse": 10106.1
+    }
+   }
+  },
+  {
+   "code": "47280",
+   "name": "경북 문경",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 12323.8,
+     "median_jeonse": 6456.8,
+     "mean_sale": 13757.8,
+     "mean_jeonse": 7320.5
+    },
+    "apt": {
+     "median_sale": 17200.0,
+     "median_jeonse": 11100.0,
+     "mean_sale": 19517.8,
+     "mean_jeonse": 13033.5
+    }
+   }
+  },
+  {
+   "code": "47290",
+   "name": "경북 경산",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 15143.0,
+     "median_jeonse": 11636.8,
+     "mean_sale": 18212.9,
+     "mean_jeonse": 12871.6
+    },
+    "apt": {
+     "median_sale": 15200.0,
+     "median_jeonse": 13150.0,
+     "mean_sale": 18208.8,
+     "mean_jeonse": 14176.9
+    }
+   }
+  },
+  {
+   "code": "47850",
+   "name": "경북 칠곡",
+   "group": "99.시도",
+   "sido": "25.경북",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9987.5,
+     "median_jeonse": 6519.1,
+     "mean_sale": 12076.6,
+     "mean_jeonse": 7919.0
+    },
+    "apt": {
+     "median_sale": 10050.0,
+     "median_jeonse": 7595.0,
+     "mean_sale": 12204.9,
+     "mean_jeonse": 9240.3
+    }
+   }
+  },
+  {
+   "code": "48000",
+   "name": "경남",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 15647.7,
+     "median_jeonse": 11288.9,
+     "mean_sale": 21380.3,
+     "mean_jeonse": 14293.1
+    },
+    "apt": {
+     "median_sale": 17700.0,
+     "median_jeonse": 14200.0,
+     "mean_sale": 22964.1,
+     "mean_jeonse": 17068.6
+    },
+    "row": {
+     "median_sale": 7050.0,
+     "median_jeonse": 4830.0,
+     "mean_sale": 9250.0,
+     "mean_jeonse": 6540.5
+    },
+    "detached": {
+     "median_sale": 12400.0,
+     "median_jeonse": 5600.0,
+     "mean_sale": 19910.8,
+     "mean_jeonse": 9169.9
+    }
+   }
+  },
+  {
+   "code": "48120",
+   "name": "경남 창원",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 18937.1,
+     "median_jeonse": 13807.6,
+     "mean_sale": 26367.7,
+     "mean_jeonse": 17746.6
+    },
+    "apt": {
+     "median_sale": 20800.0,
+     "median_jeonse": 16100.0,
+     "mean_sale": 27915.9,
+     "mean_jeonse": 20017.4
+    }
+   }
+  },
+  {
+   "code": "48121",
+   "name": "경남 창원 의창",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 32137.7,
+     "median_jeonse": 21077.6,
+     "mean_sale": 43157.1,
+     "mean_jeonse": 25128.1
+    },
+    "apt": {
+     "median_sale": 24400.0,
+     "median_jeonse": 20700.0,
+     "mean_sale": 34876.3,
+     "mean_jeonse": 23881.7
+    }
+   }
+  },
+  {
+   "code": "48123",
+   "name": "경남 창원 성산",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 33914.1,
+     "median_jeonse": 20702.2,
+     "mean_sale": 38571.7,
+     "mean_jeonse": 24135.1
+    },
+    "apt": {
+     "median_sale": 32700.0,
+     "median_jeonse": 20500.0,
+     "mean_sale": 37917.6,
+     "mean_jeonse": 24327.8
+    }
+   }
+  },
+  {
+   "code": "48125",
+   "name": "경남 창원 마산합포",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16329.1,
+     "median_jeonse": 12505.7,
+     "mean_sale": 19776.3,
+     "mean_jeonse": 14610.7
+    },
+    "apt": {
+     "median_sale": 18050.0,
+     "median_jeonse": 15200.0,
+     "mean_sale": 21428.9,
+     "mean_jeonse": 17414.8
+    }
+   }
+  },
+  {
+   "code": "48127",
+   "name": "경남 창원 마산회원",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16363.9,
+     "median_jeonse": 11708.2,
+     "mean_sale": 20761.6,
+     "mean_jeonse": 14899.4
+    },
+    "apt": {
+     "median_sale": 15850.0,
+     "median_jeonse": 12960.0,
+     "mean_sale": 20258.7,
+     "mean_jeonse": 16563.6
+    }
+   }
+  },
+  {
+   "code": "48129",
+   "name": "경남 창원 진해",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16972.6,
+     "median_jeonse": 12349.8,
+     "mean_sale": 18322.4,
+     "mean_jeonse": 13326.2
+    },
+    "apt": {
+     "median_sale": 19700.0,
+     "median_jeonse": 15300.0,
+     "mean_sale": 20402.2,
+     "mean_jeonse": 16002.4
+    }
+   }
+  },
+  {
+   "code": "48170",
+   "name": "경남 진주",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22162.2,
+     "median_jeonse": 14592.1,
+     "mean_sale": 28799.6,
+     "mean_jeonse": 19125.6
+    },
+    "apt": {
+     "median_sale": 24350.0,
+     "median_jeonse": 17800.0,
+     "mean_sale": 30307.2,
+     "mean_jeonse": 22360.4
+    }
+   }
+  },
+  {
+   "code": "48220",
+   "name": "경남 통영",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 11387.2,
+     "median_jeonse": 8097.2,
+     "mean_sale": 14056.1,
+     "mean_jeonse": 9965.5
+    },
+    "apt": {
+     "median_sale": 14600.0,
+     "median_jeonse": 11300.0,
+     "mean_sale": 16563.3,
+     "mean_jeonse": 12993.1
+    }
+   }
+  },
+  {
+   "code": "48240",
+   "name": "경남 사천",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 9575.3,
+     "median_jeonse": 6434.2,
+     "mean_sale": 12191.0,
+     "mean_jeonse": 8389.1
+    },
+    "apt": {
+     "median_sale": 9100.0,
+     "median_jeonse": 7710.0,
+     "mean_sale": 12385.0,
+     "mean_jeonse": 10205.1
+    }
+   }
+  },
+  {
+   "code": "48250",
+   "name": "경남 김해",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 17483.8,
+     "median_jeonse": 13502.8,
+     "mean_sale": 21374.3,
+     "mean_jeonse": 15683.8
+    },
+    "apt": {
+     "median_sale": 17100.0,
+     "median_jeonse": 14450.0,
+     "mean_sale": 21038.0,
+     "mean_jeonse": 16677.4
+    }
+   }
+  },
+  {
+   "code": "48270",
+   "name": "경남 밀양",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 12921.4,
+     "median_jeonse": 8187.6,
+     "mean_sale": 15669.7,
+     "mean_jeonse": 9542.7
+    },
+    "apt": {
+     "median_sale": 13500.0,
+     "median_jeonse": 10600.0,
+     "mean_sale": 17543.4,
+     "mean_jeonse": 13259.9
+    }
+   }
+  },
+  {
+   "code": "48310",
+   "name": "경남 거제",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 11104.9,
+     "median_jeonse": 8458.2,
+     "mean_sale": 14011.9,
+     "mean_jeonse": 10112.2
+    },
+    "apt": {
+     "median_sale": 11500.0,
+     "median_jeonse": 9750.0,
+     "mean_sale": 13553.1,
+     "mean_jeonse": 11145.2
+    }
+   }
+  },
+  {
+   "code": "48330",
+   "name": "경남 양산",
+   "group": "99.시도",
+   "sido": "26.경남",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 19772.8,
+     "median_jeonse": 13681.0,
+     "mean_sale": 22125.5,
+     "mean_jeonse": 15056.4
+    },
+    "apt": {
+     "median_sale": 18800.0,
+     "median_jeonse": 13900.0,
+     "mean_sale": 20838.6,
+     "mean_jeonse": 15094.0
+    }
+   }
+  },
+  {
+   "code": "50000",
+   "name": "제주",
+   "group": "99.시도",
+   "sido": "27.제주",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 22122.2,
+     "median_jeonse": 12986.1,
+     "mean_sale": 26061.0,
+     "mean_jeonse": 15364.4
+    },
+    "apt": {
+     "median_sale": 24400.0,
+     "median_jeonse": 15700.0,
+     "mean_sale": 28576.7,
+     "mean_jeonse": 18202.7
+    },
+    "row": {
+     "median_sale": 16750.0,
+     "median_jeonse": 11200.0,
+     "mean_sale": 19387.5,
+     "mean_jeonse": 13146.3
+    },
+    "detached": {
+     "median_sale": 25350.0,
+     "median_jeonse": 12100.0,
+     "mean_sale": 30384.9,
+     "mean_jeonse": 14796.7
+    }
+   }
+  },
+  {
+   "code": "50110",
+   "name": "제주 제주",
+   "group": "99.시도",
+   "sido": "27.제주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22702.4,
+     "median_jeonse": 13693.2,
+     "mean_sale": 26827.8,
+     "mean_jeonse": 16038.3
+    },
+    "apt": {
+     "median_sale": 26800.0,
+     "median_jeonse": 16900.0,
+     "mean_sale": 31480.6,
+     "mean_jeonse": 19747.0
+    }
+   }
+  },
+  {
+   "code": "50130",
+   "name": "제주 서귀포",
+   "group": "99.시도",
+   "sido": "27.제주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 20507.0,
+     "median_jeonse": 11486.9,
+     "mean_sale": 24760.8,
+     "mean_jeonse": 13958.3
+    },
+    "apt": {
+     "median_sale": 17350.0,
+     "median_jeonse": 12350.0,
+     "mean_sale": 22415.7,
+     "mean_jeonse": 14926.2
+    }
+   }
+  },
+  {
+   "code": "12000",
+   "name": "광주",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sido",
+   "values": {
+    "all": {
+     "median_sale": 15301.7,
+     "median_jeonse": 11142.8,
+     "mean_sale": 20126.3,
+     "mean_jeonse": 13616.6
+    },
+    "apt": {
+     "median_sale": 18300.0,
+     "median_jeonse": 14600.0,
+     "mean_sale": 22934.1,
+     "mean_jeonse": 17100.5
+    },
+    "row": {
+     "median_sale": 5800.0,
+     "median_jeonse": 3950.0,
+     "mean_sale": 8946.6,
+     "mean_jeonse": 6264.9
+    },
+    "detached": {
+     "median_sale": 10050.0,
+     "median_jeonse": 4550.0,
+     "mean_sale": 15534.4,
+     "mean_jeonse": 6987.8
+    }
+   }
+  },
+  {
+   "code": "12001",
+   "name": "광주 전남권역",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 11016.9,
+     "median_jeonse": 7388.7,
+     "mean_sale": 14184.6,
+     "mean_jeonse": 9392.4
+    },
+    "apt": {
+     "median_sale": 14800.0,
+     "median_jeonse": 11250.0,
+     "mean_sale": 17833.0,
+     "mean_jeonse": 13620.8
+    },
+    "row": {
+     "median_sale": 5600.0,
+     "median_jeonse": 3900.0,
+     "mean_sale": 8157.9,
+     "mean_jeonse": 5645.3
+    },
+    "detached": {
+     "median_sale": 7250.0,
+     "median_jeonse": 3350.0,
+     "mean_sale": 10628.2,
+     "mean_jeonse": 4962.7
+    }
+   }
+  },
+  {
+   "code": "12002",
+   "name": "광주 광주권역",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21098.8,
+     "median_jeonse": 15520.6,
+     "mean_sale": 26144.0,
+     "mean_jeonse": 18349.3
+    },
+    "apt": {
+     "median_sale": 22400.0,
+     "median_jeonse": 17200.0,
+     "mean_sale": 27023.9,
+     "mean_jeonse": 19890.4
+    },
+    "row": {
+     "median_sale": 6175.0,
+     "median_jeonse": 4525.0,
+     "mean_sale": 10445.0,
+     "mean_jeonse": 7442.0
+    },
+    "detached": {
+     "median_sale": 17100.0,
+     "median_jeonse": 7300.0,
+     "mean_sale": 25515.9,
+     "mean_jeonse": 11107.9
+    }
+   }
+  },
+  {
+   "code": "12110",
+   "name": "광주 목포",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 10954.8,
+     "median_jeonse": 8643.7,
+     "mean_sale": 13766.2,
+     "mean_jeonse": 10250.6
+    },
+    "apt": {
+     "median_sale": 12600.0,
+     "median_jeonse": 10500.0,
+     "mean_sale": 14957.6,
+     "mean_jeonse": 11918.6
+    }
+   }
+  },
+  {
+   "code": "12130",
+   "name": "광주 여수",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 15395.3,
+     "median_jeonse": 9924.6,
+     "mean_sale": 19972.4,
+     "mean_jeonse": 12955.5
+    },
+    "apt": {
+     "median_sale": 15700.0,
+     "median_jeonse": 11350.0,
+     "mean_sale": 19363.3,
+     "mean_jeonse": 14381.7
+    }
+   }
+  },
+  {
+   "code": "12150",
+   "name": "광주 순천",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16018.6,
+     "median_jeonse": 12092.8,
+     "mean_sale": 21446.2,
+     "mean_jeonse": 15427.5
+    },
+    "apt": {
+     "median_sale": 16450.0,
+     "median_jeonse": 13800.0,
+     "mean_sale": 22905.5,
+     "mean_jeonse": 17771.3
+    }
+   }
+  },
+  {
+   "code": "12170",
+   "name": "광주 나주",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 13812.3,
+     "median_jeonse": 9546.9,
+     "mean_sale": 14468.0,
+     "mean_jeonse": 9483.8
+    },
+    "apt": {
+     "median_sale": 20250.0,
+     "median_jeonse": 15300.0,
+     "mean_sale": 20000.4,
+     "mean_jeonse": 14603.7
+    }
+   }
+  },
+  {
+   "code": "12190",
+   "name": "광주 광양",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 7788.9,
+     "median_jeonse": 6231.9,
+     "mean_sale": 10920.6,
+     "mean_jeonse": 8196.6
+    },
+    "apt": {
+     "median_sale": 7410.0,
+     "median_jeonse": 6645.0,
+     "mean_sale": 10676.4,
+     "mean_jeonse": 8812.3
+    }
+   }
+  },
+  {
+   "code": "12210",
+   "name": "광주 동",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 25649.7,
+     "median_jeonse": 17633.8,
+     "mean_sale": 26630.2,
+     "mean_jeonse": 18380.4
+    },
+    "apt": {
+     "median_sale": 30400.0,
+     "median_jeonse": 22000.0,
+     "mean_sale": 31417.0,
+     "mean_jeonse": 22821.7
+    }
+   }
+  },
+  {
+   "code": "12240",
+   "name": "광주 서",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 24859.6,
+     "median_jeonse": 17899.5,
+     "mean_sale": 29682.9,
+     "mean_jeonse": 20933.0
+    },
+    "apt": {
+     "median_sale": 23600.0,
+     "median_jeonse": 18200.0,
+     "mean_sale": 29098.2,
+     "mean_jeonse": 21559.3
+    }
+   }
+  },
+  {
+   "code": "12270",
+   "name": "광주 남",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 22840.9,
+     "median_jeonse": 16031.3,
+     "mean_sale": 28440.4,
+     "mean_jeonse": 19510.8
+    },
+    "apt": {
+     "median_sale": 25400.0,
+     "median_jeonse": 18400.0,
+     "mean_sale": 31569.8,
+     "mean_jeonse": 22354.9
+    }
+   }
+  },
+  {
+   "code": "12300",
+   "name": "광주 북",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 15981.1,
+     "median_jeonse": 12683.1,
+     "mean_sale": 21676.2,
+     "mean_jeonse": 15689.1
+    },
+    "apt": {
+     "median_sale": 16250.0,
+     "median_jeonse": 13800.0,
+     "mean_sale": 21925.5,
+     "mean_jeonse": 16804.3
+    }
+   }
+  },
+  {
+   "code": "12330",
+   "name": "광주 광산",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 21807.4,
+     "median_jeonse": 15941.1,
+     "mean_sale": 26133.2,
+     "mean_jeonse": 18183.9
+    },
+    "apt": {
+     "median_sale": 22850.0,
+     "median_jeonse": 17350.0,
+     "mean_sale": 26135.6,
+     "mean_jeonse": 19080.2
+    }
+   }
+  },
+  {
+   "code": "12810",
+   "name": "광주 무안",
+   "group": "99.시도",
+   "sido": "28.광주",
+   "level": "sub",
+   "values": {
+    "all": {
+     "median_sale": 16060.9,
+     "median_jeonse": 11968.6,
+     "mean_sale": 17331.4,
+     "mean_jeonse": 11702.4
+    },
+    "apt": {
+     "median_sale": 21950.0,
+     "median_jeonse": 18050.0,
+     "mean_sale": 24098.0,
+     "mean_jeonse": 17564.3
+    }
+   }
+  }
+ ]
+}

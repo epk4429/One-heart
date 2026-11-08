@@ -16,6 +16,7 @@ from verify import VerificationRecord, check_agreement, check_refs, find_numbers
 
 from . import evidence
 from . import family as F
+from . import goal_size
 from . import goals
 from .plan import PlanError, build_request, check_option, design_context, engine_option, normalize_goal
 from .runner import run_role
@@ -257,11 +258,12 @@ def goal_revise(fam: dict, summaries: dict, analysis: dict, rounds: list, provid
     if not rs or len(rs) >= MAX_ROUNDS:
         raise ValueError("제안과 가족의 의견이 필요해요")
     last = rs[-1]["replies"]
-    if not last or all(v["v"] == "good" for v in last.values()):
+    discussion = str(discussion or "")[:300]
+    # 모두 '좋아요'였어도, 가족이 나중 단계(합의안)에서 이유를 적고 돌아왔으면 그 이유로 다시 제안한다(2026-11-08)
+    if (not last or all(v["v"] == "good" for v in last.values())) and not discussion.strip():
         raise ValueError("모두가 '좋아요'라서 수정 제안이 필요 없어요")
     if any(v["v"] != "good" and not v["text"].strip() for v in last.values()):
         raise ValueError("조건이나 다른 의견에는 내용을 적어 주세요")
-    discussion = str(discussion or "")[:300]
     facts = F.facts(fam, _fixed_goal(fam))
     clar = [{k: str(c.get(k, ""))[:80] for k in ("member_id", "word", "meaning")} for c in (clarifications or [])]
     ctx_texts = [v["text"] for r in rs for v in r["replies"].values() if v["v"] != "good" and v["text"]] + ([discussion] if discussion else [])
@@ -311,8 +313,18 @@ def _traceable_amount(value: float, facts: dict, texts: list[str]) -> bool:
 
 def goal_criterion(fam: dict, proposal_text: str, replies: dict, summaries: dict, provider,
                    story_understanding: dict | None = None, reasons: list | None = None) -> dict:
-    fixed = _fixed_goal(fam)  # 가족이 '우리 가족 이야기'에서 입력한 값으로 코드가 만든 목표(있으면 AI가 다시 정하지 않는다)
+    fixed = _fixed_goal(fam)  # 가족이 '우리 가족 이야기'에서 고른 목표로 코드가 만든 목표(있으면 AI가 다시 정하지 않는다)
     facts = F.facts(fam, fixed)
+    size_lines = []
+    if fixed:
+        # 목표 숫자(금액·기한)는 2단계에서 가족이 정하거나 고친다. 기준 문장에는 숫자를 넣지 않고,
+        # AI는 엔진이 낸 우리 가족 기준(숫자를 바꿔도 변하지 않는 것)만 {{fact:size.*}}로 써서 숫자를 정할 때 생각할 점을 짚는다.
+        try:
+            anc = goal_size.anchors(fam, fam["goal_input"])
+        except PlanError:
+            anc = {"lines": [], "facts": {}}
+        facts = F.facts(fam) | anc["facts"]
+        size_lines = [f"{x['label']}: {x['display']}" for x in anc["lines"] if x["label"]]
     shared = shared_summaries(summaries, fam)
     mids = {m["member_id"] for m in fam["members"]}
     replies = {k: str((v.get("text") if isinstance(v, dict) else v) or "")[:F.LIMITS["answer"]]
@@ -323,14 +335,20 @@ def goal_criterion(fam: dict, proposal_text: str, replies: dict, summaries: dict
     shared_goal = str((story_understanding or {}).get("shared_goal") or "")[:80]
     run = run_role("4b", {"members": _members(fam), "proposal": proposal_text, "reasons": reasons, "replies": replies,
                           "summaries": shared, "facts": _facts_for_llm(facts), "has_repaying_loans": has_loans,
-                          "shared_goal": shared_goal, "fixed_goal": fixed}, provider)
+                          "shared_goal": shared_goal, "fixed_goal": fixed,
+                          "goal_numbers": goals.details_text(fam["goal_input"], fam["members"]) if fixed else [],
+                          "size_lines": size_lines}, provider)
     out = {"run": run.__dict__}
     if not run.ok:
         return out
     quotes = _user_texts(replies, proposal_text, reasons, shared, shared_goal, *_fam_texts(fam))
-    rendered, rec = verify_texts({"criterion": run.output["criterion"]}, facts, role="4b", quotes=quotes)
+    texts = {"criterion": run.output["criterion"]}
+    if fixed and isinstance(run.output.get("size_note"), str) and run.output["size_note"].strip():
+        texts["size_note"] = run.output["size_note"]
+    rendered, rec = verify_texts(texts, facts, role="4b", quotes=quotes)
     if fixed:
-        out.update(result={"criterion": rendered["criterion"], "criterion_raw": run.output["criterion"], "goal": fixed},
+        out.update(result={"criterion": rendered["criterion"], "criterion_raw": run.output["criterion"], "goal": fixed,
+                           "size_note": rendered.get("size_note", "")},
                    verification=rec.to_dict())
         return out
     g = run.output["goal"]

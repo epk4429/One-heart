@@ -17,6 +17,8 @@ from llm.providers import get_provider
 from llm.roles import ROLES
 from server.app import dispatch
 
+# 환경 격리(체험 코드·호출 제한)는 tests/conftest.py가 모든 테스트에 건다.
+
 ROOT = Path(__file__).resolve().parents[1]
 MIDS = {"m0", "m1"}
 PROV = get_provider("replay")
@@ -63,9 +65,9 @@ def test_bad_goal_inputs_are_rejected(raw, msg):
 
 def test_other_category_asks_for_more_depending_on_the_calculation():
     base = {"purpose_text": "가족 여행", "engine_kind": "목표 금액 모으기"}
-    with pytest.raises(G.GoalInputError):
-        G.validate_input({"category": "other", "fields": base}, MIDS)
-    gi = G.validate_input({"category": "other", "fields": {**base, "target_amount": 500, "within_years": 2}}, MIDS)
+    gi = G.validate_input({"category": "other", "fields": base}, MIDS)  # 금액·기한은 비워 두면 2단계에서 정한다
+    assert G.missing(gi) == ["target_amount", "within_years"]
+    gi =G.validate_input({"category": "other", "fields": {**base, "target_amount": 500, "within_years": 2}}, MIDS)
     assert G.derive_goal(gi, [])["label"] == "가족 여행" and G.derive_goal(gi, [])["within_months"] == 24
     gi = G.validate_input({"category": "other", "fields": {"purpose_text": "예금 버티기", "engine_kind": "예금이 얼마나 버티는지", "base_member_id": "m1"}}, MIDS)
     assert G.derive_goal(gi, [])["type"] == "runway" and G.derive_goal(gi, [])["base_member_id"] == "m1"
@@ -216,6 +218,66 @@ def test_criterion_uses_the_goal_the_family_entered_and_checks_it_is_calculable(
     assert st == 200 and not out["goal_check"]["ok"] and "커야" in out["goal_check"]["message"]
 
 
+# ---------- 2단계: 목표 숫자를 함께 정하기(2026-11-08) ----------
+def _blank_newly():
+    raw = copy.deepcopy(F.preset("newly"))
+    raw["goal_input"]["fields"].pop("target_amount")
+    raw["goal_input"]["fields"].pop("within_years")
+    return raw
+
+
+def test_numbers_can_be_left_for_step_two():
+    fam = F.validate(_blank_newly())  # 숫자를 비워도 '우리 가족 이야기'를 통과한다
+    assert G.missing(fam["goal_input"]) == ["target_amount", "within_years"]
+    assert any("아직 정하지 않았어요" in x for x in G.details_text(fam["goal_input"], fam["members"]))
+
+
+def test_size_gives_family_anchors_and_goal_only_when_complete():
+    body = {"family": _blank_newly()}
+    st, out = call("/api/goal/size", body)
+    labels = [l["label"] for l in out["anchors"]["lines"]]
+    assert st == 200 and out["goal"] is None and out["missing"] == ["target_amount", "within_years"]
+    assert "지금 한 달에 모이는 돈" in labels and "지금처럼 모으면 5년 뒤" in labels
+    assert "facts" not in out["anchors"] and "예금·적금" in out["anchors"]["note"]
+    st, out = call("/api/goal/size", {**body, "values": {"target_amount": 30000, "within_years": 3}})
+    assert st == 200 and out["goal"]["target_amount"] == 30000 and out["goal"]["within_months"] == 36
+    need = next(l for l in out["anchors"]["lines"] if l["label"].startswith("3년 안에"))
+    assert "더" in need["display"]  # 지금 속도로는 3년 안에 못 모아서 한 달에 더 필요한 돈을 보여 준다
+    st, out = call("/api/goal/size", {**body, "values": {"target_amount": "많이"}})
+    assert st == 400
+
+
+def test_step_two_needs_more_with_shorter_deadline():
+    from llm import goal_size as GS
+    fam = F.validate(_blank_newly())
+    from llm.plan import normalize_goal as ng
+    g = ng(fam, {"type": "reach_target", "target_amount": 40000})
+    assert GS._need_monthly(fam, g, 36) > GS._need_monthly(fam, g, 60) >= 0
+
+
+def test_criterion_with_blank_numbers_leaves_numbers_to_the_family():
+    fam, a, p = _first()
+    body = {"family": _blank_newly(), "proposal": p["text"], "reasons": p["reasons"], "summaries": SUMS, "story_understanding": SU,
+            "replies": {"m0": {"v": "good", "text": ""}, "m1": {"v": "good", "text": ""}}}
+    st, out = call("/api/goal/criterion", body)
+    assert st == 200 and not out["goal_check"]["ok"] and out["size"]["missing"]
+    assert "{{" not in out["result"]["size_note"] and "만원" in out["result"]["size_note"]  # 엔진 숫자가 들어간 생각해 볼 점
+    # 기준 문장·생각해 볼 점에 목표 숫자(fact:goal.*)를 쓰면 다시 쓰게 한다
+    inp = {"fixed_goal": {"type": "reach_target"}, "facts": [{"fact_id": "size.after_5y"}], "members": []}
+    assert any("goal 숫자" in e for e in ROLES["4b"].check({"criterion": "목표 {{fact:goal.target_amount}}을 모아요", "size_note": ""}, inp))
+
+
+def test_revise_after_coming_back_from_agreement():
+    """모두 '좋아요'였어도 합의안 단계에서 이유를 적고 돌아오면 다시 제안한다(2026-11-08)."""
+    fam, a, p = _first()
+    rounds = [_round(p, {"m0": {"v": "good", "text": ""}, "m1": {"v": "good", "text": ""}})]
+    body = {"family": F.preset("newly"), "summaries": SUMS, "analysis": a, "rounds": rounds}
+    st, _ = call("/api/goal/revise", body)
+    assert st == 400  # 이유 없이 돌아오면 안 된다
+    st, out = call("/api/goal/revise", {**body, "discussion": "서연님이 합의안 단계에서 돌아왔어요: 기한을 다시 정하고 싶어요"})
+    assert st == 200 and out["result"]["proposal"]["text"]
+
+
 def test_api_revise_stuck_and_config():
     fam, a, p = _first()
     rounds = [_round(p, {"m0": {"v": "good", "text": ""}, "m1": {"v": "cond", "text": "괜찮아요, 단 휴직이 먼저예요"}})]
@@ -228,3 +290,22 @@ def test_api_revise_stuck_and_config():
     assert st == 200 and out["result"]["topics"]
     st, cfg = call("/api/config", {})
     assert st == 200 and set(cfg["goal_input"]["categories"]) == set(G.CATEGORIES)
+
+
+# ---------- G12: 수정 제안(4c)·이야기 필요 안내(4d)에도 금융회사·상품 이름 검사 ----------
+def test_revise_and_stuck_roles_reject_company_and_product_names(monkeypatch):
+    from ontology.products import product_brand_names
+    from tests.test_api import _inject
+    fam, a, p = _first()
+    seen = {}
+    real = P.run_role
+    monkeypatch.setattr(P, "run_role", lambda key, inp, *x, **k: (lambda r: (seen.setdefault(key, (inp, r.output)), r)[1])(real(key, inp, *x, **k)))
+    rounds = [_round(p, {"m0": {"v": "other", "text": "집이 먼저예요"}, "m1": {"v": "cond", "text": "괜찮아요, 단 휴직이 먼저예요"}})]
+    P.goal_revise(fam, SUMS, a, rounds, PROV)
+    P.goal_stuck(fam, SUMS, rounds, PROV)
+    product = sorted(n for n in product_brand_names() if n.startswith("KB"))[0]
+    for key in ("4c", "4d"):
+        inp, out = seen[key]
+        assert not [e for e in ROLES[key].check(out, inp) if "상품 이름" in e], key
+        for word in ("우리은행", product):
+            assert any(word in e for e in ROLES[key].check(_inject(out, word), inp)), (key, word)

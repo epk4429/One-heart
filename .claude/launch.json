@@ -52,6 +52,15 @@
         "6.5"
       ],
       "port": 8768
+    },
+    {
+      "name": "oneheart-replay-open",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-c",
+        "import os,sys,runpy; os.environ['ACCESS_CODES']=','; os.environ['BUDGET_USD']='100000'; sys.argv=['dev_server.py','8770','--replay']; runpy.run_path('dev_server.py', run_name='__main__')"
+      ],
+      "port": 8770
     }
   ]
 }

@@ -9,6 +9,7 @@
 from __future__ import annotations
 
 import json
+import re
 import statistics
 from functools import lru_cache
 from pathlib import Path
@@ -184,3 +185,55 @@ def rate_benchmark(category: str = "deposit", term_months: int = 12, group: str 
 def provider_names() -> frozenset[str]:
     """공시에 나온 금융회사 이름 전부(앞 단계 글에 회사 이름이 나오는지 검사, G12)."""
     return frozenset(p["provider"] for cat in {*CATEGORY, *loans.LOAN} for p in load_products(cat))
+
+
+# ---------- G12: 앞 단계 글에 실제 상품 이름이 나오는지 ----------
+# 공시 상품 이름에는 "정기예금", "신용대출"처럼 흔한 말이 많다. 그런 이름까지 막으면 AI가 쉬운 설명도 못 쓴다.
+# 그래서 (1) 한 금융회사에만 있는 이름이고 (2) 흔한 금융 낱말·괄호·기호를 빼고도 두 글자 이상 남고(브랜드 부분)
+# (3) 띄어쓰기를 뺀 길이가 5글자 이상인 이름만 '상품 이름'으로 본다(2026-11-08, 임의결정 89).
+GENERIC_WORDS = sorted({
+    "정기예금", "정기적금", "예금", "적금", "대출", "담보", "론", "자금", "일반", "기타", "개인", "사업자", "기업", "가계",
+    "전세", "전월세", "보증금", "보증", "주택", "아파트", "부동산", "모기지", "중도금", "잔금", "경락", "이주비", "신용",
+    "회전식", "회전", "자유", "적립식", "거치식", "정액", "정기", "입출금", "통장", "종합", "변동금리", "고정금리", "변동",
+    "고정", "금리", "상품", "운전", "시설", "오토", "신차", "중고차", "중고", "할부", "리스", "카드", "장기", "단기",
+    "비대면", "인터넷뱅킹", "스마트뱅킹", "인터넷", "스마트", "뱅킹", "모바일", "앱", "전용", "직장인", "청년", "서민",
+    "예적금", "저축", "목돈", "만기", "특판", "특별", "우대", "플러스", "프리미엄", "신규", "대환", "협약", "이차보전",
+    "지원", "소득", "연금", "노후", "자영업자", "월수", "일시", "분할", "균등", "원금", "이자", "상환",
+}, key=len, reverse=True)
+
+
+def _brand_part(name: str) -> str:
+    t = re.sub(r"\([^)]*\)|\[[^\]]*\]", "", name)
+    t = re.sub(r"[\s\-_+.,·/!~'’]", "", t)
+    t = re.sub(r"^[A-Za-z](?=[가-힣])", "", t)       # e정기예금, m적금 같은 앞 글자
+    t = re.sub(r"(\d+|Ⅱ|Ⅲ|II|III)$", "", t)          # 아파트론1, 임차론Ⅱ 같은 뒤 번호
+    for g in GENERIC_WORDS:
+        t = t.replace(g, "")
+    return t
+
+
+@lru_cache(maxsize=1)
+def product_brand_names() -> frozenset[str]:
+    """앞 단계 글에 나오면 안 되는 실제 상품 이름(흔한 말로 된 이름은 뺀다)."""
+    by: dict[str, set[str]] = {}
+    for cat in {*CATEGORY, *loans.LOAN}:
+        for p in load_products(cat):
+            by.setdefault(p["name"].strip(), set()).add(p["provider"])
+    return frozenset(n for n, ps in by.items()
+                     if len(ps) == 1 and len(re.sub(r"\s", "", n)) >= 5 and len(_brand_part(n)) >= 2)
+
+
+@lru_cache(maxsize=1)
+def stage_banned_names() -> frozenset[str]:
+    """G12: 조건 비교 화면 앞 단계(역할 1a·4·5·6·7)의 글에 나오면 안 되는 이름 = 금융회사 이름 + 실제 상품 이름."""
+    return provider_names() | product_brand_names()
+
+
+def banned_names_in(text: str) -> list[str]:
+    """글 속에 나온 금지 이름(긴 이름이 짧은 이름을 품으면 긴 것만)."""
+    hits = sorted((n for n in stage_banned_names() if n and n in (text or "")), key=len, reverse=True)
+    out: list[str] = []
+    for h in hits:
+        if not any(h in o for o in out):
+            out.append(h)
+    return sorted(out)

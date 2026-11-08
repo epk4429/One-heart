@@ -88,11 +88,23 @@ def _r2b(i):
             "confirm_message": f"알겠습니다. '{_clip(a, 30)}'이 가장 중요하다고 정리할게요. 맞으신가요?"}
 
 
+def _agreed_points(i) -> list[str]:
+    """금융 목표와 직접 관련된 공통점: 고른 목표 + 모두가 확인한 가장 큰 걱정."""
+    pts = []
+    for d in (i.get("goal_details") or [])[:1]:
+        pts.append(f"가족이 함께 이루려는 목표는 같아요 ({_clip(str(d), 40)})")
+    worries = [(v or {}).get("worry") for v in (i.get("summaries") or {}).values()]
+    worries = [w for w in worries if w]
+    if worries:
+        pts.append(f"돈 문제로 걱정되는 점이 있어요 ({_clip(worries[0], 30)})")
+    return pts or ["정한 목표를 가족의 돈 계획으로 함께 이루고 싶어 해요"]
+
+
 def _r3(i):
     sums = i["summaries"]
     stances = {m["member_id"]: _clip((sums.get(m["member_id"]) or {}).get("keep") or "함께 정하고 싶어요", 28) for m in i["members"]}
     return {"headline": "가족 모두 함께 계획을 세우고 싶어 해요. 무엇을 먼저 할지가 조금 달라요.",
-            "agreed_points": ["가족이 함께 정하고 싶어 해요", "꼭 지키고 싶은 것이 각자 있어요"],
+            "agreed_points": _agreed_points(i),
             "issues": [{"title": "무엇을 먼저 할까", "kind": "order", "stances": stances,
                         "shared": "서로가 지키고 싶은 것을 함께 지키는 것"}]}
 
@@ -153,9 +165,14 @@ def _r4d(i):
 def _r4b(i):
     fg = i.get("fixed_goal")
     if fg:
-        if fg.get("target_amount"):
-            return {"criterion": "각자 꼭 지키고 싶은 것을 모두 지키면서 목표 금액 {{fact:goal.target_amount}}을 함께 모아 가요."}
-        return {"criterion": "각자 꼭 지키고 싶은 것을 모두 지키면서, 정한 목표를 향해 함께 나아가요."}
+        ids = {f["fact_id"] for f in i["facts"]}
+        note = ("지금처럼 모으면 5년 뒤 {{fact:size.after_5y}}이 돼요. 각자 지키고 싶은 것을 해치지 않는 선에서 금액과 기한을 정해 보세요."
+                if "size.after_5y" in ids else
+                "지금 상환대로면 대출은 {{fact:size.payoff}} 다 갚아요. 생활이 흔들리지 않는 선에서 기한을 정해 보세요."
+                if "size.payoff" in ids else
+                "지금 한 달 생활비는 {{fact:size.expense}}예요. 이 금액을 기준으로 은퇴 후 필요한 돈을 정해 보세요."
+                if "size.expense" in ids else "")
+        return {"criterion": "각자 꼭 지키고 싶은 것을 모두 지키면서, 정한 목표를 향해 함께 나아가요.", "size_note": note}
     text = " ".join(list(i["replies"].values()) + [s.get("keep", "") for s in i["summaries"].values()])
     oldest = max(i["members"], key=lambda m: m["age"])
     nums = [f for f in i["facts"] if f["fact_id"].startswith("item.")]

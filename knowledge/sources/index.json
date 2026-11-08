@@ -349,6 +349,45 @@
    "effective_date": "2026-06-15"
   },
   {
+   "source_id": "S_doc_law_local_tax_20261108",
+   "kind": "document",
+   "publisher": "국가법령정보센터",
+   "title": "지방세법",
+   "url": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=282559&chrClsCd=010202&urlMode=lsInfoP&efYd=20260701&ancYnChk=0",
+   "fetched_at": "2026-11-08 13:12",
+   "sha256": "a7999b5d3141cec49d8ad13b9ceb4f11d8445accb86a1ffb62e375e1aae48d38",
+   "file": "knowledge/sources/docs/S_doc_law_local_tax_20261108.txt",
+   "doc_key": "law_local_tax",
+   "dev_only": true,
+   "effective_date": "2026-07-01"
+  },
+  {
+   "source_id": "S_doc_law_ltc_insurance_20261108",
+   "kind": "document",
+   "publisher": "국가법령정보센터",
+   "title": "노인장기요양보험법",
+   "url": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=286217&chrClsCd=010202&urlMode=lsInfoP&efYd=20260526&ancYnChk=0",
+   "fetched_at": "2026-11-08 13:12",
+   "sha256": "99fda3be5af520b4e6554045bf04ff4aeba502dd7f3ce93946b1ef16f16e5eac",
+   "file": "knowledge/sources/docs/S_doc_law_ltc_insurance_20261108.txt",
+   "doc_key": "law_ltc_insurance",
+   "dev_only": true,
+   "effective_date": "2026-05-26"
+  },
+  {
+   "source_id": "S_doc_law_realtor_rule_20261108",
+   "kind": "document",
+   "publisher": "국가법령정보센터",
+   "title": "공인중개사법 시행규칙",
+   "url": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=288753&chrClsCd=010202&urlMode=lsInfoP&efYd=20260828&ancYnChk=0",
+   "fetched_at": "2026-11-08 13:12",
+   "sha256": "3d5fc9ce6f637362737011704e6d3fa96dfb807181af27679e1f5e59a3595edc",
+   "file": "knowledge/sources/docs/S_doc_law_realtor_rule_20261108.txt",
+   "doc_key": "law_realtor_rule",
+   "dev_only": true,
+   "effective_date": "2026-08-28"
+  },
+  {
    "source_id": "S_doc_law_tax_special_20261103",
    "kind": "document",
    "publisher": "국가법령정보센터",
@@ -383,6 +422,18 @@
    "sha256": "46d257e2d05077df480b7364ba09c89fff0c5fe0601bf97c6d1c15dac8f5831a",
    "file": "knowledge/sources/docs/S_doc_mohw_basic_pension_target_20261103.txt",
    "doc_key": "mohw_basic_pension_target",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nhis_ltc_cost_notice_20261108",
+   "kind": "document",
+   "publisher": "국민건강보험공단",
+   "title": "장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시",
+   "url": "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=1637",
+   "fetched_at": "2026-11-08 13:12",
+   "sha256": "3f377d7cb8d3f39356fa6258ed93e435fc965bc083d67ff1f4de30cfd252fdd7",
+   "file": "knowledge/sources/docs/S_doc_nhis_ltc_cost_notice_20261108.txt",
+   "doc_key": "nhis_ltc_cost_notice",
    "dev_only": true
   },
   {

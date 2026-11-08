@@ -216,3 +216,48 @@ def test_custom_family_default_by_environment(monkeypatch):
     assert A.custom_family_allowed() is False  # Vercel 공개
     monkeypatch.setenv("ALLOW_CUSTOM_FAMILY", "1")
     assert A.custom_family_allowed() is True
+
+
+# ---------- G12: 조건 비교 앞 단계(역할 4b·4c·4d·5·5r·6a·6b·7) 출력에 금융회사·상품 이름이 나오면 다시 쓰게 한다 ----------
+def _inject(o, word):
+    """출력 속 가장 긴 글 하나에 word를 덧붙인 복사본."""
+    import copy
+    o = copy.deepcopy(o)
+    best = [None]
+
+    def walk(x):
+        items = x.items() if isinstance(x, dict) else enumerate(x) if isinstance(x, list) else []
+        for k, v in items:
+            if isinstance(v, str):
+                if best[0] is None or len(v) > len(best[0][0][best[0][1]]):
+                    best[0] = (x, k)
+            else:
+                walk(v)
+    walk(o)
+    c, k = best[0]
+    c[k] = c[k] + f" {word}에 맡겨요."
+    return o
+
+
+def test_stage_roles_reject_company_and_product_names(monkeypatch):
+    from llm import pipeline as P
+    from llm.roles import ROLES
+    from ontology.products import product_brand_names
+    seen = {}
+    real = P.run_role
+
+    def spy(key, inp, *a, **k):
+        run = real(key, inp, *a, **k)
+        if run.ok:
+            seen.setdefault(key, (inp, run.output))
+        return run
+    monkeypatch.setattr(P, "run_role", spy)
+    p = call("/api/preset", {"preset_id": "newly"})
+    run_flow(p, p["scripts"]["answers"], p["scripts"]["replies"], {"type": "reach_target", "target_amount": 30000, "within_months": 60})
+    product = sorted(n for n in product_brand_names() if n.startswith("KB"))[0]
+    for key in ("4b", "5r", "6a", "6b", "7"):
+        inp, out = seen[key]
+        assert not [e for e in ROLES[key].check(out, inp) if "상품 이름" in e], key  # 원래 출력은 통과
+        for word in ("우리은행", product):
+            errs = ROLES[key].check(_inject(out, word), inp)
+            assert any(word in e and "상품 이름" in e for e in errs), (key, word, errs)
