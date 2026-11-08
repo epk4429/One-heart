@@ -1,5 +1,5 @@
 {
-  "_note": "6단계 검증 묶음(docs/14). 생애 단계·경계 사례 가상 가족과, 사람이 규칙 원문(ontology/programs.json 인용)을 읽고 적은 제도 정답. 모든 숫자는 가상값. truth: eligible(넣은 정보로 기본 조건이 확실히 맞음) / not_eligible(넣은 정보로 확실히 안 맞음) / unknown(넣은 정보로는 알 수 없음). 검사: 코드가 eligible이라고 했는데 정답이 eligible이 아니면 '부적격 노출(과잉 확신)', 코드가 not_eligible인데 정답이 not_eligible이 아니면 '부당 제외'. income_hint: 기준 안(in)/넘음(over)/방향 없음(none) 중 맞는 방향.",
+  "_note": "6단계 검증 묶음(docs/06 5절). 생애 단계·경계 사례 가상 가족과, 사람이 규칙 원문(ontology/programs.json 인용)을 읽고 적은 제도 정답. 모든 숫자는 가상값. truth: eligible(넣은 정보로 기본 조건이 확실히 맞음) / not_eligible(넣은 정보로 확실히 안 맞음) / unknown(넣은 정보로는 알 수 없음). 검사: 코드가 eligible이라고 했는데 정답이 eligible이 아니면 '부적격 노출(과잉 확신)', 코드가 not_eligible인데 정답이 not_eligible이 아니면 '부당 제외'. income_hint: 기준 안(in)/넘음(over)/방향 없음(none) 중 맞는 방향.",
   "families": [
     {
       "id": "F01_young_renters", "stage": "신혼·전세(무주택, 아이 없음)",

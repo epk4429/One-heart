@@ -1,5 +1,5 @@
 {
-  "_note": "제약 → 속성 조건(docs/08_온톨로지.md 2절). field는 attributes의 키 또는 features / requires_home_sale / kind. 통과 못 하면 reason으로 제외 사유를 남긴다.",
+  "_note": "제약 → 속성 조건(docs/06_온톨로지와_RAG.md 3.2절). field는 attributes의 키 또는 features / requires_home_sale / kind. 통과 못 하면 reason으로 제외 사유를 남긴다.",
   "rules": {
     "C_principal_protected": {"field": "risk", "in": ["원금보장"], "reason": "원금 보장이 아니라서"},
     "C_until_event": {"field": "term", "in": ["6~36개월"], "reason": "정해진 때까지 기간을 정해 모으는 상품이 아니라서"},

@@ -1,11 +1,11 @@
-"""금감원 "금융상품 한눈에" 오픈 API에서 상품 공시를 받아 원문 저장소에 그대로 저장한다(docs/12 3·8절 ①②).
+"""금감원 "금융상품 한눈에" 오픈 API에서 상품 공시를 받아 원문 저장소에 그대로 저장한다(docs/06 3.5절).
 
 사용: python tools/fetch_finlife.py --all                 → 공시 API 전 범주 × 전 권역(상품이 없는 권역은 건너뜀)
       python tools/fetch_finlife.py --cat saving --grp 020000 030300   (030300 = 저축은행)
 
 - 인증키는 .env의 FINLIFE_API_KEY. 키는 파일·화면 어디에도 남기지 않는다.
 - 응답은 손대지 않고 페이지별로 저장한다: knowledge/sources/S_finlife_<범주>_<권역>_<공시월>.json
-- 저장한 원본은 개발용(dev_only)이다. 공개 화면에 써도 되는지는 아직 확인 전(docs/12 14절).
+- 저장한 원본은 개발용(dev_only)이다. 공개 화면에 써도 되는지는 아직 확인 전(docs/07 부록 B L12).
 - 개인 인증키는 하루 호출 횟수 제한이 있다. 변환은 저장한 원본으로 하고(tools/build_products.py), 여기서는 받기만 한다.
 """
 

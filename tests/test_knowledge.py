@@ -1,4 +1,4 @@
-"""원문 저장소와 상품 노드(docs/12 3·4·9절): 원본이 그대로인지, 노드가 원본에서 그대로 다시 만들어지는지."""
+"""원문 저장소와 상품 노드(docs/06 3.5·5절): 원본이 그대로인지, 노드가 원본에서 그대로 다시 만들어지는지."""
 
 import hashlib
 import json
@@ -60,7 +60,7 @@ def test_category_stats_sane():
             assert 0 < r["n_products"] <= c["products"]
             for k in ("base_rate", "max_rate"):
                 assert r[k]["min"] <= r[k]["median"] <= r[k]["max"]
-            assert "name" not in r and "provider" not in r  # 범주 통계에는 상품 이름이 들어가지 않는다(docs/12 5절)
+            assert "name" not in r and "provider" not in r  # 범주 통계에는 상품 이름이 들어가지 않는다(docs/06 2.2절)
 
 
 def test_product_ids_unique_across_categories():

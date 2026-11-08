@@ -1,4 +1,4 @@
-"""공공기관 공식 안내 페이지를 원문 저장소에 보관한다(docs/12 3·8절 ①②, 13.1절 4단계).
+"""공공기관 공식 안내 페이지를 원문 저장소에 보관한다(docs/06 3.5·3.7절).
 
 사용: python tools/fetch_docs.py            → 아래 DOCS·LAWS·FSS_TIPS 전부
       python tools/fetch_docs.py hf_reverse_mortgage
@@ -6,7 +6,7 @@
 - 출처 허용 목록(G1): ALLOWED 도메인만 받는다.
 - 페이지 HTML에서 글만 뽑아(스크립트·스타일 제거) knowledge/sources/docs/<source_id>.txt로 저장하고, 글의 sha256을 index.json에 남긴다.
   규칙(ontology/programs.json)의 인용(quote)은 이 글에 글자 그대로 있어야 한다(G3, tests/test_programs.py).
-- 화면이 스크립트로만 열리는 사이트(고용24 등)는 이 방식으로 받을 수 없다(docs/13 기록).
+- 화면이 스크립트로만 열리는 사이트(고용24 등)는 이 방식으로 받을 수 없다(docs/06 부록 A).
 """
 
 from __future__ import annotations
@@ -45,7 +45,7 @@ FSS_TIPS = {  # source_id 꼬리 → (제목, 게시글 주소). 금융감독원
     "fss_tip_152": ("금융꿀팁 200선 (152) 대출 청약철회권 활용하기", "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=136625&menuNo=200498"),
     "fss_tip_157": ("금융꿀팁 200선 (157) 은퇴준비자의 연금설계를 위한 꿀팁", "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=189291&menuNo=200498"),
 }
-LAWS = {  # source_id 꼬리 → 법령 이름(국가법령정보센터 현행 법령). 제도·법 RAG의 법령 원문(docs/12 7절)
+LAWS = {  # source_id 꼬리 → 법령 이름(국가법령정보센터 현행 법령). 제도·법 RAG의 법령 원문(docs/06 4절)
     "law_basic_pension": "기초연금법",
     "law_hf_corp": "한국주택금융공사법",
     "law_hf_corp_decree": "한국주택금융공사법 시행령",
@@ -53,7 +53,7 @@ LAWS = {  # source_id 꼬리 → 법령 이름(국가법령정보센터 현행 �
     "law_housing_supply_rule": "주택공급에 관한 규칙",
     "law_depositor_protection": "예금자보호법",
     "law_tax_special": "조세특례제한법",
-    # 공동 목표 설정 2단계 '세상 기준'(docs/17). RAG 목록(rag/index.py)에는 넣지 않았다
+    # 공동 목표 설정 2단계 '세상 기준'(docs/08 4절). RAG 목록(rag/index.py)에는 넣지 않았다
     "law_local_tax": "지방세법",
     "law_realtor_rule": "공인중개사법 시행규칙",
     "law_ltc_insurance": "노인장기요양보험법",
@@ -69,7 +69,7 @@ DOCS = {  # source_id 꼬리 → (기관, 제목, 주소)
     "nhuf_subscription": ("주택도시기금", "주택청약종합저축", "https://nhuf.molit.go.kr/FP/FP07/FP0701/FP07010101.jsp"),
     "mohw_basic_pension_target": ("보건복지부 기초연금", "기초연금 대상자 안내", "https://basicpension.mohw.go.kr/menu.es?mid=a10102010000"),
     "mohw_basic_pension_amount": ("보건복지부 기초연금", "기초연금액 산정", "https://basicpension.mohw.go.kr/menu.es?mid=a10103010000"),
-    # 공동 목표 설정 2단계 '세상 기준'(docs/17): 장기요양 급여비용(보건복지부 고시, 건강보험공단 법령 정보)
+    # 공동 목표 설정 2단계 '세상 기준'(docs/08 4절): 장기요양 급여비용(보건복지부 고시, 건강보험공단 법령 정보)
     "nhis_ltc_cost_notice": ("국민건강보험공단", "장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시",
                              "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=1637"),
 }

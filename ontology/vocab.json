@@ -1,5 +1,5 @@
 {
-  "_note": "온톨로지 어휘(docs/08_온톨로지.md 2절). LLM 역할 8은 이 id만 쓸 수 있다.",
+  "_note": "온톨로지 어휘(docs/06_온톨로지와_RAG.md 3.2절). LLM 역할 8은 이 id만 쓸 수 있다.",
   "needs": [
     {
       "id": "N_home_purchase_prep",

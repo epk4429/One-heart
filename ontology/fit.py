@@ -1,4 +1,4 @@
-"""실제 상품을 "우리 목표에 잘 맞는 순서"로 줄 세운다(docs/12 5절·13.1절 2단계, 임의결정 59·63). AI를 쓰지 않는다.
+"""실제 상품을 "우리 목표에 잘 맞는 순서"로 줄 세운다(docs/06 3.6절, 임의결정 36·37). AI를 쓰지 않는다.
 
 상품 종류마다 '좋은 상품'의 기준이 다르다.
 - 저축형(적금·정기예금): 받는 돈이 많을수록. ① 가입 나이 ② 계획한 금액이 한도 안인가 ③ 만기 세후 이자(1만원 단위로 묶음)
@@ -366,7 +366,7 @@ def _loans(family: dict, need_id: str, cat: str, *, member_id: str, commitment: 
     who = F.member(family, member_id)
     how = "bullet" if repay == "bullet" else method
     need = o["needs"].get(need_id, {})
-    if who["age"] < ADULT:  # 대출은 어른 이름으로만 비교한다(임의결정 70)
+    if who["age"] < ADULT:  # 대출은 어른 이름으로만 비교한다(임의결정 44)
         total = len(load_products(cat))
         sm = {"state": "none", "total": total, "ok": 0, "unsure": 0, "over_limit": 0, "excluded_age": total, "no_option": 0,
               "text": f"대출은 어른(만 {ADULT}세 이상) 이름으로 비교해요.", "why": f"{who['name']}님은 {who['age']}세예요"}

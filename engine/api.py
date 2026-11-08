@@ -1,4 +1,4 @@
-"""엔진 진입점: simulate(), compare() (docs/05_계산엔진.md 3·7절)."""
+"""엔진 진입점: simulate(), compare() (docs/04_계산엔진.md 3·7절)."""
 
 from __future__ import annotations
 

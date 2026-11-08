@@ -1,4 +1,4 @@
-"""화면 표시 규칙(docs/05_계산엔진.md 3절). 단위는 만원."""
+"""화면 표시 규칙(docs/04_계산엔진.md 3절). 단위는 만원."""
 
 from __future__ import annotations
 

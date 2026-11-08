@@ -80,7 +80,7 @@ def test_age_benefit_by_account_holder():
 
 
 def test_kids_tiers_and_eligibility():
-    # 원문은 자녀 수별 +2.0/+3.0%인데 공시 최고금리는 기본금리와 같다(docs/13): 해당은 보여 주되 금리에는 공시까지만, 이유를 말한다
+    # 원문은 자녀 수별 +2.0/+3.0%인데 공시 최고금리는 기본금리와 같다(docs/06 부록 A): 해당은 보여 주되 금리에는 공시까지만, 이유를 말한다
     three = _row(_saving(ELDER, "m2", person={"kids": 3}), KIDS)
     assert [(g["label"], g["pp"]) for g in three["got"]] == [("해당돼요 · 18세 이하 자녀 2명 이상", 3.0)] and "자녀 수" not in three["checks"]
     assert three["my_rate"] == three["max_rate"] and three["held_pp"] == 3.0 and any("공시 최고금리를 넘어서" in t for t in three["reasons"])

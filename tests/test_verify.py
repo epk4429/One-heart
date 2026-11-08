@@ -1,4 +1,4 @@
-"""검증 구조 테스트(docs/07_검증구조.md 8절)."""
+"""검증 구조 테스트(docs/05_AI역할과_검증.md 3.5절)."""
 
 import json
 from pathlib import Path

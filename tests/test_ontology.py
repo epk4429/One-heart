@@ -1,4 +1,4 @@
-"""온톨로지 탐색 테스트. 기대 결과는 기획안 10·15쪽(docs/08_온톨로지.md 5절)."""
+"""온톨로지 탐색 테스트. 기대 결과는 기획안 10·15쪽(docs/06_온톨로지와_RAG.md 3.3절)."""
 
 import json
 from pathlib import Path

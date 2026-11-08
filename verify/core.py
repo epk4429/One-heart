@@ -195,7 +195,7 @@ def check_refs(refs: list[tuple[str, str, set]], record: VerificationRecord) -> 
 
 def check_agreement(agreement: dict, saving: float | None, goal: dict, conditions: list[dict],
                     record: VerificationRecord) -> None:
-    """겹 3·4: 합의안의 근거와 산술 일관성(docs/07 4·5절).
+    """겹 3·4: 합의안의 근거와 산술 일관성(docs/05 3.1절).
 
     분담방식에서 '매달 모이는 돈'을 용도별로 나눈 항목(part_of)이 있으면 그 합이 매달 모이는 돈과 같아야 한다."""
     parts = [float(c.get("amount", 0)) for c in agreement.get("contribution") or [] if c.get("part_of")]

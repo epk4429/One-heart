@@ -1,6 +1,6 @@
 """대출 공시 → 한도·중도상환 수수료 규칙(ontology/loans.py), 대출 계산(engine/product_math.py), 대출 비교(ontology/fit.py).
 
-파싱 정답은 공시 원문(2026-10, knowledge/sources)을 사람이 읽고 적은 것이다(docs/12 9절 G7).
+파싱 정답은 공시 원문(2026-10, knowledge/sources)을 사람이 읽고 적은 것이다(docs/06 5절 G7).
 """
 
 import json
