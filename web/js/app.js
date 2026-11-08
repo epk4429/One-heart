@@ -491,7 +491,7 @@ function s3() {
   const ready = s.goalChk.status === "done";
   const allApproved = ready && mids().every(m => s.approvals[m]);
   if (s.backPending) return head(r) + issuesHtml + `<section class="sec"><h2 class="st">1단계 · AI의 제안과 가족의 의견</h2>${pager}${propBox(pgv, view + 1)}${replyList(pgv)}
-    <div class="aibox"><p class="q">${esc(mem(s.backPending.by).name)}님이 합의안 단계에서 돌아왔어요.</p><p class="sub">“${esc(s.backPending.reason)}”</p></div>
+    <div class="aibox"><p class="q">합의안 단계에서 가족 모두가 고른 방법이 없어 돌아왔어요.</p><p class="sub">${esc(s.backPending.reason)}</p></div>
     ${pend(s.rev.status ? s.rev : { status: "loading" }, "돌아온 이유를 반영해 공동 목표를 다시 제안하고 있어요", "retry-back")}</section>`;
   const stepTwo = allGood ? (s.size ? stepTwoSize() : `<section class="sec"><h2 class="st">2단계 · 가족 모두의 최종 동의</h2><p class="cs" style="margin-bottom:10px">1단계에서 모두 '좋아요'라고 한 제안으로 목표를 정리했어요. 맞으면 동의해 주세요. 다음 단계에서 이 목표로 미래를 계산해요.</p>
    ${pend(crit, "AI가 기준 문장을 정리하고 있어요", "retry-criterion")}
@@ -603,22 +603,20 @@ function s4() {
 
 /* ---------- 화면 5: 합의안 ---------- */
 const optLabel = sp => `${sp.option_id}. ${sp.label}`;
-// 의사 표시: 괜찮은 방법을 모두 고른다(2026-11-08 형님 결정). 고른 방법 = 괜찮아요(조건을 적으면 '괜찮아요, 단'),
-// 고르지 않은 방법 = 어려워요(이유 한 줄 필수). 하나만 고르는 투표가 아니라 '반대 없는 방법 찾기'를 그대로 지킨다(CLAUDE.md 4절 10번)
+// 의사 표시: 괜찮은 방법을 모두 누르기만 한다(2026-11-08 형님 결정, 조건·이유는 받지 않는다).
+// 누른 방법 = 괜찮아요, 누르지 않은 방법 = 어려워요. 모두가 누른 방법이 합의안이 되고, 없으면 공동 목표 설정으로 돌아간다(수정안 없음)
 const isOk = x => x && x.v !== "no";
 function stanceRows(rd, opts) {
   const s = S(), vw = viewer(), R1 = rd === 1 ? s.r1 : s.r2, mine = R1[vw] || {};
   const demoFill = DEMO ? `<div class="row"><span class="cs" style="flex:1">체험판이라 예시 의사 그대로 남겨요</span><button class="btn sm" data-act="fill-stance" data-rd="${rd}">예시 의사 채우기</button></div>` : "";
-  const many = opts.length > 1;
-  return demoFill + `<p class="cs" style="margin:4px 0 8px">${many ? "받아들일 수 있는 방법을 모두 눌러 주세요. 하나만 고르지 않아도 돼요." : "받아들일 수 있으면 눌러 주세요."} 고르지 않은 방법은 어려운 이유를 한 줄 적어 주세요.</p>
-   <div class="okcards">${opts.map(([oid, label, res]) => { const x = mine[oid], on = isOk(x); return `<div class="okcard ${on ? "on" : ""}">
-    <button type="button" class="okhead" ${DEMO ? "disabled" : ""} data-act="okpick" data-rd="${rd}" data-oi="${oid}" aria-pressed="${on}"><span class="okbox" aria-hidden="true">${on ? "✓" : ""}</span><span><b>${esc(label)}</b>${res ? `<span class="cs">${esc(res)}</span>` : ""}</span></button>
-    <span class="okstate ${on ? "v-good" : ""}">${on ? "✓ 괜찮아요" : "고르지 않음 · 이대로 보내면 '어려워요'"}</span>
-    <input ${DEMO ? "readonly" : ""} class="tx" data-rd="${rd}" data-oi="${oid}" value="${esc((x && x.text) || "")}" maxlength="200" placeholder="${on ? "조건이 있으면 적어 주세요(선택)" : "어려운 이유 한 줄"}"></div>`; }).join("")}</div>`;
+  return demoFill + `<p class="cs" style="margin:4px 0 8px">받아들일 수 있는 방법을 모두 눌러 주세요. 하나만 골라도, 여러 개 골라도 돼요.</p>
+   <div class="okcards">${opts.map(([oid, label, res]) => { const on = isOk(mine[oid]); return `<button type="button" class="okcard ${on ? "on" : ""}" ${DEMO ? "disabled" : ""} data-act="okpick" data-rd="${rd}" data-oi="${oid}" aria-pressed="${on}">
+    <span class="okhead"><span class="okbox" aria-hidden="true">${on ? "✓" : ""}</span><span><b>${esc(label)}</b>${res ? `<span class="cs">${esc(res)}</span>` : ""}</span></span>
+    <span class="okstate ${on ? "v-good" : ""}">${on ? "✓ 괜찮아요" : "눌러서 고르기"}</span></button>`; }).join("")}</div>`;
 }
 function famTable(rd, opts) {
   const s = S(), R1 = rd === 1 ? s.r1 : s.r2, SB = rd === 1 ? s.sub1 : s.sub2;
-  const cell = x => !x ? `<span class="rv wait-v">기다리는 중</span>` : `<span class="rv v-${x.v}"><b>${VL[x.v][1]} ${VL[x.v][0]}</b>${x.text ? `<span>${esc(x.text)}</span>` : ""}</span>`;
+  const cell = x => !x ? `<span class="rv wait-v">기다리는 중</span>` : isOk(x) ? `<span class="rv v-good"><b>✓ 괜찮아요</b></span>` : `<span class="rv v-no"><b>− 안 골랐어요</b></span>`;
   return `<div class="famtab-wrap"><table class="famtab"><thead><tr><th>방법</th>${F().members.map(m => `<th>${av(m.member_id, "sm")} ${esc(m.name)}</th>`).join("")}</tr></thead><tbody>${opts.map(([oid, label]) => `<tr><td class="ol2">${esc(label)}</td>${F().members.map(m => `<td>${SB[m.member_id] ? cell((R1[m.member_id] || {})[oid]) : cell(null)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 function consentState() {
@@ -626,23 +624,22 @@ function consentState() {
   if (!d.specs) return {};
   const ids = d.specs.map(l => l.option_id);
   const all1 = mids().every(m => s.sub1[m]);
-  const obj = (R1, oid) => mids().filter(m => ((R1[m] || {})[oid] || {}).v === "no");
-  const cand1 = all1 ? ids.filter(oid => obj(s.r1, oid).length === 0) : [];
-  const needRev = all1 && cand1.length === 0;
-  const all2 = needRev && mids().every(m => s.sub2[m]);
-  let final = null, conds = [];
-  if (all1 && cand1.length) { const sp = d.specs[ids.indexOf(cand1[0])]; final = { spec: sp, label: optLabel(sp) }; conds = mids().map(m => [m, (s.r1[m] || {})[cand1[0]]]).filter(x => x[1] && x[1].v === "cond"); }
-  if (all2 && obj(s.r2, "x").length === 0 && s.revise.result) {
-    const rv = s.revise.result, from = d.specs[ids.indexOf(rv.from_option_id)];
-    final = { spec: rv.spec, label: optLabel(from), revised: true };
-    conds = mids().map(m => [m, (s.r2[m] || {}).x]).filter(x => x[1] && x[1].v === "cond");
-  }
-  const rejected2 = all2 && obj(s.r2, "x").length > 0;
-  return { all1, cand1, needRev, all2, final, rejected2, conds: conds.map(([m, x]) => ({ member_id: m, text: x.text })) };
+  const cand1 = all1 ? ids.filter(oid => mids().every(m => isOk((s.r1[m] || {})[oid]))) : [];
+  const noCommon = all1 && cand1.length === 0;
+  let final = null;
+  if (all1 && cand1.length) { const sp = d.specs[ids.indexOf(cand1[0])]; final = { spec: sp, label: optLabel(sp) }; }
+  return { all1, cand1, noCommon, final, conds: [] };
+}
+// 모두가 고른 방법이 없을 때 공동 목표로 넘길 말(누가 무엇을 골랐는지). 가족에게 이유를 따로 묻지 않는다
+function pickSummary() {
+  const s = S(), d = s.design;
+  return d.specs.map(sp => { const who = mids().filter(m => isOk((s.r1[m] || {})[sp.option_id])).map(m => mem(m).name + "님");
+    const l = optLabel(sp), c = l.charCodeAt(l.length - 1), topic = c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? "은" : "는";
+    return `${l}${topic} ${who.length ? who.join("·") + "만 괜찮다고 했어요" : "아무도 고르지 않았어요"}`; }).join(", ");
 }
 function s5() {
   const s = S(), d = s.design, vw = viewer(), goal = d.goal || goalNow();
-  const head = `<div class="head"><div class="eyebrow">합의안</div><h1 class="h1">아무도 반대하지 않는 방법을 함께 찾아요</h1><p class="lead">점수를 더하지 않아요. 각자 받아들일 수 있는 방법을 모두 고르고(조건이 있으면 "단 ○○"), 고르지 않은 방법에는 어려운 이유를 적어요. 아무도 어렵다고 하지 않은 방법이 합의안이 되고, 붙은 조건은 약속이 돼요.</p></div>`;
+  const head = `<div class="head"><div class="eyebrow">합의안</div><h1 class="h1">아무도 반대하지 않는 방법을 함께 찾아요</h1><p class="lead">점수를 더하지 않아요. 각자 받아들일 수 있는 방법을 모두 누르고, 가족 모두가 누른 방법이 합의안이 돼요. 모두가 누른 방법이 없으면 공동 목표부터 다시 이야기해요.</p></div>`;
   if (d.status !== "done") return head + `<div class="aibox"><p class="q">미래 계산이 먼저 필요해요.</p></div>`;
   if (!started(s.check) && s.check.status !== "error") setTimeout(() => run(s.check, "/api/agreement/check", { family: F(), goal: s.goalForm, specs: d.specs, summaries: summariesOf() }), 0);
   const opts1 = d.specs.map((sp, k) => [sp.option_id, optLabel(sp), results()[k].goal_hit_display]);
@@ -653,44 +650,27 @@ function s5() {
   h += `<section class="sec"><h2 class="st">각자의 의사</h2>
    ${!s.sub1[vw] ? `<div class="act"><div class="rl">${av(vw, "sm")}${esc(mem(vw).name)}님, 방법마다 의사를 남겨 주세요</div>${stanceRows(1, opts1)}<div class="row"><span style="flex:1"></span><button class="btn primary sm" data-act="sub" data-rd="1">내 의사 보내기</button></div></div>` : ""}
    <div style="margin-top:16px">${famTable(1, opts1)}</div>${turn(mids().filter(m => !s.sub1[m]), "의사 표시")}
-   ${s.sub1[vw] && !mids().every(m => s.signed[m]) ? backBox() : ""}
-   ${cs.all1 && cs.cand1.length > 1 ? `<p class="cs" style="margin-top:10px">반대 없는 방법이 둘 이상이에요. 실제로는 그중 하나를 함께 고르는 질문을 한 번 더 해요. 체험판에서는 ${esc(cs.cand1[0])}로 이어가요.</p>` : ""}</section>`;
-  if (cs.needRev) {
-    if (!started(s.revise) && s.revise.status !== "error") setTimeout(() => run(s.revise, "/api/agreement/revise", { family: F(), goal: s.goalForm, specs: d.specs, stances: s.r1, summaries: summariesOf() }), 0);
-    const rv = s.revise.result;
-    h += `<section class="sec"><h2 class="st">반대가 있어서 AI가 방법을 다듬었어요</h2>${pend(s.revise, "AI가 반대 이유를 읽고 수정안을 만들고 있어요", "retry-revise")}
-     ${rv ? `<div class="aibox"><p class="q">모든 방법에 반대가 하나 이상 있어요. 반대 이유를 바탕으로 <b>${esc(rv.label)}</b>을 만들었어요.</p><p class="sub">${esc(rv.why)}</p>
-      <table class="chg">${rv.changes.map(c => `<tr><th>${esc(c.field)}</th><td>${esc(c.before)} → ${esc(c.after)}${mem(c.reason_member_id)?.name !== "?" ? ` (${esc(mem(c.reason_member_id).name)}님 의견)` : ""}</td></tr>`).join("")}<tr><th>계산 결과</th><td>${esc(rv.simulation.results[0].goal_hit_display)} (원래 ${esc(results()[d.specs.findIndex(l => l.option_id === rv.from_option_id)].goal_hit_display)})</td></tr></table></div>${vbadge(s.revise.verification, s.revise.calls)}
-      ${!s.sub2[vw] ? `<div class="act"><div class="rl">${av(vw, "sm")}${esc(mem(vw).name)}님, 다듬은 방법에 의사를 남겨 주세요</div>${stanceRows(2, [["x", rv.label, ""]])}<div class="row"><span style="flex:1"></span><button class="btn primary sm" data-act="sub" data-rd="2">내 의사 보내기</button></div></div>` : ""}
-      <div style="margin-top:16px">${famTable(2, [["x", rv.label]])}</div>${turn(mids().filter(m => !s.sub2[m]), "의사 표시")}
-      ${cs.rejected2 ? `<p class="okline"><span class="chk" style="background:var(--bad)">!</span><span>다듬은 방법에도 반대가 있어요. 체험판에서는 수정을 한 번까지만 해요. 미래 계산으로 돌아가 숫자를 직접 바꿔 보거나, 의사를 다시 남겨 주세요. <button class="btn sm" data-act="redo-consent">의사 다시 남기기</button></span></p>` : ""}` : ""}</section>`;
-  }
+   ${cs.all1 && cs.cand1.length > 1 ? `<p class="cs" style="margin-top:10px">모두가 고른 방법이 ${cs.cand1.length}개예요. 앞 순서인 ${esc(cs.cand1[0])}를 합의안으로 삼았어요.</p>` : ""}</section>`;
+  if (cs.noCommon) h += `<section class="sec"><h2 class="st">모두가 고른 방법이 없어요</h2><div class="aibox"><p class="q">${esc(pickSummary())}.</p>
+    <p class="sub">합의안을 억지로 고르지 않고, 공동 목표부터 다시 이야기해요. AI가 누가 무엇을 골랐는지를 보고 공동 목표를 다시 제안해요. 미래 계산과 합의안은 그 목표로 다시 만들어요.</p></div>
+    <div class="actrow"><button class="btn primary" data-act="back-goal">공동 목표 설정으로 돌아가기</button></div></section>`;
   const dr = s.draft;
   if (cs.final) {
     const key = JSON.stringify([cs.final.spec, cs.conds]);
     if (dr.key !== key) { Object.keys(dr).forEach(k => delete dr[k]); dr.key = key; s.signed = {}; }
-    if (!started(dr) && dr.status !== "error") setTimeout(() => run(dr, "/api/agreement/draft", { family: F(), goal: s.goalForm, criterion: s.criterion.result.criterion, spec: cs.final.spec, method_label: cs.final.label, conditions: cs.conds, summaries: summariesOf(), version: s.version || 1, revision: cs.final.revised ? { label: s.revise.result.label, changes: s.revise.result.changes, why: s.revise.result.why } : null }), 0);
+    if (!started(dr) && dr.status !== "error") setTimeout(() => run(dr, "/api/agreement/draft", { family: F(), goal: s.goalForm, criterion: s.criterion.result.criterion, spec: cs.final.spec, method_label: cs.final.label, conditions: [], summaries: summariesOf(), version: s.version || 1, revision: null }), 0);
     const a = dr.result;
-    h += `<section class="sec"><h2 class="st">반대 없이 모인 방법</h2><p class="okline"><span class="chk">✓</span><span><b>${esc(cs.final.label)}</b>${cs.final.revised ? " (다듬은 안)" : ""} — 가족 모두 반대하지 않았어요.</span></p>
-     ${cs.conds.length ? `<ul class="conds">${cs.conds.map(c => `<li>${av(c.member_id, "sm")}<span><b>${esc(mem(c.member_id).name)}님의 조건</b>${esc(c.text)}</span></li>`).join("")}</ul>` : ""}
+    h += `<section class="sec"><h2 class="st">가족 모두가 고른 방법</h2><p class="okline"><span class="chk">✓</span><span><b>${esc(cs.final.label)}</b> — 가족 모두 괜찮다고 했어요.</span></p>
      ${pend(dr, "AI가 합의안과 합의 리포트를 쓰고 있어요", "retry-draft")}
      ${a ? paper(a, dr) : ""}</section>`;
   }
   const allSigned = mids().every(m => s.signed[m]);
   return h + next("약속에 맞는 금융상품 보기", !allSigned, "가족 모두 서명하면 다음으로 넘어갈 수 있어요");
 }
-// 의사를 보낸 뒤 방법이 다 마음에 안 들면: 이유를 적고 공동 목표 설정으로 돌아간다(미래 계산·합의안은 지운다)
-function backBox() {
-  const s = S();
-  return `<details class="backbox" ${s.backDraft ? "open" : ""}><summary>방법이 모두 마음에 안 드나요? 공동 목표부터 다시 이야기할 수 있어요</summary>
-   <p class="cs">왜 돌아가고 싶은지 한 줄 적어 주세요. AI가 이 말을 반영해 공동 목표를 다시 제안해요. 돌아가면 미래 계산과 합의안은 지워지고 다시 만들어요.</p>
-   <textarea id="backTxt" maxlength="300" placeholder="예: 집 사는 시기를 너무 늦추는 방법뿐이라, 목표 기한부터 다시 정하고 싶어요">${esc(s.backDraft || "")}</textarea>
-   <div class="row"><span style="flex:1"></span><button class="btn sm" data-act="back-goal">공동 목표 설정으로 돌아가기</button></div></details>`;
-}
 function backRevise() {
   const s = S(), b = s.backPending;
   return run(s.rev, "/api/goal/revise", { family: F(), summaries: summariesOf(), analysis: analysisOf(), rounds: roundsOf(), clarifications: clarList(),
-    discussion: `${mem(b.by).name}님이 합의안 단계에서 공동 목표로 돌아왔어요: ${b.reason}` },
+    discussion: `합의안 단계에서 가족 모두가 고른 방법이 없어 공동 목표로 돌아왔어요. ${b.reason}` },
     res => { pushPage(res); s.stuck = {}; s.cycleStart = s.pg.length - 1; s.backPending = null; });
 }
 function paper(a, dr) {
@@ -1123,11 +1103,6 @@ function bindInputs() {
     };
     else el.oninput = () => { setPath(s.fam, path, val()); famEdited(path); save(); };
   });
-  document.querySelectorAll("input.tx").forEach(t => t.oninput = () => {
-    const rd = +t.dataset.rd, R1 = rd === 1 ? s.r1 : s.r2, mine = (R1[viewer()] = R1[viewer()] || {});
-    const x = (mine[t.dataset.oi] = mine[t.dataset.oi] || { v: "no", text: "" });
-    x.text = t.value; if (x.v !== "no") x.v = t.value.trim() ? "cond" : "good";
-  });
   document.querySelectorAll("[data-rv]").forEach(el => el.oninput = () => { (s.reviewIn = s.reviewIn || {})[el.dataset.rv] = el.value; });
   const ans = $("#ans"); if (ans) ans.oninput = () => { ivState(viewer()).draft = ans.value; };
   const mr = $("#myReply"); if (mr) mr.oninput = () => { const d = (s.rd[viewer()] = s.rd[viewer()] || { v: null, text: "" }); d.text = mr.value; };
@@ -1225,9 +1200,8 @@ const ACT = {
   },
   "retry-rev": () => { S().rev = {}; render(); },
   "back-goal": () => {
-    const s = S(), t = ($("#backTxt")?.value || "").trim();
-    if (t.length < 4) { s.backDraft = t; toast("왜 돌아가고 싶은지 한 줄 적어 주세요"); render(); return; }
-    s.backPending = { by: viewer(), reason: t.slice(0, 200) }; s.backDraft = "";
+    const s = S();
+    s.backPending = { reason: pickSummary().slice(0, 240) };
     reset("design"); s.criterion = {}; s.approvals = {}; s.rev = {};
     go(3); backRevise();
   },
@@ -1248,8 +1222,7 @@ const ACT = {
   stance: b => { const s = S(), rd = +b.dataset.rd, R1 = rd === 1 ? s.r1 : s.r2, vw = viewer(), oi = b.dataset.oi, v = b.dataset.v; R1[vw] = R1[vw] || {}; const prev = R1[vw][oi] || {}; R1[vw][oi] = { v, text: v === "good" ? "" : prev.text || "" }; render(); },
   sub: b => { const s = S(), rd = +b.dataset.rd, R1 = rd === 1 ? s.r1 : s.r2, SB = rd === 1 ? s.sub1 : s.sub2, mine = (R1[viewer()] = R1[viewer()] || {});
     const ids = rd === 1 ? s.design.specs.map(sp => sp.option_id) : ["x"];
-    ids.forEach(oid => { if (!mine[oid]) mine[oid] = { v: "no", text: "" }; }); // 고르지 않은 방법 = 어려워요
-    if (ids.some(oid => mine[oid].v === "no" && !(mine[oid].text || "").trim())) { toast("고르지 않은 방법에는 어려운 이유를 한 줄 적어 주세요"); render(); return; }
+    ids.forEach(oid => { mine[oid] = isOk(mine[oid]) ? { v: "good", text: "" } : { v: "no", text: "" }; }); // 누르지 않은 방법 = 어려워요
     SB[viewer()] = true; toast("의사를 보냈어요"); render(); },
   "fill-stance": b => { const s = S(), rd = +b.dataset.rd, ex = ((window.ONEHEART.DEMO_STANCES || {})[room] || {})[rd === 1 ? "r1" : "r2"] || {};
     const mine = ex[viewer()]; if (!mine) { toast("이 사람의 예시 의사가 없어요"); return; }

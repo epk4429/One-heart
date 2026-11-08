@@ -39,4 +39,6 @@ def test_stances_match_mock_options():
         assert set(st[p]["r1"]) == members
         for opts in st[p]["r1"].values():
             assert set(opts) == {"A", "B", "C"}  # llm/replay.py _r5의 방법 id
-            assert all(o["v"] in ("good", "cond", "no") and (o["v"] == "good" or o["text"]) for o in opts.values())
+            assert all(o["v"] in ("good", "no") and not o["text"] for o in opts.values())  # 괜찮은 방법만 누른다(조건·이유 없음)
+        common = [o for o in ("A", "B", "C") if all(x[o]["v"] == "good" for x in st[p]["r1"].values())]
+        assert common, p  # 모두가 고른 방법이 있어야 체험판이 공동 목표로 계속 되돌아가지 않는다

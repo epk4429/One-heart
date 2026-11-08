@@ -341,7 +341,8 @@ def goal_criterion(fam: dict, proposal_text: str, replies: dict, summaries: dict
     out = {"run": run.__dict__}
     if not run.ok:
         return out
-    quotes = _user_texts(replies, proposal_text, reasons, shared, shared_goal, *_fam_texts(fam))
+    quotes = _user_texts(replies, proposal_text, reasons, shared, shared_goal, *_fam_texts(fam),
+                         size_lines)  # 우리 가족 기준 줄 이름(예: '지금처럼 모으면 3년 뒤')의 숫자는 써도 된다
     texts = {"criterion": run.output["criterion"]}
     if fixed and isinstance(run.output.get("size_note"), str) and run.output["size_note"].strip():
         texts["size_note"] = run.output["size_note"]
