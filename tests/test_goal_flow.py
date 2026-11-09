@@ -278,6 +278,19 @@ def test_revise_after_coming_back_from_agreement():
     assert st == 200 and out["result"]["proposal"]["text"]
 
 
+def test_pingpong_once_server_and_screen_agree():
+    """핑퐁 1번(2026-11-08 형님 결정, 임의결정 57): 제안 1쪽 + 수정 제안 1쪽. 서버 상수와 화면·mock 체험판의 MAX_PAGES가 같아야 한다."""
+    import re
+    assert P.MAX_ROUNDS_PER_CYCLE == 1
+    for f in ("web/js/app.js", "web/demo.html"):
+        m = re.search(r"const MAX_PAGES = (\d+);", (ROOT / f).read_text(encoding="utf-8"))
+        assert m and int(m.group(1)) == P.MAX_ROUNDS_PER_CYCLE + 1, f
+    # 예시 가족의 예시 의견은 한 차례 안에서 끝나야 mock 체험판이 '이야기가 필요한 부분'에 막히지 않는다
+    for fam in ("newly", "elder"):
+        rs = F.preset(fam)["scripts"]["rounds"]
+        assert len(rs) <= P.MAX_ROUNDS_PER_CYCLE + 1 and all(r["v"] == "good" for r in rs[-1].values()), fam
+
+
 def test_api_revise_stuck_and_config():
     fam, a, p = _first()
     rounds = [_round(p, {"m0": {"v": "good", "text": ""}, "m1": {"v": "cond", "text": "괜찮아요, 단 휴직이 먼저예요"}})]

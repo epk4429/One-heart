@@ -65,11 +65,16 @@ def _need(body: dict, *keys: str) -> None:
 
 
 def custom_family_allowed() -> bool:
-    """'우리 가족으로 체험하기'를 열지. Vercel(공개)에서는 기본으로 닫고(예시 가족만), 로컬 개발에서는 연다.
-    ALLOW_CUSTOM_FAMILY=1/0으로 바꿀 수 있다."""
-    v = os.environ.get("ALLOW_CUSTOM_FAMILY")
-    if v is not None and v.strip() != "":
-        return v.strip().lower() in ("1", "true", "yes", "on")
+    """'우리 가족으로 체험하기'(직접 입력한 가족)를 받을지. 파일럿(2026-11-09, 임의결정 66):
+    - ALLOW_CUSTOM_FAMILY=0이면 언제나 닫는다(예시 가족만).
+    - 체험 코드(ACCESS_CODES)가 걸려 있으면 연다. 가족 정보를 쓰는 요청은 모두 dispatch에서 맞는 체험 코드를 확인한 뒤에만
+      여기까지 오므로, '체험 코드가 있는 참가 가족만 우리 가족을 넣을 수 있다'가 된다.
+    - 체험 코드가 없으면 로컬 개발에서만 연다. 공개 배포(Vercel)에서 코드 없이 열리지 않게 ALLOW_CUSTOM_FAMILY=1이어도 닫는다."""
+    v = (os.environ.get("ALLOW_CUSTOM_FAMILY") or "").strip().lower()
+    if v in ("0", "false", "no", "off"):
+        return False
+    if guard.access_required():
+        return True
     return not os.environ.get("VERCEL")
 
 
@@ -357,17 +362,8 @@ def r_agreement_check(b, ctx):
     return _strip(_err_if_failed(P.agreement_check(fam, goal, specs, _sim(fam, goal, specs), b["summaries"], provider(ctx))))
 
 
-@_llm
-def r_agreement_revise(b, ctx):
-    _need(b, "specs", "stances", "summaries")
-    fam = _family(b)
-    goal = _goal(fam, b)
-    specs = _specs(fam, goal, b["specs"], allow_revised=False)
-    try:
-        out = P.agreement_revise(fam, goal, specs, _sim(fam, goal, specs), b["stances"], b["summaries"], provider(ctx))
-    except PlanError as e:
-        raise ApiError("bad_option", str(e), 502)
-    return _strip(_err_if_failed(out))
+# /api/agreement/revise(역할 5r 합의안 수정안)는 2026-11-09에 공개 주소에서 뺐다(임의결정 64).
+# 합의안 단순화로 화면이 부르지 않는데 열어 두면 AI 비용만 쓸 수 있는 문이 된다. 역할·P.agreement_revise는 남겨 두었다.
 
 
 @_llm
@@ -560,7 +556,6 @@ ROUTES = {
     ("POST", "/api/options/design"): r_options_design,
     ("POST", "/api/simulate"): r_simulate,
     ("POST", "/api/agreement/check"): r_agreement_check,
-    ("POST", "/api/agreement/revise"): r_agreement_revise,
     ("POST", "/api/agreement/draft"): r_agreement_draft,
     ("POST", "/api/recommend"): r_recommend,
     ("POST", "/api/review/compare"): r_review_compare,
@@ -591,6 +586,10 @@ def dispatch(method: str, path: str, raw_body: bytes, headers: dict | None = Non
         if getattr(fn, "uses_llm", False):
             ctx["code_key"] = guard.check_code(headers.get("x-access-code"))
             guard.check_budget(ctx["code_key"])
+        elif "family" in body:
+            # 파일럿(임의결정 66): 가족 정보를 담은 요청은 AI를 쓰지 않아도(계산·상품 비교 등) 맞는 체험 코드가 있어야 한다.
+            # 그래야 공개 사이트에서 '우리 가족'(참가자가 넣은 정보)을 체험 코드를 받은 가족만 쓸 수 있다. 코드가 없는 로컬 개발은 그대로.
+            ctx["code_key"] = guard.check_code(headers.get("x-access-code"))
         return 200, fn(body, ctx)
     except ApiError as e:
         return e.status, {"error": {"code": e.code, "message": e.message}}

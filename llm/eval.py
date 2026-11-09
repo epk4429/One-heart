@@ -91,10 +91,14 @@ def evaluate(key: str, provider_name: str = "anthropic", model: str | None = Non
         # 제안 핑퐁: scripts.rounds(쪽마다 구성원별 {v, text})대로 의견을 내고, 조건·다른 의견이 있으면 수정 제안(역할 4c)을 받는다. 없으면 모두 '좋아요'.
         prop, rounds, script_rounds = g["proposal"], [], scripts.get("rounds") or []
         analysis = {"headline": g["headline"], "agreed_points": g["agreed_points"], "issues": g["issues"]}
-        for n in range(4):
+        # 핑퐁 1번(P.MAX_ROUNDS_PER_CYCLE): 마지막 쪽에서도 갈리면 '이야기가 필요한 부분'(역할 4d)을 받아 기록하고, 평가는 그 쪽으로 이어 간다.
+        for n in range(P.MAX_ROUNDS_PER_CYCLE + 1):
             reps = script_rounds[n] if n < len(script_rounds) else {m["member_id"]: {"v": "good", "text": ""} for m in fam["members"]}
             rounds.append({"proposal": prop["text"], "reasons": prop["reasons"], "replies": reps})
-            if all(r["v"] == "good" for r in reps.values()) or n == 3:
+            if all(r["v"] == "good" for r in reps.values()):
+                break
+            if n == P.MAX_ROUNDS_PER_CYCLE:
+                rep["stuck"] = step("goal_stuck", lambda: P.goal_stuck(fam, summaries, rounds, prov))["result"]
                 break
             prop = step(f"revise_goal.{n}", lambda: P.goal_revise(fam, summaries, analysis, rounds, prov, clars))["result"]["proposal"]
         replies = {m: (r.get("text") or "좋아요.") for m, r in rounds[-1]["replies"].items()}

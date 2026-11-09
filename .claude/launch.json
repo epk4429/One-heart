@@ -61,6 +61,15 @@
         "import os,sys,runpy; os.environ['ACCESS_CODES']=','; os.environ['BUDGET_USD']='100000'; sys.argv=['dev_server.py','8770','--replay']; runpy.run_path('dev_server.py', run_name='__main__')"
       ],
       "port": 8770
+    },
+    {
+      "name": "oneheart-replay-pilot",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-c",
+        "import os,sys,runpy; os.environ['VERCEL']='1'; os.environ['ACCESS_CODES']='pilot-test:1.0'; os.environ['BUDGET_USD']='100000'; sys.argv=['dev_server.py','8771','--replay']; runpy.run_path('dev_server.py', run_name='__main__')"
+      ],
+      "port": 8771
     }
   ]
 }

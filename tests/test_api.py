@@ -80,19 +80,17 @@ def run_flow(fam, answers, replies=None, goal_override=None):
     call("/api/simulate", {"family": fam, "goal": goal, "specs": specs[:1], "override": {"monthly_delta": 30}})
     call("/api/agreement/check", {"family": fam, "goal": goal, "specs": specs, "summaries": summaries})
     first = fam["members"][0]["member_id"]
-    stances = {m["member_id"]: {s["option_id"]: {"v": "no", "text": "어려워요"} if m["member_id"] == first else {"v": "good"}
-                                for s in specs} for m in fam["members"]}
-    rv = call("/api/agreement/revise", {"family": fam, "goal": goal, "specs": specs, "stances": stances,
-                                         "summaries": summaries})["result"]
+    # 화면과 같게: 가족 모두가 고른 방법(여기서는 B)으로 합의안을 쓴다. 수정안(역할 5r)은 화면에서 빠졌다(임의결정 64)
+    chosen = specs[1]
     conds = [{"member_id": first, "text": "6개월마다 꼭 같이 다시 봐요."}]
-    a = call("/api/agreement/draft", {"family": fam, "goal": goal, "criterion": cr["criterion"], "spec": rv["spec"],
-                                       "method_label": rv["label"], "conditions": conds, "summaries": summaries,
-                                       "revision": rv})
+    a = call("/api/agreement/draft", {"family": fam, "goal": goal, "criterion": cr["criterion"], "spec": chosen,
+                                       "method_label": f"{chosen['option_id']}. {chosen['label']}", "conditions": conds,
+                                       "summaries": summaries})
     assert a["verification"]["status"] != "fail", a["verification"]
     agreement = a["result"]
     assert any(c["source"].get("type") == "condition" for c in agreement["commitments"])
     rec = call("/api/recommend", {"family": fam, "agreement": agreement})["result"]
-    cmp_ = call("/api/review/compare", {"family": fam, "goal": goal, "spec": rv["spec"], "return_delta": -0.5})
+    cmp_ = call("/api/review/compare", {"family": fam, "goal": goal, "spec": chosen, "return_delta": -0.5})
     return {"goal": goal, "design": d, "agreement": agreement, "rec": rec, "compare": cmp_}
 
 
@@ -135,9 +133,11 @@ def test_access_code_and_budget(monkeypatch):
     guard.charge("hello", 0.6)  # 예산을 넘겼다고 치면
     st, out = A.dispatch("POST", "/api/story/understand", json.dumps({"family": fam}).encode(), {"X-Access-Code": "hello"})
     assert st == 402 and out["error"]["code"] == "budget_exhausted"
-    # 엔진만 쓰는 요청은 막지 않는다
-    st, _ = A.dispatch("POST", "/api/family/check", json.dumps({"family": fam}).encode())
+    # 예산이 다 떨어져도 엔진만 쓰는 요청은 막지 않는다(체험 코드는 있어야 한다, 임의결정 66)
+    st, _ = A.dispatch("POST", "/api/family/check", json.dumps({"family": fam}).encode(), {"X-Access-Code": "hello"})
     assert st == 200
+    st, _ = A.dispatch("POST", "/api/family/check", json.dumps({"family": fam}).encode())
+    assert st == 401
 
 
 def test_rate_limit(monkeypatch):
@@ -211,11 +211,39 @@ def test_public_mode_allows_examples_only(monkeypatch):
 def test_custom_family_default_by_environment(monkeypatch):
     monkeypatch.delenv("ALLOW_CUSTOM_FAMILY", raising=False)
     monkeypatch.delenv("VERCEL", raising=False)
-    assert A.custom_family_allowed() is True  # 로컬 개발
+    assert A.custom_family_allowed() is True  # 로컬 개발(체험 코드 없음)
     monkeypatch.setenv("VERCEL", "1")
-    assert A.custom_family_allowed() is False  # Vercel 공개
+    assert A.custom_family_allowed() is False  # Vercel 공개인데 체험 코드가 없으면 닫는다
     monkeypatch.setenv("ALLOW_CUSTOM_FAMILY", "1")
-    assert A.custom_family_allowed() is True
+    assert A.custom_family_allowed() is False  # 켜라고 해도 코드 없이 공개에서는 열지 않는다(임의결정 66)
+    monkeypatch.setenv("ACCESS_CODES", "famA:1.0")
+    assert A.custom_family_allowed() is True  # 체험 코드가 걸려 있으면 연다(요청마다 코드 확인)
+    monkeypatch.setenv("ALLOW_CUSTOM_FAMILY", "0")
+    assert A.custom_family_allowed() is False  # 0이면 언제나 닫는다
+
+
+def test_custom_family_needs_valid_access_code_on_public(monkeypatch):
+    """파일럿: 공개 사이트에서 참가 가족은 체험 코드가 있을 때만 '우리 가족'을 넣을 수 있다(1-3)."""
+    monkeypatch.setenv("VERCEL", "1")
+    monkeypatch.delenv("ALLOW_CUSTOM_FAMILY", raising=False)
+    monkeypatch.setenv("ACCESS_CODES", "famA:1.0")
+    body = json.dumps({"family": SINGLE_PARENT}).encode()
+    st, out = A.dispatch("POST", "/api/family/check", body, {})
+    assert st == 401 and out["error"]["code"] == "access_denied"  # 코드 없음
+    st, out = A.dispatch("POST", "/api/family/check", body, {"X-Access-Code": "틀린코드"})
+    assert st == 401  # 틀린 코드
+    st, out = A.dispatch("POST", "/api/family/check", body, {"X-Access-Code": "famA"})
+    assert st == 200, out  # 맞는 코드면 우리 가족을 받는다
+    # 코드를 모두 빼면(파일럿 뒤 폐기) 우리 가족도 닫힌다
+    monkeypatch.setenv("ACCESS_CODES", "")
+    st, out = A.dispatch("POST", "/api/family/check", body, {})
+    assert st == 403 and out["error"]["code"] == "examples_only"
+
+
+def test_agreement_revise_route_removed():
+    """화면이 쓰지 않는 합의안 수정안 주소는 공개하지 않는다(AI 비용만 쓰는 문, 임의결정 64)."""
+    status, out = A.dispatch("POST", "/api/agreement/revise", b"{}", {})
+    assert status == 404, (status, out)
 
 
 # ---------- G12: 조건 비교 앞 단계(역할 4b·4c·4d·5·5r·6a·6b·7) 출력에 금융회사·상품 이름이 나오면 다시 쓰게 한다 ----------
@@ -253,7 +281,14 @@ def test_stage_roles_reject_company_and_product_names(monkeypatch):
         return run
     monkeypatch.setattr(P, "run_role", spy)
     p = call("/api/preset", {"preset_id": "newly"})
-    run_flow(p, p["scripts"]["answers"], p["scripts"]["replies"], {"type": "reach_target", "target_amount": 30000, "within_months": 60})
+    out = run_flow(p, p["scripts"]["answers"], p["scripts"]["replies"], {"type": "reach_target", "target_amount": 30000, "within_months": 60})
+    # 역할 5r(합의안 수정안)은 공개 주소에서 뺐지만 코드는 남겼으니(임의결정 64) 직접 불러 같은 검사를 한다
+    from llm.providers import get_provider
+    specs = out["design"]["specs"]
+    sums = {m["member_id"]: {"keep": "집", "flexible": "시기", "worry": "생활비"} for m in p["members"]}
+    stances = {m["member_id"]: {s["option_id"]: {"v": "no", "text": "어려워요"} if i == 0 else {"v": "good", "text": ""}
+                                for s in specs} for i, m in enumerate(p["members"])}
+    P.agreement_revise(p, out["goal"], specs, P.simulate_specs(p, out["goal"], specs), stances, sums, get_provider("replay"))
     product = sorted(n for n in product_brand_names() if n.startswith("KB"))[0]
     for key in ("4b", "5r", "6a", "6b", "7"):
         inp, out = seen[key]

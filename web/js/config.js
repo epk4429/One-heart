@@ -3,5 +3,10 @@
 (function () {
   const VERCEL_API = ""; // 예: "https://one-heart.vercel.app"
   const onPages = /\.github\.io$/.test(location.hostname);
-  window.ONEHEART = { API_BASE: onPages ? VERCEL_API : "" };
+  // 파일럿에서 화면에만 감추는 것(코드·데이터는 그대로, 2026-11-08 형님 결정, 목록은 임의결정 58 · docs/00_할일.md 1-2).
+  // 다시 보이게 하려면 여기서 false로 바꾸거나 줄을 지운다.
+  const HIDE = {
+    graph_link: true, // 상품 추천 화면의 '온톨로지 연결 그래프 보기' 링크(/graph.html 자체는 설명용으로 남김)
+  };
+  window.ONEHEART = { API_BASE: onPages ? VERCEL_API : "", HIDE };
 })();

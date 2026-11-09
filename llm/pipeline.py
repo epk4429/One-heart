@@ -153,7 +153,10 @@ def interview_resolve(fam: dict, mid: str, detect: dict, answer: str, provider) 
 
 
 # ---------- 화면 4: 공동 목표 설정 ----------
-MAX_ROUNDS_PER_CYCLE = 3  # 제안은 최대 3번까지 고친다. 그래도 모이지 않으면 '이야기가 필요한 부분'을 안내한다(2026-11-04 형님 결정)
+# 핑퐁 1번(2026-11-08 형님 결정, 해석은 임의결정 57): AI 제안(쪽 1) → 가족 의견 → 의견이 갈리면 수정 제안 1번(쪽 2)
+# → 그래도 모이지 않으면 '이야기가 필요한 부분'(역할 4d). 한 차례(cycle)의 쪽 수 = 1 + 이 값.
+# 화면 web/js/app.js MAX_PAGES(= 1 + 이 값)와 같게 둔다(tests/test_goal_flow.py가 대조). 이야기를 나눈 뒤·합의안에서 돌아온 뒤는 새 차례.
+MAX_ROUNDS_PER_CYCLE = 1
 MAX_ROUNDS = 12           # 서버가 받는 제안 쪽수의 한계(남용 방지)
 REPLY_KINDS = ("good", "cond", "other")
 

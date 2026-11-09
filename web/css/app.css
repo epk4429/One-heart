@@ -151,6 +151,7 @@
 .fsum span{color:var(--ink2);font-size:12.5px}
 .fsum.warn{border-left-color:var(--warm)}
 .fsum.warn b{color:var(--warm)}
+.gapnote{background:#fff;border:1px solid var(--line);padding:8px 12px;margin:8px 0;font-size:13px;color:var(--ink2)}
 .progs{margin-top:14px}
 .prog{border-top:1px solid var(--line);padding:12px 0}
 .prog .ph{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
