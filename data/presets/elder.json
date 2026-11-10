@@ -13,28 +13,32 @@
    "name": "김영호",
    "role": "아버지",
    "age": 72,
-   "easy_mode": true
+   "easy_mode": true,
+   "work": "retired"
   },
   {
    "member_id": "m1",
    "name": "박순자",
    "role": "어머니",
    "age": 69,
-   "easy_mode": true
+   "easy_mode": true,
+   "work": "retired"
   },
   {
    "member_id": "m2",
    "name": "김태윤",
    "role": "장남",
    "age": 45,
-   "easy_mode": false
+   "easy_mode": false,
+   "work": "working"
   },
   {
    "member_id": "m3",
    "name": "김지은",
    "role": "장녀",
    "age": 41,
-   "easy_mode": false
+   "easy_mode": false,
+   "work": "working"
   }
  ],
  "story": {

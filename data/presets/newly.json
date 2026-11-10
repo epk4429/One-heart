@@ -13,14 +13,16 @@
    "name": "민준",
    "role": "남편",
    "age": 32,
-   "easy_mode": false
+   "easy_mode": false,
+   "work": "working"
   },
   {
    "member_id": "m1",
    "name": "서연",
    "role": "아내",
    "age": 30,
-   "easy_mode": false
+   "easy_mode": false,
+   "work": "working"
   }
  ],
  "story": {

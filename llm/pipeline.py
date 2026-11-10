@@ -12,6 +12,7 @@ from engine.api import tool_summary
 from engine.fmt import won
 from ontology import load as load_ontology
 from ontology import recommend as ontology_recommend
+from ontology.search import retired_target
 from verify import VerificationRecord, check_agreement, check_refs, find_numbers, verify_texts
 
 from . import evidence
@@ -24,7 +25,8 @@ from .runner import run_role
 
 # ---------- 공통 ----------
 def _members(fam: dict) -> list[dict]:
-    return [{"member_id": m["member_id"], "name": m["name"], "role": m["role"], "age": m["age"]}
+    return [{"member_id": m["member_id"], "name": m["name"], "role": m["role"], "age": m["age"],
+             **({"work": F.WORK[m["work"]]} if m.get("work") in F.WORK else {})}  # 지금 하는 일(가족이 고름)
             for m in fam["members"]]
 
 
@@ -685,7 +687,8 @@ def recommend(fam: dict, agreement: dict, provider) -> dict:
                 merged[n]["constraint_ids"] = sorted(set(merged[n]["constraint_ids"]) | set(m.get("constraint_ids", [])))
             else:
                 merged[n] = {**m, "need_ids": [n], "constraint_ids": list(m.get("constraint_ids", []))}
-    raw = ontology_recommend(list(merged.values()), coms)
+    base = ((fam.get("goal_input") or {}).get("fields") or {}).get("base_member_id")  # 노후·간병 목표의 '누구 기준'
+    raw = ontology_recommend(list(merged.values()), coms, retired_target(fam["members"], base))
     has_product = {r["need_id"] for r in raw if r.get("product_type_id")}
     recs, seen = [], set()
     for r in raw:  # 여러 약속이 같은 필요·상품으로 이어지면 한 번만, 상품이 있는 필요에는 '연결 없음' 카드를 빼기

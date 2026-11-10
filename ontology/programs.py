@@ -131,12 +131,7 @@ def judge(pid: str, family: dict) -> dict:
                                               "not_eligible": "지금은 해당하지 않아요", "check": "확인이 필요해요"}[overall],
            "conditions": conds, "unmodeled": p.get("unmodeled", []), "facts": p.get("facts", []), "terms": p.get("terms", {}),
            "source_id": sid}
-    if pid == "PG_reverse_mortgage" and overall != "not_eligible":
-        age = reverse_mortgage_age(family)
-        home = var["home_value_gongsi"][0]
-        m = reverse_mortgage_monthly(age, home)
-        if m:
-            out["estimate"] = {"label": "예상 월지급금", "monthly_manwon": m[0], "basis": m[1]}
+    # 주택연금 '예상 월지급금' 같은 금액은 온톨로지가 계산하지 않는다(2026-11-10, CLAUDE.md 5절). 서버가 계산엔진(engine/policies.py)에서 받아 붙인다.
     return out
 
 
@@ -151,47 +146,8 @@ def _fmt(var: str, v) -> str:
     return str(v)
 
 
-def reverse_mortgage_age(family: dict) -> int:
-    """월지급금은 부부 중 나이가 젊은 사람 기준(원문). 집 주인과, 주인과 나이 차이가 SPOUSE_GAP 안인 55세 이상 가족 중 나이 많은 사람을
-    부부로 보고 그중 젊은 쪽. 집이 없으면 가장 나이 많은 가족."""
-    owners = owner_ages(family)
-    if not owners:
-        return max(m["age"] for m in family["members"])
-    o = owners[0]
-    mates = sorted((m["age"] for m in family["members"] if m["age"] >= 55 and m["age"] != o and abs(m["age"] - o) <= SPOUSE_GAP), reverse=True)
-    return min(o, mates[0]) if mates else o
-
-
-def reverse_mortgage_monthly(age: int, home_manwon: float) -> tuple[float, str] | None:
-    """공사 월지급금 예시표(종신지급방식·정액형, 2026.03.01 기준)에서 연령·주택가격으로 읽는다(만원).
-    표에 없는 나이·가격은 앞뒤 칸을 직선으로 이어 계산한 추정이다. 80세 넘으면 80세 줄, 12억 넘으면 12억 칸."""
-    t = load()["PG_reverse_mortgage"]["monthly_table"]
-    if age < 55 or home_manwon <= 0:
-        return None
-    ages = sorted(int(a) for a in t["rows"])
-    a = min(max(age, ages[0]), ages[-1])
-    lo = max(x for x in ages if x <= a)
-    hi = min(x for x in ages if x >= a)
-    eok = min(home_manwon / 10000, t["prices_eok"][-1])
-
-    def at(row_age: int) -> float:
-        row = t["rows"][str(row_age)]
-        ps = t["prices_eok"]
-        if eok <= ps[0]:
-            return row[0] * eok / ps[0]
-        i = max(k for k, p in enumerate(ps) if p <= eok)
-        if i == len(ps) - 1:
-            return row[-1]
-        return row[i] + (row[i + 1] - row[i]) * (eok - ps[i]) / (ps[i + 1] - ps[i])
-    v = at(lo) if lo == hi else at(lo) + (at(hi) - at(lo)) * (a - lo) / (hi - lo)
-    exact = lo == hi and eok in t["prices_eok"]
-    note = "" if exact else " · 표 사이 값은 직선으로 이어 계산한 추정"
-    cap = " · 12억원 넘는 집은 12억원 칸" if home_manwon > 120000 else ""
-    return round(v / 10, 1), f"한국주택금융공사 월지급금 예시표(종신·정액형, 2026.03.01 기준) {age}세·{home_manwon / 10000:g}억원{note}{cap}"
-
-
 def check_quotes() -> list[str]:
-    """G3: 모든 인용이 원문에 글자 그대로 있다. 월지급금 표의 줄은 원문에 같은 순서로 이어서 있다. 문제 목록을 돌려준다."""
+    """G3: 모든 인용이 원문에 글자 그대로 있다. 문제 목록을 돌려준다(주택연금 월지급금 표는 계산엔진 데이터로 옮겨 tests/test_programs.py가 원문과 대조)."""
     problems = []
     for p in load().values():
         _, text = source_text(p["source"])
@@ -203,15 +159,4 @@ def check_quotes() -> list[str]:
             src = source_text(term["source"])[1] if term.get("source") else text
             if term.get("quote") and term["quote"] not in src:
                 problems.append(f"{p['id']} terms.{k}: {term['quote']}")
-        t = p.get("monthly_table")
-        if t:
-            _, ttext = source_text(t["source"])
-            lines = [x.strip() for x in ttext.split("\n")]
-            for q in (t["basis_quote"], t["example_quote"]):
-                if q not in ttext:
-                    problems.append(f"{p['id']} table quote: {q}")
-            for age, row in t["rows"].items():
-                want = [f"{age}세"] + [f"{v:,}" for v in row]
-                if not any(lines[i:i + len(want)] == want for i in range(len(lines))):
-                    problems.append(f"{p['id']} table row {age}세")
     return problems

@@ -257,6 +257,10 @@
    "features": [],
    "requires_home_sale": false,
    "summary": "노후에 연금으로 받으려고 오래 모으는 상품이에요. 세금 혜택이 있어요.",
+   "requires": {
+    "before_retirement": true,
+    "why": "연금저축은 일하는 동안 오래 모아 두었다가 은퇴 뒤 연금으로 받는 상품이라, 이미 은퇴한 분의 노후 생활비에는 연결하지 않았어요"
+   },
    "data": "none",
    "data_note": "연금저축 공시 API 응답이 비정상이라 아직 못 받았어요(docs/06 부록 A)"
   },

@@ -15,6 +15,9 @@ from functools import lru_cache
 from pathlib import Path
 
 from engine.fmt import won
+from engine.policies import acquisition_tax, own_money_with_ltv
+
+from . import family as F
 
 ROOT = Path(__file__).resolve().parents[1]
 SNAP = ROOT / "knowledge" / "sources" / "S_reb_house_price_202609.json"
@@ -24,12 +27,14 @@ TYPES = {"apt": "아파트", "row": "연립·다세대", "detached": "단독주�
 GROUPS = ("00000", "00001", "00002")
 SPLIT = {"12000": ("12002", "12001")}  # 원본 '광주'(12000) → 광주권역, 전남권역
 
-# 원문 인용(글자 그대로, tests/test_world_size.py가 원문에 있는지 검사)
-LTV = {"source": "S_doc_nhuf_didimdol_20261103", "rate": 70,
-       "quote": "LTV 70%, DTI 60% 이내. 단, 생애최초 주택구입자는 LTV 80% 적용하되, 수도권·규제지역 소재 주택 구입시 LTV 70% 적용"}
-TAX = {"source": "S_doc_law_local_tax_20261108",
-       "low": {"limit": 60000, "rate": 1.0, "quote": "가. 취득당시가액이 6억원 이하인 주택: 1천분의 10"},
-       "high": {"limit": 90000, "rate": 3.0, "quote": "다. 취득당시가액이 9억원을 초과하는 주택: 1천분의 30"}}
+# 계산 규칙(LTV·취득세율)과 원문 인용은 계산엔진 데이터 data/assumptions.json home_purchase에 있고, 계산은 engine/policies.py가 한다
+# (2026-11-11, CLAUDE.md 5절). 여기서는 화면 문구만 만든다. 인용이 원문에 있는지는 check_quotes·tests/test_world_size.py가 본다.
+def _rules() -> dict:
+    return F.assumptions()["home_purchase"]
+
+
+LTV = _rules()["ltv"]
+TAX = _rules()["acquisition_tax"]
 
 
 @lru_cache(maxsize=1)
@@ -57,11 +62,10 @@ def options() -> dict:
 
 
 def _tax_line(price: float) -> str:
-    if price <= TAX["low"]["limit"]:
-        return f"약 {won(price * TAX['low']['rate'] / 100)}(집값의 1%)"
-    if price > TAX["high"]["limit"]:
-        return f"약 {won(price * TAX['high']['rate'] / 100)}(집값의 3%)"
-    return "집값의 1~3% 사이(6억~9억원 구간은 법령의 계산식을 따라요)"
+    t = acquisition_tax(price)  # 계산은 계산엔진
+    if t["amount"] is None:
+        return "집값의 1~3% 사이(6억~9억원 구간은 법령의 계산식을 따라요)"
+    return f"약 {won(t['amount'])}(집값의 {t['rate']:g}%)"
 
 
 def home(region: str | None, typ: str | None) -> dict | None:
@@ -75,7 +79,7 @@ def home(region: str | None, typ: str | None) -> dict | None:
                 "message": "이 지역은 이 집 종류의 가격을 따로 공표하지 않아요"}
     name = next(x["name"] for x in regions() if x["code"] == region)
     med, mean = v["median_sale"], v.get("mean_sale")
-    own = med * (100 - LTV["rate"]) / 100
+    own = own_money_with_ltv(med)  # 계산은 계산엔진
     y, m = _snap()["month"].split("-")
     month = f"{y}년 {int(m)}월"
     lines = [

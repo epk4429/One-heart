@@ -18,6 +18,7 @@ from pathlib import Path
 
 from engine.fmt import won
 from engine.product_math import METHODS, after_tax, deposit_interest, loan_cost, saving_interest
+from engine.rates import my_rate
 from llm import family as F
 
 from . import conditions as C
@@ -190,7 +191,6 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
         if not ok or no:
             excluded.append({"name": p["name"].replace("\n", " "), "provider": _short(p["provider"]), "reason": why or no})
             continue
-        gap = max(0.0, (opt["max_rate"] or opt["base_rate"]) - opt["base_rate"])
         items, mine, not_mine = [], [], []
         for b in rec["benefits"]:  # 사람 조건: 해당하면 우대에 넣고(명수별이면 그 금리), 해당 안 되면 뺀다
             st, pp = C.judge_person(b["who"], me["age"], me["kids"], me["flags"]) if b.get("who") and b.get("role") != "group" else (None, None)
@@ -201,11 +201,9 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
                 not_mine.append(b)
                 b = {**b, "add_pp": 0}
             items.append(b)
-        cap = rec["check"]["cap_pp"]
-        want = C.applicable(items, picked | {"_person"})
-        bonus = round(min(want, gap, cap if cap is not None else gap), 2)
-        held = round(want - bonus, 2) if want > bonus + 0.005 else 0  # 원문 우대 합이 공시 최고 우대금리보다 커서 금리에 다 넣지 않은 몫
-        rate = round(opt["base_rate"] + bonus, 2)
+        # 내가 받을 금리(기본 + 우대, 공시 최고 우대폭·원문 상한 안)는 계산엔진이 낸다(2026-11-11). 어떤 항목이 해당하는지는 위에서 판정
+        mr = my_rate(opt["base_rate"], opt["max_rate"], items, picked | {"_person"}, rec["check"]["cap_pp"])
+        held, rate = mr["held"], mr["rate"]
         got = [b for b in items if b.get("role") != "group" and b["tag"] in picked and (b["add_pp"] or 0) > 0]
         more = [b for b in items if b.get("role") != "group" and b["kind"] == "action" and b["tag"] not in picked and (b["add_pp"] or 0) > 0]
         maybe = [b for b in items if b.get("role") != "group" and b["kind"] in ("attribute", "relation") and b["tag"] != "_person"

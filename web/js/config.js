@@ -8,5 +8,8 @@
   const HIDE = {
     graph_link: true, // 상품 추천 화면의 '온톨로지 연결 그래프 보기' 링크(/graph.html 자체는 설명용으로 남김)
   };
-  window.ONEHEART = { API_BASE: onPages ? VERCEL_API : "", HIDE };
+  // 파일럿 설문 주소(외부 설문 도구, docs/01_파일럿_개요.md 5절). 비워 두면 가족 홈에 설문 링크가 나오지 않는다.
+  // 설문은 아직 계획만(형님 결정). 만들면 여기에 https:// 주소를 넣는다.
+  const SURVEY_URL = "";
+  window.ONEHEART = { API_BASE: onPages ? VERCEL_API : "", HIDE, SURVEY_URL };
 })();

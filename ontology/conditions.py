@@ -224,34 +224,8 @@ def _group(items: list[dict]) -> None:
                 it["alt"] = it["context"]
 
 
-def _sum(items: list[dict]) -> float:
-    total, seen = 0.0, set()
-    for it in items:
-        g = it.get("group")
-        if it.get("role") == "group":
-            kids = [r for r in items if r.get("group") == g and r is not it]
-            got = [r["add_pp"] or 0 for r in kids]
-            total += min(sum(got) if it["group_rule"] == "sum" else max(got, default=0), it["add_pp"])
-        elif g and g[0] in "ta":
-            if g not in seen:
-                total += max(r["add_pp"] for r in items if r.get("group") == g)
-                seen.add(g)
-        elif not g:
-            total += it["add_pp"] or 0
-    return total
-
-
-def applicable(items: list[dict], tags: set[str]) -> float:
-    """고른 종류(tags)의 항목만 충족했을 때 받는 우대(상한 줄 적용 전). 묶음·단계형·택일 규칙은 reachable과 같다."""
-    picked = [{**it, "add_pp": (it["add_pp"] or 0) if it.get("role") == "group" or it["tag"] in tags else 0} for it in items]
-    return reachable(picked)
-
-
-def reachable(items: list[dict]) -> float:
-    """뽑은 항목을 모두 충족할 때 받을 수 있는 최대(상한 줄 적용 전). 고객 구분 택일 무리는 그중 큰 쪽."""
-    alts = sorted({it["alt"] for it in items if it.get("alt")})
-    base = _sum([it for it in items if not it.get("alt")])
-    return round(base + max((_sum([it for it in items if it.get("alt") == a]) for a in alts), default=0.0), 2)
+# 우대 합산(묶음은 상한까지, 단계형·택일은 그중 큰 것)은 계산엔진이 한다(2026-11-11, CLAUDE.md 5절). 온톨로지는 항목을 만들고 판정만.
+from engine.rates import applicable, reachable  # noqa: E402,F401  (예전 이름 그대로 쓰는 곳이 있어 다시 내보낸다)
 
 
 # ---------- 사람 조건(5단계): 우대·가입대상의 사람 조건을 가족 정보로 판정 ----------

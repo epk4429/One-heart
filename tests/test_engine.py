@@ -169,3 +169,13 @@ def test_amortizing_payment_must_exceed_interest():
     req = _base()
     req["start"]["loans"] = [{"id": "L1", "balance": 10000, "rate": 12, "kind": "amortizing", "payment": 50}]
     assert simulate(req)["error"]["field"] == "start.loans[0].payment"
+
+
+@pytest.mark.parametrize("case", CASES, ids=[c["case_id"] for c in CASES])
+def test_min_pool_is_lowest_monthly_balance(case):
+    """'가장 적을 때 예금'(1-5, 노후처럼 'N년 이상'으로 같게 보이는 방법 구분): 달마다 끝의 예금 중 가장 적은 값과 그 달."""
+    for r in simulate(case["request"])["results"]:
+        ends = [m["end"] for m in r["monthly"]]
+        assert r["min_pool"] == min(ends), r["option_id"]
+        assert r["monthly"][r["min_pool_month"] - 1]["end"] == r["min_pool"], r["option_id"]
+        assert r["min_pool"] <= r["end_pool"] + 0.05, r["option_id"]

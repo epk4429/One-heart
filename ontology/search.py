@@ -55,9 +55,34 @@ def passes(pt: dict, constraint_id: str) -> tuple[bool, str]:
     return ok, ("" if ok else rule["reason"])
 
 
-def recommend(mappings: list[dict], commitments: dict[str, dict]) -> list[dict]:
+def retired_target(members: list[dict], base_member_id: str | None = None) -> bool | None:
+    """노후 생활비의 주인이 이미 은퇴했는지(1-5, 2026-11-10). 가족이 가족방 만들기에서 고른 '지금 하는 일'로만 판단하고 나이로 짐작하지 않는다.
+    - 목표에 '누구 기준'(base_member_id)이 있으면 그 사람: 은퇴했어요 → True, 다른 것 → False.
+    - 없으면 가족 전체: 일하는 사람이 아무도 없고 은퇴한 사람이 있으면 True.
+    - 하는 일을 모르면 None(판단하지 않음)."""
+    if base_member_id:
+        m = next((x for x in members if x.get("member_id") == base_member_id), None)
+        if m is None or not m.get("work"):
+            return None
+        return m["work"] == "retired"
+    works = [m.get("work") for m in members if m.get("work")]
+    if not works:
+        return None
+    return "working" not in works and "retired" in works
+
+
+def person_fails(pt: dict, retired: bool | None) -> str | None:
+    """상품 유형의 가족 상황 조건(requires.before_retirement)에 맞지 않으면 그 이유."""
+    r = pt.get("requires") or {}
+    if r.get("before_retirement") and retired is True:
+        return r.get("why") or "이미 은퇴한 분께는 연결하지 않아요"
+    return None
+
+
+def recommend(mappings: list[dict], commitments: dict[str, dict], retired: bool | None = None) -> list[dict]:
     """mappings: [{commitment_id, need_ids, constraint_ids}] (역할 8 출력, 검증 통과 후).
-    commitments: {commitment_id: {"no": 1, "text": ...}}. 목표에서 나온 필요는 commitment_id가 "goal"."""
+    commitments: {commitment_id: {"no": 1, "text": ...}}. 목표에서 나온 필요는 commitment_id가 "goal".
+    retired: 노후 생활비의 주인이 이미 은퇴했는지(retired_target). None이면 이 조건을 보지 않는다."""
     o = load()
     out = []
     for mp in mappings:
@@ -68,6 +93,10 @@ def recommend(mappings: list[dict], commitments: dict[str, dict]) -> list[dict]:
             cands = [o["types"][t] for t in need["satisfied_by"]]
             chosen, excluded = [], []
             for pt in cands:
+                why_person = person_fails(pt, retired)
+                if why_person:  # 예: 이미 은퇴한 분의 노후 생활비에 연금저축(일하는 동안 오래 모으는 상품)은 연결하지 않는다
+                    excluded.append({"product_type_id": pt["id"], "label": pt["label"], "constraint_id": "person", "reason": why_person})
+                    continue
                 fails = [(c, r) for c in mp.get("constraint_ids", []) for ok, r in [passes(pt, c)] if not ok]
                 if fails:
                     excluded.append({"product_type_id": pt["id"], "label": pt["label"],

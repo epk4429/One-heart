@@ -43,6 +43,9 @@ QUESTIONS = [
 ]
 
 
+WORK = {"working": "일하고 있어요", "retired": "은퇴했어요", "none": "일하지 않아요(살림·학업 등)"}
+
+
 class FamilyError(ValueError):
     pass
 
@@ -95,10 +98,13 @@ def validate(raw: dict) -> dict:
             raise FamilyError(f"구성원 {i + 1}: id가 잘못됐어요")
         seen.add(mid)
         name = _s(m.get("name"), f"구성원 {i + 1} 이름", LIMITS["name"])
+        work = m.get("work") or None  # 지금 하는 일(가족방 만들기에서 가족이 고름, 2026-11-10). 예전에 저장한 가족은 없을 수 있다
+        if work is not None and work not in WORK:
+            raise FamilyError(f"{name}님의 하는 일을 골라 주세요")
         members.append({"member_id": mid, "name": name, "initial": name[0],
                         "role": _s(m.get("role"), f"{name}님의 관계", LIMITS["role"]),
                         "age": int(_n(m.get("age"), f"{name}님의 나이", 1, 110)),
-                        "easy_mode": bool(m.get("easy_mode", False))})
+                        "easy_mode": bool(m.get("easy_mode", False)), "work": work})
     room = raw.get("room") or {}
     host = room.get("host_member_id")
     if host not in seen:

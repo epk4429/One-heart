@@ -11,6 +11,7 @@ import json
 import os
 
 from engine import ENGINE_VERSION, compare, simulate
+from engine.policies import reverse_mortgage_age, reverse_mortgage_monthly
 from llm import family as F
 from llm import pipeline as P
 from llm import goals
@@ -444,7 +445,8 @@ def r_rag_search(b, _ctx):
     q = str(b.get("query") or "").strip()[:80]
     if not q:
         raise ApiError("bad_request", "찾을 질문이 필요해요")
-    topic = any(q == t[1] for ts in RAG_TOPICS.values() for t in ts)
+    # 주제 버튼(여러 원문 용어를 넣은 검색어)은 낱말 일부만 맞아도 된다. 제도 카드의 근거 법령 검색어도 같다(topic: true, 화면 PROG_LAW)
+    topic = bool(b.get("topic")) or any(q == t[1] for ts in RAG_TOPICS.values() for t in ts)
     return {"query": q, "results": rag_search(q, laws or None, topic=topic),
             "note": "법령 원문을 그대로 보여 줘요(AI가 요약하지 않았어요). 자격·금리 판단은 위 판정을 보세요. 최종 판단은 기관이 해요."}
 
@@ -475,7 +477,13 @@ def r_programs_judge(b, _ctx):
     fam = _family(b)
     routes = need_routes().get(str(b["need_id"]), {}).get("routes", [])
     ids = [pid for r in routes if r["route"] == "program" for pid in r["programs"]]
-    return {"need_id": b["need_id"], "programs": [judge_program(pid, fam) for pid in dict.fromkeys(ids)]}
+    out = [judge_program(pid, fam) for pid in dict.fromkeys(ids)]
+    for g in out:  # 판정은 온톨로지, 금액은 계산엔진(2026-11-10, CLAUDE.md 5절)
+        if g["program_id"] == "PG_reverse_mortgage" and g["status"] != "not_eligible":
+            m = reverse_mortgage_monthly(reverse_mortgage_age(fam["members"], fam["finance"]), F.profile(fam)["home_total"])
+            if m:
+                g["estimate"] = {"label": "예상 월지급금", "monthly_manwon": m[0], "basis": m[1]}
+    return {"need_id": b["need_id"], "programs": out}
 
 
 REVIEW_FIELDS = {  # 재점검에서 바꿀 수 있는 상황(기획안 15쪽: 소득·지출·금리·자산이 바뀌면 지난 합의와의 차이를 다시 계산)

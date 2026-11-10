@@ -35,6 +35,14 @@ def _yearly(det: DeterministicResult) -> list[dict]:
     return out
 
 
+def _min_pool(det: DeterministicResult) -> dict:
+    """달마다 끝의 예금 중 가장 적은 값과 그 달(같으면 먼저 온 달)."""
+    if not det.rows:
+        return {"min_pool": None, "min_pool_month": None}
+    low = min(det.rows, key=lambda r: (r.end, r.m))
+    return {"min_pool": round(low.end, 1), "min_pool_month": low.m}
+
+
 def first_month_flow(det: DeterministicResult) -> float:
     """첫 달에 늘거나 줄어드는 돈(현금흐름 + 이벤트 + 대출 상환, 일시금 제외)."""
     r = det.rows[0]
@@ -174,6 +182,8 @@ def simulate(raw: dict, *, include_monthly: bool = True) -> dict:
             "goal_hit_years": fmt.years_from_months(det.hit_month) if det.hit_month else None,
             "goal_hit_display": fmt.years_display(det.hit_month, req.horizon_months, req.goal.type),
             "end_pool": round(det.end_pool, 1),
+            # 계산 기간 동안 예금이 가장 적었던 때(노후처럼 '28년 이상'으로 같게 보이는 방법을 구분하려고, 1-5)
+            **_min_pool(det),
             "monthly_flow": first_month_flow(det),
             "debt_free_month": det.debt_free_month,
             "start_debt": round(sum(l.balance for l in req.loans if not l.in_pool), 1),

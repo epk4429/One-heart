@@ -104,13 +104,14 @@ def _bounds(family: dict) -> dict:
 
 
 def _reverse_mortgage_monthly(family: dict, goal: dict) -> tuple[float, str] | None:
-    """주택연금 월 수령액: 한국주택금융공사 월지급금 예시표(ontology/programs.json, 원문 인용)에서 부부 중 젊은 사람 나이·집 시세로.
-    2026-11-03 전에는 가상 비율(집값 × 나이별 %, 임의결정 26)이었다."""
-    from ontology.programs import judge, reverse_mortgage_age, reverse_mortgage_monthly
+    """주택연금 월 수령액: 계산엔진(engine/policies.py)이 엔진 데이터의 공사 월지급금 예시표로 계산한다(2026-11-10, CLAUDE.md 5절).
+    온톨로지는 '자격이 되나'(판정)만 한다. 2026-11-03 전에는 가상 비율(임의결정 26)이었다."""
+    from engine.policies import reverse_mortgage_age, reverse_mortgage_monthly
+    from ontology.programs import judge
     home = profile(family)["home_total"]
     if not home or judge("PG_reverse_mortgage", family)["status"] == "not_eligible":
-        return None  # 집 주인 부부가 55세 미만 등 공식 조건에 확실히 안 맞으면 미래 계산에도 내놓지 않는다
-    m = reverse_mortgage_monthly(reverse_mortgage_age(family), home)
+        return None  # 판정(온톨로지): 집 주인 부부가 55세 미만 등 공식 조건에 확실히 안 맞으면 미래 계산에 방법으로 내놓지 않는다
+    m = reverse_mortgage_monthly(reverse_mortgage_age(family["members"], family["finance"]), home)
     return (round(m[0]), m[1]) if m else None
 
 
@@ -292,12 +293,11 @@ def engine_option(family: dict, goal: dict, spec: dict) -> dict:
                                 "monthly_amount": monthly, "rate": assumptions()["reverse_mortgage"]["debt_rate"]})
             changes.append(f"주택연금 {pol['from_month']}개월째부터 월 {won(monthly)}({basis})")
         elif pol["policy"] == "sell_home":
-            sh = assumptions()["sell_home"]
-            home = profile(family)["home_total"]
-            net = round(home * (1 - pol["new_home_ratio"]) - home * sh["cost_ratio"])
+            from engine.policies import sell_home  # 금액은 계산엔진이(CLAUDE.md 5절)
+            sold = sell_home(profile(family)["home_total"], pol["new_home_ratio"])
+            net = sold["net"]
             lumps.append({"month": pol["month"], "amount": net, "label": "집 팔고 남는 돈"})
-            aux_changes.append({"type": "set", "account_id": "home", "month": pol["month"],
-                                "value": round(home * pol["new_home_ratio"])})
+            aux_changes.append({"type": "set", "account_id": "home", "month": pol["month"], "value": sold["new_home"]})
             changes.append(f"{pol['month']}개월째 집을 팔고 시세 {pol['new_home_ratio'] * 100:g}% 집으로 옮겨요. 남는 돈 {won(net)}")
         elif pol["policy"] == "lump_repayment":
             loan = next(i for i in family["finance"] if i["item_id"] == pol["item_id"])
