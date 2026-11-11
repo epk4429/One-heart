@@ -294,3 +294,73 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .numtab td small{display:block;font-size:11.5px;color:var(--muted)}
 .numtab .tag{font-size:11px;border:1px solid var(--green);color:var(--green);padding:0 5px;margin-left:4px}
 .numtab th + th{text-align:right}
+
+/* ---------- 공동 목표 설정 개편(2026-11-11): 진행 띠 · 접는 줄 · 숫자 입력 · 참고 · 정한 목표 ---------- */
+.g-flow{display:flex;margin:6px 0 30px}
+.g-flow div{flex:1;position:relative;padding-top:14px;font-size:13.5px;color:var(--muted);letter-spacing:-.01em}
+.g-flow div::before{content:"";position:absolute;left:0;right:6px;top:0;height:3px;background:var(--line)}
+.g-flow div.done{color:var(--ink2)}.g-flow div.done::before,.g-flow div.now::before{background:var(--green)}
+.g-flow div.done::after{content:"✓";margin-left:6px;color:var(--green);font-weight:800}
+.g-flow div.now{color:var(--green);font-weight:700}
+.g-folds{border-bottom:1px solid var(--line)}
+.g-fold{border-top:1px solid var(--line)}
+.g-fsum{display:flex;align-items:center;gap:12px;width:100%;padding:15px 2px;border:0;background:none;text-align:left;font-size:15px;color:var(--ink2)}
+.g-ok{width:18px;height:18px;border-radius:50%;background:var(--green);color:#fff;font-size:10.5px;font-weight:800;display:grid;place-items:center;flex:none}
+.g-ft{flex:1}.g-tg{font-size:13px;color:var(--muted)}
+.g-fin{padding:2px 2px 22px 30px}
+.g-fin .pager{justify-content:flex-start}
+.g-h1{margin-top:44px}
+.g-ask{margin-top:30px;border-bottom:1px solid var(--line)}
+.g-fl{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 20px;padding:18px 0;border-top:1px solid var(--line)}
+.g-lb{font-size:15.5px;font-weight:700}
+.g-sb{display:block;margin-top:2px;font-size:13.5px;color:var(--muted);font-weight:400}
+.g-inp{display:flex;align-items:baseline;gap:8px}
+.g-inp input{width:150px;text-align:right;font-size:19px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums;border:0;border-bottom:1.5px solid var(--ink);background:transparent;padding:4px 2px;border-radius:0}
+.g-inp input:focus{outline:0;border-bottom-color:var(--green)}
+.g-inp span{font-size:15px;font-weight:600;color:var(--ink2)}
+.g-refs{margin-top:30px}
+.g-refs h2{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin-bottom:6px}
+.g-ref{padding:16px 0;border-top:1px solid var(--line)}
+.g-refs .g-ref:last-child{border-bottom:1px solid var(--line)}
+.g-kk{font-size:13px;color:var(--muted);font-weight:600}
+.g-vv{font-size:17px;margin-top:2px;line-height:1.6}
+.g-vv b{font-weight:800}.g-vv b.g{color:var(--green)}
+.g-more{display:inline-block;margin-top:6px;padding:0;border:0;border-bottom:1px dotted var(--green);background:none;font-size:13.5px;color:var(--green)}
+.g-det{margin-top:10px}
+.g-final{margin-top:40px;padding-top:26px;border-top:2px solid var(--ink)}
+.g-lab{font-size:12.5px;font-weight:700;color:var(--green);letter-spacing:.1em}
+.g-final .big{margin-top:6px}.g-final .big em{font-style:normal;color:var(--green)}
+.g-agreed{font-size:13.5px;color:var(--green);font-weight:700}
+.g-agree{width:100%;margin-top:20px;padding:16px 24px;font-size:16.5px}
+.g-note{text-align:center;margin-top:8px}
+.g-fin .aibox .to{display:none}
+
+/* ---------- 상품 추천 개편(2026-11-11): 상품 카드(접힌 채로 핵심이 보이고, 누르면 전부 펼침) ---------- */
+.pc-count{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14.5px;color:var(--ink2)}
+.pc-count b{color:var(--green);font-weight:800}
+.pcards{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.pcard{border:1px solid var(--line);background:#fff;transition:border-color .15s}
+.pcard:hover{border-color:var(--ink2)}.pcard.open{border-color:var(--green)}
+.pc-sum{display:grid;grid-template-columns:minmax(0,1fr) auto 16px;column-gap:14px;align-items:center;width:100%;padding:18px 20px;border:0;background:none;text-align:left;font:inherit;color:inherit}
+.pc-sum.static{grid-template-columns:minmax(0,1fr) auto;cursor:default}
+.pc-mid{display:flex;flex-direction:column;gap:3px;min-width:0}
+.pc-nm{font-size:17.5px;font-weight:700;letter-spacing:-.015em;line-height:1.4}
+.pc-tag{font-size:13.5px;color:var(--green);font-weight:600}
+.pc-pk{font-size:14px;color:var(--ink2);margin-top:3px}
+.pc-pk b{color:var(--ink);font-weight:700}
+.chkc{color:var(--warm);font-weight:700}
+.pc-rt{text-align:right;min-width:92px;max-width:210px}
+.pc-rt b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.2}
+.pc-rt b.pc-st{font-size:14px;font-weight:700;letter-spacing:0;line-height:1.45;white-space:normal;word-break:keep-all}
+.pc-rt b.pc-st.ok{color:var(--green)}.pc-rt b.pc-st.chk{color:var(--warm)}.pc-rt b.pc-st.no{color:var(--bad)}
+.pc-rt small{font-size:12px;color:var(--muted)}
+.pc-arr{color:var(--muted);font-size:13px;transition:transform .15s}
+.pcard.open .pc-arr{transform:rotate(180deg)}
+.pc-bd{margin:0 20px;padding:18px 0 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.pc-bd .why2{margin:0}
+.pc-type+.pc-type{margin-top:14px}
+.pc-selfs{margin-top:34px}
+.pc-selfs h2{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin-bottom:4px}
+.pc-self{padding:14px 0;border-top:1px solid var(--line);font-size:15px;color:var(--ink2)}
+.pc-self b{color:var(--ink);margin-right:8px}
+@media (max-width:640px){.pc-sum{grid-template-columns:minmax(0,1fr) 16px}.pc-rt{grid-column:1;grid-row:2;text-align:left;margin-top:8px}.pc-rt b{display:inline;font-size:18px;margin-right:6px}}

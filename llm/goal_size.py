@@ -73,7 +73,8 @@ def anchors(fam: dict, gi: dict) -> dict:
     lines, facts = [], []
 
     def add(fid: str, value, unit: str, display: str, label: str, note: str = "", fixed: bool = True):
-        lines.append({"label": label, "display": display, "note": note})
+        # key: 가족이 정한 목표와 직접 이어지는 줄(화면이 맨 위에 한 줄로 먼저 보여 주고, 나머지는 '자세히 보기'에 접는다)
+        lines.append({"label": label, "display": display, "note": note, "key": not fixed})
         if fixed:
             facts.append(F._fact(fid, value, unit, display, label))
 
