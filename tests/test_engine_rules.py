@@ -1,6 +1,6 @@
 """계산은 계산엔진만(CLAUDE.md 5절, 2026-11-10~11): 온톨로지·AI 쪽에서 옮겨 온 계산 규칙의 테스트.
-- 우대금리 합산(engine/rates.py), 주택연금·집 팔기·세상 기준(engine/policies.py)
-- 온톨로지·세상 기준 코드에는 계산 규칙이 남아 있지 않다."""
+- 우대금리 합산(engine/rates.py), 주택연금·집 팔기·통계 기준(engine/policies.py)
+- 온톨로지·통계 기준 코드에는 계산 규칙이 남아 있지 않다."""
 
 import inspect
 
@@ -51,7 +51,7 @@ def test_sell_home_from_engine_data():
 
 
 def test_no_calculation_rules_left_outside_engine():
-    """온톨로지·세상 기준 코드에 계산식이 남아 있지 않다(엔진 함수를 부르기만)."""
+    """온톨로지·통계 기준 코드에 계산식이 남아 있지 않다(엔진 함수를 부르기만)."""
     assert C.reachable is R.reachable and C.applicable is R.applicable
     assert "def _sum" not in inspect.getsource(C)
     src = inspect.getsource(fit)

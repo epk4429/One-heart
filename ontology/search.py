@@ -134,7 +134,8 @@ def recommend(mappings: list[dict], commitments: dict[str, dict], retired: bool 
 
 def _reason(com: dict, need: dict, constraint_ids: list[str], pt: dict | None) -> str:
     o = load()
-    head = f"약속 {com['no']} '{com['text']}'" if com.get("no") else "함께 정한 목표"
+    q = "" if str(com.get("text", "")).startswith("'") else "'"  # 약속 문장이 이미 따옴표로 시작하면 한 번 더 감싸지 않는다
+    head = f"약속 {com['no']} {q}{com['text']}{q}" if com.get("no") else "함께 정한 목표"
     why = f" ({' · '.join(o['constraints'][c]['label'] for c in constraint_ids)})" if constraint_ids else ""
     if pt is None:
         topic = "은" if com.get("no") else "는"

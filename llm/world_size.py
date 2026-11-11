@@ -1,4 +1,4 @@
-"""공동 목표 설정 2단계 '세상 기준': 공공 통계·제도 원문으로 만든 기준값(docs/08 4절, 2026-11-08).
+"""공동 목표 설정 2단계 '통계 기준': 공공 통계·제도 원문으로 만든 기준값(docs/08 4절, 2026-11-08).
 
 '우리 가족 기준'(llm/goal_size.py, 엔진 계산) 옆에 보여 준다. 숫자는 모두 원문에서 코드가 읽는다(AI가 내지 않는다).
 확보한 것만 쓴다. 지금은 내 집 마련만 있다.
@@ -69,7 +69,7 @@ def _tax_line(price: float) -> str:
 
 
 def home(region: str | None, typ: str | None) -> dict | None:
-    """내 집 마련 세상 기준. {"lines", "sources", "region", "type"}. 지역·종류가 없으면 전국 아파트."""
+    """내 집 마련 통계 기준. {"lines", "sources", "region", "type"}. 지역·종류가 없으면 전국 아파트."""
     by = {r["code"]: r for r in _snap()["regions"]}
     region = region if region in {x["code"] for x in regions()} else "00000"
     typ = typ if typ in TYPES else "apt"
@@ -99,7 +99,7 @@ def home(region: str | None, typ: str | None) -> dict | None:
 
 
 def world(fam: dict, gi: dict, sel: dict | None) -> dict | None:
-    """카테고리에 맞는 세상 기준(없으면 None)."""
+    """카테고리에 맞는 통계 기준(없으면 None)."""
     if gi["category"] == "home":
         sel = sel if isinstance(sel, dict) else {}
         out = home(sel.get("region"), sel.get("type"))

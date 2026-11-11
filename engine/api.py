@@ -44,7 +44,7 @@ def _min_pool(det: DeterministicResult) -> dict:
 
 
 def first_month_flow(det: DeterministicResult) -> float:
-    """첫 달에 늘거나 줄어드는 돈(현금흐름 + 이벤트 + 대출 상환, 일시금 제외)."""
+    """첫 달에 모이는 돈(현금흐름 + 이벤트 + 대출 상환, 일시금 제외). 화면 이름은 '매달 모이는 돈'."""
     r = det.rows[0]
     return round(r.inflow + r.outflow, 1)
 
@@ -59,16 +59,16 @@ def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
         for i, (lab, a) in enumerate(parts)
     )
     rows = [
-        {"key": "start", "label": "출발 금액", "value": req.start_pool, "display": fmt.won(req.start_pool),
+        {"key": "start", "label": "보유 자산", "value": req.start_pool, "display": fmt.won(req.start_pool),
          "detail": req.pool_label, "source": "financial_snapshot"},
-        {"key": "monthly_flow", "label": "한 달에 늘거나 줄어드는 돈", "value": flow,
+        {"key": "monthly_flow", "label": "매달 모이는 돈", "value": flow,
          "display": ("+" if flow > 0 else "") + fmt.won(flow), "detail": detail, "source": "option"},
-        {"key": "return", "label": "1년에 불어나는 비율", "value": opt.expected_return,
+        {"key": "return", "label": "수익률", "value": opt.expected_return,
          "display": "연 " + fmt.pct(opt.expected_return),
          "source": f"assumption:{opt.return_assumption_id}" if opt.return_assumption_id else "assumption"},
     ]
     if req.inflation:
-        rows.append({"key": "inflation", "label": "물가 오름(생활비에 반영)", "value": req.inflation,
+        rows.append({"key": "inflation", "label": "물가 상승률(생활비에 반영)", "value": req.inflation,
                      "display": "연 " + fmt.pct(req.inflation), "source": "assumption:inflation"})
     for l in req.loans:
         how = "이자만 내요" if l.kind == "interest_only" else f"한 달 {fmt.won(l.payment)}씩 갚아요"
@@ -77,11 +77,11 @@ def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
                      + (" · 목표 금액에서 이미 뺐어요" if l.in_pool else ""), "source": "financial_snapshot"})
     for x in opt.extra_payments:
         lab = next((l.label for l in req.loans if l.id == x.loan_id), x.loan_id)
-        rows.append({"key": f"extra:{x.loan_id}", "label": f"{lab} 더 갚기", "value": -x.monthly,
+        rows.append({"key": f"extra:{x.loan_id}", "label": f"{lab} 추가 상환", "value": -x.monthly,
                      "display": fmt.won(-x.monthly) + " / 한 달", "detail": f"{x.from_month}개월째부터", "source": "option"})
     for x in opt.loan_prepayments:
         lab = next((l.label for l in req.loans if l.id == x.label), x.label)
-        rows.append({"key": f"prepay:{x.label}:{x.month}", "label": f"{lab} 한 번에 갚기", "value": -x.amount,
+        rows.append({"key": f"prepay:{x.label}:{x.month}", "label": f"{lab} 일시 상환", "value": -x.amount,
                      "display": fmt.won(-x.amount), "detail": f"{x.month}개월째, 예금에서", "source": "option"})
     for e in opt.events:
         rows.append({"key": f"event:{e.label}", "label": e.label, "value": e.monthly_delta,
@@ -91,7 +91,7 @@ def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
         rows.append({"key": f"lump:{l.month}", "label": l.label or "한 번에 들어오는 돈", "value": l.amount,
                      "display": ("+" if l.amount > 0 else "") + fmt.won(l.amount),
                      "detail": f"{l.month}개월째", "source": "assumption"})
-    rows.append({"key": "goal", "label": "가족이 정한 기준", "value": req.goal.target_amount,
+    rows.append({"key": "goal", "label": "가족이 정한 목표", "value": req.goal.target_amount,
                  "display": req.goal.label or (fmt.won(req.goal.target_amount) if req.goal.type == "reach_target"
                                                else {"runway": "예금이 바닥나지 않기", "debt_free": "대출 다 갚기"}[req.goal.type]),
                  "source": "goal_setting"})

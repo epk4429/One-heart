@@ -69,7 +69,7 @@ def _facts_for_llm(facts: dict) -> list[dict]:
 
 def _overview(fam: dict) -> dict:
     p = F.profile(fam)
-    return {"한 달 들어오는 돈": won(p["income_total"]), "한 달 나가는 돈(생활비·용돈)": won(p["expense_total"]),
+    return {"월 수입": won(p["income_total"]), "월 지출(생활비·용돈)": won(p["expense_total"]),
             "한 달 대출 상환": won(p["loan_payment_total"]), "예금·투자": won(p["liquid_total"]),
             "전세 보증금": won(p["lease_deposit_total"]), "집 시세": won(p["home_total"]), "대출 잔액": won(p["loan_total"])}
 
@@ -540,7 +540,7 @@ def agreement_revise(fam: dict, goal: dict, specs: list[dict], sim: dict, stance
 
 
 def contribution_facts(fam: dict, spec: dict, result: dict) -> list[dict]:
-    """분담방식 후보 숫자: 매달 모이는 돈 + 가족끼리 주고받는 돈(보태는 돈·용돈) + 구성원과 연결된 조정 + 대출 더 갚기."""
+    """나누는 방식 후보 숫자: 매달 모이는 돈 + 가족끼리 주고받는 돈(보태는 돈·용돈) + 구성원과 연결된 조정 + 대출 더 갚기."""
     out = []
     if result["monthly_flow"] > 0:
         out.append(F._fact("agree.monthly_saving", result["monthly_flow"], "만원/월", "월 " + won(result["monthly_flow"]),

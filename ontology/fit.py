@@ -41,7 +41,7 @@ TOP = 5
 ADULT = 19  # 대출 비교를 하는 나이(만)
 REGIONS = ("서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주",
            "충청", "전라", "경상")  # 지역 전용 대출(가족 정보에 주소가 없어 판정할 수 없음)
-NOTE = "우리 목표에 잘 맞는 순서예요. 추천이 아니라 정보예요. 선택과 가입은 직접 해요. 가입 전 금융회사에서 조건을 확인하세요. 개발용 예시 데이터(금감원 공시)예요."
+NOTE = "우리 목표에 잘 맞는 순서예요. 추천이 아니라 정보예요. 선택과 가입은 직접 해요. 가입 전 금융회사에서 조건을 확인하세요. 금감원 공시 기준 정보예요."
 
 
 def won_k(v: float) -> str:
@@ -96,7 +96,10 @@ def _conditions() -> list[dict]:
 
 
 def _head(need: dict, commitment: dict | None) -> str:
-    return f"약속 {commitment['no']} '{commitment['text']}'" if commitment and commitment.get("no") else f"'{need.get('label', '')}'"
+    if commitment and commitment.get("no"):
+        q = "" if str(commitment.get("text", "")).startswith("'") else "'"  # 약속 문장이 이미 따옴표로 시작하면 한 번 더 감싸지 않는다
+        return f"약속 {commitment['no']} {q}{commitment['text']}{q}"
+    return f"'{need.get('label', '')}'"
 
 
 def _elig_unsure(r: dict) -> bool:
@@ -110,7 +113,7 @@ def summarize(rows: list, total: int, excluded: int, no_option: int, money_given
     ok = sum(1 for r in rows if r["limit_ok"] is not False and (r["limit_ok"] is True or not money_given) and not _elig_unsure(r))
     unsure = len(rows) - over - ok
     state = "ok" if ok else "unsure" if unsure else "none"
-    parts = [f"가입 조건(나이·자녀·무주택)이 안 맞는 상품 {excluded}개" if excluded else "", f"이 기간·방식이 없는 상품 {no_option}개" if no_option else "",
+    parts = [f"가입 조건(나이·자녀·무주택)이 안 맞는 상품 {excluded}개" if excluded else "", f"고른 기간·방식으로 가입할 수 없는 상품 {no_option}개" if no_option else "",
              f"한도를 넘는 상품 {over}개" if over else "", f"한도·자격을 공시로 정할 수 없는 상품 {unsure}개" if unsure else ""]
     why = ", ".join(x for x in parts if x)
     text = {"ok": f"조건에 맞는 상품이 {ok}개 있어요." if money_given else f"아직 금액을 넣지 않아 한도는 따지지 않았어요. 기본 조건이 맞는 상품이 {ok}개 있어요.",

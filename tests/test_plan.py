@@ -20,7 +20,7 @@ def fam(key):
 
 def test_target_must_exceed_money_already_saved():
     f = fam("newly")
-    with pytest.raises(PlanError, match="지금 모여 있는 돈"):
+    with pytest.raises(PlanError, match="보유 자산"):
         normalize_goal(f, {"type": "reach_target", "target_amount": 8000})
     g = normalize_goal(f, {"type": "reach_target", "target_amount": 30000, "within_months": 60})
     assert g["start_pool"] == 14000  # 예금·투자 4,000 + 보증금 2.5억 − 전세대출 1.5억

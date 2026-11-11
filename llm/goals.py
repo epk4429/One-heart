@@ -29,7 +29,7 @@ CATEGORIES: dict[str, dict] = {
         {"key": "within_years", "label": "언제까지 다 갚고 싶나요", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
         {"key": "priority", "label": "가장 중요한 것", "kind": CHOICE, "options": ["이자 부담 줄이기", "빨리 끝내기", "생활이 흔들리지 않게 천천히"]},
     ]},
-    "retire": {"label": "노후·은퇴 준비", "engine": "runway", "goal_label": "은퇴 후 예금이 버티는 기간", "fields": [
+    "retire": {"label": "노후·은퇴 준비", "engine": "runway", "goal_label": "은퇴 후 예금으로 지낼 수 있는 기간", "fields": [
         {"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER},
         {"key": "retire_age", "label": "은퇴하고 싶은 나이", "kind": NUM, "unit": "세", "min": 40, "max": 90},
         {"key": "monthly_need", "label": "은퇴 후 한 달에 필요한 돈", "kind": NUM, "unit": "만원", "min": 10, "max": 10_000, "decide": True},
@@ -47,10 +47,10 @@ CATEGORIES: dict[str, dict] = {
     "other": {"label": "기타", "engine": None, "goal_label": "", "fields": [
         {"key": "purpose_text", "label": "목표를 한 줄로 적어 주세요", "kind": TEXT, "max": 30},
         {"key": "engine_kind", "label": "어떤 계산이 필요한가요", "kind": CHOICE,
-         "options": ["목표 금액 모으기", "대출 다 갚기", "예금이 얼마나 버티는지"]},
+         "options": ["목표 금액 모으기", "대출 다 갚기", "예금으로 얼마나 지낼 수 있는지"]},
     ]},
 }
-OTHER_ENGINE = {"목표 금액 모으기": "reach_target", "대출 다 갚기": "debt_free", "예금이 얼마나 버티는지": "runway"}
+OTHER_ENGINE = {"목표 금액 모으기": "reach_target", "대출 다 갚기": "debt_free", "예금으로 얼마나 지낼 수 있는지": "runway"}
 # 기타에서 고른 계산에 따라 더 받는 값
 OTHER_EXTRA = {
     "reach_target": [
@@ -99,7 +99,7 @@ def validate_input(raw, member_ids: set[str]) -> dict | None:
         if v is None or (isinstance(v, str) and not v.strip()):
             if f.get("decide"):
                 continue  # 공동 목표 설정 2단계에서 함께 정한다
-            raise GoalInputError(f"'{f['label']}'을(를) 입력해 주세요")
+            raise GoalInputError(f"'{f['label']}' 항목을 입력해 주세요")
         if f["kind"] == NUM:
             out[f["key"]] = round(_num(v, f), 1)
         elif f["kind"] == CHOICE:

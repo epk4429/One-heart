@@ -53,7 +53,7 @@ LAWS = {  # source_id 꼬리 → 법령 이름(국가법령정보센터 현행 �
     "law_housing_supply_rule": "주택공급에 관한 규칙",
     "law_depositor_protection": "예금자보호법",
     "law_tax_special": "조세특례제한법",
-    # 공동 목표 설정 2단계 '세상 기준'(docs/08 4절). RAG 목록(rag/index.py)에는 넣지 않았다
+    # 공동 목표 설정 2단계 '통계 기준'(docs/08 4절). RAG 목록(rag/index.py)에는 넣지 않았다
     "law_local_tax": "지방세법",
     "law_realtor_rule": "공인중개사법 시행규칙",
     "law_ltc_insurance": "노인장기요양보험법",
@@ -69,7 +69,7 @@ DOCS = {  # source_id 꼬리 → (기관, 제목, 주소)
     "nhuf_subscription": ("주택도시기금", "주택청약종합저축", "https://nhuf.molit.go.kr/FP/FP07/FP0701/FP07010101.jsp"),
     "mohw_basic_pension_target": ("보건복지부 기초연금", "기초연금 대상자 안내", "https://basicpension.mohw.go.kr/menu.es?mid=a10102010000"),
     "mohw_basic_pension_amount": ("보건복지부 기초연금", "기초연금액 산정", "https://basicpension.mohw.go.kr/menu.es?mid=a10103010000"),
-    # 공동 목표 설정 2단계 '세상 기준'(docs/08 4절): 장기요양 급여비용(보건복지부 고시, 건강보험공단 법령 정보)
+    # 공동 목표 설정 2단계 '통계 기준'(docs/08 4절): 장기요양 급여비용(보건복지부 고시, 건강보험공단 법령 정보)
     "nhis_ltc_cost_notice": ("국민건강보험공단", "장기요양급여 제공기준 및 급여비용 산정방법 등에 관한 고시",
                              "https://www.nhis.or.kr/lm/lmxsrv/law/lawFullContent.do?SEQ=1637"),
 }

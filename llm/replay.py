@@ -179,7 +179,7 @@ def _r4b(i):
     goal = {"type": "reach_target", "label": "함께 정한 목표 금액 모으기", "target_amount": None, "target_source": None,
             "within_months": None, "base_member_id": None}
     if oldest["age"] >= 60:
-        goal.update(type="runway", label="예금이 버티는 기간", base_member_id=oldest["member_id"])
+        goal.update(type="runway", label="예금으로 지낼 수 있는 기간", base_member_id=oldest["member_id"])
     elif i["has_repaying_loans"] and any(k in text for k in ("빚", "대출", "갚")):
         goal.update(type="debt_free", label="대출 다 갚기")
     else:
@@ -261,9 +261,9 @@ def _r5r(i):
 
 
 def _r6a(i):
-    word = {"reach_target": "목표에 닿아요", "runway": "예금이 버텨요", "debt_free": "대출을 다 갚아요"}[i["goal"]["type"]]
+    word = {"reach_target": "목표에 닿아요", "runway": "예금으로 지낼 수 있어요", "debt_free": "대출을 다 갚아요"}[i["goal"]["type"]]
     return {"per_option": {o["option_id"]: {"easy": f"{o['option_id']}를 고르면 {{{{fact:{o['option_id']}.goal_hit_years}}}} 뒤에 {word}." if i["goal"]["type"] != "runway"
-                                            else f"{o['option_id']}를 고르면 예금이 {{{{fact:{o['option_id']}.goal_hit_years}}}} 버텨요.",
+                                            else f"{o['option_id']}를 고르면 예금으로 {{{{fact:{o['option_id']}.goal_hit_years}}}} 지낼 수 있어요.",
                                             "per_member": {m["member_id"]: f"{m['name']}님이 지키고 싶은 것과 함께 살펴봐 주세요." for m in i["members"]}}
                            for o in i["options"]}}
 
@@ -291,12 +291,21 @@ def _r7(i):
     while len(coms) < 3:
         coms.append({"text": "정기 점검 때 약속을 함께 확인해요.", "source": {"type": "goal_setting"}})
     oid = i["option"]["option_id"]
-    return {"goal": _clip(i["criterion"], 60), "target_amount_label": i["goal"]["label"], "contribution": contrib,
+    return {"goal": _clip(i["criterion"], 60), "target_amount_label": _goal_amount_text(i["goal"]), "contribution": contrib,
             "timing": "기준이 채워질 때", "review": {"interval_months": 6, "events": ["수입이 크게 바뀔 때"]},
             "change_conditions": ["6개월마다", "수입·지출이 크게 바뀔 때"], "commitments": coms[:6],
             "report": {"reasons": ["반대한 사람 없이 모인 방법이에요.", "가족이 붙인 조건을 약속으로 남겼어요."],
-                       "outcomes": [{"label": "결과", "fact_id": f"{oid}.goal_hit_years"}],
+                       "outcomes": [{"label": {"reach_target": "목표 달성까지", "runway": "예금으로 지낼 수 있는 기간", "debt_free": "대출을 다 갚는 때"}[i["goal"]["type"]],
+                                     "fact_id": f"{oid}.goal_hit_years"}],
                        "action_plan": [{"when": "이번 달", "what": "자동이체를 약속대로 설정해요."}]}}
+
+
+def _goal_amount_text(goal: dict) -> str:
+    """합의서 '목표 금액' 칸 예시 문구(목표 금액이 있으면 금액·기한, 없으면 목표 이름)."""
+    target, within = goal.get("target"), goal.get("within_years")  # 역할 6b 입력(_goal_view): 금액은 이미 '3억원' 같은 글, 기한은 년
+    if goal.get("type") != "reach_target" or not target:
+        return goal["label"]
+    return str(target) + (f", {within:g}년 안에" if within else "")
 
 
 _KEY = [("집", "N_home_purchase_prep"), ("휴직", "N_leave_fund"), ("용돈", "N_shared_transfer_record"),

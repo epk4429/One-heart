@@ -14,7 +14,7 @@ from engine.fmt import pct, won
 
 from .family import KINDS, assumptions, member, profile, today_label
 
-GOAL_TYPES = {"reach_target": "목표 금액 모으기", "runway": "예금이 버티는 기간", "debt_free": "대출 다 갚기"}
+GOAL_TYPES = {"reach_target": "목표 금액 모으기", "runway": "예금으로 지낼 수 있는 기간", "debt_free": "대출 다 갚기"}
 OPTION_IDS = ("A", "B", "C")
 RANGE_PATHS = 1000
 
@@ -73,7 +73,7 @@ def normalize_goal(family: dict, raw: dict) -> dict:
         goal["pool_includes_lease"] = False
     goal["start_pool"] = round(pool, 1)
     if t == "reach_target" and goal["target_amount"] <= goal["start_pool"]:
-        raise PlanError(f"목표 금액은 지금 모여 있는 돈({won(goal['start_pool'])}, {' + '.join(parts)})보다 커야 해요")
+        raise PlanError(f"목표 금액은 보유 자산({won(goal['start_pool'])}, {' + '.join(parts)})보다 커야 해요")
     goal["pool_label"] = " + ".join(parts).replace("+ 전세대출 −", "− 전세대출 ")
     return goal
 
@@ -133,10 +133,10 @@ def policy_menu(family: dict, goal: dict) -> list[dict]:
                     "effect": "한 번에 큰돈이 들어오고, 살던 집을 떠나요"})
     for lid in p["repaying_loans"]:
         loan = next(i for i in family["finance"] if i["item_id"] == lid)
-        out.append({"policy": "extra_repayment", "label": f"{loan['label']} 더 갚기", "params": {"item_id": lid,
+        out.append({"policy": "extra_repayment", "label": f"{loan['label']} 추가 상환", "params": {"item_id": lid,
                     "amount": f"한 달에 더 갚을 돈(만원, {_bounds(family)['adjust']} 이하)"},
                     "effect": "모이는 돈은 줄고, 대출을 더 빨리 갚아요"})
-        out.append({"policy": "lump_repayment", "label": f"{loan['label']} 예금으로 한 번에 갚기", "params": {
+        out.append({"policy": "lump_repayment", "label": f"{loan['label']} 예금으로 일시 상환", "params": {
                     "item_id": lid, "month": "1~기간 안의 달", "amount": f"한 번에 갚을 돈(만원, 지금 예금·투자 {won(p['liquid_total'])} 이하)"},
                     "effect": "예금이 그만큼 줄고, 대출 원금이 바로 줄어 이자와 기간이 줄어요"})
     return out
@@ -302,12 +302,12 @@ def engine_option(family: dict, goal: dict, spec: dict) -> dict:
         elif pol["policy"] == "lump_repayment":
             loan = next(i for i in family["finance"] if i["item_id"] == pol["item_id"])
             prepay.append({"loan_id": pol["item_id"], "month": pol["month"], "amount": pol["amount"]})
-            changes.append(f"{pol['month']}개월째 예금 {won(pol['amount'])}으로 {loan['label']} 한 번에 갚기")
+            changes.append(f"{pol['month']}개월째 예금 {won(pol['amount'])}으로 {loan['label']} 일시 상환")
         else:
             loan = next(i for i in family["finance"] if i["item_id"] == pol["item_id"])
             extra.append({"loan_id": pol["item_id"], "monthly": pol["amount"]})
-            changes.append(f"{loan['label']} 한 달 {won(pol['amount'])} 더 갚기")
-    changes.insert(0, f"돈을 불리는 방식: {ret['label']}(연 {pct(ret['expected_return'])} 가정)")
+            changes.append(f"{loan['label']} 한 달 {won(pol['amount'])} 추가 상환")
+    changes.insert(0, f"돈을 넣는 곳: {ret['label']}(수익률 연 {pct(ret['expected_return'])} 가정)")
     return {"option_id": spec["option_id"], "label": spec["label"], "description": spec["description"],
             "expected_return": ret["expected_return"], "volatility": ret["volatility"], "return_assumption_id": ret["id"],
             "cashflows": cashflows, "events": events, "lump_sums": lumps, "aux_changes": aux_changes,
@@ -357,7 +357,7 @@ def design_context(family: dict, goal: dict) -> dict:
     return {
         "returns": [{"id": r["id"], "label": r["label"], "expected_return": r["expected_return"], "source": r.get("source", "")}
                     for r in a["returns"]],  # source: 공시 통계로 정한 값인지 체험용 가정값인지(근거 문장에 쓸 수 있다)
-        "inflation": f"생활비 같은 지출에 연 {pct(a['inflation']['rate'])} 물가 오름을 엔진이 자동으로 붙여요",
+        "inflation": f"생활비 같은 지출에 연 {pct(a['inflation']['rate'])} 물가 상승률을 엔진이 자동으로 붙여요",
         "policies": policy_menu(family, goal),
         "limits": {"monthly_adjustment_abs_max": b["adjust"], "event_abs_max": b["event"],
                    "spending_lump_abs_max": b["lump"], "max_adjustments": b["max_adjustments"],

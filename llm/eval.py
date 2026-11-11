@@ -3,7 +3,7 @@
 사용: python -m llm.eval --family newly|elder|single_parent [--provider anthropic|replay] [--model ID] [--max-usd 1.0]
       [--blank-numbers] [--back-goal]
 - --blank-numbers: '우리 가족 이야기'에서 목표 금액·기한 등(정할 수 있는 숫자)을 비워 두고, 공동 목표 2단계에서
-  가족 파일의 원래 값으로 정한 것처럼 진행한다(2026-11-08 흐름). 2단계의 우리 가족 기준·세상 기준·size_note를 기록한다.
+  가족 파일의 원래 값으로 정한 것처럼 진행한다(2026-11-08 흐름). 2단계의 우리 가족 기준·통계 기준·size_note를 기록한다.
 - --back-goal: 합의안 점검 뒤 한 사람이 이유를 적고 공동 목표로 돌아온 것처럼 수정 제안(역할 4c, discussion)을 한 번 받는다.
       → data/eval/<모델>__<가족>.json
 

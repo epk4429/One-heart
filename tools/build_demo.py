@@ -27,12 +27,12 @@ PY_DIRS = ("engine", "llm", "server", "verify", "ontology", "rag")
 PY_SKIP = {"llm/eval.py", "server/usage_report.py"}
 PY_DATA = ("data/assumptions.json", "data/presets/newly.json", "data/presets/elder.json", "knowledge/rag/chunks.jsonl",
            "knowledge/sources/index.json",  # index.json: 근거 원문 보기의 출처 이름·주소
-           "knowledge/sources/S_reb_house_price_202609.json")  # 공동 목표 2단계 '세상 기준' 집값(llm/world_size.py)
+           "knowledge/sources/S_reb_house_price_202609.json")  # 공동 목표 2단계 '통계 기준' 집값(llm/world_size.py)
 # mock 체험판에서는 공개본 안내 문구 중 사실과 달라지는 것만 바꾼다.
 TEXT_SWAPS = [
     ("<title>ONE-Heart · 가족 금융목표 합의 서비스</title>", "<title>ONE-Heart · mock 체험</title>"),
-    ('data-custom-text="가족의 이야기와 금융 정보는 예시로 정해져 있고, 각자의 생각·제안에 대한 답·의사 표시는 직접 해 보세요. AI의 정리·제안·계산은 매번 실제로 이뤄져요."',
-     'data-custom-text="mock 체험이에요. 가족의 답과 의사 표시는 예시 그대로 진행되고, AI의 정리·제안은 실제 AI가 아니라 규칙으로 바로 만든 예시 답이에요(비용 없음). 미래 계산·상품 비교는 지금 이 브라우저에서 실제로 해요."'),
+    ('data-custom-text="가족의 이야기와 금융 정보는 예시로 정해져 있고, 각자의 생각·제안에 대한 답·방법 선택은 직접 해 보세요. AI의 정리·제안·계산은 매번 실제로 이뤄져요."',
+     'data-custom-text="mock 체험이에요. 가족의 답과 선택은 예시 그대로 진행되고, AI의 정리·제안은 실제 AI가 아니라 규칙으로 바로 만든 예시 답이에요(비용 없음). 미래 계산·상품 비교는 지금 이 브라우저에서 실제로 해요."'),
     ("<p>이름은 별칭으로, 금액은 대략으로 넣어 주세요. 계좌번호·주민등록번호·전화번호·병명 같은 정보는 쓰지 마세요. 입력한 내용은 이 브라우저에만 남고, AI가 정리할 때 잠깐 보내지만 따로 저장하지 않아요. 우리 가족 정보로 쓰려면 체험 코드가 필요해요.</p>",
      "<p>이 mock 체험은 예시 가족만 쓰고, 서버로 아무것도 보내지 않아요. 진행 상태는 이 브라우저에만 저장돼요. 우리 가족으로 직접 해 보는 체험은 따로 있어요.</p>"),
 ]

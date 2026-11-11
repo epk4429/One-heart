@@ -137,7 +137,7 @@
   "goal_form": {
    "type": "runway",
    "base_member_id": "m0",
-   "label": "예금이 버티는 기간"
+   "label": "예금으로 지낼 수 있는 기간"
   },
   "rounds": [
    {

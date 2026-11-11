@@ -553,7 +553,7 @@ def _b4b(i):
     return f"""1단계 제안에 가족이 답했다. 답을 반영해 가족 모두가 동의할 '기준 문장'을 한 문장으로 만들고,
 이 기준으로 미래를 계산할 목표(goal)를 정해라. goal은 가족이 화면에서 확인하고 고칠 수 있다.
 goal은 가족이 함께 이루고 싶은 큰 목표(아래 '함께 이루고 싶은 것')를 계산하는 것이어야 한다. 기준 문장에 나오는 세부 조건(비상금, 휴직 준비금 등)은 다음 단계에서 방법을 설계할 때 반영한다.
-- goal.type: "reach_target"(목표 금액 모으기) / "runway"(예금이 얼마나 버티는지) / "debt_free"(갚아 나가는 대출 다 갚기) 중 하나.
+- goal.type: "reach_target"(목표 금액 모으기) / "runway"(예금으로 얼마나 지낼 수 있는지) / "debt_free"(갚아 나가는 대출 다 갚기) 중 하나.
   debt_free는 갚아 나가는 대출이 있을 때만.
 - goal.target_amount(만원): reach_target일 때만. 가족이 말한 금액이나 facts에 있는 금액만 쓴다. 근거가 없으면 null(가족이 정하게 둔다).
 - goal.target_source: target_amount의 근거. facts의 fact_id 또는 가족이 말한 문장 그대로. 없으면 null.
@@ -620,7 +620,7 @@ _SPEC = """방법(option) 형식:
  "lump_sums": [{"label": "한 번에 나가는 큰돈(예: 결혼 비용)", "month": 달, "amount": 음수(만원), "reason": "근거"}],
  "policies": [{"policy": "정책 이름", ...정책별 값}]}
 - 달은 오늘부터 1, 2, 3...(12 = 1년 뒤).
-- 바꾸지 않는 항목은 그대로 계산된다. 대출 이자·상환, 물가 오름은 엔진이 자동으로 넣는다.
+- 바꾸지 않는 항목은 그대로 계산된다. 대출 이자·상환, 물가 상승률은 엔진이 자동으로 넣는다.
 - 들어오는 큰돈(집 팔기)·주택연금 금액은 정책 블록으로만 쓴다. 금액은 코드가 계산한다.
 - adjustments·events·lump_sums의 금액은 가족의 말·요약·금융정보에 근거가 있어야 하고 reason에 근거를 쓴다. 상한(limits)을 넘으면 거부된다."""
 
@@ -629,8 +629,8 @@ def _b5(i):
     return f"""가족이 동의한 기준과 목표로 미래를 계산할 방법 3개(A, B, C)를 설계해라.
 세 방법은 성격이 달라야 한다: (A) 목표를 가장 잘 이루는 쪽, (B) 구성원 모두가 꼭 지키고 싶은 것을 함께 지키는 균형 쪽, (C) 지금의 생활 여유를 우선하는 쪽.
 양보할 수 있다고 한 것만 조정하고, 꼭 지키고 싶다고 한 것은 가능한 한 지킨다. 가족이 말한 앞으로의 일(출산·휴직·입원·은퇴 등)은 events로 넣는다. 시작 달은 가족이 말한 시기를 따른다(예: "2년 안에 아이" → 아이를 갖고 휴직하는 때는 대략 1~2년 뒤). 시기를 정확히 모르면 가장 그럴듯한 때를 고르고 reason에 그렇게 가정했다고 밝힌다.
-세 방법의 결과(목표에 닿는 때·버티는 기간·다 갚는 때)는 서로 확실히 달라야 한다(가장 빠른 것과 가장 늦은 것이 적어도 반년 이상 차이).
-대출 다 갚기(debt_free) 목표에서는 다 갚는 때가 '더 갚기(extra_repayment)'와 '한 번에 갚기(lump_repayment)'로만 바뀐다. 생활비를 줄이거나 투자 방식을 바꿔도 그 돈을 더 갚기에 넣지 않으면 다 갚는 때는 그대로다. 그래서 세 방법은 더 갚는 금액이나 한 번에 갚는 금액을 확실히 다르게 정한다.
+세 방법의 결과(목표 달성까지·예금으로 지낼 수 있는 기간·다 갚는 때)는 서로 확실히 달라야 한다(가장 빠른 것과 가장 늦은 것이 적어도 반년 이상 차이).
+대출 다 갚기(debt_free) 목표에서는 다 갚는 때가 '추가 상환(extra_repayment)'과 '일시 상환(lump_repayment)'으로만 바뀐다. 생활비를 줄이거나 투자 방식을 바꿔도 그 돈을 추가 상환에 넣지 않으면 다 갚는 때는 그대로다. 그래서 세 방법은 추가 상환 금액이나 일시 상환 금액을 확실히 다르게 정한다.
 도구 run_simulation이 있으면 설계한 방법을 계산해 보고, 필요하면 고쳐서 한 번 더 계산한다(최대 2번). 그다음 최종 JSON만 출력한다.
 {_SPEC}
 design_notes에는 방법마다 의도(intent, 숫자 없이)와 근거(why, 한 문장)를 쓴다. why는 그 방법이 왜 그렇게 설계됐는지를 tips(금융감독원 금융꿀팁 원문 조각)의 원리로 "~이니까", "~라서"처럼 설명하고,
@@ -691,7 +691,7 @@ def _c5(o, i):
         if len(hits) == 3 and max(hits) - min(hits) < 3:
             errs.append("세 방법의 결과가 거의 같아요(차이 3개월 미만: " + ", ".join(r["goal_hit_display"] for r in res["results"])
                         + "). 결과가 확실히 달라지도록 방법을 다르게 설계해 주세요"
-                        + (". 대출 목표는 더 갚는 금액·한 번에 갚는 금액을 다르게 해야 결과가 달라져요" if i["goal_full"]["type"] == "debt_free" else ""))
+                        + (". 대출 목표는 추가 상환·일시 상환 금액을 다르게 해야 결과가 달라져요" if i["goal_full"]["type"] == "debt_free" else ""))
     return errs + design_note_errors(o, i)
 
 
@@ -741,7 +741,7 @@ easy: 결과를 한 문장으로(반드시 {{{{fact:ID}}}}를 써서). per_membe
 계산할 목표: {_dump(i['goal'])}
 구성원: {_dump(i['members'])}
 요약: {_dump(i['summaries'])}
-방법과 결과(changes = 이 방법이 바꾼 것, facts = 계산 결과): {_dump(i['options'])}"""
+방법과 결과(changes = 이 방법에서 정한 것, facts = 계산 결과): {_dump(i['options'])}"""
 
 
 def _c6a(o, i):
@@ -791,9 +791,9 @@ def _c6b(o, i):
 
 # ---------- 역할 7: 합의안·합의 리포트 작성 ----------
 def _b7(i):
-    return f"""가족이 반대 없이 고른 방법으로 합의안과 합의 리포트를 작성해라. 법적 합의문이 아니라 '가족이 함께 정한 의사결정 기록'이다.
+    return f"""가족이 반대 없이 고른 방법으로 합의안과 합의 리포트를 작성해라. 법적 효력이 있는 문서가 아니라 '가족이 함께 정한 내용을 남긴 기록'이다.
 - 숫자는 전부 facts의 {{{{fact:ID}}}}로만 쓴다. 금융회사·상품 이름은 쓰지 않는다. 상품은 다음 단계(조건 비교)에서 가족이 직접 본다.
-- contribution(분담방식): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}.
+- contribution(나누는 방식): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}.
   매달 모이는 돈(agree.monthly_saving)을 용도별로 나눠 적고 싶으면 {{"label": "용도", "amount": 만원, "part_of": "agree.monthly_saving"}}로 쓰고,
   나눈 금액의 합은 매달 모이는 돈과 정확히 같아야 한다(나누지 않으면 fact_id 한 줄로).
   매달 모이는 돈에는 수입·지출·보태는 돈·아끼는 돈이 이미 다 들어 있다. 그래서 agree.monthly_saving을 쓰면 다른 항목(agree.item.*, agree.adj.*)을 함께 적지 않는다(겹친다). 누가 얼마를 맡는지 보이고 싶으면 매달 모이는 돈 대신 그 항목들만 적는다. 대출 더 갚기(agree.extra.*)는 따로 적어도 된다.
@@ -801,7 +801,7 @@ def _b7(i):
   공동 목표 기준에서 나온 약속은 {{"type": "goal_setting"}}, 수정안에서 나온 약속은 {{"type": "revision", "member_id": "반대했던 사람"}}, 누군가의 꼭 지키고 싶은 것에서 나온 약속은 {{"type": "keep", "member_id": "..."}}.
 - 약속은 3~6개, 각각 한 문장.
 - review: 다시 점검할 간격(interval_months는 6 또는 12)과, 이런 일이 생기면 다시 모이자는 일(events, 가족 상황에서).
-출력 형식: {{"goal": "함께 이룰 목표", "target_amount_label": "목표금액(또는 목표 상태) 설명", "contribution": [...], "timing": "이행시기(날짜 또는 조건)", "review": {{"interval_months": 6, "events": ["..."]}}, "change_conditions": ["변경조건", ...], "commitments": [{{"text": "...", "source": {{...}}}}], "report": {{"reasons": ["왜 이 방법인지", ...], "outcomes": [{{"label": "...", "fact_id": "..."}}], "action_plan": [{{"when": "언제", "what": "무엇을"}}]}}}}
+출력 형식: {{"goal": "함께 이룰 목표", "target_amount_label": "목표 금액(또는 목표 상태) 설명", "contribution": [...], "timing": "실행 시기(날짜 또는 조건)", "review": {{"interval_months": 6, "events": ["..."]}}, "change_conditions": ["변경조건", ...], "commitments": [{{"text": "...", "source": {{...}}}}], "report": {{"reasons": ["왜 이 방법인지", ...], "outcomes": [{{"label": "...", "fact_id": "..."}}], "action_plan": [{{"when": "언제", "what": "무엇을"}}]}}}}
 
 구성원: {_dump(i['members'])}
 오늘: {i['today']}

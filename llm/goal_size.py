@@ -81,9 +81,9 @@ def anchors(fam: dict, gi: dict) -> dict:
     if raw["type"] == "reach_target":
         base = normalize_goal(fam, {**raw, "target_amount": 1_000_000, "within_months": None})
         r = _run(fam, base)
-        add("size.pool", base["start_pool"], "만원", won(base["start_pool"]), "지금 모여 있는 돈", base["pool_label"])
-        add("size.flow", r["monthly_flow"], "만원/월", "월 " + won(r["monthly_flow"]), "지금 한 달에 모이는 돈",
-            "들어오는 돈 − 나가는 돈 − 대출 상환")
+        add("size.pool", base["start_pool"], "만원", won(base["start_pool"]), "보유 자산", base["pool_label"])
+        add("size.flow", r["monthly_flow"], "만원/월", "월 " + won(r["monthly_flow"]), "매달 모이는 돈",
+            "월 수입 − 월 지출 − 대출 상환")
         yrs = sorted(set(YEARS) | ({round(raw["within_months"] / 12)} if raw.get("within_months") else set()))
         for y in yrs:
             if y <= len(r["yearly"]):
@@ -120,7 +120,7 @@ def anchors(fam: dict, gi: dict) -> dict:
 
 
 def size(fam: dict, values: dict | None = None, world: dict | None = None) -> dict | None:
-    """2단계 화면에 줄 것: 정할 숫자 칸, 우리 가족 기준, 세상 기준(있는 카테고리만), (다 정했으면) 계산할 목표.
+    """2단계 화면에 줄 것: 정할 숫자 칸, 우리 가족 기준, 통계 기준(있는 카테고리만), (다 정했으면) 계산할 목표.
     목표 카테고리가 없는 가족이면 None."""
     gi = fam.get("goal_input")
     if not gi:

@@ -69,7 +69,7 @@ def test_other_category_asks_for_more_depending_on_the_calculation():
     assert G.missing(gi) == ["target_amount", "within_years"]
     gi =G.validate_input({"category": "other", "fields": {**base, "target_amount": 500, "within_years": 2}}, MIDS)
     assert G.derive_goal(gi, [])["label"] == "가족 여행" and G.derive_goal(gi, [])["within_months"] == 24
-    gi = G.validate_input({"category": "other", "fields": {"purpose_text": "예금 버티기", "engine_kind": "예금이 얼마나 버티는지", "base_member_id": "m1"}}, MIDS)
+    gi = G.validate_input({"category": "other", "fields": {"purpose_text": "예금 버티기", "engine_kind": "예금으로 얼마나 지낼 수 있는지", "base_member_id": "m1"}}, MIDS)
     assert G.derive_goal(gi, [])["type"] == "runway" and G.derive_goal(gi, [])["base_member_id"] == "m1"
 
 
@@ -237,7 +237,7 @@ def test_size_gives_family_anchors_and_goal_only_when_complete():
     st, out = call("/api/goal/size", body)
     labels = [l["label"] for l in out["anchors"]["lines"]]
     assert st == 200 and out["goal"] is None and out["missing"] == ["target_amount", "within_years"]
-    assert "지금 한 달에 모이는 돈" in labels and "지금처럼 모으면 5년 뒤" in labels
+    assert "매달 모이는 돈" in labels and "지금처럼 모으면 5년 뒤" in labels
     assert "facts" not in out["anchors"] and "예금·적금" in out["anchors"]["note"]
     st, out = call("/api/goal/size", {**body, "values": {"target_amount": 30000, "within_years": 3}})
     assert st == 200 and out["goal"]["target_amount"] == 30000 and out["goal"]["within_months"] == 36

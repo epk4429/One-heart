@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # 종류 → (주기, 부호, 화면 이름)
 KINDS = {
-    "income": ("monthly", 1, "매달 들어오는 돈(월급·연금 등)"),
+    "income": ("monthly", 1, "월 수입(월급·연금 등)"),
     "transfer_in": ("monthly", 1, "가족이 보태 주는 돈"),
     "expense": ("monthly", -1, "매달 나가는 생활비"),
     "transfer_out": ("monthly", -1, "가족에게 드리는 돈(용돈 등)"),
@@ -141,7 +141,7 @@ def validate(raw: dict) -> dict:
                     raise FamilyError(f"'{label}': 월 상환액이 한 달 이자({won(item['amount'] * item['rate'] / 1200)})보다 커야 해요")
         finance.append(item)
     if not any(f["kind"] in ("income", "transfer_in") for f in finance):
-        raise FamilyError("매달 들어오는 돈(월급·연금 등)을 하나 이상 넣어 주세요")
+        raise FamilyError("월 수입(월급·연금 등)을 하나 이상 넣어 주세요")
     disc = {k: ("hide" if v == "summary_only" else v) for k, v in (raw.get("disclosure") or {}).items()
             if k in ids and v in DISCLOSURE + ("summary_only",)}
     try:
@@ -212,8 +212,8 @@ def facts(family: dict, goal: dict | None = None) -> dict[str, dict]:
     """계산 이전 단계(공동 목표·합의안)에서 AI가 {{fact:ID}}로 쓸 수 있는 숫자. 모두 가족 입력에서 온다."""
     p = profile(family)
     out = [
-        _fact("fin.income_total", p["income_total"], "만원/월", "월 " + won(p["income_total"]), "매달 들어오는 돈 합계"),
-        _fact("fin.expense_total", p["expense_total"], "만원/월", "월 " + won(p["expense_total"]), "매달 나가는 돈 합계"),
+        _fact("fin.income_total", p["income_total"], "만원/월", "월 " + won(p["income_total"]), "월 수입 합계"),
+        _fact("fin.expense_total", p["expense_total"], "만원/월", "월 " + won(p["expense_total"]), "월 지출 합계"),
         _fact("fin.liquid_total", p["liquid_total"], "만원", won(p["liquid_total"]), "예금·투자 합계"),
     ]
     six = round((p["expense_total"] + p["loan_payment_total"]) * 6, 1)

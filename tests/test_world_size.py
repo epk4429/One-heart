@@ -1,4 +1,4 @@
-"""공동 목표 2단계 '세상 기준'(llm/world_size.py): 원문 인용·집값·API."""
+"""공동 목표 2단계 '통계 기준'(llm/world_size.py): 원문 인용·집값·API."""
 
 import copy
 

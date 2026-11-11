@@ -10,7 +10,7 @@
     {"id": "stock30", "label": "여윳돈의 주식 30%", "expected_return": 5.0, "volatility": 7.5, "note": "", "source": "체험용 가정값(주식은 공시 통계가 없어요)"},
     {"id": "stock_heavy", "label": "주식 위주", "expected_return": 6.5, "volatility": 14.0, "note": "오를 때도 내릴 때도 커요", "source": "체험용 가정값(주식은 공시 통계가 없어요)"}
   ],
-  "inflation": {"rate": 2.0, "label": "물가 오름 연 2%", "source": "한국은행 물가안정목표(소비자물가 상승률 2%)", "applies_to": "생활비 같은 지출"},
+  "inflation": {"rate": 2.0, "label": "물가 상승률 연 2%", "source": "한국은행 물가안정목표(소비자물가 상승률 2%)", "applies_to": "생활비 같은 지출"},
   "reverse_mortgage": {
     "label": "주택연금 월 수령액",
     "min_age": 55,
@@ -40,7 +40,7 @@
     "source": "체험용 가정값. 이사·세금·중개 비용을 집값의 4%로 가정"
   },
   "home_purchase": {
-    "_note": "공동 목표 2단계 '세상 기준'(내 집 마련)의 계산 규칙. 계산은 engine/policies.py, 화면 문구는 llm/world_size.py(2026-11-11).",
+    "_note": "공동 목표 2단계 '통계 기준'(내 집 마련)의 계산 규칙. 계산은 engine/policies.py, 화면 문구는 llm/world_size.py(2026-11-11).",
     "ltv": {"rate": 70, "source": "S_doc_nhuf_didimdol_20261103",
             "quote": "LTV 70%, DTI 60% 이내. 단, 생애최초 주택구입자는 LTV 80% 적용하되, 수도권·규제지역 소재 주택 구입시 LTV 70% 적용"},
     "acquisition_tax": {"source": "S_doc_law_local_tax_20261108",

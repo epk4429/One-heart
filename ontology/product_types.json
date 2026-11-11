@@ -77,7 +77,7 @@
    "requires_home_sale": false,
    "summary": "예금과 주식에 나눠 투자하는 상품이에요. 오를 수도 내릴 수도 있어요.",
    "data": "none",
-   "data_note": "펀드는 금감원 상품 공시 API에 없어요"
+   "data_note": "펀드는 금감원 상품 공시에 없어요"
   },
   {
    "id": "P_joint_account",
@@ -98,7 +98,7 @@
    "requires_home_sale": false,
    "summary": "여러 사람이 함께 넣고 쓰면서 누가 얼마나 넣었는지 같이 보는 통장이에요.",
    "data": "none",
-   "data_note": "모임통장은 금감원 상품 공시 API에 없어요"
+   "data_note": "모임통장은 금감원 상품 공시에 없어요"
   },
   {
    "id": "P_child_insurance",
@@ -116,7 +116,7 @@
    "requires_home_sale": false,
    "summary": "아이가 아프거나 다칠 때 보장받는 보험이에요.",
    "data": "none",
-   "data_note": "보험은 금감원 상품 공시 API에 없어요"
+   "data_note": "보험은 금감원 상품 공시에 없어요"
   },
   {
    "id": "PP_reverse_mortgage",
@@ -171,7 +171,7 @@
    "requires_home_sale": false,
    "summary": "언제든 넣고 뺄 수 있는 통장이에요.",
    "data": "none",
-   "data_note": "수시입출금 통장은 금감원 상품 공시 API에 없어요"
+   "data_note": "수시입출금 통장은 금감원 상품 공시에 없어요"
   },
   {
    "id": "P_care_insurance",
@@ -189,7 +189,7 @@
    "requires_home_sale": false,
    "summary": "간병이 필요해졌을 때 비용을 보장하는 보험이에요.",
    "data": "none",
-   "data_note": "보험은 금감원 상품 공시 API에 없어요"
+   "data_note": "보험은 금감원 상품 공시에 없어요"
   },
   {
    "id": "P_family_trust_consult",
