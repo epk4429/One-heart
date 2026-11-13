@@ -173,21 +173,33 @@ function s0() {
 }
 
 /* ---------- 화면 1: 우리 가족 이야기 ---------- */
+// 금융 정보 '직접 입력': 종류별 묶음, 한 줄 = 이름 / 금액 / 구성원 / 가족 공개 여부 / 빼기(대출은 아래 줄에 종류·금리·월 상환액)
+const FIN_GROUPS = [["income", "월 수입"], ["transfer_in", "가족이 보태 주는 돈"], ["expense", "생활비"], ["transfer_out", "가족에게 드리는 돈"], ["deposit", "예금·투자"], ["investment", "주식·펀드"], ["loan", "대출"], ["home", "집·보증금"], ["lease_deposit", "전세 보증금"]];
+const FIN_MAIN = ["income", "expense", "deposit", "loan", "home"]; // 값이 없어도 늘 보이는 묶음(+ 추가 버튼이 있는 것)
+const FIN_EMPTY = { home: "아직 없어요. 전세·자가가 있으면 추가해 주세요." };
 function finRow(it, i) {
-  const s = S(), f = F(), vw = viewer(), own = it.owner_id === vw, ro = presetLocked() ? "disabled" : "";
-  const d = f.disclosure[it.item_id] || "share";
-  const kinds = CFG.kinds;
+  const f = F(), own = it.owner_id === viewer(), ro = presetLocked() ? "disabled" : "";
+  const d = (f.disclosure[it.item_id] || "share") === "share" ? "share" : "hide"; // 예전 '합계만'은 비공개로 읽는다
+  const DT = { share: "공개", hide: "비공개" };
   const loan = it.kind === "loan";
-  return `<tr>
-   <td><select data-bind="finance.${i}.owner_id" ${ro}>${[["joint", "공동"], ...f.members.map(m => [m.member_id, m.name])].map(([v, l]) => `<option value="${v}" ${it.owner_id === v ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
-   <td><select data-bind="finance.${i}.kind" ${ro}>${Object.entries(kinds).map(([k, l]) => `<option value="${k}" ${it.kind === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></td>
-   <td><input ${ro} data-bind="finance.${i}.label" value="${esc(it.label)}" placeholder="이름(예: 월급)" maxlength="30"></td>
-   <td><div class="amt-in"><input ${ro} data-bind="finance.${i}.amount" data-num value="${it.amount ?? ""}" inputmode="decimal" placeholder="0"><span>만원${CFG.monthly_kinds.includes(it.kind) ? "/월" : ""}</span></div>
-    ${loan ? `<div class="loanx"><select ${ro} data-bind="finance.${i}.loan_type">${Object.entries(CFG.loan_types).map(([k, l]) => `<option value="${k}" ${it.loan_type === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
-      <label>금리 <input ${ro} data-bind="finance.${i}.rate" data-num value="${it.rate ?? ""}" inputmode="decimal" style="width:64px">%</label>
-      ${it.loan_type !== "lease" ? `<label>월 상환액 <input ${ro} data-bind="finance.${i}.payment" data-num value="${it.payment ?? ""}" inputmode="decimal" style="width:72px">만원</label>` : ""}</div>` : ""}</td>
-   <td>${own ? `<span class="disc">${["share", "hide"].map(k => `<button class="${d === k ? "on" : ""}" data-act="disc" data-item="${it.item_id}" data-v="${k}">${{ share: "공개", hide: "비공개" }[k]}</button>`).join("")}</span>` : `<span class="cs">${{ share: "공개", hide: "비공개" }[d === "summary_only" ? "hide" : d]}${it.owner_id !== "joint" ? `<br>(${esc(mem(it.owner_id).name)}님이 정해요)` : ""}</span>`}</td>
-   <td>${ro ? "" : `<button class="btn sm" data-act="del-fin" data-i="${i}" aria-label="빼기">빼기</button>`}</td></tr>`;
+  return `<div class="fr-row">
+   <input ${ro} data-bind="finance.${i}.label" value="${esc(it.label)}" placeholder="이름(예: 월급)" maxlength="30" aria-label="이름">
+   <div class="fr-amt"><input ${ro} data-bind="finance.${i}.amount" data-num value="${it.amount ?? ""}" inputmode="decimal" placeholder="0" aria-label="금액"><span>만원${CFG.monthly_kinds.includes(it.kind) ? "/월" : ""}</span></div>
+   <select ${ro} data-bind="finance.${i}.owner_id" aria-label="구성원">${[["joint", "공동"], ...f.members.map(m => [m.member_id, m.name])].map(([v, l]) => `<option value="${v}" ${it.owner_id === v ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
+   ${own ? `<select data-disc="${it.item_id}" aria-label="가족 공개 여부">${["share", "hide"].map(k => `<option value="${k}" ${d === k ? "selected" : ""}>${DT[k]}</option>`).join("")}</select>` : `<span class="cs">${DT[d]}${it.owner_id !== "joint" ? `<br>(${esc(mem(it.owner_id).name)}님이 정해요)` : ""}</span>`}
+   ${ro ? "<span></span>" : `<button type="button" class="fr-del" data-act="del-fin" data-i="${i}" aria-label="빼기" title="빼기"><b>−</b><span>빼기</span></button>`}
+   ${loan ? `<div class="fr-ext"><span>대출 종류</span><select ${ro} data-bind="finance.${i}.loan_type" aria-label="대출 종류">${Object.entries(CFG.loan_types).map(([k, l]) => `<option value="${k}" ${it.loan_type === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
+     <label>금리 <input ${ro} data-bind="finance.${i}.rate" data-num value="${it.rate ?? ""}" inputmode="decimal">%</label>
+     ${it.loan_type !== "lease" ? `<label>월 상환액 <input ${ro} data-bind="finance.${i}.payment" data-num value="${it.payment ?? ""}" inputmode="decimal">만원</label>` : ""}</div>` : ""}</div>`;
+}
+function finTable() {
+  const f = F(), locked = presetLocked();
+  const known = FIN_GROUPS.map(g => g[0]);
+  const extra = [...new Set(f.finance.map(x => x.kind))].filter(k => !known.includes(k)).map(k => [k, (CFG.kinds && CFG.kinds[k]) || k]); // 목록에 없는 종류도 잃지 않게
+  const groups = [...FIN_GROUPS, ...extra].map(([k, title]) => ({ k, title, items: f.finance.map((it, i) => ({ it, i })).filter(x => x.it.kind === k) }))
+    .filter(g => g.items.length || (!locked && FIN_MAIN.includes(g.k)));
+  return `<div class="fr-head"><span>이름</span><span>금액</span><span>구성원</span><span>가족 공개 여부</span><span></span></div>
+   ${groups.map(g => `<div class="fr-grp"><div class="fr-gh"><b>${esc(g.title)}</b>${locked ? "" : `<button type="button" class="btn sm" data-act="add-fin" data-kind="${g.k}">+ 추가</button>`}</div>${g.items.length ? g.items.map(x => finRow(x.it, x.i)).join("") : `<div class="fr-empty">${FIN_EMPTY[g.k] || "아직 없어요."}</div>`}</div>`).join("")}`;
 }
 /* ---------- 목표 카테고리와 필수 입력값(서버 llm/goals.py와 같은 정의를 /api/config로 받는다) ---------- */
 const GI = () => CFG && CFG.goal_input;
@@ -214,42 +226,44 @@ function giProblem() { // 빠진 값 안내(다 채웠으면 빈 글)
 function giField(f) {
   const gi = giState(), v = gi.fields?.[f.key] ?? "", ro = presetLocked() ? "disabled" : "", path = `goal_input.fields.${f.key}`;
   let ctl;
-  if (f.kind === "number") ctl = `<div class="amt-in"><input ${ro} data-bind="${path}" data-num value="${v}" inputmode="decimal"><span>${esc(f.unit || "")}</span></div>`;
+  if (f.kind === "number") ctl = `<div class="amt-in"><input ${ro} data-bind="${path}" data-num value="${v}" inputmode="decimal"><span>${esc(f.unit || "")}</span></div>${f.unit === "만원" ? `<span class="gr-eq" data-eq>${+v > 0 ? "= " + won(+v) : ""}</span>` : ""}`;
   else if (f.kind === "choice") ctl = `<div class="chips gopts">${f.options.map(o => `<button type="button" class="chip ${v === o ? "on" : ""}" ${ro} data-act="gi-set" data-k="${f.key}" data-v="${esc(o)}">${esc(o)}</button>`).join("")}</div>`;
   else if (f.kind === "member") ctl = `<select ${ro} data-bind="${path}"><option value="">고르세요</option>${F().members.map(m => `<option value="${m.member_id}" ${v === m.member_id ? "selected" : ""}>${esc(m.name || "이름 없음")}(${m.age ?? "?"}세)</option>`).join("")}</select>`;
   else ctl = `<input ${ro} data-bind="${path}" value="${esc(v)}" maxlength="${f.max || 30}">`;
-  const tag = f.decide ? `<i class="req opt">선택</i>` : `<i class="req">필수</i>`;
-  const hint = f.decide ? "잘 모르겠으면 비워 두세요. 공동 목표 설정에서 우리 가족 숫자를 보며 함께 정해요." : "";
-  return `<div class="gfield"><span class="gl">${esc(f.label)} ${tag}</span>${ctl}${[f.help, hint].filter(Boolean).map(t => `<span class="cs">${esc(t)}</span>`).join("")}</div>`;
+  return `<div class="gr-row"><div class="gr-lb">${esc(f.label)}${f.decide ? "" : "<em>필수</em>"}</div><div class="gr-ctl">${ctl}</div>${f.help ? `<div class="gr-hp">${esc(f.help)}</div>` : ""}</div>`;
+}
+// 목표별 입력칸: 필수를 먼저, 비워도 되는 값(decide)은 한 묶음으로 아래에(안내 문구는 묶음 제목에 한 번만)
+function giForm(label) {
+  const fl = giFields(), req = fl.filter(f => !f.decide), opt = fl.filter(f => f.decide);
+  return `<div class="gr-form"><div class="gr-ttl"><b>'${esc(label)}'에 필요한 값</b>${req.length ? `<span>필수 ${req.length}개</span>` : ""}</div>${req.map(giField).join("")}
+   ${opt.length ? `<div class="gr-sub"><b>알고 있다면 적어 주세요</b><span>감이 안 오면 비워 둬도 돼요. 공동 목표 설정에서 함께 정해요.</span></div>${opt.map(giField).join("")}` : ""}</div>`;
 }
 function s1() {
   const s = S(), f = F(), st = s.story, u = st.result, p = s.profile;
   const author = f.room.host_member_id;
-  const rows = f.finance.map(finRow).join("");
   const cats = GI()?.categories || {}, gi = giState(), prob = giProblem();
   return `<div class="head"><div class="eyebrow">우리 가족 이야기</div><h1 class="h1">우리 가족의 목표와 지금 상황을 알려 주세요</h1><p class="lead">목표를 고르고 그 목표에 필요한 값을 넣어 주세요. 얼마를 언제까지 모을지는 몰라도 괜찮아요. 공동 목표 설정에서 함께 정해요. 더 하고 싶은 이야기는 자유롭게 적으면 돼요.</p></div>
   <div class="warnbox"><b>이름은 별칭으로, 금액은 대략으로 적어 주세요.</b> 계좌번호·주민등록번호·전화번호·주소는 쓰지 마세요. 병원비나 간병 이야기는 금액과 기간만 적고, 병명이나 진단명은 쓰지 않아요. 입력한 내용은 ONE-Heart에 따로 저장하지 않아요.</div>
   <section class="sec"><h2 class="st">1. 가장 이루고 싶은 목표를 하나 골라 주세요</h2>
    <div class="gcats">${Object.entries(cats).map(([k, c]) => `<button type="button" class="gcat ${gi?.category === k ? "on" : ""}" ${presetLocked() ? "disabled" : ""} data-act="gi-cat" data-c="${k}">${esc(c.label)}</button>`).join("")}</div>
-   ${gi?.category && cats[gi.category] ? `<div class="gfields"><p class="cs" style="margin-bottom:10px">'${esc(cats[gi.category].label)}'에 필요한 값이에요. '선택'인 금액·기한은 감이 안 오면 비워 둬도 돼요.</p>${giFields().map(giField).join("")}</div>` : `<p class="cs" style="margin-top:8px">우리 가족의 목표가 목록에 없으면 '기타'를 골라 주세요.</p>`}
+   ${gi?.category && cats[gi.category] ? giForm(cats[gi.category].label) : `<p class="cs" style="margin-top:8px">우리 가족의 목표가 목록에 없으면 '기타'를 골라 주세요.</p>`}
    ${presetLocked() ? `<p class="cs" style="margin-top:8px">예시 가족이라 목표와 값은 정해져 있어요.</p>` : ""}</section>
   <section class="sec"><h2 class="st">2. ${esc(mem(author).name)}님이 쓰는 우리 가족 이야기 <span class="cs">자유롭게</span></h2>
    <textarea ${presetLocked() ? "readonly" : ""} data-bind="story.text" data-reset="story" maxlength="1500" style="min-height:130px" placeholder="예: 결혼 1년 차 부부예요. 전세에 살고 있고, 2년 안에 아이를 갖고 싶어요. 남편은 집을 빨리 사자는 쪽이고 저는 아이가 먼저라는 생각이에요.">${esc(f.story.text)}</textarea>
-   <p class="cs" style="margin-top:6px">목표 말고도 사는 곳, 각자의 생각 차이, 걱정되는 것을 자유롭게 써 주세요. 1,500자까지.</p></section>
+   <p class="cs" style="margin-top:6px">사는 곳, 가족 간 의견 차이, 걱정되는 점을 자유롭게 적어 주세요. (1,500자까지)</p></section>
   <section class="sec"><h2 class="st">3. 금융 정보 <span class="cs">단위 만원 · 체험용 값</span></h2>
    <div class="finblock mydata"><div class="fb-h"><h3 class="st3">마이데이터로 불러오기</h3><span class="tagsoft">지금은 쓸 수 없어요</span></div>
-    <p class="cs">실제 서비스에서는 내가 동의하면 흩어진 금융 정보를 자동으로 가져와요(마이데이터). 지금은 아래 '직접 입력'에 넣어 주세요.</p>
+    <p class="cs">동의하면 흩어진 금융 정보를 자동으로 가져와요. 지금은 아래에 직접 입력해 주세요.</p>
     <button type="button" class="btn sm" disabled>마이데이터 연결하기</button></div>
    <div class="finblock direct"><div class="fb-h"><h3 class="st3">직접 입력</h3></div>
-   <p class="cs" style="margin-bottom:8px">내 항목은 가족에게 보일 범위를 내가 골라요(공개 / 비공개). 비공개 항목도 계산에는 들어가요.</p>
-   <div class="ftab-wrap"><table class="ftab fin"><thead><tr><th>누구 것</th><th>종류</th><th>이름</th><th>금액</th><th>가족에게 보이기</th><th></th></tr></thead><tbody>${rows || `<tr><td colspan="6" class="cs" style="padding:14px">아직 항목이 없어요. 아래 버튼으로 더해 주세요.</td></tr>`}</tbody></table></div>
+   <p class="cs" style="margin-bottom:8px">공개 범위는 내가 골라요. 비공개 항목도 계산에는 들어가요.</p>
+   ${finTable()}
    ${presetLocked() ? `<p class="cs" style="margin-top:8px">예시 가족이라 이야기와 금액은 정해져 있어요. 가족에게 보일 범위(공개·비공개)는 바꿔 볼 수 있어요.</p>` : ""}
-   <div class="row" style="margin-top:10px" ${presetLocked() ? "hidden" : ""}><button class="btn sm" data-act="add-fin" data-kind="income">+ 월 수입</button><button class="btn sm" data-act="add-fin" data-kind="expense">+ 생활비</button><button class="btn sm" data-act="add-fin" data-kind="deposit">+ 예금·투자</button><button class="btn sm" data-act="add-fin" data-kind="loan">+ 대출</button><button class="btn sm" data-act="add-fin" data-kind="home">+ 집·보증금</button></div></div></section>
+  </div></section>
   <section class="sec"><h2 class="st">AI가 이해한 내용</h2>
    ${!started(st) && st.status !== "error" ? `<button class="btn primary" data-act="understand" ${prob ? "disabled" : ""}>목표와 금융 정보 정리 맡기기</button>${prob ? `<p class="cs" style="margin-top:8px;color:var(--warm)">${esc(prob)}</p>` : ""}` : ""}
    ${pend(st, "AI가 이야기를 읽고 있어요", "understand")}
-   ${u ? `<div>${[["가족 구성", u.family_stage], ["사는 곳", u.living], ["함께 이루고 싶은 것", u.shared_goal], ["생각이 다른 부분", (u.differences || []).join(" · ")]].map(r => `<div class="urow"><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join("")}</div>${vbadge(st.verification, st.calls)}` : ""}
-   ${p && u ? `<div class="urow"><span>월 수입</span><b>${won(p.income_total)}</b></div><div class="urow"><span>월 지출</span><b>${won(p.expense_total)}${p.loan_payment_total ? ` · 대출 상환 ${won(p.loan_payment_total)}` : ""}</b></div><div class="urow"><span>예금·투자</span><b>${won(p.liquid_total)}</b></div><p class="cs">합계는 AI가 아니라 계산기가 계산했어요.</p>` : ""}
+   ${u ? `<div><div class="urow"><span>가족 구성</span><b>${esc(f.members.filter(m => m.name).map(m => `${m.name}: ${m.age ?? "?"}세`).join(", "))}${u.family_stage ? `<br><small class="cs">${esc(u.family_stage)}</small>` : ""}</b></div>${[["사는 곳", u.living], ["함께 이루고 싶은 것", u.shared_goal], ["생각이 다른 부분", (u.differences || []).join(" · ")]].map(r => `<div class="urow"><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join("")}</div>${vbadge(st.verification, st.calls)}` : ""}
   </section>${next("각자의 생각 듣기", !(u && u.family_stage), prob || "AI 정리를 받으면 다음으로 넘어갈 수 있어요")}`;
 }
 
@@ -259,6 +273,8 @@ const ivState = mid => { const s = S(); return s.iv[mid] || (s.iv[mid] = { answe
 const ivQs = mid => { const st = ivState(mid); if (!st.qs || !st.answers.length) st.qs = [...CFG.questions.map(q => ({ text: q.text, easy: q.easy })), ...(S().story.result?.member_questions?.[mid] || []).map(q => ({ ...q, extra: true }))]; return st.qs; };
 const qText = (mid, i) => { const q = ivQs(mid)[i]; return mem(mid).easy_mode ? q.easy : q.text; };
 const KNUM = ["", "한", "두", "세", "네", "다섯"];
+// 예시 가족의 예시 답: 고정 질문 3개는 scripts.answers, 맞춤 질문은 질문 글이 같을 때만 scripts.extra_answers(실제 AI가 다른 질문을 만들면 예시 답은 안 나온다)
+const exAns = (mid, i) => { const sc = S().scripts; if (!sc) return undefined; if (i < CFG.questions.length) return sc.answers?.[mid]?.[i]; const q = ivQs(mid)[i]; return q && sc.extra_answers?.[mid]?.[q.text]; };
 function qaOf(mid) { return ivState(mid).answers.map((a, i) => [qText(mid, i), a]); }
 async function finishInterview(mid) {
   const st = ivState(mid);
@@ -320,7 +336,7 @@ function s2() {
   const s = S(), vw = viewer(), m = mem(vw), st = ivState(vw);
   let action = "";
   if (st.answers.length < ivQs(vw).length) {
-    const ex = s.scripts?.answers?.[vw]?.[st.answers.length];
+    const ex = exAns(vw, st.answers.length);
     action = DEMO && !ex ? `<textarea id="ans" maxlength="500">아직 정하지 못했어요. 가족과 같이 정하고 싶어요.</textarea><div class="crow"><span class="cs" style="flex:1">맞춤 질문은 예시 답이 없어요. 고쳐 써도 돼요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
       : DEMO ? `<textarea id="ans" readonly>${esc(ex || "")}</textarea><div class="crow"><span class="cs" style="flex:1">체험판이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
       : `<textarea id="ans" maxlength="500" placeholder="${esc(m.name)}님의 답을 적어 주세요">${esc(st.draft || "")}</textarea><div class="crow">${ex ? `<button class="btn sm" data-act="fill-ans">예시 답 넣기</button>` : ""}<button class="btn primary sm" data-act="send-ans">보내기</button></div>`;
@@ -423,7 +439,7 @@ async function sizeUpdate(keep) { // keep: 통계 기준 지역만 바꿀 때(�
 }
 /* ---- 공동 목표 설정 화면 구성 도우미(2026-11-11 읽기 편하게 개편) ----
    ① 맨 위 진행 띠 ② 끝난 부분은 접고(펼치면 내용 전부) ③ 지금 할 일만 크게 ④ 참고는 한 줄 + '자세히 보기' */
-const gFlow = stage => `<div class="g-flow" aria-label="진행 단계">${["생각 확인", "제안에 의견", "숫자 정하기", "모두 동의"].map((t, i) => `<div class="${i < stage ? "done" : i === stage ? "now" : ""}">${t}</div>`).join("")}</div>`;
+const gFlow = stage => `<div class="g-flow" aria-label="진행 단계">${["생각 확인", "AI의 제안", "숫자 정하기", "모두 동의"].map((t, i) => `<div class="${i < stage ? "done" : i === stage ? "now" : ""}">${t}</div>`).join("")}</div>`;
 // 접는 줄. 열고 닫은 상태는 화면을 다시 그려도 남도록 S().fo에 둔다(원문은 접어도 지우지 않는다)
 function gFold(key, title, body, done = true) {
   const open = !!(S().fo || {})[key];
@@ -455,7 +471,6 @@ function stepTwoSize() {
   const anchors = sz.anchors.lines.length ? gRef("anchors", "우리 가족 기준 · 지금처럼 지낼 때 · 계산기로 계산", ancHead, `${sz.anchors.lines.map(gLine).join("")}${sz.anchors.note ? `<p class="cs">${esc(sz.anchors.note)}</p>` : ""}`, "어떻게 계산했는지 보기") : "";
   const g = s.goalForm, yrs = g && g.within_months ? g.within_months / 12 : 0;
   const goalLine = ready ? `${esc(g.label)}${g.type === "reach_target" ? ` <em>${won(g.target_amount)}</em>` : ""}${yrs ? `, <em>${yrs % 1 === 0 ? yrs : yrs.toFixed(1)}년</em> 안에` : ""}` : "";
-  const mine = !s.approvals[vw];
   return `<h1 class="h1 g-h1">목표 숫자를 정해 주세요</h1><p class="lead">숫자는 가족이 정해요. 아래 참고를 보고 바꿔도 돼요. 어떻게 이룰지는 다음 단계(미래 계산)에서 함께 봐요.</p>
    ${pend(crit, "AI가 함께 정한 방향을 한 문장으로 정리하고 있어요", "retry-criterion")}
    ${crit.result ? `<div class="aibox" style="margin-top:22px"><div class="plabel">함께 정한 방향</div><p class="q">${esc(crit.result.criterion)}</p>${crit.result.size_note ? `<p class="sub"><b>숫자를 정할 때 생각해 볼 점</b> ${esc(crit.result.size_note)}</p>` : ""}</div>${vbadge(crit.verification, crit.calls)}
@@ -464,9 +479,9 @@ function stepTwoSize() {
    ${s.goalChk.status === "missing" ? `<p class="cs" style="margin-top:14px;color:var(--warm)">정할 숫자를 모두 넣으면 동의할 수 있어요.</p>` : ""}
    ${s.goalChk.status === "bad" ? `<div class="failbox"><b>이 목표는 계산할 수 없어요</b>${esc(s.goalChk.message || "")}<br>위의 숫자를 고쳐 주세요.</div>` : ""}
    ${ready ? `<div class="g-final"><div class="g-lab">정한 목표</div><p class="big">${goalLine}</p>
-    <div class="agreelist">${F().members.map(m => `<div class="agr">${av(m.member_id)}<div><div class="nm">${esc(m.name)}</div>${s.approvals[m.member_id] ? "" : `<div class="cm">아직 답하지 않았어요</div>`}</div>${s.approvals[m.member_id] ? `<span class="g-agreed">동의했어요 ✓</span>` : ""}</div>`).join("")}</div>
+    <div class="agreelist">${F().members.map(m => `<div class="agr">${av(m.member_id)}<div><div class="nm">${esc(m.name)}</div>${s.approvals[m.member_id] ? "" : `<div class="cm">아직 답하지 않았어요</div>`}</div>${s.approvals[m.member_id] ? `<span class="g-agreed">동의했어요 ✓</span>` : m.member_id === vw ? `<button class="btn primary sm" data-act="approve">동의해요</button>` : ""}</div>`).join("")}</div>
     ${allApproved ? `<p class="okline"><span class="chk">✓</span><span><b>가족 모두 이 목표에 동의했어요.</b> 이 목표로 방법을 설계하고 계산할게요.</span></p>`
-      : `${mine ? `<button class="btn primary lg g-agree" data-act="approve">${esc(mem(vw).name)}님으로서 동의해요</button>` : ""}<p class="cs g-note">숫자를 바꾸면 동의를 다시 받아요.</p>${turn(mids().filter(m => !s.approvals[m]), "동의")}`}</div>` : ""}` : ""}`;
+      : `<p class="cs g-note">숫자를 바꾸면 동의를 다시 받아요.</p>${turn(mids().filter(m => !s.approvals[m]), "동의")}`}</div>` : ""}` : ""}`;
 }
 function s3() {
   const s = S(), g = s.goal, vw = viewer();
@@ -483,9 +498,10 @@ function s3() {
   const r = g.result;
   if (!s.pg.length && r.proposal) s.pg = [{ prop: r.proposal, replies: {} }];
   const pgs = s.pg, N = pgs.length, cur = pgs[N - 1];
-  const issuesHtml = `<section class="sec"><h2 class="st">이미 같은 생각인 부분</h2><ul class="agree">${r.agreed_points.map(a => `<li><span class="chk">✓</span><span>${esc(a)}</span></li>`).join("")}</ul></section>
-  <section class="sec"><h2 class="st">생각이 갈리는 부분</h2><p class="cs" style="margin-bottom:10px">각자 확인한 요약을 바탕으로 AI가 정리했어요(대화 원문은 쓰지 않아요)</p>${r.issues.map(issueCard).join("")}</section>`;
-  if (!cur) return head(r) + issuesHtml + `<section class="sec"><h2 class="st">1단계 · AI의 제안</h2><div class="failbox"><b>제안을 만들지 못했어요</b><br><button class="btn sm" data-act="retry-goal">다시 시도</button></div></section>` + next("방법별로 미래 계산하기", true, "제안이 있어야 해요");
+  const issuesHtml = `<section class="sec"><h2 class="st">생각 확인</h2><p class="cs" style="margin-bottom:10px">각자 확인한 요약을 바탕으로 AI가 정리했어요</p>
+  <div class="gpn s"><div class="gpk">이미 같은 생각인 부분 <i>${r.agreed_points.length}가지</i></div><ul class="agree">${r.agreed_points.map(a => `<li><span class="chk">✓</span><span>${esc(a)}</span></li>`).join("")}</ul></div>
+  <div class="gpn d"><div class="gpk">생각이 갈리는 부분 <i>${r.issues.length}가지</i></div>${r.issues.map(issueCard).join("")}</div></section>`;
+  if (!cur) return head(r) + issuesHtml + `<section class="sec"><h2 class="st">AI의 제안</h2><div class="failbox"><b>제안을 만들지 못했어요</b><br><button class="btn sm" data-act="retry-goal">다시 시도</button></div></section>` + next("방법별로 미래 계산하기", true, "제안이 있어야 해요");
   const view = s.pgView == null ? N - 1 : Math.min(s.pgView, N - 1), isLast = view === N - 1, pgv = pgs[view];
   const to = cur.prop.to;
   const allReplied = to.every(m => cur.replies[m]);
@@ -505,7 +521,7 @@ function s3() {
     ${st.result ? `<p class="q2">${esc(st.result.message)}</p>${st.result.topics.map(issueCard).join("")}
      <div class="act"><div class="rl">가족끼리 이야기를 나눈 뒤, 나눈 내용을 적고 다시 제안받아요</div><textarea id="discTxt" maxlength="300" placeholder="예: 집은 지키되, 병원비가 모자라면 그때 다시 이야기하기로 했어요">${esc(s.discDraft || "")}</textarea>
       ${pend(s.rev, "나눈 이야기를 반영해 다시 제안하고 있어요", "disc-go")}<div class="row"><span class="cs" style="flex:1">AI는 결정을 대신하지 않아요. 가족이 직접 이야기한 뒤에 눌러 주세요.</span><button class="btn primary sm" data-act="disc-go">이야기 나눴어요, 다시 제안받기</button></div></div>` : ""}</div>`; };
-  const stepOne = `<section class="sec"><h2 class="st">1단계 · AI의 제안과 가족의 의견</h2>
+  const stepOne = `<section class="sec"><h2 class="st">AI의 제안</h2>
    ${pager}${propBox(pgv, view + 1)}${replyList(pgv)}
    ${!isLast ? `<p class="cs" style="margin-top:10px">지난 제안이에요. <button class="btn sm" data-act="pg-last">가장 최근 제안으로</button></p>` : ""}
    ${isLast && !allReplied ? (to.includes(vw) && !cur.replies[vw] ? replyBox(N) : "") + turn(to.filter(m => !cur.replies[m]), "의견") : ""}
@@ -514,14 +530,14 @@ function s3() {
    ${isLast && allGood ? `<p class="okline"><span class="chk">✓</span><span><b>가족 모두 '좋아요'라고 했어요.</b> 이 제안으로 목표를 정리해요.</span></p>` : ""}</section>`;
   const ready = s.goalChk.status === "done";
   const allApproved = ready && mids().every(m => s.approvals[m]);
-  if (s.backPending) return head(r) + issuesHtml + `<section class="sec"><h2 class="st">1단계 · AI의 제안과 가족의 의견</h2>${pager}${propBox(pgv, view + 1)}${replyList(pgv)}
+  if (s.backPending) return head(r) + issuesHtml + `<section class="sec"><h2 class="st">AI의 제안</h2>${pager}${propBox(pgv, view + 1)}${replyList(pgv)}
     <div class="aibox"><p class="q">합의안 단계에서 가족 모두가 고른 방법이 없어 돌아왔어요.</p><p class="sub">${esc(s.backPending.reason)}</p></div>
     ${pend(s.rev.status ? s.rev : { status: "loading" }, "돌아온 이유를 반영해 공동 목표를 다시 제안하고 있어요", "retry-back")}</section>`;
-  const stepTwo = allGood ? (s.size ? stepTwoSize() : `<section class="sec"><h2 class="st">2단계 · 가족 모두의 최종 동의</h2><p class="cs" style="margin-bottom:10px">1단계에서 모두 '좋아요'라고 한 제안으로 목표를 정리했어요. 맞으면 동의해 주세요. 다음 단계에서 이 목표로 미래를 계산해요.</p>
+  const stepTwo = allGood ? (s.size ? stepTwoSize() : `<section class="sec"><h2 class="st">모두 동의</h2><p class="cs" style="margin-bottom:10px">AI의 제안에 모두 '좋아요'라고 해서 목표를 정리했어요. 맞으면 동의해 주세요. 다음 단계에서 이 목표로 미래를 계산해요.</p>
    ${pend(crit, "AI가 함께 정한 방향을 한 문장으로 정리하고 있어요", "retry-criterion")}
    ${crit.result && s.goalForm ? `<div class="aibox"><p class="q">${esc(crit.result.criterion)}</p></div>${vbadge(crit.verification, crit.calls)}${goalCard(s.goalForm)}
    ${s.goalChk.status === "bad" ? `<div class="failbox"><b>이 목표는 계산할 수 없어요</b>${esc(s.goalChk.message)}<br><button class="btn sm" data-act="go" data-i="1">우리 가족 이야기에서 값 고치기</button></div>` : ""}
-   ${ready ? `<div class="agreelist">${F().members.map(m => `<div class="agr">${av(m.member_id)}<div><div class="nm">${esc(m.name)}</div><div class="cm">${s.approvals[m.member_id] ? "동의했어요" : "아직 답하지 않았어요"}</div></div>${m.member_id === vw && !s.approvals[vw] ? `<button class="btn primary sm" data-act="approve">동의해요</button>` : ""}</div>`).join("")}</div>
+   ${ready ? `<div class="agreelist">${F().members.map(m => `<div class="agr">${av(m.member_id)}<div><div class="nm">${esc(m.name)}</div>${s.approvals[m.member_id] ? "" : `<div class="cm">아직 답하지 않았어요</div>`}</div>${s.approvals[m.member_id] ? `<span class="g-agreed">동의했어요 ✓</span>` : m.member_id === vw ? `<button class="btn primary sm" data-act="approve">동의해요</button>` : ""}</div>`).join("")}</div>
    ${allApproved ? `<p class="okline"><span class="chk">✓</span><span><b>가족 모두 이 목표에 동의했어요.</b> 이 목표로 방법을 설계하고 계산할게요.</span></p>` : turn(mids().filter(m => !s.approvals[m]), "동의")}` : ""}` : ""}</section>`) : "";
   if (!allGood) return head(r) + gFlow(1) + issuesHtml + stepOne + next("방법별로 미래 계산하기", true, "가족 모두 동의하면 다음으로 넘어갈 수 있어요");
   // 모두 '좋아요'로 끝난 뒤: 지난 단계는 접고(펼치면 전부 그대로 보임) 지금 할 일(숫자 정하기·동의)만 크게
@@ -562,15 +578,26 @@ function chart(r, goal) {
   });
   const gy = Y(target), gc = goal.type === "runway" ? "var(--bad)" : "var(--green)";
   g += `<line x1="${L}" x2="${W - Rr}" y1="${gy}" y2="${gy}" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${gy + 5}" font-size="14" font-weight="700" fill="${gc}">${goal.type === "reach_target" ? "목표 " + eokS(target) : debt ? "대출 0원" : "예금 0원"}</text>`;
+  // '지금' 금액 글: 선이 오르면(시작점 오른쪽 위로 지나감) 점 아래에, 내려가거나 평평하면 점 위에 둔다. 아래 칸이 모자라면 위에 두고 글 둘레를 하얗게 둘러 선과 겹쳐도 읽히게 한다
+  const nowY = p.length > 1 && p[1] > p[0] && Y(p[0]) + 18 <= H - B - 4 ? Y(p[0]) + 18 : Y(p[0]) - 12;
   const dd = p.map((v, j) => `${j ? "L" : "M"}${X(j).toFixed(1)},${Y(v).toFixed(1)}`).join("");
   g += `<path d="${dd}" fill="none" stroke="var(--ink)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`;
-  g += `<circle cx="${X(0)}" cy="${Y(p[0])}" r="5" fill="var(--ink)"/><text x="${X(0) + 10}" y="${Y(p[0]) - 12}" font-size="14" fill="var(--ink2)">지금 ${eokS(p[0])}원</text>`;
+  g += `<circle cx="${X(0)}" cy="${Y(p[0])}" r="5" fill="var(--ink)"/><text x="${X(0) + 10}" y="${nowY}" font-size="14" fill="var(--ink2)" stroke="#fff" stroke-width="4" paint-order="stroke">지금 ${eokS(p[0])}원</text>`;
   const lx = X(p.length - 1), ly = Y(p[p.length - 1]);
   g += `<circle cx="${lx}" cy="${ly}" r="5" fill="var(--ink)"/><text x="${lx + 10}" y="${ly + 5}" font-size="14" font-weight="700" fill="var(--ink)">${eokS(p[p.length - 1])}원</text>`;
   if (r.goal_hit_month) {
-    const hx = X(r.goal_hit_month / 12), ty = gy - 22, bx = Math.min(Math.max(hx, L + 122), W - Rr - 42);
+    const hx = X(r.goal_hit_month / 12), bw = 240, bh = 30;
     const lab = goal.type === "reach_target" ? `${r.goal_hit_display} 뒤 목표에 닿아요` : debt ? `${r.goal_hit_display} 뒤 다 갚아요` : `${ba + Math.floor(r.goal_hit_month / 12)}세쯤 예금이 바닥나요`;
-    g += `<circle cx="${hx}" cy="${gy}" r="8" fill="var(--paper)" stroke="${gc}" stroke-width="3"/><rect x="${bx - 120}" y="${ty - 22}" width="240" height="30" fill="var(--paper)" stroke="${gc}" stroke-width="1.5"/><text x="${bx}" y="${ty - 2}" text-anchor="middle" font-size="15" font-weight="700" fill="${gc}">${esc(lab)}</text>`;
+    // 안내 상자는 선·'지금' 금액 글과 겹치지 않는 자리를 골라 둔다(왼쪽 위 → 오른쪽 아래 → 오른쪽 위 → 왼쪽 아래 차례). 다 안 되면 예전 자리
+    const pts = []; for (let j = 0; j < p.length - 1; j++) for (let k = 0; k <= 24; k++) pts.push([X(j + k / 24), Y(p[j] + (p[j + 1] - p[j]) * k / 24)]);
+    const nb = [X(0) + 6, nowY - 16, X(0) + 100, nowY + 6];
+    const fits = (x0, y0) => x0 >= L + 2 && x0 + bw <= W - Rr - 2 && y0 >= T0 && y0 + bh <= H - B - 2
+      && !pts.some(([x, y]) => x > x0 - 5 && x < x0 + bw + 5 && y > y0 - 5 && y < y0 + bh + 5)
+      && !(x0 < nb[2] && x0 + bw > nb[0] && y0 < nb[3] && y0 + bh > nb[1]);
+    const low = Math.min(gy + 14, H - B - 2 - bh); // 아래 칸이 모자라면 바닥선에 붙여 올려 둔다(목표선을 덮지 않는 만큼만)
+    const pick = [[hx - 12 - bw, gy - 14 - bh], [hx + 12, low], [hx + 12, gy - 14 - bh], [hx - 12 - bw, low]].find(c => fits(c[0], c[1]) && (c[1] > gy + 5 || c[1] + bh < gy - 5))
+      || [Math.min(Math.max(hx - bw / 2, L + 2), W - Rr - 2 - bw), gy - 14 - bh];
+    g += `<circle cx="${hx}" cy="${gy}" r="8" fill="var(--paper)" stroke="${gc}" stroke-width="3"/><rect x="${pick[0]}" y="${pick[1]}" width="${bw}" height="${bh}" fill="var(--paper)" stroke="${gc}" stroke-width="1.5"/><text x="${pick[0] + bw / 2}" y="${pick[1] + 20}" text-anchor="middle" font-size="15" font-weight="700" fill="${gc}">${esc(lab)}</text>`;
   }
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="연도별 금액">${g}</svg>`;
 }
@@ -620,7 +647,7 @@ function s4() {
     changes.length ? f5("chg", `이 방법에서 정한 것 · ${changes.length}가지`, `<div class="chg2" style="margin:0"><ul>${changes.map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>`) : "",
     n5?.why ? f5("why", "이렇게 설계한 근거", `<p class="why">${tipText(n5.why, n5.tips)}${n5.tips?.length ? ` <span class="cs">(밑줄을 누르면 금융감독원 금융꿀팁 원문)</span>` : ""}</p>`) : "",
     r.range ? f5("range", "운이 좋을 때와 나쁠 때도 보기 · 보조 정보", `<p class="cs">같은 계획을 ${r.range.paths}번, 매번 다른 경기 상황을 가정해 계산했어요. ${g.type === "reach_target" ? `운이 좋으면 ${r.range.p10_hit_month ? (r.range.p10_hit_month / 12).toFixed(1) + "년" : "-"}, 보통 ${r.range.p50_hit_month ? (r.range.p50_hit_month / 12).toFixed(1) + "년" : "-"}, 운이 나쁘면 ${r.range.p90_hit_month ? (r.range.p90_hit_month / 12).toFixed(1) + "년" : "기간 안에 못 모임"}${g.within_months ? ` · ${g.within_months / 12}년 안에 모일 가능성 ${Math.round(r.range.prob_reach_within * 100)}%` : ""}` : `끝까지 예금이 남을 가능성 ${Math.round((r.range.prob_last_through ?? 0) * 100)}%`}</p>`) : "",
-    f5("calc", "이렇게 계산했어요 · 숫자와 출처, 해마다 표", `<table class="btab"><thead><tr><th>항목</th><th>값</th><th>출처</th></tr></thead><tbody>${r.basis.map(b => `<tr><td class="bk">${esc(b.label)}</td><td class="bv num">${esc(b.display)}</td><td class="bd">${esc(b.detail || retSource(b))}<span class="src">${esc({ financial_snapshot: "가족이 입력한 정보", option: "AI가 정한 방법", goal_setting: "공동 목표", assumption: "가정값" }[b.source] || (b.source.startsWith("assumption") ? "공개 가정값" : b.source))}</span></td></tr>`).join("")}</tbody></table>
+    f5("calc", "이렇게 계산했어요 · 숫자와 출처, 연도별 계산표", `<table class="btab"><thead><tr><th>항목</th><th>값</th><th>출처</th></tr></thead><tbody>${r.basis.map(b => `<tr><td class="bk">${esc(b.label)}</td><td class="bv num">${esc(b.display)}</td><td class="bd">${esc(b.detail || retSource(b))}<span class="src">${esc({ financial_snapshot: "가족이 입력한 정보", option: "AI가 정한 방법", goal_setting: "공동 목표", assumption: "가정값" }[b.source] || (b.source.startsWith("assumption") ? "공개 가정값" : b.source))}</span></td></tr>`).join("")}</tbody></table>
    <p class="how2"><b>계산 방법</b> 매달 ① 남아 있는 돈에 한 달 치 이자를 붙이고 ② 그달에 모이는 돈(생활비에는 ${T("물가")} 상승 반영)과 대출 상환을 더하고 빼요. 이걸 ${g.horizon_months}개월 동안 반복했어요. 세금은 넣지 않았고, 수익률·물가·주택연금은 공개된 가정값이에요.</p>
    <details class="tune"><summary>연도별 계산표 보기</summary><div class="ytab-wrap"><table class="ytab num"><thead><tr><th>${g.type === "runway" ? esc(mem(g.base_member_id).name) + "님 나이" : "연도"}</th><th>연초</th><th>그해 모인 돈</th><th>이자로 불어난 돈</th>${hasLoan ? "<th>대출 상환</th><th>남은 대출</th>" : ""}<th>연말</th><th>${T("순자산")}</th></tr></thead><tbody>${yr}</tbody></table></div></details>`),
   ].join("");
@@ -724,11 +751,11 @@ function backRevise() {
     discussion: `합의안 단계에서 가족 모두가 고른 방법이 없어 공동 목표로 돌아왔어요. ${b.reason}` },
     res => { pushPage(res); s.stuck = {}; s.cycleStart = s.pg.length - 1; s.backPending = null; });
 }
-function paper(a, dr) {
+function paper(a, dr, word = "합의안") {
   const s = S(), vw = viewer(), f = F();
   const allSigned = mids().every(m => s.signed[m]);
   const ct = a.contribution.map(c => `${esc(c.label)} 월 ${won(c.amount)}`).join(" + ");
-  return `<article class="paper" style="margin-top:22px"><div class="ptitle">${esc(f.room.name)} 합의안</div>
+  return `<article class="paper" style="margin-top:22px"><div class="ptitle">${esc(f.room.name)} ${word}</div>
    <div class="pmeta">Ver.${a.version} · ${f.members.length}명 · 다음 점검 ${esc(a.review.next)} · 법적 효력이 있는 문서는 아니고, 가족이 함께 정한 내용을 남긴 기록이에요</div>
    <div class="psec"><h4>함께 이룰 목표</h4><p>${esc(a.goal)}</p></div>
    <div class="psec"><h4>고른 방법</h4><p><b>${esc(a.method.display_label)}</b> · 매달 ${a.method.monthly_flow > 0 ? "+" : ""}${won(a.method.monthly_flow)}</p></div>
@@ -742,7 +769,7 @@ function paper(a, dr) {
     <p style="margin-top:8px"><b>실행 계획</b></p><ul>${a.report.action_plan.map(x => `<li>${esc(x.when)} · ${esc(x.what)}</li>`).join("")}</ul></div></div>
    ${vbadge(dr.verification, dr.calls)}
    <div class="psec"><h4>서명</h4><div><div class="sigs">${f.members.map(m => `<button class="sig ${s.signed[m.member_id] ? "on" : ""}" data-act="sign" ${m.member_id !== vw || s.signed[m.member_id] ? "disabled" : ""}>${av(m.member_id, "sm")}<span><b>${esc(m.name)}</b><br><span class="st">${s.signed[m.member_id] ? `Ver.${a.version}에 서명했어요` : m.member_id === vw ? "눌러서 서명하기" : "서명 대기"}</span></span></button>`).join("")}</div>
-    ${allSigned ? `<div class="sealed"><span class="chk">✓</span>가족 모두 같은 합의안(Ver.${a.version})에 서명했어요. 합의안이 확정됐어요.</div>` : turn(mids().filter(m => !s.signed[m]), "서명")}</div></div></article>`;
+    ${allSigned ? `<div class="sealed"><span class="chk">✓</span>가족 모두 같은 ${word}(Ver.${a.version})에 서명했어요. ${word}이 확정됐어요.</div>` : turn(mids().filter(m => !s.signed[m]), "서명")}</div></div></article>`;
 }
 
 /* ---------- 화면 6: 상품 추천 ---------- */
@@ -822,12 +849,23 @@ const KIND_TAG = { policy: "정책금융·공적 제도", consult: "상담 연�
 const attrsHtml = r => `<dl class="attrs">${Object.entries({ rate: "금리", term: "기간", risk: "위험도", liquidity: "유동성", tax: "세제혜택", eligibility: "가입조건" }).map(([k, l]) => `<dt>${l}</dt><dd>${esc(r.attributes[k])}</dd>`).join("")}</dl>`;
 const exclHtml = r => r.excluded.length ? `<div class="excl">제외: ${r.excluded.map(e => `${esc(e.label)}(${esc(e.reason)})`).join(", ")}</div>` : "";
 // 이 약속의 상품 유형: 왜 이 상품인가요는 바로, 유형 설명(금리·기간·위험도…)은 '자세히 보기'에 접는다
+// '왜 이 상품인가요' 한 줄들 중 앞부분(약속 → 필요)이 같은 것은 한 줄로 합쳐 상품 유형만 나열한다(글은 서버가 만든 그대로, 앞부분이 되풀이돼 길던 것을 줄임)
+function mergeReasons(list) {
+  const groups = new Map();
+  for (const x of list) {
+    const m = /^(.*?) → (.*?) → (.*)(을|를) 연결했어요\.$/.exec(x.reason_text);
+    if (!m) { groups.set(x.reason_text, { plain: x.reason_text }); continue; }
+    const k = m[1] + " → " + m[2], g = groups.get(k) || { head: m[1], need: m[2], items: [] };
+    g.items.push(m[3]); g.pr = m[4]; groups.set(k, g);
+  }
+  return [...groups.values()].map(g => g.plain ? esc(g.plain) : `${esc(g.head)} → ${esc(g.need)} → ${g.items.map(esc).join(" · ")}${g.pr} 연결했어요.`);
+}
 function typeInfoHtml(nid, recs) {
   const list = recs.filter(x => x.need_id === nid && x.product_type_id);
   if (!list.length) return "";
   const o = !!(S().fo || {})["t:" + nid];
   const det = list.map(x => `<div class="pc-type"><div class="pn">${esc(x.product_label)} <span class="cs">${KIND_TAG[x.kind] || ""}</span></div><p class="cs">${esc(x.summary)}</p>${attrsHtml(x)}${exclHtml(x)}</div>`).join("");
-  return `<div class="why2"><b>왜 이 상품인가요</b>${list.map(x => `<br>${esc(x.reason_text)}`).join("")}</div><button type="button" class="g-more" data-act="fold" data-k="t:${esc(nid)}" aria-expanded="${o}">${o ? "접기" : "상품 유형 자세히 보기"}</button>${o ? `<div class="g-det">${det}</div>` : ""}`;
+  return `<div class="why2"><b>왜 이 상품인가요</b>${mergeReasons(list).map(t => `<br>${t}`).join("")}</div><button type="button" class="g-more" data-act="fold" data-k="t:${esc(nid)}" aria-expanded="${o}">${o ? "접기" : "상품 유형 자세히 보기"}</button>${o ? `<div class="g-det">${det}</div>` : ""}`;
 }
 function recCard(r, i, extra) { // 실제 상품 데이터가 없는 약속: 상품 유형 카드
   const o = !!(S().fo || {})["t:r" + i];
@@ -905,7 +943,7 @@ function progCards(nid, label) {
   const slot = s.prog[nid] || (s.prog[nid] = {});
   if (!started(slot) && slot.status !== "error") setTimeout(() => run(slot, "/api/programs/judge", { family: F(), need_id: nid }), 0);
   if (slot.status !== "done") return [{ key: `pl:${nid}`, name: "제도 조건을 따져 보고 있어요", tag: `${esc(label)} · 제도`, always: pend(slot.status ? slot : { status: "loading" }, "제도 조건을 따져 보고 있어요", `prog-retry:${nid}`) }];
-  const icon = { met: "✓", not_met: "✕", unknown: "?" }, cls = { eligible: "ok", not_eligible: "no", check: "chk" };
+  const icon = { met: "✓", not_met: "✕", unknown: "?" }, cls = { eligible: "ok", not_eligible: "no", check: "chk" }, stCls = { eligible: "st-ok", not_eligible: "st-no", check: "st-chk" }; // 카드 오른쪽 상태 글자는 st-* 이름(전역 .chk 동그라미 스타일과 겹쳐 글자가 세로로 눌렸음)
   const terms = t => [t.rate && t.rate.min != null ? `금리 연 ${t.rate.min}~${t.rate.max}%` : t.rate && t.rate.note ? esc(t.rate.note) : "",
     t.limit ? `한도 최대 ${won(t.limit.max_manwon)}${t.limit.ltv_pct ? ` (LTV ${t.limit.ltv_pct}%)` : ""}${t.limit.deposit_pct ? ` (보증금의 ${t.limit.deposit_pct}%)` : ""}${t.limit.note ? ` · ${esc(t.limit.note)}` : ""}` : "",
     t.monthly ? `매달 ${won(t.monthly.min_manwon)}~${won(t.monthly.max_manwon)}` : "",
@@ -922,7 +960,7 @@ function progCards(nid, label) {
       <button class="linkbtn" data-act="prog-open" data-need="${nid}" data-pid="${g.program_id}">${open ? "근거 닫기" : "근거 보기(공식 원문)"}</button>
       ${ragPanel(`${nid}|${g.program_id}`, "law", PROG_LAW[g.program_id] ? "이 제도의 근거 법령 보기" : "관련 법령 찾아보기", PROG_LAW[g.program_id])}`;
     const pk = g.estimate ? `${esc(g.estimate.label)} <b>약 ${wonK(g.estimate.monthly_manwon)}</b>` : terms(g.terms).split(" · ")[0];
-    return { key: `p:${nid}|${g.program_id}`, name: esc(g.label), tag: `${esc(label)} · 제도`, rate: esc(g.status_text), rateCls: `pc-st ${cls[g.status]}`, pk, body };
+    return { key: `p:${nid}|${g.program_id}`, name: esc(g.label), tag: `${esc(label)} · 제도`, rate: esc(g.status_text), rateCls: `pc-st ${stCls[g.status]}`, pk, body };
   });
 }
 function fitControls(key, cat, st, res) {
@@ -1116,8 +1154,8 @@ function s7() {
     <div class="g-sub">자세히 보기</div><div class="g-folds">${homeFolds}</div></div>
   </div><div class="stackv">
    ${calendar()}
-   <div class="card"><div class="ct" style="margin-bottom:10px">우리 가족 합의안</div><p class="cs" style="margin-bottom:12px">${f.members.length}명 서명 · Ver.${a.version}${s.signedAt ? ` · ${krDate(s.signedAt)} 확정` : ""}</p><div class="stack" style="margin-bottom:14px">${f.members.map(m => av(m.member_id, "sm")).join("")}</div><button class="btn sm" data-act="go" data-i="5">합의안 보기</button>
-    ${hist.length ? `<p class="cs" style="margin-top:12px">지난 합의안: ${hist.map(h => `Ver.${h.version}(${esc(h.method)}${h.signedAt ? ", " + krDate(h.signedAt) : ""})`).join(" · ")}</p>` : ""}</div>
+   <div class="card"><div class="ct" style="margin-bottom:10px">우리 가족 합의문</div><p class="cs" style="margin-bottom:12px">${f.members.length}명 서명 · Ver.${a.version}${s.signedAt ? ` · ${krDate(s.signedAt)} 확정` : ""}</p><div class="stack" style="margin-bottom:14px">${f.members.map(m => av(m.member_id, "sm")).join("")}</div><button class="btn sm" data-act="open-agree">합의문 보기</button>
+    ${hist.length ? `<p class="cs" style="margin-top:12px">지난 합의문: ${hist.map(h => `Ver.${h.version}(${esc(h.method)}${h.signedAt ? ", " + krDate(h.signedAt) : ""})`).join(" · ")}</p>` : ""}</div>
   </div></div>
   <section class="sec endsec"><h2 class="st">체험을 마치며</h2><div class="endnote">
    <p><b>여기까지가 ONE-Heart 체험이에요. 함께해 주셔서 고마워요.</b></p>
@@ -1143,6 +1181,7 @@ function chrome() {
   $("#stack").innerHTML = f.members.filter(m => m.name).map(m => av(m.member_id, "sm")).join("");
   $("#rail").innerHTML = `<h3>목차</h3>` + STEPS.map((t, i) => `<button data-act="go" data-i="${i}" class="${i < step ? "done" : ""}" ${i === step ? 'aria-current="step"' : ""}><span>${t}</span><span class="dots"></span><span class="num">${i + 1}</span></button>`).join("");
   $("#pos").textContent = (step + 1) + " / " + STEPS.length;
+  document.querySelector(".appgrid")?.classList.toggle("wide", step === 7); // 가족 홈만 본문을 넓게(2단이 좁지 않게)
   $("#viewer").innerHTML = f.members.map(m => `<option value="${m.member_id}" ${m.member_id === viewer() ? "selected" : ""}>${esc(m.name || "이름 없음")}</option>`).join("");
   $("#roomLabel").textContent = ROOMS[room];
   $("#prev").disabled = step === 0; $("#nextBtn").disabled = step === STEPS.length - 1;
@@ -1213,6 +1252,7 @@ function bindInputs() {
     st.res = {}; render();
   });
   document.querySelectorAll("[data-world]").forEach(el => el.onchange = () => { s.worldSel[el.dataset.world] = el.value; sizeUpdate(true); });
+  document.querySelectorAll("[data-disc]").forEach(el => el.onchange = () => { F().disclosure[el.dataset.disc] = el.value; famEdited("finance"); render(); });
   document.querySelectorAll("[data-gnum]").forEach(el => el.onchange = () => {
     const t = el.value.trim().replace(/,/g, ""), v = t === "" ? null : Number(t);
     if (v !== null && !Number.isFinite(v)) { toast("숫자로 적어 주세요"); return; }
@@ -1226,7 +1266,11 @@ function bindInputs() {
       if (/^finance\.\d+\.kind$/.test(path)) { const it = getPath(s.fam, path.replace(/\.kind$/, "")); if (it.kind === "loan") { it.loan_type = it.loan_type || "credit"; it.rate = it.rate ?? 5; } }
       famEdited(path); render();
     };
-    else el.oninput = () => { setPath(s.fam, path, val()); famEdited(path); save(); };
+    else el.oninput = () => {
+      setPath(s.fam, path, val()); famEdited(path); save();
+      const eq = isNum && el.closest(".gr-ctl")?.querySelector("[data-eq]"); // 금액 옆 '= 3억원' 바로 갱신
+      if (eq) { const n = val(); eq.textContent = n > 0 ? "= " + won(n) : ""; }
+    };
   });
   document.querySelectorAll("[data-rv]").forEach(el => el.oninput = () => { (s.reviewIn = s.reviewIn || {})[el.dataset.rv] = el.value; });
   const ans = $("#ans"); if (ans) ans.oninput = () => { ivState(viewer()).draft = ans.value; };
@@ -1277,6 +1321,17 @@ const ACT = {
   next: () => go(step + 1),
   prev: () => go(step - 1),
   go: b => go(+b.dataset.i),
+  "open-agree": () => { // 가족 홈에서 합의문을 팝업으로(합의안 단계로 이동하지 않는다). 서명 버튼은 읽기 전용
+    const s = S(), a = s.draft && s.draft.result; if (!a) return;
+    const el = document.createElement("div"); el.className = "modal";
+    el.innerHTML = `<div class="mbox doc" role="dialog" aria-modal="true" aria-label="우리 가족 합의문"><div class="mdochead"><b>우리 가족 합의문</b><button type="button" class="btn sm" data-close="1">닫기</button></div>${paper(a, s.draft, "합의문").replace(/ data-act="sign"/g, "")}</div>`;
+    const close = () => { el.remove(); document.removeEventListener("keydown", onKey); };
+    const onKey = e => { if (e.key === "Escape") close(); };
+    el.onclick = e => { if (e.target === el || e.target.closest("[data-close]")) close(); };
+    document.addEventListener("keydown", onKey);
+    document.body.appendChild(el);
+    const cb = el.querySelector("[data-close]"); if (cb) cb.focus();
+  },
   toggle: b => { const el = document.getElementById(b.dataset.target); if (el) el.hidden = !el.hidden; },
   viewer: b => { S().viewer = b.dataset.mid; toast(mem(b.dataset.mid).name + "님 화면이에요"); render(); window.scrollTo({ top: 0 }); },
   code: async () => { const v = ($("#codeIn").value || "").trim(); if (!v) return; ACCESS.set(v); try { await api("/api/access", { code: v }); needCode = false; codeMsg = ""; toast("확인했어요"); render(); } catch (e) { ACCESS.set(""); codeMsg = e.message; render(); } },
@@ -1296,7 +1351,7 @@ const ACT = {
     s.story = {}; run(s.story, "/api/story/understand", { family: F() });
   },
   "send-ans": () => { const st = ivState(viewer()), t = ($("#ans").value || "").trim(); if (!t) { toast("답을 적어 주세요"); return; } st.answers.push(t); st.draft = ""; render(); },
-  "fill-ans": () => { const st = ivState(viewer()); st.draft = S().scripts.answers[viewer()][st.answers.length]; render(); },
+  "fill-ans": () => { const st = ivState(viewer()); st.draft = exAns(viewer(), st.answers.length) || st.draft; render(); },
   finish: b => finishInterview(b.dataset.mid),
   "clar-resume": b => { const st = ivState(b.dataset.mid); st.clar = { state: "asking" }; st.clarTries = 0; st.resolve = {}; render(); },
   confirm: b => { ivState(b.dataset.mid).confirmed = true; toast("요약을 가족에게 공유했어요"); render(); },
@@ -1334,7 +1389,7 @@ const ACT = {
   },
   "retry-back": () => { const s = S(); s.rev = {}; backRevise(); },
   "goal-refresh": async () => {
-    const ok = await ask("공동 목표 설정을 처음부터 다시 할까요?", "지금까지 정리한 서로 다른 생각, 제안과 의견, 2단계에서 정한 숫자와 동의, 그 뒤의 미래 계산·합의안이 지워지고 AI가 처음부터 다시 정리해요. 우리 가족 이야기와 각자의 요약은 그대로예요.", [{ label: "지우고 다시 받기", value: true, primary: true }]);
+    const ok = await ask("공동 목표 설정을 처음부터 다시 할까요?", "지금까지 정리한 서로 다른 생각, 제안과 의견, 정한 숫자와 동의, 그 뒤의 미래 계산·합의안이 지워지고 AI가 처음부터 다시 정리해요. 우리 가족 이야기와 각자의 요약은 그대로예요.", [{ label: "지우고 다시 받기", value: true, primary: true }]);
     if (!ok) return;
     reset("goal"); toast("공동 목표 설정을 처음부터 다시 해요"); render();
   },

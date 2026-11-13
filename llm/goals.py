@@ -16,7 +16,7 @@ CHOICE, NUM, TEXT, MEMBER = "choice", "number", "text", "member"
 CATEGORIES: dict[str, dict] = {
     "home": {"label": "내 집 마련", "engine": "reach_target", "goal_label": "내 집 마련", "fields": [
         {"key": "target_amount", "label": "집 마련에 필요한 돈", "kind": NUM, "unit": "만원", "min": 1000, "max": 1_000_000, "decide": True,
-         "help": "집값 전체가 아니라 모아야 하는 총액이에요. 예: 3억원이면 30000"},
+         "help": "집값 전체가 아니라, 우리가 모아야 할 금액이에요. 예: 집값 5억원 중 3억원을 모은다면 30000"},
         {"key": "within_years", "label": "언제까지", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
         {"key": "living", "label": "지금 사는 곳", "kind": CHOICE, "options": ["전세", "월세", "자가", "부모님 집"]},
     ]},

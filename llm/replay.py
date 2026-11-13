@@ -19,6 +19,13 @@ def _clip(t: str, n: int = 25) -> str:
     return t if len(t) <= n else t[: n - 1] + "…"
 
 
+def _gist(t: str, n: int = 40) -> str:
+    """사람이 한 말의 첫 문장을 그대로 쓴다(n자 안이면 자르지 않는다). 길면 n자에서 자르고 …를 붙인다."""
+    t = re.sub(r"\s+", " ", str(t)).strip()
+    first = re.split(r"(?<=[.!?])\s+", t)[0].rstrip(".!?")
+    return first if len(first) <= n else _clip(first, n)
+
+
 def _sentences(t: str) -> list[str]:
     return [s.strip() for s in re.split(r"(?<=[.!?요다])\s+", t or "") if s.strip()]
 
@@ -29,8 +36,7 @@ def _r1a(i):
     living = next((s for s in ss if any(k in s for k in ("전세", "월세", "자가", "아파트", "집에"))), "")
     goal = next((s for s in ss if "싶" in s), i.get("reason") or "")
     diffs = [s for s in ss if any(k in s for k in ("쪽", "생각", "갈리", "반대", "부담", "걱정"))][:3]
-    ages = sorted(m["age"] for m in i["members"])
-    return {"family_stage": f"{len(i['members'])}명 가족 · {ages[0]}~{ages[-1]}세",
+    return {"family_stage": f"{len(i['members'])}명 가족",  # 나이는 화면이 가족 정보로 직접 보여 준다
             "living": _clip(living) if living else "아직 이야기하지 않았어요",
             "shared_goal": _clip(goal) if goal else "아직 이야기하지 않았어요",
             "differences": [_clip(d, 20) for d in diffs] or ["무엇을 먼저 할지"],
@@ -63,8 +69,8 @@ def _member_questions(i, ss):
 
 def _r1b(i):
     ans = [a for _, a in i["qa"]] + ["", "", ""]
-    out = {"keep": _clip(ans[0]) or "아직 말하지 않았어요", "worry": _clip(ans[1]) or "아직 말하지 않았어요",
-           "flexible": _clip(ans[2]) or "아직 말하지 않았어요", "ambiguous": [], "question": "", "easy_question": "",
+    out = {"keep": _gist(ans[0]) or "아직 말하지 않았어요", "worry": _gist(ans[1]) or "아직 말하지 않았어요",
+           "flexible": _gist(ans[2]) or "아직 말하지 않았어요", "ambiguous": [], "question": "", "easy_question": "",
            "choices": [], "details": list(dict.fromkeys(_clip(x, 30) for x in ans[3:5] if x.strip() and "정하지 못" not in x))}
     if i.get("clarification"):
         out["keep"] = _clip(i["clarification"]["meaning"])
@@ -130,7 +136,13 @@ def _covers(i) -> dict:
 
 def _r4a(i):
     lead = _tip_tag(i, 0, "금융감독원 금융꿀팁이 알려 주는 기본 원칙이라서")
-    return {"proposal": "각자 꼭 지키고 싶다고 한 것을 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 정해 보면 어떨까요?",
+    sums = i["summaries"]
+    wants = [f"{m['name']}님의 '{_gist((sums.get(m['member_id']) or {}).get('keep') or '', 40)}'" for m in i["members"]
+             if (sums.get(m["member_id"]) or {}).get("keep")][:4]
+    who = ", ".join(wants[:-1]) + (", " if len(wants) > 2 else "") + ("와(과) " if len(wants) > 1 else "") + wants[-1] if wants else ""
+    prop = (f"{who}을(를) 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 정해 보면 어떨까요?" if wants else
+            "각자 꼭 지키고 싶다고 한 것을 모두 지키는 조건을 먼저 정하고, 그 조건이 채워지는 때를 함께 정해 보면 어떨까요?")
+    return {"proposal": prop,
             "reasons": [lead + "서로 지키고 싶은 것이 달라서 순서보다 조건으로 정하는 편이 모두를 챙길 수 있어요",
                         "함께 정한 목표를 이루려면 필요한 돈이 모이는 때가 분명해야 해서"],
             "covers": _covers(i), "to": [m["member_id"] for m in i["members"]]}
@@ -264,8 +276,20 @@ def _r6a(i):
     word = {"reach_target": "목표에 닿아요", "runway": "예금으로 지낼 수 있어요", "debt_free": "대출을 다 갚아요"}[i["goal"]["type"]]
     return {"per_option": {o["option_id"]: {"easy": f"{o['option_id']}를 고르면 {{{{fact:{o['option_id']}.goal_hit_years}}}} 뒤에 {word}." if i["goal"]["type"] != "runway"
                                             else f"{o['option_id']}를 고르면 예금으로 {{{{fact:{o['option_id']}.goal_hit_years}}}} 지낼 수 있어요.",
-                                            "per_member": {m["member_id"]: f"{m['name']}님이 지키고 싶은 것과 함께 살펴봐 주세요." for m in i["members"]}}
+                                            "per_member": {m["member_id"]: _r6a_member(i, o, m) for m in i["members"]}}
                            for o in i["options"]}}
+
+
+def _r6a_member(i, o, m) -> str:
+    """사람마다·방법마다 다른 문장: 그 사람이 말한 '지키고 싶은 것'·'걱정'을 이 방법에서 정한 것과 나란히 놓는다(규칙으로 만든 문장이라 실제 AI만큼 풀어 쓰지는 못한다)."""
+    sm = (i.get("summaries") or {}).get(m["member_id"]) or {}
+    keep, worry = _gist(sm.get("keep") or "", 40), _gist(sm.get("worry") or "", 40)
+    ch = next((c for c in (o.get("changes") or []) if isinstance(c, str) and c.strip()), "") or o.get("label") or ""
+    ch = _gist(ch, 36)
+    want = f"지키고 싶은 '{keep}'" if keep else "지키고 싶은 것"
+    if worry:
+        want += f"과(와) 걱정하는 '{worry}'"
+    return f"{m['name']}님이 {want}을(를), 이 방법에서 정한 '{ch}'와(과) 나란히 놓고 봐 주세요." if ch else f"{m['name']}님이 {want}을(를) 이 방법과 함께 살펴봐 주세요."
 
 
 def _r6b(i):

@@ -64,6 +64,7 @@ def serve() -> None:
 
     if "--replay" in sys.argv:
         os.environ["LLM_PROVIDER"] = "replay"
+        os.environ["ACCESS_CODES"] = ""  # 재생 모드는 비용이 0이라 체험 코드가 필요 없다(.env에 코드가 있어도 덮는다)
     if "--budget" in sys.argv:
         os.environ["BUDGET_USD"] = sys.argv[sys.argv.index("--budget") + 1]
     from server.app import dispatch

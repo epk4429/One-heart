@@ -131,8 +131,13 @@ def test_access_code_and_budget(monkeypatch):
     st, out = A.dispatch("POST", "/api/story/understand", json.dumps({"family": fam}).encode(), {"X-Access-Code": "hello"})
     assert st == 200
     guard.charge("hello", 0.6)  # 예산을 넘겼다고 치면
+    # 재생 공급자(개발용·mock)는 비용이 0이라 예산이 떨어져도 막지 않는다(2026-11-14)
+    st, _ = A.dispatch("POST", "/api/story/understand", json.dumps({"family": fam}).encode(), {"X-Access-Code": "hello"})
+    assert st == 200
+    monkeypatch.setenv("LLM_PROVIDER", "anthropic")  # 실제 AI라면 막는다(검사가 호출보다 앞서서 실제 호출은 일어나지 않음)
     st, out = A.dispatch("POST", "/api/story/understand", json.dumps({"family": fam}).encode(), {"X-Access-Code": "hello"})
     assert st == 402 and out["error"]["code"] == "budget_exhausted"
+    monkeypatch.setenv("LLM_PROVIDER", "replay")
     # 예산이 다 떨어져도 엔진만 쓰는 요청은 막지 않는다(체험 코드는 있어야 한다, 임의결정 66)
     st, _ = A.dispatch("POST", "/api/family/check", json.dumps({"family": fam}).encode(), {"X-Access-Code": "hello"})
     assert st == 200
@@ -296,3 +301,14 @@ def test_stage_roles_reject_company_and_product_names(monkeypatch):
         for word in ("우리은행", product):
             errs = ROLES[key].check(_inject(out, word), inp)
             assert any(word in e and "상품 이름" in e for e in errs), (key, word, errs)
+
+
+def test_example_answers_cover_all_custom_questions():
+    """예시 가족은 고정 질문 3개뿐 아니라 replay가 만드는 맞춤 질문(MQ_RULES)에도 구성원마다 예시 답이 있어야 한다."""
+    from llm.replay import MQ_RULES
+    for pid in ("newly", "elder"):
+        p = call("/api/preset", {"preset_id": pid})
+        extra = p["scripts"]["extra_answers"]
+        for m in p["members"]:
+            for _word, text, _easy in MQ_RULES:
+                assert extra[m["member_id"]].get(text), (pid, m["member_id"], text)

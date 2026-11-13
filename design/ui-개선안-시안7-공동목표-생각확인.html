@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시안7 · 공동 목표 설정 · 생각 확인</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../web/css/oneheart.css"><link rel="stylesheet" href="../web/css/app.css">
+<style>
+body{background:var(--paper2,#efede4);padding:28px 16px}
+.wrapx{max-width:780px;margin:0 auto}
+.intro{font-size:14.5px;line-height:1.75;color:var(--ink2);margin:0 0 18px}
+.intro b{color:var(--ink)}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);margin:26px 0 8px}
+.lbl.new{color:var(--green)}
+.pp{background:#fff;border:1px solid var(--line);padding:26px 30px}
+
+/* ===== 제안: 단계 띠 + '생각 확인' 하나로 묶기 ===== */
+/* 띠: 지금 있는 단계는 이름 앞에 숫자, 아래 본문 제목과 같은 이름·같은 숫자 */
+.nf{display:flex;margin:6px 0 26px}
+.nf div{flex:1;position:relative;padding-top:14px;font-size:13.5px;color:var(--muted);letter-spacing:-.01em}
+.nf div::before{content:"";position:absolute;left:0;right:6px;top:0;height:3px;background:var(--line)}
+.nf div.done{color:var(--ink2)}.nf div.done::before,.nf div.now::before{background:var(--green)}
+.nf div.done::after{content:"✓";margin-left:6px;color:var(--green);font-weight:800}
+.nf div.now{color:var(--green);font-weight:700}
+.nf b{font-weight:inherit;margin-right:5px}
+/* 생각 확인 본문 */
+.sh{display:flex;align-items:baseline;gap:10px;margin:0 0 4px}
+.sh .no{font-size:15px;font-weight:800;color:var(--green)}
+.sh h2{font-size:19px;margin:0}
+.sub2{font-size:14px;color:var(--ink2);margin:0 0 14px}
+/* 같은 생각·갈리는 생각 한 줄 요약 막대 */
+.bal{display:flex;height:8px;margin:0 0 6px;background:var(--line)}
+.bal i{display:block;height:100%}
+.bal i.s{background:var(--green)}
+.bal i.d{background:var(--warm)}
+.balk{display:flex;gap:18px;font-size:13px;color:var(--ink2);margin-bottom:16px}
+.balk b{font-weight:700}
+.balk .s b{color:var(--green)}
+.balk .d b{color:var(--warm)}
+/* 한 목록: 줄마다 상태 표시 */
+.ul{border-top:1px solid var(--line)}
+.ur{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.ur .mk{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+.ur.s .mk{background:var(--green-soft);color:var(--green)}
+.ur.d .mk{background:#fff;color:var(--warm);border:1.5px solid var(--warm)}
+.ur .tt{font-size:15px;line-height:1.6;font-weight:600}
+.ur .tg{display:inline-block;margin-left:8px;font-size:12px;font-weight:700}
+.ur.s .tg{color:var(--green)}
+.ur.d .tg{color:var(--warm)}
+.ur .stn{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ur .stn div{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.55}
+.ur .stn .nm{flex:0 0 auto;font-size:12.5px;color:var(--muted);padding-top:2px;min-width:34px}
+.ur .shr{margin-top:8px;font-size:13.5px;color:var(--green-d);background:var(--green-soft);padding:7px 11px}
+
+/* ===== 2차: 한 단계 안에서 두 종류를 색 면으로 또렷하게 ===== */
+.sh2{display:flex;align-items:baseline;gap:10px;margin:0 0 2px}
+.sh2 .no{font-size:15px;font-weight:800;color:var(--green)}
+.sh2 h2{font-size:19px;margin:0}
+.cnt{font-size:14px;color:var(--ink2);margin:0 0 12px}
+.cnt b{font-weight:800}.cnt .s b{color:var(--green)}.cnt .d b{color:var(--warm)}
+.pnl{padding:14px 16px 12px;margin-top:10px}
+.pnl.s{background:var(--green-soft);border-left:4px solid var(--green)}
+.pnl.d{background:#F6EFE0;border-left:4px solid var(--warm)}
+.pnl .pk{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;margin-bottom:8px}
+.pnl.s .pk{color:var(--green-d)}
+.pnl.d .pk{color:#7A5F28}
+.pnl .pk i{font-style:normal;font-weight:600;font-size:12.5px;opacity:.85}
+.pnl.s ul{list-style:none;margin:0;padding:0}
+.pnl.s li{display:flex;gap:9px;padding:5px 0;font-size:15px;line-height:1.6}
+.pnl.s .c{color:var(--green);font-weight:800}
+.pnl.d .icard{margin-top:8px;border-color:#E5D8B8}
+.pnl.d .icard:first-of-type{margin-top:0}
+</style>
+</head>
+<body>
+<div class="wrapx">
+<p class="intro"><b>공동 목표 설정 · 맨 위 단계 띠와 "생각 확인"</b><br>
+<b>지금 헷갈리는 이유 두 가지</b><br>
+① 띠에는 "생각 확인 → 제안에 의견 → 숫자 정하기 → 모두 동의" 4칸인데, 본문 제목은 "이미 같은 생각인 부분", "생각이 갈리는 부분", "1단계 · AI의 제안", "2단계 · 최종 동의"예요. <b>띠 이름과 본문 제목이 서로 달라서</b> 어디가 어디인지 이어지지 않고, "1단계·2단계" 숫자는 띠의 1~4칸과 어긋나요.<br>
+② "같은 생각"과 "갈리는 생각"이 <b>각자 큰 제목을 단 두 구역</b>으로 나뉘어 있어서 별개의 단계처럼 보여요. 둘 다 "생각 확인"이라는 한 단계의 결과인데요.<br>
+<b>제안(2차)</b> — 1차 시안은 "같음/갈림"이 글자 하나로만 달라서 구분이 안 됐어요. 그래서 이름을 맞추는 것(㉠)은 그대로 두고, "생각 확인"의 안을 바꿨어요.<br>
+㉠ 띠와 본문 제목을 <b>같은 이름</b>으로 맞춰요(번호는 붙이지 않아요)(생각 확인 / AI의 제안 / 숫자 정하기 / 모두 동의). "1단계·2단계" 말은 화면에서 빼요.<br>
+㉡ 큰 제목은 <b>"생각 확인" 하나</b>만 두고, 밑에는 지금 있는 설명 한 줄(각자 확인한 요약을 바탕으로 AI가 정리했어요)만 두고 "(대화 원문은 쓰지 않아요)"는 뺐어요.<br>
+㉢ 그 아래 두 묶음은 큰 제목·가로선 대신 <b>색 면</b>으로 나눠요. 같은 생각은 <b>초록 면 + ✓</b>, 갈리는 생각은 <b>따뜻한 면</b>(표시 없이 색만) 안에 각자의 말이 들어가요. <b>소제목 문구는 지금 그대로</b>("이미 같은 생각인 부분", "생각이 갈리는 부분")이고, 뒤의 "3가지"는 지금도 접힌 줄에 쓰는 표기예요. 둘 다 "생각 확인" 안의 내용이라 같은 칸 안에 묶여 보여요.</p>
+
+<p class="lbl">지금</p>
+<div class="pp">
+ <div class="g-flow" aria-label="진행 단계"><div class="done">생각 확인</div><div class="now">제안에 의견</div><div>숫자 정하기</div><div>모두 동의</div></div>
+ <section class="sec"><h2 class="st">이미 같은 생각인 부분</h2><ul class="agree"><li><span class="chk">✓</span><span>가족이 함께 이루려는 목표는 같아요 (내 집 마련)</span></li><li><span class="chk">✓</span><span>돈 문제로 걱정되는 점이 있어요 (육아휴직 중 줄어드는 수입)</span></li><li><span class="chk">✓</span><span>양가에 드리는 용돈은 같은 마음으로 챙기고 싶어요</span></li></ul></section>
+ <section class="sec"><h2 class="st">생각이 갈리는 부분</h2><p class="cs" style="margin-bottom:10px">각자 확인한 요약을 바탕으로 AI가 정리했어요(대화 원문은 쓰지 않아요)</p>
+  <div class="icard"><div class="ihead"><h4>집을 먼저 살지, 아이를 먼저 가질지</h4><span class="itag">순서가 달라요</span></div><div class="strows"><div class="strow"><span class="av" style="background:#4F7A93">민</span><div><div class="snm">민준</div><div class="say">집을 빨리 사고 싶어요</div></div></div><div class="strow"><span class="av" style="background:#B06A4F">서</span><div><div class="snm">서연</div><div class="say">아이가 먼저였으면 해요</div></div></div></div><div class="ishared"><span class="dot"></span><span><b>함께 지키고 싶은 것</b> · 아이가 안심하고 살 집</span></div></div>
+ </section>
+ <section class="sec"><h2 class="st">1단계 · AI의 제안과 가족의 의견</h2><p class="cs">(AI의 제안이 이어져요)</p></section>
+</div>
+
+<p class="lbl new">제안 (2차: 문구는 지금 그대로, 구조·색만 변경)</p>
+<div class="pp">
+ <div class="nf"><div class="done">생각 확인</div><div class="now">AI의 제안</div><div>숫자 정하기</div><div>모두 동의</div></div>
+
+ <section class="sec" style="border-top:0;padding-top:0">
+  <div class="sh2"><h2>생각 확인</h2></div>
+  <p class="cnt">각자 확인한 요약을 바탕으로 AI가 정리했어요</p>
+
+  <div class="pnl s"><div class="pk">✓ 이미 같은 생각인 부분 <i>3가지</i></div>
+   <ul><li><span class="c">✓</span><span>함께 이루려는 목표는 같아요 (내 집 마련)</span></li><li><span class="c">✓</span><span>돈 문제로 걱정되는 점이 있어요 (육아휴직 중 줄어드는 수입)</span></li><li><span class="c">✓</span><span>양가에 드리는 용돈은 같은 마음으로 챙기고 싶어요</span></li></ul></div>
+
+  <div class="pnl d"><div class="pk">생각이 갈리는 부분 <i>1가지</i></div>
+   <div class="icard"><div class="ihead"><h4>집을 먼저 살지, 아이를 먼저 가질지</h4><span class="itag">순서가 달라요</span></div><div class="strows"><div class="strow"><span class="av" style="background:#4F7A93">민</span><div><div class="snm">민준</div><div class="say">집을 빨리 사고 싶어요</div></div></div><div class="strow"><span class="av" style="background:#B06A4F">서</span><div><div class="snm">서연</div><div class="say">아이가 먼저였으면 해요</div></div></div></div><div class="ishared"><span class="dot"></span><span><b>함께 지키고 싶은 것</b> · 아이가 안심하고 살 집</span></div></div></div>
+ </section>
+
+ <section class="sec"><div class="sh2"><h2>AI의 제안</h2></div><p class="cnt">갈리는 생각을 모두 담은 AI의 제안에 가족이 의견을 남겨요.</p><p class="cs">(AI의 제안이 이어져요)</p></section>
+</div>
+</body>
+</html>

@@ -148,6 +148,8 @@ def check_rate(ip: str) -> None:
 
 
 def check_budget(code_key: str) -> None:
+    if (os.environ.get("LLM_PROVIDER") or "").lower() == "replay":
+        return  # 재생 공급자(개발용·mock)는 실제 AI를 안 불러 비용이 0이라 예산으로 막지 않는다
     if spent("total") >= total_budget():
         raise GuardError("budget_exhausted", "체험판 전체 AI 예산을 다 썼어요. 운영자에게 알려 주세요", 402)
     cs = codes()

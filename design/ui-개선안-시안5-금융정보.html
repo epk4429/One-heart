@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시안5 · 금융 정보 직접 입력</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../web/css/oneheart.css"><link rel="stylesheet" href="../web/css/app.css">
+<style>
+body{background:var(--paper2,#efede4);padding:28px 16px}
+.wrapx{max-width:760px;margin:0 auto}
+.intro{font-size:14.5px;line-height:1.75;color:var(--ink2);margin:0 0 18px}
+.intro b{color:var(--ink)}
+.ct{font-size:13px;font-weight:700;color:var(--muted);margin:22px 0 8px}
+.ct.new{color:var(--green)}
+.pp{background:#fff;border:1px solid var(--line);padding:22px 28px}
+.pp>h2{font-size:17px;margin:0 0 10px}
+
+/* ===== 시안(새 배치): 종류별 묶음 · 한 줄 = 이름 / 금액 / 누구 것 / 공개 / 빼기, 가로 스크롤 없음 ===== */
+.fx-head,.fx-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.1fr) 90px 104px 48px;gap:8px 10px;align-items:center}
+.fx-head{font-size:12.5px;font-weight:600;color:var(--muted);padding:8px 0 6px;border-bottom:1.5px solid var(--ink)}
+.fx-grp{margin-top:6px}
+.fx-gh{display:flex;align-items:center;justify-content:space-between;padding:14px 0 6px}
+.fx-gh b{font-size:14.5px}
+.fx-gh b i{font-style:normal;font-size:12.5px;font-weight:500;color:var(--muted);margin-left:6px}
+.fx-row{padding:8px 0;border-top:1px solid var(--line)}
+.fx-row input,.fx-row select{width:100%;min-width:0;padding:8px 10px;font-size:14px;font:inherit;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.fx-amt{display:flex;align-items:center;gap:6px}
+.fx-amt span{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.fx-row .disc{margin:0}
+.fx-ext{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:12.5px;color:var(--ink2);padding-left:2px}
+.fx-ext select{width:auto}
+.fx-ext label{display:flex;align-items:center;gap:4px}
+.fx-ext input{width:64px}
+.fx-empty{font-size:13px;color:var(--muted);padding:6px 0 10px;border-top:1px solid var(--line)}
+@media(max-width:620px){
+ .fx-head{display:none}
+ .fx-row{grid-template-columns:1fr 1fr;}
+ .fx-row>:nth-child(1){grid-column:1/-1}
+ .fx-row>:last-child{justify-self:end}
+}
+.fx-del{width:34px;height:34px;padding:0;justify-self:end;border:1.5px solid var(--bad);background:#fff;color:var(--bad);font-size:20px;line-height:1;font-weight:700;cursor:pointer}
+.fx-del:hover{background:var(--bad);color:#fff}
+</style>
+</head>
+<body>
+<div class="wrapx">
+<p class="intro"><b>우리 가족 이야기 · 3. 금융 정보 · 직접 입력</b><br>
+위가 지금(창이 좁으면 표가 가로로 밀려요), 아래가 제안이에요. 색·글꼴·버튼 모양은 그대로이고 배치만 바꿨어요.<br>
+고친 점: ① 표 하나를 <b>종류별 묶음</b>(월 수입 · 생활비 · 예금·투자 · 대출 · 집·보증금)으로 나눠서 "종류" 칸이 필요 없어졌어요 ② 한 줄은 <b>이름 / 금액 / 구성원 / 가족 공개 여부 / 빼기</b> 다섯 칸(공개 여부는 버튼 두 개 대신 선택칸 하나)으로 줄어서 가로 스크롤이 없어요 ③ 대출의 종류·금리·월 상환액은 같은 항목 <b>아래 줄</b>에 붙여요 ④ "+ 추가" 버튼이 각 묶음 제목 옆에 있어서, 추가할 곳이 바로 보여요 ⑤ 좁은 화면에서는 항목마다 두 줄로 접혀요.</p>
+
+<p class="ct">지금</p>
+<div class="pp"><h2>직접 입력</h2>
+ <div class="ftab-wrap"><table class="ftab fin"><thead><tr><th>누구 것</th><th>종류</th><th>이름</th><th>금액</th><th>가족에게 보이기</th><th></th></tr></thead><tbody>
+  <tr><td><select><option>서연</option></select></td><td><select><option>월 수입</option></select></td><td><input value="월급"></td><td><div class="amt-in"><input value="350"><span>만원/월</span></div></td><td><span class="disc"><button class="on">공개</button><button>비공개</button></span></td><td><button class="btn sm">빼기</button></td></tr>
+  <tr><td><select><option>민준</option></select></td><td><select><option>월 수입</option></select></td><td><input value="월급"></td><td><div class="amt-in"><input value="400"><span>만원/월</span></div></td><td><span class="disc"><button class="on">공개</button><button>비공개</button></span></td><td><button class="btn sm">빼기</button></td></tr>
+  <tr><td><select><option>공동</option></select></td><td><select><option>대출</option></select></td><td><input value="전세대출"></td><td><div class="amt-in"><input value="12000"><span>만원</span></div><div class="loanx"><select><option>주택담보 등</option></select><label>금리 <input value="3.8" style="width:64px">%</label><label>월 상환액 <input value="40" style="width:72px">만원</label></div></td><td><span class="disc"><button class="on">공개</button><button>비공개</button></span></td><td><button class="btn sm">빼기</button></td></tr>
+ </tbody></table></div>
+ <div class="row" style="margin-top:10px"><button class="btn sm">+ 월 수입</button><button class="btn sm">+ 생활비</button><button class="btn sm">+ 예금·투자</button><button class="btn sm">+ 대출</button><button class="btn sm">+ 집·보증금</button></div>
+</div>
+
+<p class="ct new">제안</p>
+<div class="pp"><h2>직접 입력</h2>
+ <div class="fx-head"><span>이름</span><span>금액</span><span>구성원</span><span>가족 공개 여부</span><span></span></div>
+
+ <div class="fx-grp"><div class="fx-gh"><b>월 수입</b><button class="btn sm">+ 추가</button></div>
+  <div class="fx-row"><input value="월급"><div class="fx-amt"><input value="350"><span>만원/월</span></div><select><option>서연</option><option>민준</option><option>공동</option></select><select class="fx-disc"><option selected>공개</option><option>비공개</option></select><button class="fx-del" aria-label="빼기" title="빼기">−</button></div>
+  <div class="fx-row"><input value="월급"><div class="fx-amt"><input value="400"><span>만원/월</span></div><select><option>민준</option><option>서연</option><option>공동</option></select><select class="fx-disc"><option selected>공개</option><option>비공개</option></select><button class="fx-del" aria-label="빼기" title="빼기">−</button></div>
+ </div>
+
+ <div class="fx-grp"><div class="fx-gh"><b>생활비</b><button class="btn sm">+ 추가</button></div>
+  <div class="fx-row"><input value="생활비"><div class="fx-amt"><input value="230"><span>만원/월</span></div><select><option>공동</option><option>서연</option><option>민준</option></select><select class="fx-disc"><option selected>공개</option><option>비공개</option></select><button class="fx-del" aria-label="빼기" title="빼기">−</button></div>
+ </div>
+
+ <div class="fx-grp"><div class="fx-gh"><b>예금·투자</b><button class="btn sm">+ 추가</button></div>
+  <div class="fx-row"><input value="예금"><div class="fx-amt"><input value="6000"><span>만원</span></div><select><option>공동</option><option>서연</option><option>민준</option></select><select class="fx-disc"><option>공개</option><option selected>비공개</option></select><button class="fx-del" aria-label="빼기" title="빼기">−</button></div>
+ </div>
+
+ <div class="fx-grp"><div class="fx-gh"><b>대출</b><button class="btn sm">+ 추가</button></div>
+  <div class="fx-row"><input value="전세대출"><div class="fx-amt"><input value="12000"><span>만원</span></div><select><option>공동</option><option>서연</option><option>민준</option></select><select class="fx-disc"><option selected>공개</option><option>비공개</option></select><button class="fx-del" aria-label="빼기" title="빼기">−</button>
+   <div class="fx-ext"><span>대출 종류</span><select><option>주택담보 등</option></select><label>금리 <input value="3.8">%</label><label>월 상환액 <input value="40">만원</label></div></div>
+ </div>
+
+ <div class="fx-grp"><div class="fx-gh"><b>집·보증금</b><button class="btn sm">+ 추가</button></div>
+  <div class="fx-empty">아직 없어요. 전세·자가가 있으면 추가해 주세요.</div>
+ </div>
+</div>
+</div>
+</body>
+</html>
