@@ -88,7 +88,7 @@ def test_facts_cover_displayed_numbers():
 
 
 @pytest.mark.parametrize("mutate,field", [
-    (lambda r: r.__setitem__("horizon_months", 500), "request.horizon_months"),
+    (lambda r: r.__setitem__("horizon_months", 1000), "request.horizon_months"),  # 최대 960개월(2026-11-15)
     (lambda r: r["options"][0].__setitem__("expected_return", 40), "options[0].expected_return"),
     (lambda r: r["options"][0]["cashflows"][0].__setitem__("amount", 99999), "options[0].cashflows[0].amount"),
     (lambda r: r["options"][1]["events"][0].__setitem__("to_month", 999), "options[1].events[0].to_month"),

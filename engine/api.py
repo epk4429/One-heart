@@ -6,7 +6,7 @@ import hashlib
 import json
 
 from . import fmt
-from .core import DeterministicResult, run_deterministic, schedule
+from .core import DeterministicResult, floor_of, run_deterministic, schedule
 from .montecarlo import run_range
 from .schema import EngineInputError, Option, Request, parse_request
 
@@ -43,17 +43,24 @@ def _min_pool(det: DeterministicResult) -> dict:
     return {"min_pool": round(low.end, 1), "min_pool_month": low.m}
 
 
-def first_month_flow(det: DeterministicResult) -> float:
-    """첫 달에 모이는 돈(현금흐름 + 이벤트 + 대출 상환, 일시금 제외). 화면 이름은 '매달 모이는 돈'."""
+def _first_prepay(opt: Option) -> float:
+    """첫 달에 예금으로 한 번에 갚는 돈(일시 상환). 매달 모이는 돈이 아니라 한 번 나가는 돈이다."""
+    return sum(x.amount for x in opt.loan_prepayments if x.month == 1)
+
+
+def first_month_flow(det: DeterministicResult, opt: Option) -> float:
+    """첫 달에 모이는 돈(현금흐름 + 이벤트 + 대출 상환, 일시금·일시 상환·남는 돈으로 더 갚은 돈 제외). 화면 이름은 '매달 모이는 돈'.
+    첫 달에 일시 상환이나 비상금 선을 넘는 돈의 상환(sweep)이 있으면 그 돈이 '매달 모이는 돈'을 마이너스로 보이게 하지 않도록 뺀다(2026-11-15)."""
     r = det.rows[0]
-    return round(r.inflow + r.outflow, 1)
+    return round(r.inflow + r.outflow + _first_prepay(opt) + r.swept, 1)
 
 
 def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
-    flow = first_month_flow(det)
+    flow = first_month_flow(det, opt)
     parts = [(c.label, c.amount) for c in opt.cashflows]
-    if det.rows[0].loan_payment:
-        parts.append(("대출 상환", -round(det.rows[0].loan_payment, 1)))
+    paid = det.rows[0].loan_payment - _first_prepay(opt) - det.rows[0].swept  # 일시 상환·남는 돈으로 더 갚은 돈은 따로
+    if paid:
+        parts.append(("대출 상환", -round(paid, 1)))
     detail = " ".join(
         (("+ " if i and a >= 0 else "") + ("− " if a < 0 else "") + f"{lab} {abs(a):g}")
         for i, (lab, a) in enumerate(parts)
@@ -61,7 +68,7 @@ def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
     rows = [
         {"key": "start", "label": "보유 자산", "value": req.start_pool, "display": fmt.won(req.start_pool),
          "detail": req.pool_label, "source": "financial_snapshot"},
-        {"key": "monthly_flow", "label": "매달 모이는 돈", "value": flow,
+        {"key": "monthly_flow", "label": "이번 달 모이는 돈", "value": flow,  # 2026-11-15 형님 결정('매달'이 아니라 첫 달 값)
          "display": ("+" if flow > 0 else "") + fmt.won(flow), "detail": detail, "source": "option"},
         {"key": "return", "label": "수익률", "value": opt.expected_return,
          "display": "연 " + fmt.pct(opt.expected_return),
@@ -101,7 +108,7 @@ def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
 def _facts(req: Request, opt: Option, det: DeterministicResult, rng: dict | None) -> list[dict]:
     p = opt.option_id
     h = det.hit_month
-    flow = first_month_flow(det)
+    flow = first_month_flow(det, opt)
     facts = [
         {"fact_id": f"{p}.goal_hit_month", "value": h, "unit": "month",
          "display": f"{h}개월" if h else fmt.years_display(None, req.horizon_months, req.goal.type)},
@@ -144,6 +151,11 @@ def _facts(req: Request, opt: Option, det: DeterministicResult, rng: dict | None
                       "label": "대출을 다 갚는 때"})
         facts.append({"fact_id": f"{p}.end_debt", "value": round(det.rows[-1].debt, 1), "unit": "만원",
                       "display": fmt.won(det.rows[-1].debt), "label": "기간 끝 대출 잔액"})
+    if det.floor_breach_month:  # 예금이 비상금 선 아래로 내려가는 때(적자 상태의 해석에 쓰임, 2026-11-15)
+        b = det.floor_breach_month
+        facts.append({"fact_id": f"{p}.floor_breach", "value": b, "unit": "month",
+                      "display": (f"{b // 12}년" + (f" {b % 12}개월" if b % 12 else "")) if b >= 12 else f"{b}개월",
+                      "label": "예금이 비상금 아래로 내려가는 때(지금부터)"})
     if rng:
         for key in ("p10_hit_month", "p50_hit_month", "p90_hit_month"):
             v = rng[key]
@@ -184,9 +196,14 @@ def simulate(raw: dict, *, include_monthly: bool = True) -> dict:
             "end_pool": round(det.end_pool, 1),
             # 계산 기간 동안 예금이 가장 적었던 때(노후처럼 '28년 이상'으로 같게 보이는 방법을 구분하려고, 1-5)
             **_min_pool(det),
-            "monthly_flow": first_month_flow(det),
+            "monthly_flow": first_month_flow(det, opt),
             "debt_free_month": det.debt_free_month,
-            "start_debt": round(sum(l.balance for l in req.loans if not l.in_pool), 1),
+            "min_cash": det.min_cash,  # 비상금으로 셀 수 있는 예금이 가장 적을 때(목표 달성 전까지)
+            "floor_breach_month": det.floor_breach_month,  # 예금이 처음으로 비상금 선 아래로 내려가는 달(없으면 None)
+            "floor_fill_month": det.floor_fill_month,  # 처음부터 비상금보다 적었다면 선을 처음 채우는 달
+            "floor": floor_of(req, opt),
+            "start_debt": round(sum(l.balance for l in req.loans if not l.in_pool
+                                    and not (req.goal.type == "debt_free" and l.kind == "interest_only")), 1),
             "yearly": _yearly(det),
             "net_worth": [{"m": 0, "value": round(det.start_net_worth, 1)}]
                          + [{"m": r.m, "value": round(r.net_worth, 1)} for r in det.rows if r.m % 12 == 0],

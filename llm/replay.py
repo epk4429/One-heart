@@ -216,28 +216,50 @@ def _r5(i):
     lim = ctx["limits"]["monthly_adjustment_abs_max"]
     pols = {p["policy"]: p for p in ctx["policies"]}
     t = i["goal_full"]["type"]
-    cut, spend = min(50, lim), min(100, lim)
+    cut = min(50, lim, ctx.get("expense_cut_max", 50))  # 생활비 줄이기는 서버 한도(지금 지출의 20%) 안에서
+    spend = max(10, min(100, lim, round(ctx.get("monthly_spare", 200) * 0.4 / 10) * 10))  # 여유 지출은 남는 돈 안에서(예금이 비상금 아래로 안 가게)
     a = _spec("A", "목표 먼저", "지출을 조금 줄이고 조금 더 불어나는 곳에 넣어요.", "stock30",
               adj=[{"label": "여유 지출 줄이기", "amount": cut, "reason": "목표를 빨리 이루기 위해"}])
     b = _spec("B", "함께 챙기기", "지금 생활은 지키고, 원금이 줄지 않는 곳 위주로 모아요.", "deposit_heavy")
     c = _spec("C", "지금 여유 먼저", "지금 생활의 여유를 늘리고, 불어날 수 있는 곳에 넣어요.", "stock_heavy",
               adj=[{"label": "여유 지출", "amount": -spend, "reason": "지금의 여유를 위해"}])
-    if t == "runway":
-        a = _spec("A", "지금 그대로", "집은 그대로 두고 예금으로 생활해요.", "safe")
-        b = _spec("B", "집에 살면서 연금 받기" if "reverse_mortgage" in pols else "생활비 조금 아끼기",
-                  "지금 집에 계속 살면서 매달 생활비를 더 받아요." if "reverse_mortgage" in pols else "생활비를 조금 줄여요.",
-                  "safe", pol=[{"policy": "reverse_mortgage", "from_month": 1}] if "reverse_mortgage" in pols else [],
-                  adj=[] if "reverse_mortgage" in pols else [{"label": "생활비 아끼기", "amount": cut, "reason": "예금을 오래 쓰기 위해"}])
+    if t == "runway":  # 2026-11-15: '아무것도 안 하기' 방법은 만들지 않는다
+        a = _spec("A", "아껴서 오래", "생활비를 조금 아껴 예금을 오래 써요.", "safe",
+                  adj=[{"label": "생활비 아끼기", "amount": cut, "reason": "예금을 오래 쓰기 위해"}])
+        b = _spec("B", "집에 살면서 연금 받기" if "reverse_mortgage" in pols else "조금 아끼고 조금 불리기",
+                  "지금 집에 계속 살면서 매달 생활비를 더 받아요." if "reverse_mortgage" in pols else "생활비를 조금만 줄이고 예금 위주로 조금 더 불려요.",
+                  "safe" if "reverse_mortgage" in pols else "deposit_heavy", pol=[{"policy": "reverse_mortgage", "from_month": 1}] if "reverse_mortgage" in pols else [],
+                  adj=[] if "reverse_mortgage" in pols else [{"label": "생활비 조금 아끼기", "amount": max(10, round(cut / 2 / 10) * 10), "reason": "무리하지 않게"}])
         c = _spec("C", "작은 집으로" if "sell_home" in pols else "더 불리기",
                   "작은 집으로 옮기고 남는 돈을 생활비로 써요." if "sell_home" in pols else "조금 더 불어나는 곳에 넣어요.",
                   "safe" if "sell_home" in pols else "deposit_heavy",
                   pol=[{"policy": "sell_home", "month": 6, "new_home_ratio": 0.6}] if "sell_home" in pols else [])
-    elif t == "debt_free":
-        loan = next(p for p in ctx["policies"] if p["policy"] == "extra_repayment")
-        a = _spec("A", "빚 먼저", "매달 대출을 더 갚아요.", "safe",
-                  pol=[{"policy": "extra_repayment", "item_id": loan["params"]["item_id"], "amount": cut}])
-    return {"options": [a, b, c], "design_notes": [{"option_id": o, "intent": x, "why": w} for o, x, w in
-                                                   zip("ABC", ["목표 우선", "균형", "현재 여유"], _why5(i, t))]}
+    if ctx.get("deficit") and t in ("debt_free", "reach_target"):  # 적자 상태(개발용 재생 답): 한도까지 아끼기 + 대출 기간 늘리기 / 반만 아끼기 / 지금처럼
+        ext = [p for p in ctx["policies"] if p["policy"] == "extend_term"]
+        pol = [{"policy": "extend_term", "item_id": ext[0]["params"]["item_id"], "years": 40}] if ext else []
+        a = _spec("A", "아끼고 대출 기간 늘려 버티기", "생활비를 한도까지 줄이고 대출 기간을 늘려 월 상환액을 낮춰요.", "safe",
+                  adj=[{"label": "생활비 줄이기", "amount": ctx.get("expense_cut_max", cut), "reason": "적자를 줄이기 위해"}], pol=pol)
+        b = _spec("B", "조금 아끼며 버티기", "생활비를 조금 줄여요.", "safe",
+                  adj=[{"label": "생활비 조금 줄이기", "amount": max(10, round(ctx.get("expense_cut_max", cut) / 2 / 10) * 10), "reason": "무리하지 않게"}])
+        c = _spec("C", "지금처럼", "지금 생활을 그대로 두면 어떻게 되는지 봐요.", "safe")
+        out = {"options": [a, b, c], "design_notes": [{"option_id": o, "intent": x, "why": w} for o, x, w in
+                                                      zip("ABC", ["버티기", "균형", "비교"], _why5(i, t))]}
+        if i["goal_full"].get("within_months"):
+            out["deadline_note"] = "적자 상태라 정한 기한 안에 닿기 어려워요. 지금 가진 방법들로는 매달 적자를 메울 수 없어요."
+        return out
+    elif t == "debt_free":  # 남는 돈 규칙(비상금을 넘는 돈은 자동으로 대출에, 2026-11-15): 아끼는 정도와 비상금 크기로 나눈다
+        fl = ctx.get("floor", 0)
+        a = _spec("A", "빚 먼저", "생활비를 조금 아껴 그만큼 대출을 더 갚아요.", "safe",
+                  adj=[{"label": "외식·여가 줄이기", "amount": cut, "reason": "대출을 빨리 갚기 위해"}])
+        b = _spec("B", "함께 챙기기", "조금만 아끼고 비상금을 조금 더 두면서 갚아요.", "safe",
+                  adj=[{"label": "외식 조금 줄이기", "amount": max(10, round(cut / 2 / 10) * 10), "reason": "무리하지 않게"}])
+        c = _spec("C", "지금 여유 먼저", "생활은 지금처럼 두고, 비상금을 넉넉히 둔 뒤 남는 돈으로 갚아요.", "safe")
+        c["floor"] = round(max(fl * 2, fl + 500), -1)
+    out = {"options": [a, b, c], "design_notes": [{"option_id": o, "intent": x, "why": w} for o, x, w in
+                                                  zip("ABC", ["목표 우선", "균형", "현재 여유"], _why5(i, t))]}
+    if i["goal_full"].get("within_months"):  # 개발용 재생 답이라 기한을 맞추는지 직접 계산하지 않고 늘 설명을 붙인다
+        out["deadline_note"] = "방법마다 정한 기한 안에 닿는지 달라요. 못 닿는 방법은 무엇이 모자란지 계산 결과를 보고 함께 이야기해 주세요."
+    return out
 
 
 WHY5 = {  # 목표 종류 → 방법 A·B·C의 근거(근거 문구, 뒷말). 근거 문구가 있으면 받은 꿀팁 조각에서 원문 한 줄을 인용해 붙인다

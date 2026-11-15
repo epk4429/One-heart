@@ -10,7 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-MAX_HORIZON = 360
+MAX_HORIZON = 960  # 80년(노후는 100세까지 계산, 2026-11-15에 360에서 늘림)
 MAX_RETURN = 12.0
 MAX_VOLATILITY = 30.0
 MAX_CASHFLOW = 2000.0
@@ -39,6 +39,12 @@ class Cashflow:
     label: str
     amount: float
     category: str = "other"
+    from_month: int = 1   # 이 달부터(2026-11-15: 은퇴·휴직처럼 기간이 있는 수입·지출)
+    to_month: int = 0     # 이 달까지(0 = 끝까지)
+    grows: bool = False   # 월급처럼 해마다 오르는 수입(요청의 income_growth를 붙인다)
+
+    def active(self, m: int) -> bool:
+        return self.from_month <= m and (not self.to_month or m <= self.to_month)
 
 
 @dataclass
@@ -118,6 +124,8 @@ class Option:
     aux_changes: list[AuxChange] = field(default_factory=list)
     extra_payments: list[ExtraPayment] = field(default_factory=list)
     loan_prepayments: list[LumpSum] = field(default_factory=list)  # label 자리에 loan_id
+    floor: float | None = None  # 이 방법이 지키는 비상금 선(가족이 정한 선 이상). 없으면 요청의 floor
+    loan_payments: dict = field(default_factory=dict)  # 대출 id → 이 방법의 월 상환액(대출 기간 늘리기, 2026-11-15)
 
     @property
     def monthly_flow(self) -> float:
@@ -130,6 +138,7 @@ class Goal:
     target_amount: float = 0.0
     label: str = ""
     within_months: int | None = None  # "○년 안 가능성" 기준(범위 계산)
+    target_growth: float = 0.0  # 목표 금액이 해마다 오르는 비율 %/년(내 집 마련: 집값 상승, 2026-11-15)
 
 
 @dataclass
@@ -146,6 +155,16 @@ class Request:
     base_age: int | None = None
     range_paths: int = 1000
     range_seed: int = 1000
+    idle_pool: float = 0.0  # 목표 풀 중 이자가 안 붙는 몫(전세 보증금 − 전세대출 등). 이자는 (풀 − 이 값)에만 붙는다(2026-11-15)
+    floor: float = 0.0       # 비상금 선(가족이 정함). 예금(풀 − idle − illiquid)이 이 아래로 가면 안 되는 선(2026-11-15)
+    illiquid: float = 0.0    # 풀 중 비상금으로 세지 않는 몫(주식 등)
+    income_growth: float = 0.0  # 월급 상승률 %/년(grows인 수입에만)
+    sweep: bool = False      # 대출 다 갚기: 예금이 비상금 선을 넘는 만큼을 금리 높은 대출부터 더 갚는다
+    min_until: int = 0       # 이 달까지는 목표에 닿은 뒤에도 '예금이 가장 적을 때'를 본다(육아: 휴직이 끝날 때까지 비상금을 지키는지)
+
+    def cash(self, pool: float) -> float:
+        """비상금으로 셀 수 있는 예금 = 풀 − 이자 없는 몫(보증금) − 주식 등."""
+        return pool - self.idle_pool - self.illiquid
 
 
 def _num(d: dict, key: str, path: str, *, default: Any = None, lo: float | None = None,
@@ -180,14 +199,16 @@ def _parse_option(o: dict, i: int, horizon: int, aux_ids: set[str], loan_ids: se
     raw_cf = o.get("cashflows")
     if not isinstance(raw_cf, list) or not raw_cf:
         raise EngineInputError(f"{path}.cashflows", "현금흐름 항목이 1개 이상 필요해요")
-    cashflows = [
-        Cashflow(
-            label=str(c.get("label", "")),
-            amount=_num(c, "amount", f"{path}.cashflows[{j}]", lo=-MAX_CASHFLOW, hi=MAX_CASHFLOW),
-            category=str(c.get("category", "other")),
-        )
-        for j, c in enumerate(raw_cf)
-    ]
+    cashflows = []
+    for j, c in enumerate(raw_cf):
+        cp = f"{path}.cashflows[{j}]"
+        f_m = _month(c, "from_month", cp, horizon, default=1)
+        t_m = _num(c, "to_month", cp, default=0, lo=0, hi=horizon, integer=True)
+        if t_m and t_m < f_m:
+            raise EngineInputError(f"{cp}.to_month", "from_month보다 작을 수 없어요")
+        cashflows.append(Cashflow(label=str(c.get("label", "")), amount=_num(c, "amount", cp, lo=-MAX_CASHFLOW, hi=MAX_CASHFLOW),
+                                  category=str(c.get("category", "other")), from_month=f_m, to_month=t_m,
+                                  grows=bool(c.get("grows", False))))
     events_raw = o.get("events") or []
     lumps_raw = o.get("lump_sums") or []
     if len(events_raw) > MAX_EVENTS:
@@ -259,7 +280,20 @@ def _parse_option(o: dict, i: int, horizon: int, aux_ids: set[str], loan_ids: se
         aux_changes=changes,
         extra_payments=extras,
         loan_prepayments=prepays,
+        floor=_num(o, "floor", path, lo=0, hi=MAX_LUMP * 10) if o.get("floor") is not None else None,
+        loan_payments=_loan_payments(o, path, loan_ids),
     )
+
+
+def _loan_payments(o: dict, path: str, loan_ids: set | None) -> dict:
+    out = {}
+    for j, x in enumerate(o.get("loan_payments") or []):
+        xp = f"{path}.loan_payments[{j}]"
+        lid = str(x.get("loan_id", ""))
+        if lid not in (loan_ids or set()):
+            raise EngineInputError(f"{xp}.loan_id", "없는 대출이에요")
+        out[lid] = _num(x, "payment", xp, lo=0, hi=MAX_CASHFLOW * 5)
+    return out
 
 
 def parse_request(d: dict) -> Request:
@@ -277,6 +311,7 @@ def parse_request(d: dict) -> Request:
         label=str(goal_raw.get("label", "")),
         within_months=(_num(goal_raw, "within_months", "goal", lo=1, hi=horizon, integer=True)
                        if goal_raw.get("within_months") is not None else None),
+        target_growth=_num(goal_raw, "target_growth", "goal", default=0.0, lo=0, hi=20),
     )
     aux = []
     for j, a in enumerate(start.get("aux_accounts") or []):
@@ -306,7 +341,7 @@ def parse_request(d: dict) -> Request:
         loans.append(Loan(id=str(l.get("id", f"loan{j}")), label=str(l.get("label", "")), balance=balance,
                           rate=rate, kind=kind, payment=payment, in_pool=in_pool))
     loan_ids = {l.id for l in loans}
-    if gtype == "debt_free" and not [l for l in loans if not l.in_pool]:
+    if gtype == "debt_free" and not [l for l in loans if not l.in_pool and l.kind != "interest_only"]:
         raise EngineInputError("goal.type", "갚아 나가는 대출이 있어야 debt_free 목표를 쓸 수 있어요")
     raw_options = d.get("options")
     if not isinstance(raw_options, list) or not raw_options:
@@ -333,4 +368,10 @@ def parse_request(d: dict) -> Request:
         base_age=int(base_age) if isinstance(base_age, (int, float)) else None,
         range_paths=_num(rng, "paths", "range", default=1000, lo=0, hi=5000, integer=True),
         range_seed=_num(rng, "seed", "range", default=1000, lo=0, hi=2**31, integer=True),
+        idle_pool=_num(start, "idle_pool", "start", default=0.0, lo=-MAX_LUMP * 10, hi=MAX_LUMP * 10),
+        floor=_num(start, "floor", "start", default=0.0, lo=0, hi=MAX_LUMP * 10),
+        illiquid=_num(start, "illiquid", "start", default=0.0, lo=0, hi=MAX_LUMP * 10),
+        income_growth=_num(d, "income_growth", "request", default=0.0, lo=0, hi=20),
+        sweep=bool(d.get("sweep", False)),
+        min_until=_num(d, "min_until", "request", default=0, lo=0, hi=horizon, integer=True),
     )

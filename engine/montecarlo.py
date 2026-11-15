@@ -11,7 +11,7 @@ from __future__ import annotations
 import math
 import random
 
-from .core import Schedule, goal_reached, schedule
+from .core import Schedule, floor_of, goal_reached, schedule, target_at
 from .schema import Option, Request
 
 
@@ -30,16 +30,19 @@ def run_range(req: Request, option: Option, seed: int, sch: Schedule | None = No
     sd = option.volatility / 100 / math.sqrt(12)
     horizon = req.horizon_months
     flows = [sch.inflow[i] + sch.outflow[i] + sch.lump[i] for i in range(horizon)]
+    floor = floor_of(req, option)
+    targets = [target_at(req, i + 1) for i in range(horizon)]
     hits: list[float] = []
     ends: list[float] = []
     for _ in range(n):
         pool = req.start_pool
         hit = math.inf
         for i in range(horizon):
-            if pool > 0:
-                pool *= 1 + rnd.gauss(mu, sd)
+            base = pool - req.idle_pool  # 이자가 붙는 몫(전세 보증금 몫 제외)
+            if base > 0:
+                pool += base * rnd.gauss(mu, sd)
             pool += flows[i]
-            if hit == math.inf and goal_reached(req.goal.type, pool, req.goal.target_amount):
+            if hit == math.inf and goal_reached(req.goal.type, pool, targets[i], 0.0, floor, req.cash(pool)):
                 hit = i + 1
         hits.append(hit)
         ends.append(pool)

@@ -205,7 +205,8 @@ def r_config(_b, _ctx):
             "route_labels": ROUTE_LABEL, "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
             "monthly_kinds": [k for k, v in F.KINDS.items() if v[0] == "monthly"], "loan_types": F.LOAN_TYPES,
             "goal_types": GOAL_TYPES, "limits": F.LIMITS, "goal_input": goals.public_config(),
-            "assumptions": {"returns": a["returns"], "inflation": a["inflation"],
+            "assumptions": {"returns": a["returns"], "inflation": a["inflation"], "income_growth": a["income_growth"],
+                            "house_growth": a["house_growth"],
                             "reverse_mortgage": a["reverse_mortgage"]["source"], "sell_home": a["sell_home"]["source"]}}
 
 
@@ -334,7 +335,7 @@ def r_options_design(b, ctx):
 
 
 def r_simulate(b, _ctx):
-    """엔진만: 방법들을 다시 계산한다. override가 있으면 첫 방법의 월 저축·수익률만 바꿔 본다(슬라이더)."""
+    """엔진만: 방법들을 다시 계산한다. override가 있으면 첫 방법의 월 저축·수익률·월급 상승률·집값 상승률만 바꿔 본다(슬라이더)."""
     fam = _family(b)
     goal = _goal(fam, b)
     specs = _specs(fam, goal, b.get("specs"))
@@ -345,6 +346,10 @@ def r_simulate(b, _ctx):
     opt = req["options"][0]
     if isinstance(ov.get("expected_return"), (int, float)):
         opt["expected_return"] = max(0.0, min(12.0, float(ov["expected_return"])))
+    if isinstance(ov.get("income_growth"), (int, float)) and not isinstance(ov["income_growth"], bool):  # 2026-11-15 슬라이더 0~10%
+        req["income_growth"] = max(0.0, min(10.0, float(ov["income_growth"])))
+    if isinstance(ov.get("target_growth"), (int, float)) and not isinstance(ov["target_growth"], bool) and goal.get("target_growth") is not None             and goal["type"] == "reach_target" and (fam.get("goal_input") or {}).get("category") == "home":
+        req["goal"]["target_growth"] = max(0.0, min(10.0, float(ov["target_growth"])))
     if isinstance(ov.get("monthly_delta"), (int, float)) and ov["monthly_delta"]:
         opt["cashflows"].append({"label": "직접 바꾼 값", "amount": max(-1000.0, min(1000.0, float(ov["monthly_delta"]))),
                                  "category": "manual"})

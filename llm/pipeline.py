@@ -19,7 +19,8 @@ from . import evidence
 from . import family as F
 from . import goal_size
 from . import goals
-from .plan import PlanError, build_request, check_option, design_context, engine_option, normalize_goal
+from .plan import (PlanError, build_request, check_option, cut_limit, deficit_info, deficit_levers, design_context, engine_option,
+                   floor_errors, life_lines, mark_baseline, normalize_goal)
 from .runner import run_role
 
 
@@ -405,17 +406,26 @@ def simulate_specs(fam: dict, goal: dict, specs: list[dict], *, include_monthly:
 
 
 def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, provider, *, use_tools: bool = True) -> dict:
-    goal = normalize_goal(fam, goal_raw)
+    goal = normalize_goal(fam, goal_raw)  # 적자 상태(goal["deficit"])도 여기서 코드가 판정한다
     shared = shared_summaries(summaries, fam)
+    climit = cut_limit(fam, shared)  # 생활비 줄이기 한도: 20% 또는 가족이 말한 금액(2026-11-15 형님 결정)
+    if goal.get("deficit") and climit > goal["deficit"]["cut_max"] + 0.05:  # 가족이 더 줄일 수 있다고 했으면 그 금액으로 다시 판정
+        goal["deficit"] = deficit_info(fam, goal, climit)
 
     def tool_handler(name: str, args: dict) -> dict:
         if name != "run_simulation":
             return {"error": "모르는 도구"}
         try:
-            specs = [check_option(fam, goal, s) for s in (args.get("options") or [])]
+            specs = [check_option(fam, goal, s, cut_limit=climit) for s in (args.get("options") or [])]
             if not specs:
                 return {"error": "options가 비었어요"}
-            return tool_summary(simulate_specs(fam, goal, specs, include_monthly=False))
+            sim = simulate_specs(fam, goal, specs, include_monthly=False)
+            out = tool_summary(sim)
+            if "results" in sim:  # 비상금 선 검사 결과도 알려 줘서 AI가 고치게 한다(2026-11-15)
+                fe = floor_errors(goal, specs, sim["results"])
+                if fe:
+                    out["floor_problems"] = fe
+            return out
         except PlanError as e:
             return {"error": str(e)}
 
@@ -426,12 +436,13 @@ def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, p
                                "required": ["options"]}}] if use_tools else None
     # 금융꿀팁 원문 조각(근거는 design_notes.why 안에 녹인다): 가족 상황 주제 + 확인된 요약·동의한 기준 + 계산할 목표 종류로 찾는다
     given = evidence.for_family(fam, evidence.context_texts(shared, [str(criterion)[:200]]), goal["type"])
-    inp = {"criterion": str(criterion)[:300], **_design_inputs(fam, goal, shared), "tips": evidence.brief(given)}
+    inp = {"criterion": str(criterion)[:300], **_design_inputs(fam, goal, shared), "tips": evidence.brief(given), "cut_limit": climit}
+    inp["context"]["expense_cut_max"] = climit
     r5 = run_role("5", inp, provider, tools=tools, tool_handler=tool_handler if use_tools else None)
     out = {"design_run": r5.__dict__}
     if not r5.ok:
         return out
-    specs = [check_option(fam, goal, s) for s in r5.output["options"]]
+    specs = mark_baseline([check_option(fam, goal, s, cut_limit=climit) for s in r5.output["options"]])
     sim = simulate_specs(fam, goal, specs)
     if "error" in sim:
         out["error"] = sim["error"]
@@ -452,21 +463,55 @@ def options_design(fam: dict, goal_raw: dict, criterion: str, summaries: dict, p
         for oid, v in r6.output["per_option"].items():
             texts[f"{oid}.easy"] = v["easy"]
             texts.update({f"{oid}.member.{m}": t for m, t in v["per_member"].items()})
+    if str(r5.output.get("deadline_note") or "").strip():  # 기한 설명도 숫자 자리표시({{fact:...}})를 계산 결과로 바꾸고 검사한다(2026-11-15 실제 AI에서 발견)
+        texts["deadline_note"] = str(r5.output["deadline_note"])[:300]
     rendered, rec = verify_texts(texts, facts, role="5+6a", run_id=sim["run_id"],
                                  quotes=_user_texts(shared, views, *_fam_texts(fam), [c["text"] for c in given], rate_texts))
     notes = []
     for n in r5.output.get("design_notes", []):
         if isinstance(n, dict):
-            why = rendered.get(f"why.{n.get('option_id')}", "")
-            notes.append({"option_id": n.get("option_id"), "intent": rendered.get(f"note.{n.get('option_id')}", ""),
+            why = _tidy(rendered.get(f"why.{n.get('option_id')}", ""))  # 설계 근거에도 같은 정리(2026-11-15 '매달 -180만원씩 모자라' 발견)
+            notes.append({"option_id": n.get("option_id"), "intent": _tidy(rendered.get(f"note.{n.get('option_id')}", "")),
                           "why": why, "tips": [v for v in (evidence.view(i, q) for i, q in evidence.used(why)) if v]})
-    out.update(specs=specs, goal=goal, design_notes=notes, simulation=sim,
+    out.update(specs=specs, goal=goal, design_notes=notes, simulation=sim, assumptions=life_lines(fam, goal),
+               deficit=goal.get("deficit"), levers=deficit_levers(fam, goal) if goal.get("deficit") else None,
+               growth_alt=growth_alt(fam, goal, specs), deadline_note=_tidy(rendered.get("deadline_note", "")),
                views=[{"option_id": v["option_id"], "changes": v["changes"]} for v in views],
-               interpretation={oid: {"easy": rendered.get(f"{oid}.easy"),
-                                     "per_member": {m: rendered.get(f"{oid}.member.{m}") for m in
+               interpretation={oid: {"easy": _tidy(rendered.get(f"{oid}.easy")),
+                                     "per_member": {m: _tidy(rendered.get(f"{oid}.member.{m}")) for m in
                                                     r6.output["per_option"][oid]["per_member"]}}
                                for oid in by_id} if r6.ok else None,
                verification=rec.to_dict())
+    return out
+
+
+def _tidy(t):
+    """숫자 자리표시를 바꾼 뒤 생기는 겹친 말 정리(2026-11-15 실제 AI에서 발견): '연 연 4.2%' → '연 4.2%',
+    '−30만원씩 모자라' → '30만원씩 모자라'(모자란다는 말에 마이너스 기호가 겹침)."""
+    if not isinstance(t, str):
+        return t
+    import re
+    t = t.replace("연 연 ", "연 ")
+    return re.sub(r"[-−](?=(?:\d[\d,]*억\s?)?[\d,]*만원씩?\s?(?:모자라|부족|적자))", "", t)
+
+
+def growth_alt(fam: dict, goal: dict, specs: list[dict]) -> dict:
+    """보조 정보: 월급 상승률(내 집 마련은 집값 상승률)을 바꾸면 결과가 어떻게 되나(엔진만, AI 없음, 2026-11-15).
+    {option_id: [{"label": "월급이 안 오르면", "display": "약 13.5년"}, ...]}"""
+    from .family import assumptions
+    a = assumptions()
+    alts = [("income_growth", v, "월급이 안 오르면" if v == 0 else f"해마다 {v:g}% 오르면") for v in a["income_growth"]["alt"]]
+    if goal.get("type") == "reach_target" and (fam.get("goal_input") or {}).get("category") == "home":
+        alts += [("target_growth", v, f"집값이 해마다 {v:g}% 오르면") for v in a["house_growth"]["alt"]]
+    out = {s["option_id"]: [] for s in specs}
+    for key, v, label in alts:
+        if goal.get(key) == v:
+            continue
+        req = build_request(fam, {**goal, key: v}, specs)
+        req["range"] = {"paths": 0, "seed": 1}
+        sim = simulate(req, include_monthly=False)
+        for r in sim.get("results", []):
+            out[r["option_id"]].append({"label": label, "display": r["goal_hit_display"]})
     return out
 
 
@@ -509,7 +554,7 @@ def agreement_revise(fam: dict, goal: dict, specs: list[dict], sim: dict, stance
     views = [_option_view(fam, goal, s, by_id[s["option_id"]]) | {"spec": s} for s in specs]
     shared = shared_summaries(summaries, fam)
     st = _stances(stances, fam, list(by_id))
-    inp = {"options": views, "stances": st, "summaries": shared, "finance": F.shared_finance(fam),
+    inp = {"options": views, "stances": st, "summaries": shared, "finance": F.shared_finance(fam), "cut_limit": cut_limit(fam, shared),
            "context": design_context(fam, goal), "family": fam, "goal_full": goal}
     run = run_role("5r", inp, provider)
     out = {"run": run.__dict__}
@@ -632,6 +677,7 @@ def agreement_draft(fam: dict, goal: dict, criterion: str, spec: dict, result: d
 
 
 # ---------- 화면 7: 상품 추천 ----------
+HIDDEN_DEBT_TYPES = {"P_mortgage_loan", "P_credit_loan"}  # 대출 갚기 약속에서 감추는 상품 유형(2026-11-15 형님 결정)
 def recommend(fam: dict, agreement: dict, provider) -> dict:
     o = load_ontology()
     vocab = {"needs": [{"id": n["id"], "label": n["label"], **({"only_if": n["requires"]["why"]} if n.get("requires") else {})}
@@ -674,8 +720,9 @@ def recommend(fam: dict, agreement: dict, provider) -> dict:
         dropped += [{"commitment_id": m.get("commitment_id"), "need_id": n, "reason": o["needs"][n]["requires"]["why"]}
                     for n in m.get("need_ids", []) if n not in keep]
         for n in keep:  # 꼭 지켜야 하는 돈(휴직 준비금·비상금·병원비)은 '원금 보장'을 기본 제약으로
-            extra = [c for c in o["needs"][n].get("default_constraints", []) if c not in m.get("constraint_ids", [])]
-            if extra:
+            dflt = o["needs"][n].get("default_constraints", [])
+            if dflt:  # AI가 이미 그 제약을 적었어도 필요는 그대로 이어 간다(예전에는 이때 필요가 통째로 사라져 비상금 약속에 상품이 안 나왔다, 2026-11-15)
+                extra = [c for c in dflt if c not in m.get("constraint_ids", [])]
                 mappings.append({**m, "need_ids": [n], "constraint_ids": list(m.get("constraint_ids", [])) + extra})
         keep = [n for n in keep if not o["needs"][n].get("default_constraints")]
         if keep or not m.get("need_ids"):
@@ -689,6 +736,9 @@ def recommend(fam: dict, agreement: dict, provider) -> dict:
                 merged[n] = {**m, "need_ids": [n], "constraint_ids": list(m.get("constraint_ids", []))}
     base = ((fam.get("goal_input") or {}).get("fields") or {}).get("base_member_id")  # 노후·간병 목표의 '누구 기준'
     raw = ontology_recommend(list(merged.values()), coms, retired_target(fam["members"], base))
+    # ✅ 형님 결정(2026-11-15): '대출을 계획대로 빨리 갚기' 약속에는 대출 상품(주택담보·신용대출) 카드를 보여 주지 않는다.
+    # 대출을 갚는 가족에게 새 대출이 추천처럼 보였다. 온톨로지 연결은 지우지 않고(CLAUDE.md 0절) 화면에 내보내지 않는다.
+    raw = [r for r in raw if not (r["need_id"] == "N_debt_repayment" and r.get("product_type_id") in HIDDEN_DEBT_TYPES)]
     has_product = {r["need_id"] for r in raw if r.get("product_type_id")}
     recs, seen = [], set()
     for r in raw:  # 여러 약속이 같은 필요·상품으로 이어지면 한 번만, 상품이 있는 필요에는 '연결 없음' 카드를 빼기

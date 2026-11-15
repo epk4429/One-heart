@@ -33,16 +33,24 @@ CATEGORIES: dict[str, dict] = {
         {"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER},
         {"key": "retire_age", "label": "은퇴하고 싶은 나이", "kind": NUM, "unit": "세", "min": 40, "max": 90},
         {"key": "monthly_need", "label": "은퇴 후 한 달에 필요한 돈", "kind": NUM, "unit": "만원", "min": 10, "max": 10_000, "decide": True},
+        {"key": "pension_monthly", "label": "은퇴 후 받을 연금(예상)", "kind": NUM, "unit": "만원/월", "min": 0, "max": 10_000, "optional": True,
+         "help": "국민연금·퇴직연금 등을 합친 대략의 금액이에요. 국민연금공단 '내 연금 알아보기'에서 예상액을 볼 수 있어요. 비우면 연금 없이 계산해요."},
     ]},
     "baby": {"label": "자녀 계획·육아", "engine": "reach_target", "goal_label": "육아 준비금 모으기", "fields": [
         {"key": "when_years", "label": "아이를 갖고 싶은 때", "kind": NUM, "unit": "년 뒤", "min": 1, "max": 15},
         {"key": "leave_months", "label": "육아휴직 예정 기간", "kind": NUM, "unit": "개월", "min": 0, "max": 36},
+        {"key": "leave_member_id", "label": "휴직하는 사람", "kind": MEMBER, "optional": True,
+         "help": "휴직 기간이 있으면 골라 주세요. 그분의 월급이 휴직 동안 아래 금액으로 바뀌어 계산돼요."},
+        {"key": "leave_income", "label": "휴직 중 한 달 수입", "kind": NUM, "unit": "만원/월", "min": 0, "max": 10_000, "optional": True,
+         "help": "휴직하는 분의 휴직 중 수입(육아휴직급여 등)이에요. 비우면 휴직 중 그분의 월급을 0원으로 계산해요."},
         {"key": "target_amount", "label": "미리 준비해 두고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True},
     ]},
     "care": {"label": "부모님 부양·간병", "engine": "runway", "goal_label": "돌봄 비용을 감당하는 기간", "fields": [
         {"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER},
         {"key": "monthly_cost", "label": "한 달에 드는 돈(예상)", "kind": NUM, "unit": "만원", "min": 10, "max": 10_000},
         {"key": "start_years", "label": "언제부터", "kind": NUM, "unit": "년 뒤(지금이면 0)", "min": 0, "max": 30},
+        {"key": "care_years", "label": "간병이 이어질 것 같은 기간", "kind": NUM, "unit": "년", "min": 1, "max": 40, "optional": True,
+         "help": "모르면 비워 두세요. 비우면 기준이 되는 분이 100세가 될 때까지 계속 든다고 계산해요."},
     ]},
     "other": {"label": "기타", "engine": None, "goal_label": "", "fields": [
         {"key": "purpose_text", "label": "목표를 한 줄로 적어 주세요", "kind": TEXT, "max": 30},
@@ -62,19 +70,25 @@ OTHER_EXTRA = {
 }
 
 
+# 모든 목표 공통: 늘 남겨 둘 비상금(2026-11-15, 할 일 1-9 A1). 가족이 아는 값이라 짐작하지 않고 공동 목표 '숫자 정하기'에서 정한다.
+# 미래 계산의 모든 방법은 예금(주식 제외)이 이 선 아래로 내려가지 않아야 하고, 내 집 마련·목돈은 '예금 − 이 선'이 목표에 닿을 때 달성이다.
+FLOOR_FIELD = {"key": "emergency_floor", "label": "늘 남겨 둘 비상금", "kind": NUM, "unit": "만원", "min": 0, "max": 1_000_000, "decide": True,
+               "help": "어떤 방법이든 예금이 이 아래로 내려가지 않게 계산해요. 예금만으로 세요(주식은 빼요)."}
+
+
 class GoalInputError(ValueError):
     pass
 
 
 def fields_for(category: str, values: dict | None = None) -> list[dict]:
-    """그 카테고리에서 받아야 하는 필드 목록(기타는 고른 계산에 따라 더 받는다)."""
+    """그 카테고리에서 받아야 하는 필드 목록(기타는 고른 계산에 따라 더 받는다). 마지막에 공통 '늘 남겨 둘 비상금'."""
     spec = CATEGORIES[category]
     out = list(spec["fields"])
     if category == "other":
         eng = OTHER_ENGINE.get((values or {}).get("engine_kind"))
         if eng:
             out += OTHER_EXTRA[eng]
-    return out
+    return out + [FLOOR_FIELD]
 
 
 def _num(v, f: dict) -> float:
@@ -97,8 +111,8 @@ def validate_input(raw, member_ids: set[str]) -> dict | None:
     for f in fields_for(cat, vals):
         v = vals.get(f["key"])
         if v is None or (isinstance(v, str) and not v.strip()):
-            if f.get("decide"):
-                continue  # 공동 목표 설정 2단계에서 함께 정한다
+            if f.get("decide") or f.get("optional"):
+                continue  # decide: 공동 목표 설정 2단계에서 함께 정한다 / optional: 모르면 비워 둔다
             raise GoalInputError(f"'{f['label']}' 항목을 입력해 주세요")
         if f["kind"] == NUM:
             out[f["key"]] = round(_num(v, f), 1)
@@ -115,6 +129,8 @@ def validate_input(raw, member_ids: set[str]) -> dict | None:
             if len(s) > f["max"]:
                 raise GoalInputError(f"'{f['label']}'은(는) {f['max']}자까지예요")
             out[f["key"]] = s
+    if cat == "baby" and out.get("leave_months", 0) > 0 and not out.get("leave_member_id"):
+        raise GoalInputError("'휴직하는 사람'을 골라 주세요")
     return {"category": cat, "fields": out}
 
 
@@ -167,6 +183,7 @@ def derive_goal(gi: dict, members: list[dict]) -> dict:
         goal["within_months"] = int(round(years * 12))
     if eng == "runway":
         goal["base_member_id"] = v.get("base_member_id")
+    goal["floor"] = v.get("emergency_floor")  # 늘 남겨 둘 비상금(비어 있으면 2단계에서 정한다)
     return goal
 
 
@@ -191,6 +208,6 @@ def details_text(gi: dict, members: list[dict]) -> list[str]:
 
 def public_config() -> dict:
     """화면에 내려 주는 정의(필드 목록·선택지·기타의 추가 필드)."""
-    return {"categories": {k: {"label": c["label"], "fields": c["fields"]} for k, c in CATEGORIES.items()},
+    return {"categories": {k: {"label": c["label"], "fields": c["fields"] + [FLOOR_FIELD]} for k, c in CATEGORIES.items()},
             "other_engine": list(OTHER_ENGINE), "other_extra": {k: v for k, v in OTHER_EXTRA.items()},
-            "other_engine_map": OTHER_ENGINE}
+            "other_engine_map": OTHER_ENGINE, "floor_field": FLOOR_FIELD}

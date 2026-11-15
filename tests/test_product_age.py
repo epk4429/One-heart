@@ -83,3 +83,37 @@ def test_recommend_step_with_newly_family(monkeypatch):
     fam = F.validate(F.preset("newly"))
     out = P.recommend(fam, {"goal": "노후 준비", "commitments": []}, None)
     assert "P_pension_savings" in _types(out["result"]["recommendations"])
+
+
+def test_recommend_keeps_need_when_ai_already_lists_default_constraint(monkeypatch):
+    """비상금 약속을 AI가 '원금 보장·바로 꺼내기' 제약까지 붙여 매핑해도 그 필요가 사라지면 안 된다(2026-11-15 대출 갚기 합의안에서 발견)."""
+    from llm.runner import RoleRun
+
+    def fake_run_role(role, inp, provider):
+        return RoleRun(role="8", output={"mappings": [
+            {"commitment_id": "c1", "need_ids": ["N_emergency_fund"], "constraint_ids": ["C_instant_access", "C_principal_protected"]},
+            {"commitment_id": "c2", "need_ids": ["N_debt_repayment"], "constraint_ids": []}]}, ok=True, attempts=1)
+    monkeypatch.setattr(P, "run_role", fake_run_role)
+    fam = F.validate(F.preset("newly"))
+    fam["finance"].append({"item_id": "f90", "owner_id": "joint", "kind": "loan", "loan_type": "credit", "label": "신용대출",
+                           "amount": 3000, "rate": 6.0, "payment": 60})
+    out = P.recommend(fam, {"goal": "대출 갚기", "commitments": [{"commitment_id": "c1", "text": "비상금 1,000만원 남기기"},
+                                                              {"commitment_id": "c2", "text": "신용대출 먼저 갚기"}]}, None)
+    needs = {r["need_id"] for r in out["result"]["recommendations"]}
+    assert needs == {"N_emergency_fund", "N_debt_repayment"}
+
+
+def test_debt_repayment_shows_no_loan_product_cards(monkeypatch):
+    """대출 갚기 약속에는 대출 상품(주택담보·신용대출) 카드를 보여 주지 않는다(2026-11-15 형님 결정). 미리 갚기·갈아타기 상담은 남는다."""
+    from llm.runner import RoleRun
+
+    def fake_run_role(role, inp, provider):
+        return RoleRun(role="8", output={"mappings": [{"commitment_id": "c1", "need_ids": ["N_debt_repayment"], "constraint_ids": []}]},
+                       ok=True, attempts=1)
+    monkeypatch.setattr(P, "run_role", fake_run_role)
+    fam = F.validate(F.preset("newly"))
+    fam["finance"].append({"item_id": "f90", "owner_id": "joint", "kind": "loan", "loan_type": "credit", "label": "신용대출",
+                           "amount": 3000, "rate": 6.0, "payment": 60})
+    out = P.recommend(fam, {"goal": "대출 갚기", "commitments": [{"commitment_id": "c1", "text": "신용대출 먼저 갚기"}]}, None)
+    types = {r.get("product_type_id") for r in out["result"]["recommendations"] if r["need_id"] == "N_debt_repayment"}
+    assert types == {"P_prepay_plan", "P_refinance_consult"}

@@ -312,3 +312,19 @@ def test_example_answers_cover_all_custom_questions():
         for m in p["members"]:
             for _word, text, _easy in MQ_RULES:
                 assert extra[m["member_id"]].get(text), (pid, m["member_id"], text)
+
+
+def test_design_shows_assumptions_and_growth_range():
+    """미래 계산(2026-11-15 시안11): 가정 한 줄과 '월급이 안 오르면/4% 오르면'(내 집 마련은 집값도) 보조 범위를 엔진으로 함께 준다."""
+    fam = call("/api/preset", {"preset_id": "newly"})
+    goal = call("/api/goal/check", {"family": fam, "goal": {"type": "reach_target", "target_amount": 30000, "within_months": 60, "floor": 1000}})["goal"]
+    d = call("/api/options/design", {"family": fam, "goal": goal, "criterion": "모두가 지키고 싶은 것을 지키며 집을 마련해요", "summaries": {}})
+    lines = " · ".join(d["assumptions"])
+    assert "물가만큼(연 2%)" in lines and "비상금 1,000만원" in lines and "집값은 지금 그대로" in lines
+    alt = d["growth_alt"][d["specs"][0]["option_id"]]
+    assert [x["label"] for x in alt] == ["월급이 안 오르면", "해마다 4% 오르면", "집값이 해마다 2% 오르면"]
+    r = d["simulation"]["results"][0]
+    assert r["floor"] == 1000 and r["min_cash"] is not None
+    st, ov = A.dispatch("POST", "/api/simulate", json.dumps({"family": fam, "goal": goal, "specs": d["specs"][:1],
+                                                              "override": {"income_growth": 8, "target_growth": 0}}).encode(), {})
+    assert st == 200 and (ov["results"][0]["goal_hit_month"] or 999) <= (r["goal_hit_month"] or 999)  # 월급이 많이 오르면 더 빨리

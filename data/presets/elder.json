@@ -213,7 +213,8 @@
   "fields": {
    "base_member_id": "m0",
    "monthly_cost": 80,
-   "start_years": 0
+   "start_years": 0,
+   "emergency_floor": 1000
   }
  }
 }

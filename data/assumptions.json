@@ -2,14 +2,17 @@
   "_note": "계산 가정값 표(docs/04·08). 역할 5는 수익률을 이 표의 id로만 고른다. 숫자는 모두 체험용 가정값이며 화면에 공개한다. 출처가 있는 값은 source에 적었다.",
   "version": "2026-11-03",
   "returns": [
-    {"id": "safe", "label": "예금·적금만", "expected_return": 3.3, "volatility": 2.0, "note": "원금 보장 상품만",
+    {"id": "safe", "label": "예금·적금만", "expected_return": 3.3, "after_tax": true, "volatility": 2.0, "note": "원금 보장 상품만",
      "source": "금감원 '금융상품 한눈에' 공시(2026년 10월) 은행 정기예금 12개월 기본금리 중앙값 연 3.31%(40개 상품, 세전·우대금리 제외)",
      "benchmark": {"category": "deposit", "term_months": 12, "group": "020000"}},
-    {"id": "deposit_heavy", "label": "예금·적금 위주", "expected_return": 3.8, "volatility": 4.5, "note": "일부 채권형 포함", "source": "체험용 가정값(채권형은 공시 통계가 없어요)"},
+    {"id": "deposit_heavy", "label": "예금·적금 위주", "expected_return": 3.8, "after_tax": true, "volatility": 4.5, "note": "일부 채권형 포함", "source": "체험용 가정값(채권형은 공시 통계가 없어요)"},
     {"id": "stock20", "label": "여윳돈의 주식 20%까지", "expected_return": 4.2, "volatility": 5.5, "note": "", "source": "체험용 가정값(주식은 공시 통계가 없어요)"},
     {"id": "stock30", "label": "여윳돈의 주식 30%", "expected_return": 5.0, "volatility": 7.5, "note": "", "source": "체험용 가정값(주식은 공시 통계가 없어요)"},
     {"id": "stock_heavy", "label": "주식 위주", "expected_return": 6.5, "volatility": 14.0, "note": "오를 때도 내릴 때도 커요", "source": "체험용 가정값(주식은 공시 통계가 없어요)"}
   ],
+  "income_growth": {"rate": 2.0, "alt": [0.0, 4.0], "slider_max": 10.0, "label": "월급 상승률 연 2%(물가만큼)", "source": "한국은행 물가안정목표(소비자물가 상승률 2%). 월급이 앞으로 얼마나 오를지는 가족도 모르므로, 월급의 실질 가치가 그대로라는 중립 가정으로 물가만큼 오른다고 본다(2026-11-15 형님 결정)", "applies_to": "'일하고 있어요' 구성원의 월급(은퇴 나이부터는 없음). 연금·가족이 보태 주는 돈은 그대로"},
+  "house_growth": {"rate": 0.0, "alt": [2.0], "slider_max": 10.0, "label": "집값 상승률 연 0%(지금 집값 그대로)", "source": "집값이 앞으로 어떻게 될지는 알 수 없어 기본은 지금 집값 그대로로 두고, 화면에서 '물가만큼(2%) 오르면'과 슬라이더로 보여 준다(2026-11-15)", "applies_to": "내 집 마련 목표 금액"},
+  "limits_realism": {"expense_cut_ratio": 0.2, "note": "방법이 생활비·용돈을 줄일 수 있는 한도(지금 지출의 20%까지, 2026-11-15 임의결정 84)"},
   "inflation": {"rate": 2.0, "label": "물가 상승률 연 2%", "source": "한국은행 물가안정목표(소비자물가 상승률 2%)", "applies_to": "생활비 같은 지출"},
   "reverse_mortgage": {
     "label": "주택연금 월 수령액",
@@ -57,6 +60,6 @@
     "max_events": 3,
     "max_lumps": 3
   },
-  "horizon_months": {"reach_target": 240, "runway_until_age": 100, "debt_free": 360, "max": 360},
+  "horizon_months": {"reach_target": 240, "runway_until_age": 100, "debt_free": 360, "max": 960},
   "interest_tax": {"rate": 15.4, "label": "이자소득세 15.4%(소득세 14% + 지방소득세 1.4%)", "source": "소득세법 제129조(이자소득 원천징수세율 14%)와 지방소득세(소득세의 10%). 비과세·세금우대 상품은 반영하지 않음", "applies_to": "상품 비교의 만기 세후 이자"}
 }

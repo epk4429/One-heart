@@ -1,0 +1,2228 @@
+{
+ "_note": "미래 계산 현실성 점검용 가상 시나리오(할 일 1-9 D1, 2026-11-15 전면 재검토판). 금액 만원, 월 수입은 세후 실수령, 모두 가상값. tests = 이 시나리오로 확인하려는 기능, expect = 사람 눈으로 기대하는 결과. tools/realism_check.py가 읽는다.",
+ "reference": [
+  "2025 가계동향조사(국가데이터처): 월평균 소득 535~544만원, 소비지출 284~295만원, 평균소비성향 69.8% — https://www.segye.com/newsView/20250828516108 · https://www.news1.kr/amp/economy/trend/5798270",
+  "2024 신혼부부통계: 연평균 소득 7,629만원, 대출잔액 중앙값 1억 7,900만원(맞벌이 1억 9,800만원) — https://www.newsis.com/view/NISX20251212_0003438790 · https://biz.sbs.co.kr/amp/article/20000336865",
+  "2025 가계금융복지조사: 평균 자산 5억 6,678만원, 부채 9,534만원, 금융자산 1억 3,690만원 — https://mobile.newsis.com/view/NISX20251204_0003428047",
+  "국민연금 평균 수령액 월 약 67만원(20년 이상 약 108만원), 부부 적정생활비 월 약 298만원 — https://v.daum.net/v/20251128060222938 · https://www.hankyung.com/article/202512315338Y",
+  "요양병원 간병비 월 200~267만원, 급여화 후 60~80만원 — https://biz.sbs.co.kr/amp/article/20000261419"
+ ],
+ "scenarios": [
+  {
+   "id": "home_lease_newlyweds",
+   "goal": "home",
+   "title": "수도권 전세 신혼 맞벌이, 5년 안에 자기 돈 2억 5천",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "우리 집",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "민준",
+      "role": "남편",
+      "age": 32,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "서연",
+      "role": "아내",
+      "age": 31,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "결혼 1년 차, 수도권 전세에 살아요. 5년 안에 6~7억 아파트를 정책대출 끼고 사고 싶어요. 남편은 빨리, 저는 비상금을 남기고 싶어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "민준 월급",
+      "amount": 340
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "서연 월급",
+      "amount": 290
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 230
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험·통신",
+      "amount": 35
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "차량 유지",
+      "amount": 40
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "여가·경조사",
+      "amount": 50
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "transfer_out",
+      "label": "양가 용돈",
+      "amount": 40
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "m1",
+      "kind": "deposit",
+      "label": "예금·청약",
+      "amount": 3000
+     },
+     {
+      "item_id": "f9",
+      "owner_id": "m0",
+      "kind": "investment",
+      "label": "주식",
+      "amount": 800
+     },
+     {
+      "item_id": "f10",
+      "owner_id": "joint",
+      "kind": "lease_deposit",
+      "label": "전세 보증금",
+      "amount": 30000
+     },
+     {
+      "item_id": "f11",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "전세대출",
+      "amount": 16000,
+      "loan_type": "lease",
+      "rate": 3.9
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "home",
+     "fields": {
+      "target_amount": 25000,
+      "within_years": 5,
+      "living": "전세",
+      "emergency_floor": 1000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "5년 안에 우리 집 마련",
+     "flexible": "주식은 정리해서 보탤 수 있음",
+     "worry": "집값이 계속 오를까 봐"
+    },
+    "m1": {
+     "keep": "비상금 1,000만원은 늘 남겨 두기",
+     "flexible": "여가·경조사비를 조금 줄일 수 있음",
+     "worry": "무리해서 샀다가 생활이 빠듯해질까 봐"
+    }
+   },
+   "criterion": "비상금은 지키면서 5년 안에 집 살 자기 돈을 모은다",
+   "tests": [
+    "보증금 몫에 이자 없음",
+    "'예금 − 비상금'으로 목표 판정",
+    "집값 상승 보조 범위·슬라이더",
+    "주식은 비상금 아님"
+   ],
+   "expect": "남는 돈 약 183만원(29%). 5년 안에 가능하지만 빠듯해 방법마다 1년 안팎 차이가 나야 함"
+  },
+  {
+   "id": "home_rent_single",
+   "goal": "home",
+   "title": "월세 1인 가구, 7년 안에 자기 돈 1억(못 맞출 수 있음)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "내 집 꿈",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "지수",
+      "role": "본인",
+      "age": 30,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "엄마",
+      "role": "엄마",
+      "age": 61,
+      "work": "retired"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "혼자 월세로 살아요. 7년 안에 작은 집 살 자기 돈 1억을 모으고 싶어요. 엄마는 은퇴하셨고 따로 사세요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "월급",
+      "amount": 270
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "월세",
+      "amount": 65
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 110
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "보험·통신",
+      "amount": 20
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "m0",
+      "kind": "deposit",
+      "label": "청약·예금",
+      "amount": 2000
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "home",
+     "fields": {
+      "target_amount": 10000,
+      "within_years": 7,
+      "living": "월세",
+      "emergency_floor": 500
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "7년 안에 내 집 자금 마련",
+     "flexible": "여행·옷값은 줄일 수 있음",
+     "worry": "월세가 계속 오를까 봐"
+    },
+    "m1": {
+     "keep": "딸이 너무 아끼다 건강을 해치지 않기",
+     "flexible": "따로 없음",
+     "worry": "딸 생활이 너무 빠듯할까 봐"
+    }
+   },
+   "criterion": "생활이 너무 빠듯해지지 않는 선에서 집 자금을 모은다",
+   "tests": [
+    "월급은 일하는 지수만 오름(엄마는 은퇴)",
+    "기한을 못 맞추면 이유 설명(deadline_note)",
+    "생활비 20% 감액 한도"
+   ],
+   "expect": "남는 돈 약 75만원(28%). 7년 안에 1억은 어려움 → 기한 설명이 나와야 함, 무리한 절약 방법은 막혀야 함"
+  },
+  {
+   "id": "home_child_credit",
+   "goal": "home",
+   "title": "아이 있는 맞벌이(한쪽 시간제), 신용대출·비상금이 선보다 적음",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "이사 계획",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "현우",
+      "role": "아빠",
+      "age": 38,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "은지",
+      "role": "엄마",
+      "age": 36,
+      "work": "working"
+     },
+     {
+      "member_id": "m2",
+      "name": "도윤",
+      "role": "아들",
+      "age": 7,
+      "work": "none"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "아이가 초등학생이 됐어요. 8년 안에 학교 근처에 집을 사고 싶은데 신용대출이 남아 있고 비상금도 부족해요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "현우 월급",
+      "amount": 410
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "은지 월급(시간제)",
+      "amount": 180
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 300
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "교육·돌봄",
+      "amount": 60
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 40
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "차량 유지",
+      "amount": 30
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 1800
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "joint",
+      "kind": "lease_deposit",
+      "label": "반전세 보증금",
+      "amount": 10000
+     },
+     {
+      "item_id": "f9",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "신용대출",
+      "amount": 2500,
+      "loan_type": "credit",
+      "rate": 6.8,
+      "payment": 70
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "home",
+     "fields": {
+      "target_amount": 20000,
+      "within_years": 8,
+      "living": "전세",
+      "emergency_floor": 2000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "아이 학교 근처에 집 마련",
+     "flexible": "차 바꾸는 건 미룰 수 있음",
+     "worry": "신용대출 이자가 아까움"
+    },
+    "m1": {
+     "keep": "아이 교육·돌봄비는 줄이지 않기",
+     "flexible": "생활비를 조금 줄일 수 있음",
+     "worry": "비상금이 부족한데 큰일 생길까 봐"
+    }
+   },
+   "criterion": "아이 교육비는 지키고 비상금을 채우면서 8년 안에 집 자금을 모은다",
+   "tests": [
+    "지금 예금(1,800)이 비상금 선(2,000)보다 적을 때 검사 예외",
+    "신용대출과 모으기의 균형",
+    "교육비 지키기"
+   ],
+   "expect": "남는 돈 약 90만원(15%)으로 빠듯. 8년 안에 될지 말지 경계, 방법마다 차이가 커야 함"
+  },
+  {
+   "id": "debt_mortgage_credit",
+   "goal": "debt",
+   "title": "주담대+신용대출 맞벌이(2026-11-15 형님 체험 시나리오)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "대출 졸업",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "지훈",
+      "role": "남편",
+      "age": 35,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "하윤",
+      "role": "아내",
+      "age": 33,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "결혼 5년 차 맞벌이예요. 대출을 최대한 빨리 갚고 싶어요. 남편은 비상금으로 신용대출부터, 저는 비상금은 남기자는 생각이에요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "지훈 월급",
+      "amount": 390
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "하윤 월급",
+      "amount": 330
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 370
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "transfer_out",
+      "label": "양가 용돈",
+      "amount": 30
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "비상금 예금",
+      "amount": 1800
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "m0",
+      "kind": "investment",
+      "label": "지훈 주식",
+      "amount": 700
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "우리 집 시세",
+      "amount": 52000
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "주택담보대출",
+      "amount": 24000,
+      "loan_type": "mortgage",
+      "rate": 4.2,
+      "payment": 118
+     },
+     {
+      "item_id": "f9",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "신용대출",
+      "amount": 3000,
+      "loan_type": "credit",
+      "rate": 6.0,
+      "payment": 60
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "debt",
+     "fields": {
+      "within_years": 12,
+      "priority": "빨리 끝내기",
+      "emergency_floor": 1000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "신용대출 이자 6%를 빨리 없애기",
+     "flexible": "생활비는 어느 정도 써도 되지만 과소비는 줄일 수 있음",
+     "worry": "금리가 오르면 이자가 커질까 봐"
+    },
+    "m1": {
+     "keep": "비상금 최소 1,000만원 남기기",
+     "flexible": "월 상환을 80만원까지 늘릴 수 있음",
+     "worry": "비상금까지 써서 다시 빚을 낼까 봐"
+    }
+   },
+   "criterion": "신용대출을 먼저 갚되 비상금 1,000만원은 지키고 생활이 너무 팍팍해지지 않게 대출을 빨리 갚는다",
+   "tests": [
+    "예금이 쌓이지 않고 대출로 감(sweep)",
+    "주식은 비상금 아님",
+    "형님이 실제로 체험한 숫자와 비교"
+   ],
+   "expect": "남는 돈 142만원(20%). 예전 AI 13~30년 → 지금 6~8년대"
+  },
+  {
+   "id": "debt_lease_credit",
+   "goal": "debt",
+   "title": "전세대출+고금리 신용대출, 3년 안에 신용대출 정리",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "빚 정리",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "태호",
+      "role": "남편",
+      "age": 34,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "수아",
+      "role": "아내",
+      "age": 33,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "전세대출은 나중에 보증금으로 정리할 거고, 7%대 신용대출을 3년 안에 다 갚고 싶어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "태호 월급",
+      "amount": 330
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "수아 월급",
+      "amount": 270
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 280
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험·통신",
+      "amount": 40
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "여가",
+      "amount": 40
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 900
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "lease_deposit",
+      "label": "전세 보증금",
+      "amount": 24000
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "전세대출",
+      "amount": 14000,
+      "loan_type": "lease",
+      "rate": 4.0
+     },
+     {
+      "item_id": "f9",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "신용대출",
+      "amount": 3500,
+      "loan_type": "credit",
+      "rate": 7.2,
+      "payment": 90
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "debt",
+     "fields": {
+      "within_years": 3,
+      "priority": "이자 부담 줄이기",
+      "emergency_floor": 600
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "신용대출 7% 이자를 빨리 없애기",
+     "flexible": "취미 생활비를 줄일 수 있음",
+     "worry": "이자가 아까움"
+    },
+    "m1": {
+     "keep": "비상금 600만원은 지키기",
+     "flexible": "외식을 줄일 수 있음",
+     "worry": "갑자기 돈 쓸 일이 생길까 봐"
+    }
+   },
+   "criterion": "비상금은 지키면서 3년 안에 신용대출을 다 갚는다",
+   "tests": [
+    "전세대출은 '대출 다 갚기'에서 빠짐",
+    "3년 기한 경계",
+    "남는 돈 103만원(17%)"
+   ],
+   "expect": "3년 안팎. 아끼는 정도에 따라 2년대~3년대로 갈려야 함"
+  },
+  {
+   "id": "debt_tight_family",
+   "goal": "debt",
+   "title": "남는 돈이 거의 없는 네 식구 주담대",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "허리띠",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "성민",
+      "role": "아빠",
+      "age": 41,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "미영",
+      "role": "엄마",
+      "age": 39,
+      "work": "working"
+     },
+     {
+      "member_id": "m2",
+      "name": "첫째",
+      "role": "딸",
+      "age": 10,
+      "work": "none"
+     },
+     {
+      "member_id": "m3",
+      "name": "둘째",
+      "role": "아들",
+      "age": 7,
+      "work": "none"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "아이 둘 키우느라 남는 돈이 거의 없어요. 대출은 천천히라도 줄이고 싶어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "성민 월급",
+      "amount": 380
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "미영 월급(시간제)",
+      "amount": 150
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 300
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "아이들 학원비",
+      "amount": 90
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 30
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 600
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "집 시세",
+      "amount": 40000
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "주택담보대출",
+      "amount": 18000,
+      "loan_type": "mortgage",
+      "rate": 4.5,
+      "payment": 100
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "debt",
+     "fields": {
+      "within_years": 15,
+      "priority": "생활이 흔들리지 않게 천천히",
+      "emergency_floor": 500
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "아이들 학원비는 지키기",
+     "flexible": "외식은 줄일 수 있음",
+     "worry": "실직하면 어떡하나"
+    },
+    "m1": {
+     "keep": "생활이 흔들리지 않기",
+     "flexible": "따로 없음",
+     "worry": "비상금이 너무 적음"
+    }
+   },
+   "criterion": "아이들 생활은 지키면서 무리하지 않고 대출을 줄인다",
+   "tests": [
+    "남는 돈 10만원(2%) → 무리한 절약·추가 상환이 막혀야 함",
+    "학원비는 지키는 쪽"
+   ],
+   "expect": "방법마다 비상금·작은 절약 차이로 갈리고, 학원비를 깎는 방법은 나오면 안 됨"
+  },
+  {
+   "id": "debt_deficit_family",
+   "goal": "debt",
+   "title": "지금 매달 적자인 외벌이 네 식구(구조적 적자)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "적자 탈출",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "정훈",
+      "role": "아빠",
+      "age": 45,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "선영",
+      "role": "엄마",
+      "age": 43,
+      "work": "none"
+     },
+     {
+      "member_id": "m2",
+      "name": "큰딸",
+      "role": "딸",
+      "age": 16,
+      "work": "none"
+     },
+     {
+      "member_id": "m3",
+      "name": "작은아들",
+      "role": "아들",
+      "age": 13,
+      "work": "none"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "아내가 일을 쉬고 있어서 매달 조금씩 적자예요. 예금을 까먹고 있어요. 대출을 어떻게 해야 할지 모르겠어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "정훈 월급",
+      "amount": 450
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 360
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "아이들 학원비",
+      "amount": 120
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 40
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 3000
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "집 시세",
+      "amount": 55000
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "주택담보대출",
+      "amount": 22000,
+      "loan_type": "mortgage",
+      "rate": 4.3,
+      "payment": 110
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "debt",
+     "fields": {
+      "within_years": 20,
+      "priority": "생활이 흔들리지 않게 천천히",
+      "emergency_floor": 1000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "아이들 학원비는 최대한 지키기",
+     "flexible": "내 용돈·외식은 줄일 수 있음",
+     "worry": "예금이 바닥날까 봐"
+    },
+    "m1": {
+     "keep": "아이들 대학 갈 때까지 버티기",
+     "flexible": "생활비를 조금 줄일 수 있음",
+     "worry": "내가 다시 일을 구할 수 있을지"
+    }
+   },
+   "criterion": "예금이 바닥나지 않게 지키면서 대출을 갚아 나간다",
+   "tests": [
+    "남는 돈 −180만원(적자): 생활비 20% 한도로도 못 메움 → 서비스가 '이대로는 어렵다'를 정직하게 말하는지",
+    "비상금 선을 못 지키는 경우 처리",
+    "일하지 않는 구성원(아내) 월급 상승 없음"
+   ],
+   "expect": "어떤 방법도 비상금을 끝까지 못 지킬 수 있음 → 설계 실패·설명이 어떻게 나오는지가 관찰 대상"
+  },
+  {
+   "id": "retire_young_couple",
+   "goal": "retire",
+   "title": "30대 맞벌이, 주담대 있음, 60세 은퇴(연금 예상 입력)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "노후 준비",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "준호",
+      "role": "남편",
+      "age": 35,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "지은",
+      "role": "아내",
+      "age": 34,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "아직 젊지만 노후가 걱정돼요. 60세쯤 은퇴하고 싶어요. 국민연금은 둘이 합쳐 150만원쯤 나온다고 봤어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "준호 월급",
+      "amount": 360
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "지은 월급",
+      "amount": 290
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 300
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 40
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "여가",
+      "amount": 50
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "transfer_out",
+      "label": "부모님 용돈",
+      "amount": 30
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 2500
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "m0",
+      "kind": "investment",
+      "label": "연금펀드",
+      "amount": 1500
+     },
+     {
+      "item_id": "f9",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "집 시세",
+      "amount": 50000
+     },
+     {
+      "item_id": "f10",
+      "owner_id": "joint",
+      "kind": "loan",
+      "label": "주택담보대출",
+      "amount": 20000,
+      "loan_type": "mortgage",
+      "rate": 4.0,
+      "payment": 96
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "retire",
+     "fields": {
+      "base_member_id": "m0",
+      "retire_age": 60,
+      "monthly_need": 300,
+      "pension_monthly": 150,
+      "emergency_floor": 1500
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "60세에 은퇴하기",
+     "flexible": "지금 소비를 조금 줄일 수 있음",
+     "worry": "연금만으로 부족할까 봐"
+    },
+    "m1": {
+     "keep": "지금의 생활 여유",
+     "flexible": "여행은 줄일 수 있음",
+     "worry": "너무 아끼다 지금을 못 누릴까 봐"
+    }
+   },
+   "criterion": "지금의 생활도 지키면서 60세 은퇴 뒤에도 예금으로 오래 지낼 수 있게 한다",
+   "tests": [
+    "은퇴 뒤 월급 없음·연금 150",
+    "100세까지 계산",
+    "은퇴 후 생활비 300(물가 반영)"
+   ],
+   "expect": "남는 돈 134만원(21%). 은퇴 후 물가 오른 생활비 − 연금으로 80~90대에 바닥나는지 방법마다 갈려야 함"
+  },
+  {
+   "id": "retire_50s_pension",
+   "goal": "retire",
+   "title": "50대 부부, 대학생 자녀, 연금 예상 입력",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "은퇴 앞두고",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "영수",
+      "role": "남편",
+      "age": 56,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "정희",
+      "role": "아내",
+      "age": 54,
+      "work": "working"
+     },
+     {
+      "member_id": "m2",
+      "name": "아들",
+      "role": "아들",
+      "age": 21,
+      "work": "none"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "남편이 62세에 은퇴할 예정이에요. 국민연금은 둘이 합쳐 140만원쯤 예상해요. 아들은 대학생이에요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "영수 월급",
+      "amount": 480
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "정희 월급",
+      "amount": 150
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 330
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험·의료",
+      "amount": 50
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "아들 등록금·용돈",
+      "amount": 80
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 12000
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "m0",
+      "kind": "investment",
+      "label": "주식·펀드",
+      "amount": 3000
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "집 시세",
+      "amount": 60000
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "retire",
+     "fields": {
+      "base_member_id": "m0",
+      "retire_age": 62,
+      "monthly_need": 300,
+      "pension_monthly": 140,
+      "emergency_floor": 2000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "62세에 은퇴",
+     "flexible": "집 크기는 줄일 수 있음",
+     "worry": "은퇴 후 생활비"
+    },
+    "m1": {
+     "keep": "자식에게 손 벌리지 않기",
+     "flexible": "외식을 줄일 수 있음",
+     "worry": "병원비"
+    }
+   },
+   "criterion": "자식에게 기대지 않고 은퇴 뒤 오래 지낼 수 있게 한다",
+   "tests": [
+    "연금 140 반영",
+    "집 줄이기·주택연금 선택지(55세 이상 집주인)",
+    "주식은 비상금 아님"
+   ],
+   "expect": "연금 모름 시나리오보다 오래 가야 함. 집 줄이기 방법은 가족이 양보 가능하다고 한 경우에만"
+  },
+  {
+   "id": "retire_50s_no_pension",
+   "goal": "retire",
+   "title": "같은 50대 부부, 연금 모름(입력 안 함)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "은퇴 앞두고2",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "영수",
+      "role": "남편",
+      "age": 56,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "정희",
+      "role": "아내",
+      "age": 54,
+      "work": "working"
+     },
+     {
+      "member_id": "m2",
+      "name": "아들",
+      "role": "아들",
+      "age": 21,
+      "work": "none"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "남편이 62세에 은퇴할 예정이에요. 연금은 얼마나 나올지 잘 몰라요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "영수 월급",
+      "amount": 480
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "정희 월급",
+      "amount": 150
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 330
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험·의료",
+      "amount": 50
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "아들 등록금·용돈",
+      "amount": 80
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 12000
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "m0",
+      "kind": "investment",
+      "label": "주식·펀드",
+      "amount": 3000
+     },
+     {
+      "item_id": "f8",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "집 시세",
+      "amount": 60000
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "retire",
+     "fields": {
+      "base_member_id": "m0",
+      "retire_age": 62,
+      "monthly_need": 300,
+      "emergency_floor": 2000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "62세에 은퇴",
+     "flexible": "집 크기는 줄일 수 있음",
+     "worry": "은퇴 후 생활비"
+    },
+    "m1": {
+     "keep": "자식에게 손 벌리지 않기",
+     "flexible": "외식을 줄일 수 있음",
+     "worry": "병원비"
+    }
+   },
+   "criterion": "자식에게 기대지 않고 은퇴 뒤 오래 지낼 수 있게 한다",
+   "tests": [
+    "'연금 없이 계산'을 밝힘",
+    "연금 있는 경우와 비교해 더 짧게"
+   ],
+   "expect": "연금 입력 시나리오보다 확실히 짧아야 함"
+  },
+  {
+   "id": "retire_already_retired",
+   "goal": "retire",
+   "title": "이미 은퇴한 60대 부부, 자녀가 조금 보탬, 매달 적자",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "은퇴 생활",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "상철",
+      "role": "남편",
+      "age": 67,
+      "work": "retired"
+     },
+     {
+      "member_id": "m1",
+      "name": "순자",
+      "role": "아내",
+      "age": 64,
+      "work": "retired"
+     },
+     {
+      "member_id": "m2",
+      "name": "딸",
+      "role": "딸",
+      "age": 38,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "남편은 2년 전에 은퇴했어요. 연금과 딸이 보태 주는 돈으로는 매달 조금 모자라서 예금을 쓰고 있어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "상철 국민연금",
+      "amount": 95
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "순자 국민연금",
+      "amount": 35
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "transfer_in",
+      "label": "딸이 보태는 돈",
+      "amount": 30
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 230
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "병원·약값",
+      "amount": 30
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 15000
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "home",
+      "label": "집 시세",
+      "amount": 45000
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "retire",
+     "fields": {
+      "base_member_id": "m0",
+      "retire_age": 65,
+      "monthly_need": 260,
+      "emergency_floor": 2000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "지금 집에서 계속 살기",
+     "flexible": "외식·여행은 줄일 수 있음",
+     "worry": "예금이 바닥날까 봐"
+    },
+    "m1": {
+     "keep": "딸에게 더 부담 주지 않기",
+     "flexible": "생활비를 조금 줄일 수 있음",
+     "worry": "병원비가 늘어날까 봐"
+    },
+    "m2": {
+     "keep": "부모님이 편하게 지내시기",
+     "flexible": "보태는 돈을 조금 늘릴 수 있음",
+     "worry": "부모님 노후 자금"
+    }
+   },
+   "criterion": "지금 집에 살면서 딸에게 더 기대지 않고 예금을 오래 쓴다",
+   "tests": [
+    "은퇴 나이가 이미 지남(은퇴 달 = 1)",
+    "가족이 보태 주는 돈(transfer_in)",
+    "주택연금 선택지(67세 집주인)",
+    "연금은 오르지 않음"
+   ],
+   "expect": "지금처럼이면 적자로 20년 안팎에 바닥 → 주택연금·절약 방법은 늘어나야 함"
+  },
+  {
+   "id": "care_now_heavy",
+   "goal": "care",
+   "title": "아버님 요양병원, 지금부터 월 280만원(간병비+약값·기저귀, 부담 큼)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "아버님 돌봄",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "아버님",
+      "role": "아버지",
+      "age": 80,
+      "work": "retired"
+     },
+     {
+      "member_id": "m1",
+      "name": "수진",
+      "role": "딸",
+      "age": 49,
+      "work": "working"
+     },
+     {
+      "member_id": "m2",
+      "name": "상훈",
+      "role": "사위",
+      "age": 51,
+      "work": "working"
+     },
+     {
+      "member_id": "m3",
+      "name": "손녀",
+      "role": "딸",
+      "age": 16,
+      "work": "none"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "아버님이 요양병원에 들어가셨어요. 간병비에 약값·기저귀까지 한 달 280만원쯤 들어요. 우리 노후 자금과 아이 학원비가 걱정이에요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "아버님 연금",
+      "amount": 60
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "수진 월급",
+      "amount": 260
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "m2",
+      "kind": "income",
+      "label": "상훈 월급",
+      "amount": 400
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 380
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "손녀 학원비",
+      "amount": 100
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 40
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 9000
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "care",
+     "fields": {
+      "base_member_id": "m0",
+      "monthly_cost": 280,
+      "start_years": 0,
+      "emergency_floor": 3000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "자식들에게 짐이 되지 않기",
+     "flexible": "따로 없음",
+     "worry": "병원비"
+    },
+    "m1": {
+     "keep": "아버님을 좋은 곳에서 모시기",
+     "flexible": "여행을 줄일 수 있음",
+     "worry": "간병이 길어질까 봐"
+    },
+    "m2": {
+     "keep": "우리 노후 자금도 지키기",
+     "flexible": "외식을 줄일 수 있음",
+     "worry": "간병비가 늘어날까 봐"
+    }
+   },
+   "criterion": "아버님 간병비를 함께 감당하면서 우리 노후 자금도 지킨다",
+   "tests": [
+    "간병비 280 지금부터(물가 반영)",
+    "아버님 연금은 오르지 않음",
+    "간병비를 넣으면 매달 적자"
+   ],
+   "expect": "간병비를 넣으면 매달 약 80만원 적자 → 예금이 비상금 선까지 내려가는 때(몇 년)가 방법마다 갈려야 함. 간병이 100세까지 계속된다고 보는 한계도 관찰"
+  },
+  {
+   "id": "care_in_5_years",
+   "goal": "care",
+   "title": "어머님 간병, 5년 뒤부터 월 200만원",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "어머님 돌봄",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "어머님",
+      "role": "어머니",
+      "age": 72,
+      "work": "retired"
+     },
+     {
+      "member_id": "m1",
+      "name": "동현",
+      "role": "아들",
+      "age": 44,
+      "work": "working"
+     },
+     {
+      "member_id": "m2",
+      "name": "지민",
+      "role": "며느리",
+      "age": 42,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "어머님이 지금은 건강하신데 5년쯤 뒤에는 돌봄이 필요할 것 같아요. 그때 요양원·간병으로 한 달 200만원쯤 들 것 같아요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "어머님 연금",
+      "amount": 50
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "동현 월급",
+      "amount": 430
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "m2",
+      "kind": "income",
+      "label": "지민 월급(시간제)",
+      "amount": 120
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 350
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "아이 교육비",
+      "amount": 80
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 40
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 5000
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "care",
+     "fields": {
+      "base_member_id": "m0",
+      "monthly_cost": 200,
+      "start_years": 5,
+      "emergency_floor": 1500
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "자식에게 짐 되지 않기",
+     "flexible": "따로 없음",
+     "worry": "치매"
+    },
+    "m1": {
+     "keep": "어머님 돌봄 미리 준비",
+     "flexible": "차 바꾸기를 미룰 수 있음",
+     "worry": "간병비 부담"
+    },
+    "m2": {
+     "keep": "아이 교육비 지키기",
+     "flexible": "외식을 줄일 수 있음",
+     "worry": "맞벌이를 계속할 수 있을지"
+    }
+   },
+   "criterion": "5년 뒤 간병비에 미리 대비하면서 지금 생활도 지킨다",
+   "tests": [
+    "간병비 5년 뒤부터만",
+    "그 전 5년 동안 모으기",
+    "간병비 시작 뒤 적자 전환"
+   ],
+   "expect": "5년 동안 모은 돈으로 간병 기간을 버티는 기간이 방법마다 갈려야 함"
+  },
+  {
+   "id": "baby_leave_next_year",
+   "goal": "baby",
+   "title": "1년 뒤 아이, 아내 12개월 휴직(휴직 중 150만원)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "아기 준비",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "건우",
+      "role": "남편",
+      "age": 31,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "다은",
+      "role": "아내",
+      "age": 30,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "1년 뒤쯤 아이를 갖고 싶어요. 아내가 1년 육아휴직을 할 거고, 휴직 중엔 150만원쯤 받을 것 같아요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "건우 월급",
+      "amount": 330
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "다은 월급",
+      "amount": 290
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비(월세 포함)",
+      "amount": 360
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험·통신",
+      "amount": 40
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "transfer_out",
+      "label": "양가 용돈",
+      "amount": 40
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 1500
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "baby",
+     "fields": {
+      "when_years": 1,
+      "leave_months": 12,
+      "leave_member_id": "m1",
+      "leave_income": 150,
+      "target_amount": 2200,
+      "emergency_floor": 1000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "아내가 마음 편히 휴직하기",
+     "flexible": "자동차는 나중에 바꿀 수 있음",
+     "worry": "휴직 중 수입이 줄어드는 것"
+    },
+    "m1": {
+     "keep": "휴직 1년 다 쓰기",
+     "flexible": "옷·화장품을 줄일 수 있음",
+     "worry": "복직 후 육아"
+    }
+   },
+   "criterion": "아내가 휴직을 마음 편히 쓸 수 있도록 아이 갖기 전에 준비금을 모으고, 휴직 중에도 비상금을 지킨다",
+   "tests": [
+    "휴직 12개월 동안 다은 월급 → 150",
+    "준비금 기준 '휴직 동안 줄어드는 수입'",
+    "휴직이 끝날 때까지 비상금 검사(min_until)"
+   ],
+   "expect": "남는 돈 180만원(29%). 1년 안에 준비금이 빠듯하게 차야 함"
+  },
+  {
+   "id": "baby_husband_leave",
+   "goal": "baby",
+   "title": "2년 뒤 아이, 남편 6개월 휴직(휴직 중 수입 모름)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "아빠 육아",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "재민",
+      "role": "남편",
+      "age": 33,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "보람",
+      "role": "아내",
+      "age": 32,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "2년 뒤 아이를 갖고, 남편이 6개월 육아휴직을 하려고 해요. 휴직 중에 얼마를 받는지는 아직 몰라요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "재민 월급",
+      "amount": 320
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "보람 월급",
+      "amount": 360
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 420
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험·통신",
+      "amount": 40
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "transfer_out",
+      "label": "부모님 용돈",
+      "amount": 30
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 800
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "baby",
+     "fields": {
+      "when_years": 2,
+      "leave_months": 6,
+      "leave_member_id": "m0",
+      "target_amount": 2200,
+      "emergency_floor": 500
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "6개월 휴직하기",
+     "flexible": "게임·취미를 줄일 수 있음",
+     "worry": "휴직 중 수입을 모름"
+    },
+    "m1": {
+     "keep": "내 경력 지키기",
+     "flexible": "외식을 줄일 수 있음",
+     "worry": "남편 휴직 중 생활비"
+    }
+   },
+   "criterion": "남편 휴직 동안 생활이 흔들리지 않게 준비금을 모은다",
+   "tests": [
+    "휴직 중 수입 0원으로 계산·밝힘",
+    "휴직 중 매달 적자여도 비상금 지킴"
+   ],
+   "expect": "준비금은 1년 안팎에 차고, 휴직 6개월 적자를 버텨야 함"
+  },
+  {
+   "id": "lump_wedding_tight",
+   "goal": "lump",
+   "title": "1년 안에 결혼 자금 3천(못 맞춤)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "결혼 준비",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "하늘",
+      "role": "본인",
+      "age": 29,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "아빠",
+      "role": "아빠",
+      "age": 62,
+      "work": "retired"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "내년에 결혼하는데 결혼 자금을 3천만원 모으고 싶어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "월급",
+      "amount": 260
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "생활비(부모님 집)",
+      "amount": 150
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "보험·통신",
+      "amount": 20
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "여가",
+      "amount": 20
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "m0",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 900
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "lump",
+     "fields": {
+      "purpose": "결혼",
+      "target_amount": 3000,
+      "within_years": 1,
+      "emergency_floor": 300
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "1년 안에 결혼 자금",
+     "flexible": "여가비를 줄일 수 있음",
+     "worry": "모자랄까 봐"
+    },
+    "m1": {
+     "keep": "딸이 빚지지 않기",
+     "flexible": "따로 없음",
+     "worry": "결혼 비용"
+    }
+   },
+   "criterion": "빚지지 않고 1년 안에 결혼 자금을 최대한 모은다",
+   "tests": [
+    "1년 안에는 불가능 → 무리한 방법 대신 기한 설명",
+    "생활비 20% 한도"
+   ],
+   "expect": "어떤 방법도 1년 안에는 안 됨. 기한 설명(무엇이 얼마나 모자란지)이 나와야 함"
+  },
+  {
+   "id": "lump_car",
+   "goal": "lump",
+   "title": "2년 안에 차 바꿀 돈 3,500(할부 없이)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "새 차",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "민호",
+      "role": "남편",
+      "age": 36,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "유진",
+      "role": "아내",
+      "age": 35,
+      "work": "working"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "2년 안에 차를 바꾸고 싶어요. 할부는 싫어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "민호 월급",
+      "amount": 330
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m1",
+      "kind": "income",
+      "label": "유진 월급",
+      "amount": 280
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 300
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "보험",
+      "amount": 40
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "joint",
+      "kind": "expense",
+      "label": "여가",
+      "amount": 50
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "joint",
+      "kind": "transfer_out",
+      "label": "양가 용돈",
+      "amount": 30
+     },
+     {
+      "item_id": "f7",
+      "owner_id": "joint",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 1200
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "lump",
+     "fields": {
+      "purpose": "차량",
+      "target_amount": 3500,
+      "within_years": 2,
+      "emergency_floor": 1000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "할부 없이 현금으로 사기",
+     "flexible": "주말 외식을 줄일 수 있음",
+     "worry": "중간에 큰돈 쓸 일"
+    },
+    "m1": {
+     "keep": "비상금 지키기",
+     "flexible": "옷값을 줄일 수 있음",
+     "worry": "차 사고 나서 빠듯할까 봐"
+    }
+   },
+   "criterion": "비상금은 지키면서 2년 안에 차 살 돈을 현금으로 모은다",
+   "tests": [
+    "'예금 − 비상금'으로 판정",
+    "남는 돈 190만원(31%)"
+   ],
+   "expect": "1년 반 안팎. 2년 기한 안에 되지만 방법마다 몇 달씩 차이"
+  },
+  {
+   "id": "other_shop_remodel",
+   "goal": "other",
+   "title": "자영업 1인 가구, 2년 안에 가게 리모델링 4천(기타 목표)",
+   "family": {
+    "today": "2026-11",
+    "room": {
+     "name": "가게 준비",
+     "reason": "",
+     "host_member_id": "m0"
+    },
+    "members": [
+     {
+      "member_id": "m0",
+      "name": "은수",
+      "role": "본인",
+      "age": 42,
+      "work": "working"
+     },
+     {
+      "member_id": "m1",
+      "name": "어머니",
+      "role": "어머니",
+      "age": 70,
+      "work": "retired"
+     }
+    ],
+    "story": {
+     "author_id": "m0",
+     "text": "작은 카페를 해요. 수입이 달마다 들쭉날쭉해요. 2년 안에 가게 리모델링 자금을 모으고 싶어요."
+    },
+    "finance": [
+     {
+      "item_id": "f1",
+      "owner_id": "m0",
+      "kind": "income",
+      "label": "가게 수입(평균)",
+      "amount": 350
+     },
+     {
+      "item_id": "f2",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "생활비",
+      "amount": 180
+     },
+     {
+      "item_id": "f3",
+      "owner_id": "m0",
+      "kind": "expense",
+      "label": "보험·국민연금",
+      "amount": 50
+     },
+     {
+      "item_id": "f4",
+      "owner_id": "m0",
+      "kind": "transfer_out",
+      "label": "어머니 생활비",
+      "amount": 30
+     },
+     {
+      "item_id": "f5",
+      "owner_id": "m0",
+      "kind": "deposit",
+      "label": "예금",
+      "amount": 1500
+     },
+     {
+      "item_id": "f6",
+      "owner_id": "m0",
+      "kind": "loan",
+      "label": "사업자 신용대출",
+      "amount": 2000,
+      "loan_type": "credit",
+      "rate": 7.5,
+      "payment": 60
+     }
+    ],
+    "disclosure": {},
+    "goal_input": {
+     "category": "other",
+     "fields": {
+      "purpose_text": "가게 리모델링 자금",
+      "engine_kind": "목표 금액 모으기",
+      "target_amount": 4000,
+      "within_years": 2,
+      "emergency_floor": 1000
+     }
+    }
+   },
+   "summaries": {
+    "m0": {
+     "keep": "가게를 계속 운영하기",
+     "flexible": "내 생활비를 줄일 수 있음",
+     "worry": "장사가 안 되는 달"
+    },
+    "m1": {
+     "keep": "아들 건강",
+     "flexible": "따로 없음",
+     "worry": "아들이 너무 무리할까 봐"
+    }
+   },
+   "criterion": "장사가 안 되는 달에도 버틸 비상금을 지키면서 2년 안에 리모델링 자금을 모은다",
+   "tests": [
+    "'기타' 목표 경로",
+    "사업자 신용대출 7.5%와 모으기의 균형",
+    "남는 돈 30만원(9%)으로 빠듯"
+   ],
+   "expect": "2년 안에는 어려움 → 기한 설명. 비상금을 깎는 방법은 나오면 안 됨"
+  }
+ ]
+}

@@ -441,3 +441,46 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .appgrid.wide{grid-template-columns:200px minmax(0,1080px)}
 @media (max-width:1100px){.appgrid.wide{grid-template-columns:170px minmax(0,1fr)}}
 @media (max-width:860px){.appgrid.wide{grid-template-columns:1fr}}
+
+/* 숫자 정하기: 대출 갚기·노후 준비 — 입력칸 아래 결과 한 줄 + 버튼 없는 참고 목록(2026-11-15, 시안10) */
+.g-res{margin:0;padding:14px 0 16px;border-bottom:1px solid var(--line)}
+.g-res .k{font-size:13px;color:var(--muted);font-weight:600}
+.g-res .v{font-size:17px;line-height:1.6;margin-top:2px}
+.g-res .v b{font-weight:800;color:var(--green)}
+.g-res.warn .v b{color:var(--warm)}
+.g-res .n{font-size:13.5px;color:var(--ink2);margin-top:2px}
+.g-opts{margin-top:8px}
+.g-opt{display:grid;grid-template-columns:1fr;gap:3px;padding:12px 0;border-top:1px solid var(--line)}
+.g-opts .g-opt:last-child{border-bottom:1px solid var(--line)}
+.g-opt .q{font-size:15px;font-weight:700}
+.g-opt .a{font-size:15px;color:var(--ink2);line-height:1.55}
+.g-opt .a b{color:var(--green);font-weight:800}
+.g-opt .a.warn b{color:var(--warm)}
+
+/* 미래 계산 현실성(2026-11-15, 시안11): 비상금 참고, 가정 한 줄, 보조 범위, 비상금 지킴 표시 */
+.g-ref2{margin:0;padding:12px 0 14px;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--ink2);line-height:1.7}
+.g-ref2 b{color:var(--green);font-weight:800}
+.assume{margin-top:10px;font-size:13.5px;line-height:1.7;color:var(--ink2);background:var(--green-soft);padding:9px 12px}
+.assume b{color:var(--green-d)}
+.alt{margin-top:6px;font-size:13.5px;color:var(--ink2)}
+.alt b{font-weight:700}
+.kv .okk{font-size:12.5px;color:var(--green);font-weight:700;margin-left:6px}
+
+/* 적자 상태(2026-11-15 시안12): 안내 상자, 적자 메우기 표, 비상금 못 지킴 표시 */
+.deficit{margin:0 0 16px;padding:14px 16px;background:#F6EFE0;border-left:4px solid var(--warm);font-size:14.5px;line-height:1.7;color:var(--ink)}
+.deficit b.t{display:block;font-size:15.5px;color:#7A5F28;margin-bottom:4px}
+.deficit .sub{font-size:13.5px;color:var(--ink2);margin-top:6px}
+.fixbox{margin:0 0 18px;padding:14px 16px;border:1px solid var(--line);background:#fff}
+.fx-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.fx-h b{font-size:15.5px}
+.fxt{width:100%;border-collapse:collapse;font-size:14px}
+.fxt th{text-align:left;font-size:12.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding:6px 4px}
+.fxt td{border-bottom:1px solid var(--line);padding:9px 4px;vertical-align:top}
+.fxt td.n{font-weight:800;color:var(--green);white-space:nowrap}
+.fx-sum{margin-top:10px;font-size:13.5px;line-height:1.7;color:var(--ink2);background:var(--green-soft);padding:9px 12px}
+.fx-sum b{display:block;color:var(--green-d)}
+.kv .bad2{font-size:12.5px;color:var(--warm);font-weight:700;margin-left:6px}
+
+/* 금융 정보 '기타' 묶음의 종류 고르기(2026-11-15 시안13) */
+.kindsel{display:flex;align-items:center;gap:8px;grid-column:1 / -1;font-size:13px;color:var(--ink2);padding:2px 0 4px}
+.kindsel select{width:auto;padding:5px 8px;font-size:13px}

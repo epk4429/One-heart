@@ -91,3 +91,32 @@ def acquisition_tax(price_manwon: float) -> dict:
     if price_manwon > t["high"]["limit"]:
         return {"amount": price_manwon * t["high"]["rate"] / 100, "rate": t["high"]["rate"]}
     return {"amount": None, "rate": None}
+
+
+# ---------- 적자 상태 도우미(2026-11-15, 시안12) ----------
+def annuity_payment(balance: float, rate: float, months: int) -> float:
+    """원리금 균등 월 상환액(만원). 대출 기간 늘리기에서 새 월 상환액을 계산한다."""
+    r = rate / 1200
+    if months <= 0:
+        return balance
+    return balance / months if r == 0 else balance * r / (1 - (1 + r) ** -months)
+
+
+def total_interest(balance: float, rate: float, payment: float, cap_months: int = 1200) -> float:
+    """지금 잔액을 이 월 상환액으로 끝까지 갚을 때 내는 이자 합계(만원)."""
+    b, total, r = balance, 0.0, rate / 1200
+    for _ in range(cap_months):
+        if b <= 0.005:
+            break
+        i = b * r
+        p = min(payment, b + i)
+        total += i
+        b -= p - i
+    return total
+
+
+def extend_term(balance: float, rate: float, payment: float, years: int) -> dict:
+    """대출 기간을 앞으로 years년으로 늘릴 때: 새 월 상환액, 매달 줄어드는 돈, 늘어나는 총 이자(만원, 반올림)."""
+    new = annuity_payment(balance, rate, years * 12)
+    return {"payment": round(new, 1), "monthly_saving": round(payment - new, 1),
+            "extra_interest": round(total_interest(balance, rate, new) - total_interest(balance, rate, payment), -1)}

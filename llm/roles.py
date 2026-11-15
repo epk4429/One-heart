@@ -618,7 +618,8 @@ _SPEC = """방법(option) 형식:
  "adjustments": [{"label": "새 월 조정(예: 여유 지출, 생활비 아끼기)", "amount": 월 금액(만원, 들어오면 +, 나가면 −), "reason": "왜(누구의 말·요약에서)", "member_id": "관련 구성원id 또는 생략"}],
  "events": [{"label": "기간 이벤트(예: 육아휴직, 병원비 증가)", "from_month": 시작 달, "to_month": 끝 달, "amount": 월 변화(만원, ±), "kind": "income 또는 expense", "reason": "근거"}],
  "lump_sums": [{"label": "한 번에 나가는 큰돈(예: 결혼 비용)", "month": 달, "amount": 음수(만원), "reason": "근거"}],
- "policies": [{"policy": "정책 이름", ...정책별 값}]}
+ "policies": [{"policy": "정책 이름", ...정책별 값}],
+ "floor": 이 방법이 늘 남겨 둘 비상금(만원, 선택. 가족이 정한 선 이상)}
 - 달은 오늘부터 1, 2, 3...(12 = 1년 뒤).
 - 바꾸지 않는 항목은 그대로 계산된다. 대출 이자·상환, 물가 상승률은 엔진이 자동으로 넣는다.
 - 들어오는 큰돈(집 팔기)·주택연금 금액은 정책 블록으로만 쓴다. 금액은 코드가 계산한다.
@@ -627,16 +628,18 @@ _SPEC = """방법(option) 형식:
 
 def _b5(i):
     return f"""가족이 동의한 기준과 목표로 미래를 계산할 방법 3개(A, B, C)를 설계해라.
-세 방법은 성격이 달라야 한다: (A) 목표를 가장 잘 이루는 쪽, (B) 구성원 모두가 꼭 지키고 싶은 것을 함께 지키는 균형 쪽, (C) 지금의 생활 여유를 우선하는 쪽.
-양보할 수 있다고 한 것만 조정하고, 꼭 지키고 싶다고 한 것은 가능한 한 지킨다. 가족이 말한 앞으로의 일(출산·휴직·입원·은퇴 등)은 events로 넣는다. 시작 달은 가족이 말한 시기를 따른다(예: "2년 안에 아이" → 아이를 갖고 휴직하는 때는 대략 1~2년 뒤). 시기를 정확히 모르면 가장 그럴듯한 때를 고르고 reason에 그렇게 가정했다고 밝힌다.
-세 방법의 결과(목표 달성까지·예금으로 지낼 수 있는 기간·다 갚는 때)는 서로 확실히 달라야 한다(가장 빠른 것과 가장 늦은 것이 적어도 반년 이상 차이).
-대출 다 갚기(debt_free) 목표에서는 다 갚는 때가 '추가 상환(extra_repayment)'과 '일시 상환(lump_repayment)'으로만 바뀐다. 생활비를 줄이거나 투자 방식을 바꿔도 그 돈을 추가 상환에 넣지 않으면 다 갚는 때는 그대로다. 그래서 세 방법은 추가 상환 금액이나 일시 상환 금액을 확실히 다르게 정한다.
+세 방법은 가족이 실제로 고를 만한, 성격이 다른 방법이어야 한다: (A) 목표를 가장 빨리·잘 이루는 쪽, (B) 구성원 모두가 꼭 지키고 싶은 것을 함께 지키는 균형 쪽, (C) 지금의 생활 여유를 우선하는 쪽. C는 지금 생활을 그대로 두는 '지금처럼(비교용)'이어도 된다(가족이 비교할 기준, 이름은 코드가 붙인다). A·B는 실제로 무언가를 바꾸는 방법이어야 하고, 숫자만 벌리려고 현실에서 아무도 안 고를 방법(예: 무리하게 줄이기)을 만들지 않는다.
+양보할 수 있다고 한 것만 조정하고, 꼭 지키고 싶다고 한 것은 지킨다.
+현실성 규칙(서버가 검사한다): ① 어떤 방법이든 기간 중 예금(주식 제외)이 비상금 선(context.floor) 아래로 내려가면 안 된다. 가족이 정한 선보다 더 넉넉한 비상금("floor", 만원)은 여유를 우선하는 C에서만 둔다(A·B는 가족이 정한 선 그대로. B가 비상금을 더 크게 두면 '균형'이 '여유'보다 늦어져 이름과 결과가 어긋난다). ② 생활비·용돈 줄이기(monthly_changes로 줄이기 + 아껴서 더 모으는 양수 adjustments)는 합쳐서 context.expense_cut_max 이하. ③ context.auto_included에 적힌 것(월급 상승, 은퇴·연금, 간병비, 휴직, 남는 돈으로 대출 더 갚기 등)은 코드가 이미 계산에 넣었다. 같은 것을 events·adjustments로 또 넣지 않는다. 가족이 말했지만 auto_included에 없는 앞으로의 일(출산·입원 등)만 events로 넣고, 시기를 정확히 모르면 가장 그럴듯한 때를 고르고 reason에 그렇게 가정했다고 밝힌다.
+적자 상태(context.deficit가 있으면): 생활비를 한도까지 줄여도 비상금을 못 지키는 가족이라 ① 비상금 선 검사는 하지 않는다. 대신 방법마다 예금이 비상금 아래로 내려가는 때를 최대한 늦추게 짠다 ② 갚아 나가는 대출이 있으면 적어도 한 방법은 대출 기간 늘리기(extend_term, 월 상환액은 코드가 계산)를 쓴다 ③ 부족한 돈을 새로 벌어야 하는 방법(재취업·부업·수입이 늘어난다는 가정 등)은 넣지 않는다(형님 결정). 가족이 이미 가진 것(지출 줄이기·대출 기간 늘리기·집·주택연금)으로만 짜고, 그래도 적자를 못 메우면 그 사실을 design_notes와 deadline_note에 그대로 쓴다.
+가족이 정한 기한(goal.within_months)이 있으면 적어도 한 방법은 그 기한을 맞추도록 설계한다. 규칙 안에서 도저히 못 맞추면 "deadline_note"에 왜 못 맞추는지(무엇이 얼마나 모자란지, 계산 결과 숫자는 도구 결과의 것만)를 한두 문장으로 쓴다.
+대출 다 갚기(debt_free) 목표에서는 예금이 비상금 선을 넘는 돈이 매달 자동으로 금리 높은 대출부터 갚아진다. 그래서 다 갚는 때는 비상금 선(floor), 생활비 줄이기·여유 지출(adjustments), 일시 지출로 달라진다. 추가 상환(extra_repayment)·일시 상환(lump_repayment)은 쓰지 않아도 된다.
 도구 run_simulation이 있으면 설계한 방법을 계산해 보고, 필요하면 고쳐서 한 번 더 계산한다(최대 2번). 그다음 최종 JSON만 출력한다.
 {_SPEC}
 design_notes에는 방법마다 의도(intent, 숫자 없이)와 근거(why, 한 문장)를 쓴다. why는 그 방법이 왜 그렇게 설계됐는지를 tips(금융감독원 금융꿀팁 원문 조각)의 원리로 "~이니까", "~라서"처럼 설명하고,
 그 원리 부분을 [[tip:tip_id|근거 문구|원문 인용]]으로 감싼다. 조각(from은 그 조각이 나온 문서)이 이 방법이 하는 일을 **직접 뒷받침할 때만** 단다. 이 가족의 상황과 맞지 않거나 뒷받침하지 않으면 억지로 끼우지 말고 근거 표시 없이 설계 이유만 쓴다(세 방법 모두 달지 않아도 된다). 원문 인용은 그 조각 글에서 15~80자를 한 글자도 바꾸지 말고 그대로 복사한 것이고, 근거 문구 안의 숫자는 원문 인용에 있는 숫자만 쓸 수 있다.
 돈을 불리는 방식(return_id)을 고른 이유에는 설계 재료 returns의 source(공시 통계인지 체험용 가정값인지)를 그대로 밝혀도 된다(예: "예금 금리는 은행 정기예금 공시 중간값으로 잡았어요"). 금융회사·상품 이름은 쓰지 않는다.
-출력 형식: {{"options": [방법 A, 방법 B, 방법 C], "design_notes": [{{"option_id": "A", "intent": "이 방법을 만든 의도(숫자 없이)", "why": "이 방법의 근거 한 문장"}}]}}
+출력 형식: {{"options": [방법 A, 방법 B, 방법 C], "design_notes": [{{"option_id": "A", "intent": "이 방법을 만든 의도(숫자 없이)", "why": "이 방법의 근거 한 문장"}}], "deadline_note": "기한을 못 맞출 때만(아니면 빈 글)"}}
 
 동의한 기준: {i['criterion']}
 계산할 목표: {_dump(i['goal'])}
@@ -678,20 +681,30 @@ def _c5(o, i):
     specs = []
     for x in ops:
         try:
-            specs.append(check_option(i["family"], i["goal_full"], x))
+            specs.append(check_option(i["family"], i["goal_full"], x, cut_limit=i.get("cut_limit")))
         except PlanError as e:
             errs.append(str(e))
-    if not errs and len(specs) == 3:  # 결과 차이 검사(엔진으로 바로 계산)
+    if not errs and len(specs) == 3:  # 현실성 검사(엔진으로 바로 계산, 2026-11-15): 비상금 선, 기한, 세 방법이 똑같지 않을 것
         from engine import simulate
-        from .plan import build_request
-        req = build_request(i["family"], i["goal_full"], specs)
+        from .plan import build_request, floor_errors, policy_menu
+        g = i["goal_full"]
+        req = build_request(i["family"], g, specs)
         req["range"] = {"paths": 0}
         res = simulate(req, include_monthly=False)
-        hits = [r["goal_hit_month"] or req["horizon_months"] + 1 for r in res.get("results", [])]
-        if len(hits) == 3 and max(hits) - min(hits) < 3:
-            errs.append("세 방법의 결과가 거의 같아요(차이 3개월 미만: " + ", ".join(r["goal_hit_display"] for r in res["results"])
-                        + "). 결과가 확실히 달라지도록 방법을 다르게 설계해 주세요"
-                        + (". 대출 목표는 추가 상환·일시 상환 금액을 다르게 해야 결과가 달라져요" if i["goal_full"]["type"] == "debt_free" else ""))
+        rs = res.get("results", [])
+        errs += floor_errors(g, specs, rs)
+        for s in specs:  # 더 넉넉한 비상금은 C에서만(2026-11-15 형님 결정: '균형'이 '여유'보다 늦게 나오지 않게)
+            if s["option_id"] in ("A", "B") and s.get("floor") is not None and s["floor"] > g.get("floor", 0) + 0.5:
+                errs.append(f"방법 {s['option_id']}: 비상금을 가족이 정한 선({g.get('floor', 0):,.0f}만원)보다 크게 두지 마세요. 더 넉넉한 비상금은 C에서만 둬요")
+        hits = [r["goal_hit_month"] or req["horizon_months"] + 1 for r in rs]
+        if len(hits) == 3 and len({json.dumps({k: v for k, v in s.items() if k not in ("option_id", "label", "description")}, sort_keys=True) for s in specs}) < 3:
+            errs.append("세 방법 중 똑같은 방법이 있어요. 성격이 다른 방법으로 설계해 주세요")
+        if g.get("deficit") and any(p["policy"] == "extend_term" for p in policy_menu(i["family"], g))                 and not any(p["policy"] == "extend_term" for s in specs for p in s["policies"]):  # 적자 상태: 대출 기간 늘리기를 한 방법은 비교(2026-11-15)
+            errs.append("적자 상태예요. 갚아 나가는 대출이 있으니 적어도 한 방법은 대출 기간 늘리기(extend_term)를 써서 비교해 주세요")
+        w = g.get("within_months")
+        if w and g["type"] in ("reach_target", "debt_free") and len(hits) == 3 and min(hits) > w and not str(o.get("deadline_note") or "").strip():
+            errs.append(f"가족이 정한 기한({w // 12}년{f' {w % 12}개월' if w % 12 else ''})을 맞추는 방법이 없어요(" + ", ".join(r["goal_hit_display"] for r in rs)
+                        + "). 규칙 안에서 한 방법은 기한을 맞추게 하거나, 못 맞추면 deadline_note에 이유를 써 주세요")
     return errs + design_note_errors(o, i)
 
 
@@ -722,7 +735,7 @@ def _c5r(o, i):
     if not isinstance(opt, dict):
         return errs + ["'option'은 객체여야 해요"]
     try:
-        check_option(i["family"], i["goal_full"], {**opt, "option_id": o["from_option_id"], "label": o.get("label") or "수정안"},
+        check_option(i["family"], i["goal_full"], {**opt, "option_id": o["from_option_id"], "label": o.get("label") or "수정안"}, cut_limit=i.get("cut_limit"),
                      allowed_ids=(o["from_option_id"],))
     except PlanError as e:
         errs.append(str(e))
@@ -736,6 +749,8 @@ def _b6a(i):
     return f"""계산엔진이 방법별로 계산한 결과다. 방법마다 결과를 쉬운 말로 풀어라.
 easy: 결과를 한 문장으로(반드시 {{{{fact:ID}}}}를 써서). per_member: 구성원마다 이 방법을 고르면 달라지는 점 한 문장(그 사람의 지키고 싶은 것·걱정과 연결).
 어느 방법이 좋다고 결론 내리지 않는다. 금융회사·상품 이름은 쓰지 않는다.
+모자라는 돈은 마이너스 기호 없이 쓴다("매달 −30만원씩 모자라" ✗ → "매달 30만원씩 모자라"). 예금이 바닥난 뒤의 마이너스 예금 금액(min_pool이 음수)은 말하지 않는다.
+facts에 floor_breach(예금이 비상금 아래로 내려가는 때)가 있으면 easy에서 그것을 먼저 말한다(예: "이 방법은 {{{{fact:A.floor_breach}}}} 뒤에 예금이 비상금 아래로 내려가요"). 이때 '다 갚는 때'나 '모이는 때'보다 이 숫자가 중요하다.
 출력 형식: {{"per_option": {{"A": {{"easy": "...", "per_member": {{"구성원id": "..."}}}}, ...}}}}
 
 계산할 목표: {_dump(i['goal'])}

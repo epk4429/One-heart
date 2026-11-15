@@ -150,7 +150,8 @@
   "fields": {
    "target_amount": 30000,
    "within_years": 5,
-   "living": "전세"
+   "living": "전세",
+   "emergency_floor": 1000
   }
  }
 }

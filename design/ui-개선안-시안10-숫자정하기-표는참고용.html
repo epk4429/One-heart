@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>시안10 · 숫자 정하기 · 표는 참고용</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="../web/css/oneheart.css"><link rel="stylesheet" href="../web/css/app.css">
+<style>
+body{background:var(--paper2,#efede4);padding:28px 16px}
+.wrapx{max-width:780px;margin:0 auto}
+.intro{font-size:14.5px;line-height:1.75;color:var(--ink2);margin:0 0 18px}
+.intro b{color:var(--ink)}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);margin:30px 0 8px}
+.lbl.new{color:var(--green)}
+.pp{background:#fff;border:1px solid var(--line);padding:26px 30px}
+.dnote{margin:10px 0 0;font-size:13.5px;line-height:1.7;color:var(--ink2);background:#F6EFE0;border-left:4px solid var(--warm);padding:10px 14px}
+/* 새로 들어가는 부분: 입력칸 바로 아래 '내가 적은 값의 결과' 한 줄 + 버튼 없는 참고표 */
+.g-res{margin:0;padding:14px 0 16px;border-bottom:1px solid var(--line)}
+.g-res .k{font-size:13px;color:var(--muted);font-weight:600}
+.g-res .v{font-size:17px;line-height:1.6;margin-top:2px}
+.g-res .v b{font-weight:800;color:var(--green)}
+.g-res.warn .v b{color:var(--warm)}
+.g-res .n{font-size:13.5px;color:var(--ink2);margin-top:2px}
+.g-opts{margin-top:8px}
+.g-opt{display:grid;grid-template-columns:1fr;gap:3px;padding:12px 0;border-top:1px solid var(--line)}
+.g-opts .g-opt:last-child{border-bottom:1px solid var(--line)}
+.g-opt .q{font-size:15px;font-weight:700}
+.g-opt .a{font-size:15px;color:var(--ink2);line-height:1.55}
+.g-opt .a b{color:var(--green);font-weight:800}
+.g-opt .a.warn b{color:var(--warm)}
+</style>
+</head>
+<body>
+<div class="wrapx">
+<p class="intro"><b>시안10 · 숫자 정하기 · 표는 참고용</b><br>
+형님 지적: 위 칸에서 정하는데 아래 표 버튼으로 또 정하는 것처럼 보여요. → <b>정하는 곳은 위 입력칸 하나</b>로 하고, <b>입력칸 바로 아래에 "내가 적은 값의 결과" 한 줄</b>을 크게 보여 줘요. 아래 표는 <b>버튼 없는 참고 목록</b>이고, 표에는 내가 적은 값 줄을 따로 더하지 않아요(위 한 줄이 그 역할). 8.5년처럼 소수로 적어도 결과 줄이 나와요. 숫자는 예시이고 실제로는 엔진이 계산해요.</p>
+
+<div class="lbl new">① 대출 갚기 · 개선안 (8년이라고 적은 경우)</div>
+<div class="pp">
+<div class="g-ask"><div class="g-fl"><div class="g-lb">언제까지 다 갚고 싶나요</div>
+<div class="g-inp"><input value="8" aria-label="기한"><span>년 안</span><button type="button" class="btn sm">적용</button></div></div></div>
+<div class="g-res warn"><div class="k">적은 값의 결과</div>
+<p class="v">8년 안에 갚으려면 <b>지금보다 월 180만원 더</b></p>
+<p class="n">한 달에 남는 돈(142만원)보다 커요. 이 차이를 어떻게 메울지는 다음 단계(미래 계산)에서 함께 봐요.</p></div>
+<div class="g-refs"><h2>참고하세요</h2>
+<div class="g-ref"><div class="g-kk">우리 가족 기준 · 지금처럼 지낼 때 · 계산기로 계산</div>
+<p class="g-vv">지금 상환대로면 다 갚는 때 <b class="g">약 29년 9개월 뒤</b></p>
+<p class="g-vv">한 달에 남는 돈 <b class="g">월 142만원</b></p>
+<div class="g-kk" style="margin-top:14px">다른 기간이라면</div>
+<div class="g-opts">
+ <div class="g-opt"><div class="q">5년 안에 갚으려면</div><div class="a warn"><b>지금보다 월 330만원 더</b> · 남는 돈보다 커요</div></div>
+ <div class="g-opt"><div class="q">10년 안에 갚으려면</div><div class="a"><b>지금보다 월 130만원 더</b></div></div>
+ <div class="g-opt"><div class="q">15년 안에 갚으려면</div><div class="a"><b>지금보다 월 70만원 더</b></div></div>
+ <div class="g-opt"><div class="q">20년 안에 갚으려면</div><div class="a"><b>지금보다 월 30만원 더</b></div></div>
+</div>
+<button type="button" class="g-more">어떻게 계산했는지 보기</button></div></div>
+<p class="dnote">바뀌는 점: ① 표의 "이 기간으로 정하기" 버튼과 초록 "정했어요" 줄을 없앰 ② 입력칸 아래에 적은 값의 결과 한 줄(소수 년수도 계산, 값이 비었으면 이 줄은 안 보임) ③ 표는 5·10·15·20년만(적은 값이 이 중 하나여도 위 한 줄과 표 줄이 같은 숫자로 보임) ④ "적용" 버튼은 그대로</p>
+</div>
+
+<div class="lbl new">② 노후·은퇴 준비 · 개선안 (300만원이라고 적은 경우)</div>
+<div class="pp">
+<div class="g-ask"><div class="g-fl"><div class="g-lb">은퇴 후 한 달에 필요한 돈</div>
+<div class="g-inp"><input value="300" aria-label="월 필요 금액"><span>만원</span><button type="button" class="btn sm">적용</button></div></div></div>
+<div class="g-res"><div class="k">적은 값의 결과</div>
+<p class="v">한 달에 300만원 쓰면 <b>예금이 약 89세까지 가요</b></p>
+<p class="n">100세를 넘기지 못하면 부족한 부분을 어떻게 메울지는 다음 단계(미래 계산)에서 함께 봐요.</p></div>
+<div class="g-refs"><h2>참고하세요</h2>
+<div class="g-ref"><div class="g-kk">우리 가족 기준 · 지금처럼 지낼 때 · 계산기로 계산</div>
+<p class="g-vv">지금 한 달 생활비 <b class="g">월 350만원</b></p>
+<p class="g-vv">65세에 은퇴할 때 예금·투자 <b class="g">약 4억 2,000만원</b></p>
+<div class="g-kk" style="margin-top:14px">다른 금액이라면</div>
+<div class="g-opts">
+ <div class="g-opt"><div class="q">한 달에 200만원 쓰면</div><div class="a"><b>예금이 100세 넘게 남아요</b></div></div>
+ <div class="g-opt"><div class="q">한 달에 400만원 쓰면</div><div class="a warn"><b>예금이 약 80세까지 가요</b></div></div>
+ <div class="g-opt"><div class="q">한 달에 500만원 쓰면</div><div class="a warn"><b>예금이 약 75세까지 가요</b></div></div>
+</div>
+<button type="button" class="g-more">어떻게 계산했는지 보기</button></div></div>
+<p class="dnote">노후도 같아요: 입력칸 아래 결과 한 줄 + 버튼 없는 참고표(후보 금액 4개).</p>
+</div>
+
+<p class="intro" style="margin-top:30px"><b>컨펌해 주실 것</b><br>
+1) 입력칸 바로 아래 "적은 값의 결과" 한 줄 모양·문구 · 2) 표의 버튼·초록 줄을 없애고 "다른 기간이라면" 이름 붙인 참고 목록으로 · 3) 참고 목록 안에 적은 값과 같은 년수가 있어도 그대로 두는 것</p>
+</div>
+</body>
+</html>

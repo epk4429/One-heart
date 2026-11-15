@@ -118,3 +118,84 @@ def test_api_loans(monkeypatch):
     assert call({**base, "category": "credit_loan", "band": "999"})[0] == 400
     assert call({**base, "category": "rent_loan", "repay": "monthly"})[0] == 400
     assert call({**base, "category": "deposit", "amount": 5000, "term_months": 12})[1]["items"]
+
+
+def test_monthly_flow_excludes_first_month_lump_repayment():
+    """첫 달에 예금으로 한 번에 갚는 돈(일시 상환)은 '매달 모이는 돈'을 마이너스로 만들면 안 된다(2026-11-15 형님 지적: -1,428만원)."""
+    import copy
+    from engine import simulate
+
+    def req(prepay):
+        return {"scenario_id": "t", "horizon_months": 60, "start": {"goal_pool": 2000, "pool_label": "예금",
+                "aux_accounts": [], "loans": [{"id": "L1", "label": "신용대출", "balance": 3000, "rate": 6, "kind": "amortizing", "payment": 60}]},
+                "goal": {"type": "debt_free", "label": "대출 다 갚기", "target_amount": 0},
+                "options": [{"option_id": "A", "label": "A", "expected_return": 3.3, "volatility": 0, "return_assumption_id": "",
+                             "cashflows": [{"label": "월급", "amount": 400, "category": "income"},
+                                           {"label": "생활비", "amount": -200, "category": "expense"}],
+                             "events": [], "lump_sums": [], "aux_changes": [], "extra_payments": [],
+                             "loan_prepayments": prepay}],
+                "inflation": 0, "member_context": {"base_age": 35}, "range": {"paths": 0, "seed": 1}}
+    plain = simulate(req([]), include_monthly=False)["results"][0]
+    lump = simulate(req([{"loan_id": "L1", "month": 1, "amount": 1500}]), include_monthly=False)["results"][0]
+    assert plain["monthly_flow"] == lump["monthly_flow"] == 140.0  # 400 − 200 − 상환 60
+    detail = next(b["detail"] for b in lump["basis"] if b["key"] == "monthly_flow")
+    assert "대출 상환 60" in detail
+    assert lump["goal_hit_month"] < plain["goal_hit_month"]  # 일시 상환은 갚는 때에는 그대로 반영된다
+
+
+def test_debt_free_ignores_interest_only_lease_loan():
+    """전세대출(이자만 내는 대출)이 있어도 '대출 다 갚기'는 갚아 나가는 대출만 본다(2026-11-15). 예전에는 전세대출 원금이 안 줄어 영원히 '다 갚는 때'가 없었다."""
+    from engine import simulate
+    lease = {"id": "S", "label": "전세대출", "balance": 15000, "rate": 4.1, "kind": "interest_only", "payment": 0, "in_pool": False}
+    credit = {"id": "C", "label": "신용대출", "balance": 3000, "rate": 6, "kind": "amortizing", "payment": 60}
+    req = {"scenario_id": "t", "horizon_months": 120, "start": {"goal_pool": 1000, "pool_label": "예금", "aux_accounts": [], "loans": [lease, credit]},
+           "goal": {"type": "debt_free", "label": "대출 다 갚기", "target_amount": 0},
+           "options": [{"option_id": "A", "label": "A", "expected_return": 3.3, "volatility": 0, "return_assumption_id": "",
+                        "cashflows": [{"label": "월급", "amount": 900, "category": "income"}], "events": [], "lump_sums": [],
+                        "aux_changes": [], "extra_payments": [], "loan_prepayments": []}],
+           "inflation": 0, "member_context": {"base_age": 35}, "range": {"paths": 0, "seed": 1}}
+    r = simulate(req)["results"][0]
+    assert r["debt_free_month"] == 58 and r["goal_hit_month"] == 58 and r["start_debt"] == 3000.0
+    assert r["yearly"][-1]["debt_end"] == 0.0
+    # 순자산에는 전세대출 원금이 그대로 들어간다(보증금 같은 자산 없이 비교해도 빚 1억 5천만원이 빠져 있다)
+    assert r["net_worth"][0]["value"] == 1000 - 15000 - 3000
+    only_lease = {**req, "start": {**req["start"], "loans": [lease]}}
+    assert "error" in simulate(only_lease)  # 전세대출뿐이면 '대출 다 갚기' 목표를 쓸 수 없다
+
+
+def test_idle_pool_earns_no_interest():
+    """전세 보증금−전세대출 몫(idle_pool)에는 예금 이자가 붙지 않는다(2026-11-15). 예전에는 풀 전체에 3.3%가 붙어 목표 달성이 너무 빨리 나왔다."""
+    from engine import simulate
+
+    def run(idle):
+        req = {"scenario_id": "t", "horizon_months": 240, "start": {"goal_pool": 14000, "idle_pool": idle, "pool_label": "x",
+               "aux_accounts": [], "loans": []}, "goal": {"type": "reach_target", "label": "t", "target_amount": 30000},
+               "options": [{"option_id": "A", "label": "A", "expected_return": 3.3, "volatility": 2.0, "return_assumption_id": "",
+                            "cashflows": [{"label": "월급", "amount": 300, "category": "income"}], "events": [], "lump_sums": [],
+                            "aux_changes": [], "extra_payments": [], "loan_prepayments": []}],
+               "inflation": 0, "member_context": {"base_age": 35}, "range": {"paths": 200, "seed": 1}}
+        return simulate(req, include_monthly=True)["results"][0]
+
+    def independent(idle):
+        pool, m = 14000.0, 0
+        while pool < 30000:
+            m += 1
+            pool += max(pool - idle, 0) * 0.033 / 12 + 300
+        return m
+    for idle in (0, 10000, -5000):
+        assert run(idle)["goal_hit_month"] == independent(idle), idle
+    assert run(10000)["goal_hit_month"] > run(0)["goal_hit_month"]
+    assert run(10000)["monthly"][0]["interest"] == round(4000 * 0.033 / 12, 1)
+    assert run(10000)["range"]["p50_hit_month"] >= run(0)["range"]["p50_hit_month"]  # 범위 계산도 같은 규칙
+
+
+def test_plan_puts_lease_deposit_net_of_loan_into_idle_pool():
+    from llm import family as F
+    from llm.plan import build_request, check_option, normalize_goal
+    fam = F.validate(F.preset("newly"))
+    g = normalize_goal(fam, {"type": "reach_target", "target_amount": 30000})
+    assert g["idle_pool"] == 10000.0 and g["start_pool"] == 14000.0  # 보증금 2억 5천 − 전세대출 1억 5천
+    req = build_request(fam, g, [check_option(fam, g, {"option_id": "A", "label": "A", "return_id": "safe"})])
+    assert req["start"]["idle_pool"] == 10000.0
+    g2 = normalize_goal(F.validate(F.preset("elder")), {"type": "runway"})
+    assert g2.get("idle_pool", 0.0) == 0.0  # 노후·대출 목표는 풀이 예금·투자뿐이라 이자가 전부에 붙는다
