@@ -13,6 +13,7 @@ from __future__ import annotations
 from engine.fmt import pct, won
 
 from .family import KINDS, assumptions, member, profile, today_label
+from .goals import is_baby
 
 GOAL_TYPES = {"reach_target": "목표 금액 모으기", "runway": "예금으로 지낼 수 있는 기간", "debt_free": "대출 다 갚기"}
 OPTION_IDS = ("A", "B", "C")
@@ -97,7 +98,7 @@ def normalize_goal(family: dict, raw: dict) -> dict:
 
 def life_facts(family: dict, goal: dict) -> dict:
     """가족이 '우리 가족 이야기'에서 입력한 앞으로의 일을 계산할 달로 바꾼다(AI가 아니라 코드가 계산에 넣는다, 2026-11-15).
-    retire: 은퇴하는 달·은퇴 후 생활비·연금 / care: 간병비가 시작되는 달·금액 / baby: 휴직 시작·끝 달·휴직하는 사람·휴직 중 수입."""
+    retire: 은퇴하는 달·은퇴 후 생활비·연금 / care: 간병비가 시작되는 달·금액 / baby(목돈 모으기의 출산·육아): 휴직 시작·끝 달·휴직하는 사람·휴직 중 수입."""
     gi = family.get("goal_input") or {}
     v, cat = gi.get("fields") or {}, gi.get("category")
     H = goal["horizon_months"]
@@ -110,8 +111,8 @@ def life_facts(family: dict, goal: dict) -> dict:
         start = max(1, min(H, int(round((v.get("start_years") or 0) * 12)) + 1))
         end = min(H, start + int(round(v["care_years"] * 12)) - 1) if v.get("care_years") else 0  # 간병 기간(선택 입력, 2026-11-15 형님 결정)
         return {"kind": "care", "month": start, "to": end, "years": v.get("care_years"), "monthly_cost": v["monthly_cost"]}
-    if cat == "baby" and v.get("leave_months") and v.get("leave_member_id"):
-        s = max(1, min(H, int(round((v.get("when_years") or 0) * 12)) + 1))
+    if is_baby(gi) and v.get("leave_months") and v.get("leave_member_id"):  # 목돈 모으기(출산·육아): '언제까지'로 정한 때부터 휴직
+        s = max(1, min(H, int(round((v.get("within_years") or 0) * 12)) + 1))
         return {"kind": "baby", "from": s, "to": min(H, s + int(v["leave_months"]) - 1), "member_id": v["leave_member_id"],
                 "income": v.get("leave_income") or 0.0}
     return {}

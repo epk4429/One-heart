@@ -103,8 +103,8 @@ def test_disclosure_is_share_or_hide_only():
 
 # ---------- 생각이 갈리는 부분(역할 3) ----------
 def _issue(**kw):
-    base = {"title": "집을 먼저 살까, 아이를 먼저 가질까", "kind": "order",
-            "stances": {"m0": "집부터 사고 싶어요", "m1": "아이부터 갖고 싶어요"}, "shared": "우리 집에서 아이와 함께 사는 것"}
+    base = {"title": "집을 먼저 살까, 아이를 먼저 가질까",
+            "stances": {"m0": "집부터 사고 싶어요", "m1": "아이부터 갖고 싶어요"}}
     return {**base, **kw}
 
 
@@ -116,8 +116,7 @@ def _check3(issues):
 def test_issue_cards_have_no_positions_and_need_everyone():
     assert _check3([_issue()]) == []
     assert any("stances" in e for e in _check3([_issue(stances={"m0": "집부터"})]))
-    assert any("kind" in e for e in _check3([_issue(kind="left")]))
-    assert any("shared" in e for e in _check3([_issue(shared="")]))
+    assert any("title" in e for e in _check3([_issue(title="")]))
     assert any("60자" in e for e in _check3([_issue(stances={"m0": "가" * 70, "m1": "나"})]))
 
 
@@ -127,7 +126,7 @@ def test_goal_analyze_gives_cards_covers_and_reasons():
     r = out["result"]
     assert not out["proposal_run"]["errors"]
     for it in r["issues"]:
-        assert set(it["stances"]) == MIDS and it["kind"] in ("order", "method", "amount", "value") and "positions" not in it
+        assert set(it["stances"]) == MIDS and "positions" not in it and "kind" not in it and "shared" not in it  # 차이의 종류·함께 지키고 싶은 것은 2026-11-16부터 만들지 않는다
     p = r["proposal"]
     assert p["text"].endswith("어떨까요?") and 1 <= len(p["reasons"]) <= 3 and set(p["covers"]) == MIDS and p["to"]
 
@@ -413,9 +412,23 @@ def test_baby_size_shows_income_gap_during_leave():
     from llm import goal_size as GS
     raw = _debt_couple()
     raw["finance"] = [x for x in raw["finance"] if x["kind"] != "loan"]
-    raw["goal_input"] = {"category": "baby", "fields": {"when_years": 1, "leave_months": 12, "leave_member_id": "m1",
-                                                        "leave_income": 150, "emergency_floor": 1000}}
+    raw["goal_input"] = {"category": "lump", "fields": {"purpose": "출산·육아", "within_years": 1, "leave_months": 12, "leave_member_id": "m1",
+                                                       "leave_income": 150, "emergency_floor": 1000}}
     fam = F.validate(raw)
     line = next(l for l in GS.size(fam, {})["anchors"]["lines"] if l["label"] == "휴직 동안 줄어드는 수입")
     expect = sum(330 * 1.02 ** ((m - 1) / 12) - 150 for m in range(13, 25))
     assert abs(int(line["display"].replace("만원", "").replace(",", "")) - round(expect, -1)) <= 10 and "하윤" in line["note"]
+
+
+def test_baby_is_a_lump_purpose_not_a_category():
+    """2026-11-16 형님 결정: '자녀 계획·육아'는 목표 카테고리가 아니라 목돈 모으기의 목적이다. 휴직 입력은 그 목적일 때만 나온다."""
+    assert "baby" not in G.CATEGORIES and "출산·육아" in G.CATEGORIES["lump"]["fields"][0]["options"]
+    keys = lambda p: [f["key"] for f in G.fields_for("lump", {"purpose": p})]
+    assert "leave_months" in keys("출산·육아") and "leave_months" not in keys("결혼")
+    base = {"purpose": "출산·육아", "within_years": 1, "target_amount": 3000, "leave_months": 6}
+    with pytest.raises(G.GoalInputError):  # 휴직 기간이 있는데 휴직하는 사람이 없음
+        G.validate_input({"category": "lump", "fields": base}, MIDS)
+    gi = G.validate_input({"category": "lump", "fields": {**base, "leave_member_id": "m0", "emergency_floor": 500}}, MIDS)
+    assert G.derive_goal(gi, [{"member_id": "m0", "name": "민준"}])["label"] == "출산·육아 준비금 모으기"
+    other = G.validate_input({"category": "lump", "fields": {"purpose": "결혼", "within_years": 3, "leave_months": 6}}, MIDS)
+    assert "leave_months" not in other["fields"]  # 다른 목적이면 휴직 값은 버린다

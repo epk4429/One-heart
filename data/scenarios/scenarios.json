@@ -1767,9 +1767,10 @@
     ],
     "disclosure": {},
     "goal_input": {
-     "category": "baby",
+     "category": "lump",
      "fields": {
-      "when_years": 1,
+      "purpose": "출산·육아",
+      "within_years": 1,
       "leave_months": 12,
       "leave_member_id": "m1",
       "leave_income": 150,
@@ -1875,9 +1876,10 @@
     ],
     "disclosure": {},
     "goal_input": {
-     "category": "baby",
+     "category": "lump",
      "fields": {
-      "when_years": 2,
+      "purpose": "출산·육아",
+      "within_years": 2,
       "leave_months": 6,
       "leave_member_id": "m0",
       "target_amount": 2200,

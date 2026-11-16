@@ -171,8 +171,8 @@ def _analysis_in(a) -> dict:
     for it in (a.get("issues") or [])[:4]:
         if isinstance(it, dict):
             st = it.get("stances") if isinstance(it.get("stances"), dict) else {}
-            issues.append({"title": str(it.get("title") or "")[:80], "kind": str(it.get("kind") or "")[:10],
-                           "stances": {str(k)[:10]: str(v)[:60] for k, v in st.items()}, "shared": str(it.get("shared") or "")[:80]})
+            issues.append({"title": str(it.get("title") or "")[:80],
+                           "stances": {str(k)[:10]: str(v)[:60] for k, v in st.items()}})
     return {"headline": str(a.get("headline") or "")[:120], "agreed_points": [str(x)[:100] for x in (a.get("agreed_points") or [])[:4]],
             "issues": issues}
 
@@ -241,12 +241,11 @@ def goal_analyze(fam: dict, summaries: dict, story_understanding: dict, provider
     texts = {"headline": r3.output["headline"]}
     texts.update({f"agreed_points.{i}": t for i, t in enumerate(r3.output["agreed_points"])})
     for i, it in enumerate(r3.output["issues"]):
-        texts[f"issues.{i}.shared"] = it["shared"]
         texts.update({f"issues.{i}.stances.{m}": t for m, t in it["stances"].items()})
     if r4.ok:
         texts.update(_proposal_texts(r4.output))
     rendered, rec = verify_texts(texts, facts, role="3+4a", quotes=quotes)
-    issues = [{**it, "shared": rendered[f"issues.{i}.shared"],
+    issues = [{**it,
                "stances": {m: rendered[f"issues.{i}.stances.{m}"] for m in it["stances"]}}
               for i, it in enumerate(r3.output["issues"])]
     out.update(result={"headline": rendered["headline"],
@@ -301,10 +300,9 @@ def goal_stuck(fam: dict, summaries: dict, rounds: list, provider) -> dict:
     o = run.output
     texts = {"message": o["message"]}
     for i, t in enumerate(o["topics"]):
-        texts[f"topics.{i}.shared"] = t["shared"]
         texts.update({f"topics.{i}.stances.{m}": x for m, x in t["stances"].items()})
     rendered, rec = verify_texts(texts, facts, role="4d", quotes=_user_texts(shared, rs, *_fam_texts(fam)))
-    topics = [{**t, "shared": rendered[f"topics.{i}.shared"], "stances": {m: rendered[f"topics.{i}.stances.{m}"] for m in t["stances"]}}
+    topics = [{**t, "stances": {m: rendered[f"topics.{i}.stances.{m}"] for m in t["stances"]}}
               for i, t in enumerate(o["topics"])]
     out.update(result={"message": rendered["message"], "topics": topics}, verification=rec.to_dict())
     return out
@@ -585,7 +583,7 @@ def agreement_revise(fam: dict, goal: dict, specs: list[dict], sim: dict, stance
 
 
 def contribution_facts(fam: dict, spec: dict, result: dict) -> list[dict]:
-    """나누는 방식 후보 숫자: 매달 모이는 돈 + 가족끼리 주고받는 돈(보태는 돈·용돈) + 구성원과 연결된 조정 + 대출 더 갚기."""
+    """합의안 '매달 모으는 돈' 후보 숫자: 매달 모이는 돈 + 가족끼리 주고받는 돈(보태는 돈·용돈) + 구성원과 연결된 조정 + 대출 더 갚기."""
     out = []
     if result["monthly_flow"] > 0:
         out.append(F._fact("agree.monthly_saving", result["monthly_flow"], "만원/월", "월 " + won(result["monthly_flow"]),

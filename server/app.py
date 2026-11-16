@@ -11,6 +11,7 @@ import json
 import os
 
 from engine import ENGINE_VERSION, compare, simulate
+from engine.schema import MAX_CASHFLOW
 from engine.policies import reverse_mortgage_age, reverse_mortgage_monthly
 from llm import family as F
 from llm import pipeline as P
@@ -334,13 +335,30 @@ def r_options_design(b, ctx):
     return _strip(_err_if_failed(out))
 
 
+def _actuals(raw) -> dict[int, float]:
+    """가족이 기록한 달별 실제 모인 돈 {달: 만원}. 1~120개월 차, 금액은 -10,000~10,000만원."""
+    if not raw:
+        return {}
+    if not isinstance(raw, dict):
+        raise ApiError("bad_request", "실제로 모은 돈은 달별 금액이어야 해요")
+    out: dict[int, float] = {}
+    for k, v in raw.items():
+        if not str(k).isdigit() or not 1 <= int(k) <= 120:
+            raise ApiError("bad_request", "실제로 모은 돈은 1~120개월 차만 넣을 수 있어요")
+        if isinstance(v, bool) or not isinstance(v, (int, float)) or not -10000 <= v <= 10000:
+            raise ApiError("bad_request", "실제로 모은 돈은 -10,000~10,000만원 사이 숫자여야 해요")
+        out[int(k)] = float(v)
+    return out
+
+
 def r_simulate(b, _ctx):
     """엔진만: 방법들을 다시 계산한다. override가 있으면 첫 방법의 월 저축·수익률·월급 상승률·집값 상승률만 바꿔 본다(슬라이더)."""
     fam = _family(b)
     goal = _goal(fam, b)
     specs = _specs(fam, goal, b.get("specs"))
     ov = b.get("override") or {}
-    if not ov:
+    actuals = _actuals(b.get("actuals"))
+    if not ov and not actuals:
         return _sim(fam, goal, specs)
     req = build_request(fam, goal, specs[:1])
     opt = req["options"][0]
@@ -353,9 +371,26 @@ def r_simulate(b, _ctx):
     if isinstance(ov.get("monthly_delta"), (int, float)) and ov["monthly_delta"]:
         opt["cashflows"].append({"label": "직접 바꾼 값", "amount": max(-1000.0, min(1000.0, float(ov["monthly_delta"]))),
                                  "category": "manual"})
+    if actuals:  # 가족이 기록한 '그 달 실제로 모인 돈'(2026-11-16): 계획 값과의 차이를 그 달만의 수입 변화로 넣어 엔진이 다시 계산한다
+        plan = simulate(req)
+        if "error" in plan:
+            raise ApiError("bad_input", json.dumps(plan["error"], ensure_ascii=False))
+        monthly = plan["results"][0]["monthly"]
+        basis = {"flow": {str(m): round(monthly[m - 1]["inflow"] + monthly[m - 1]["outflow"], 1) for m in actuals if m <= len(monthly)},
+                 "goal_hit_month": plan["results"][0].get("goal_hit_month"), "debt_free_month": plan["results"][0].get("debt_free_month")}
+        for m, amount in sorted(actuals.items()):
+            if m > len(monthly):
+                raise ApiError("bad_request", f"{m}개월 차는 계산 기간 밖이에요")
+            delta = round(amount - (monthly[m - 1]["inflow"] + monthly[m - 1]["outflow"]), 1)
+            if abs(delta) > MAX_CASHFLOW:
+                raise ApiError("bad_request", f"{m}개월 차 금액이 계획과 너무 차이가 나요. 금액을 다시 확인해 주세요")
+            if delta:
+                opt["events"].append({"label": "실제로 모은 돈(기록)", "from_month": m, "to_month": m, "monthly_delta": delta, "category": "other"})
     out = simulate(req)
     if "error" in out:
         raise ApiError("bad_input", json.dumps(out["error"], ensure_ascii=False))
+    if actuals:
+        out["actual_basis"] = basis  # 계획대로였다면의 그 달 모이는 돈·달성 시점(화면이 '계획보다 N만원 덜'을 보여 줄 때 쓴다)
     return out
 
 

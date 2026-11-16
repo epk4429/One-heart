@@ -111,8 +111,7 @@ def _r3(i):
     stances = {m["member_id"]: _clip((sums.get(m["member_id"]) or {}).get("keep") or "함께 정하고 싶어요", 28) for m in i["members"]}
     return {"headline": "가족 모두 함께 계획을 세우고 싶어 해요. 무엇을 먼저 할지가 조금 달라요.",
             "agreed_points": _agreed_points(i),
-            "issues": [{"title": "무엇을 먼저 할까", "kind": "order", "stances": stances,
-                        "shared": "서로가 지키고 싶은 것을 함께 지키는 것"}]}
+            "issues": [{"title": "무엇을 먼저 할까", "stances": stances}]}
 
 
 def _tip_tag(i, k: int, phrase: str) -> str:
@@ -170,8 +169,7 @@ def _r4d(i):
         r = last.get(m["member_id"]) or {}
         stances[m["member_id"]] = _clip(r.get("text") or (sums.get(m["member_id"]) or {}).get("keep") or "제안대로 괜찮아요", 28)
     return {"message": "아직 서로 다르게 바라는 부분이 있어요. 아래 부분에 대해 서로 이야기를 나눠 보면 좋겠어요.",
-            "topics": [{"title": "무엇을 더 지켜야 할까", "kind": "value", "stances": stances,
-                        "shared": "모두 가족이 함께 지내는 것을 지키고 싶어 해요"}]}
+            "topics": [{"title": "무엇을 더 지켜야 할까", "stances": stances}]}
 
 
 def _r4b(i):

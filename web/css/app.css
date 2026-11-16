@@ -225,15 +225,11 @@
 .icard:first-of-type{margin-top:0}
 .ihead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
 .ihead h4{font-size:16px;font-weight:700;line-height:1.45}
-.itag{flex:none;font-size:12px;font-weight:600;padding:2px 10px;border:1px solid var(--warm);color:var(--warm);background:#fff}
 .strows{display:flex;flex-direction:column}
 .strow{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}
 .strow:first-child{border-top:0;padding-top:0}
 .strow .snm{font-size:12.5px;color:var(--muted);line-height:1.3}
 .strow .say{font-size:15.5px;font-weight:600;line-height:1.5}
-.ishared{display:flex;gap:9px;align-items:flex-start;margin-top:12px;padding:9px 12px;background:var(--green-soft);font-size:14px;color:var(--green-d)}
-.ishared .dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--green);margin-top:7px}
-.ishared b{font-weight:700}
 /* 1단계 제안 핑퐁 */
 .pager{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px;font-size:14px}
 .aibox.prop .plabel{font-size:12.5px;font-weight:700;color:var(--green);margin-bottom:6px}
@@ -362,8 +358,6 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .g-fin .aibox .to{display:none}
 
 /* ---------- 상품 추천 개편(2026-11-11): 상품 카드(접힌 채로 핵심이 보이고, 누르면 전부 펼침) ---------- */
-.pc-count{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14.5px;color:var(--ink2)}
-.pc-count b{color:var(--green);font-weight:800}
 .pcards{margin-top:20px;display:flex;flex-direction:column;gap:12px}
 .pcard{border:1px solid var(--line);background:#fff;transition:border-color .15s}
 .pcard:hover{border-color:var(--ink2)}.pcard.open{border-color:var(--green)}
@@ -385,10 +379,6 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .pc-bd{margin:0 20px;padding:18px 0 22px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
 .pc-bd .why2{margin:0}
 .pc-type+.pc-type{margin-top:14px}
-.pc-selfs{margin-top:34px}
-.pc-selfs h2{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin-bottom:4px}
-.pc-self{padding:14px 0;border-top:1px solid var(--line);font-size:15px;color:var(--ink2)}
-.pc-self b{color:var(--ink);margin-right:8px}
 @media (max-width:640px){.pc-sum{grid-template-columns:minmax(0,1fr) 16px}.pc-rt{grid-column:1;grid-row:2;text-align:left;margin-top:8px}.pc-rt b{display:inline;font-size:18px;margin-right:6px}}
 
 /* ---------- 2026-11-14: 금융 정보 직접 입력(종류별 묶음 · 한 줄 5칸, 가로 스크롤 없음) ---------- */
@@ -484,3 +474,51 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 /* 금융 정보 '기타' 묶음의 종류 고르기(2026-11-15 시안13) */
 .kindsel{display:flex;align-items:center;gap:8px;grid-column:1 / -1;font-size:13px;color:var(--ink2);padding:2px 0 4px}
 .kindsel select{width:auto;padding:5px 8px;font-size:13px}
+
+/* 상품 추천: 항목별 묶기(2026-11-16 시안14) */
+.pg-jump{display:flex;flex-direction:column;margin-top:22px;border-top:1px solid var(--line)}
+.pg-j{display:flex;gap:10px;align-items:baseline;width:100%;padding:11px 2px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);text-align:left;font:inherit;font-size:15px;cursor:pointer}
+.pg-j:hover{background:var(--green-soft)}
+.pg-j .n{flex:none;width:22px;color:var(--green);font-weight:800}
+.pg-j .t{flex:1;font-weight:600}
+.pg-j .c{flex:none;font-size:13.5px;color:var(--muted)}
+.pg-j.self .n{color:var(--muted)}
+.pg-grp{margin-top:34px}
+.pg-gh{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;padding-bottom:10px;border-bottom:2px solid var(--green)}
+.pg-gh .n{font-size:15px;font-weight:800;color:var(--green)}
+.pg-gh h2{font-size:19px;font-weight:800;letter-spacing:-.02em;margin:0}
+.pg-gh .c{margin-left:auto;font-size:13.5px;color:var(--muted)}
+.pg-grp .pcards{margin-top:14px}
+.pg-grp.self .pg-gh{border-bottom-color:var(--line)}
+.pg-grp.self .pg-gh .n{color:var(--muted)}
+.pg-selfrow{padding:14px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink2)}
+.pg-selfrow b{color:var(--ink);margin-right:8px}
+.pg-com{margin:12px 0 0;padding:12px 14px;background:#fff;border:1px solid var(--line);font-size:15px;line-height:1.6}
+.pg-com .k{display:block;font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:2px}
+.pg-com .no{font-weight:800;color:var(--green);margin-right:8px}
+.pg-com>div+div{margin-top:6px}
+.pg-why{margin-top:10px}
+.pg-whyb{display:flex;align-items:center;gap:8px;width:100%;padding:10px 2px;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:none;font:inherit;font-size:14.5px;font-weight:700;color:var(--green-d);cursor:pointer;text-align:left}
+.pg-whyb .tg{margin-left:auto;font-weight:400;font-size:13px;color:var(--muted)}
+.pg-whyd{margin:0;padding:14px 2px 6px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px 14px;font-size:15px;line-height:1.6}
+.pg-whyd dt{font-size:13px;font-weight:700;color:var(--muted);padding-top:2px}
+.pg-whyd dd{margin:0}
+.pg-whyd .chips{display:flex;flex-wrap:wrap;gap:6px}
+.pg-whyd .chips span{padding:2px 10px;border:1px solid var(--line);background:#fff;font-size:14px}
+.pg-why .g-det{margin-top:6px}
+@media (max-width:640px){.pg-whyd{grid-template-columns:minmax(0,1fr)}.pg-whyd dt{padding-top:0}}
+/* 이번 달 약속의 해야 할 일 줄은 눌러서 체크한다(2026-11-16) */
+.trow.task{width:100%;background:none;border:0;border-top:1px solid var(--line);font:inherit;color:inherit;text-align:left;cursor:pointer}
+.trow.task:first-child{border-top:0}
+.trow.task:hover .c{border-color:var(--green)}
+.trow.task:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+/* 가족 홈: 이번 달 실제로 모은 돈 입력(2026-11-16) */
+.act-rows{margin:10px 0 2px;padding-top:6px;border-top:1px solid var(--line)}
+.act-hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0 8px;font-size:15px}
+.act-hd b{font-weight:700}.act-hd .cs{font-size:13px}
+.act-row1{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.act-row1 .amt-in{max-width:190px}
+.act-note{margin:8px 0 6px;font-size:13px;color:var(--muted);line-height:1.5}
+.diffline{margin-top:12px;padding:9px 12px;background:var(--green-soft);font-size:14px;color:var(--green-d)}
+.diffline b{font-weight:800}

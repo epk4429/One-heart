@@ -228,21 +228,16 @@ def _c2b(o, i):
 
 
 # ---------- 역할 3: 쟁점 분석 ----------
-ISSUE_KINDS = {"order": "순서가 달라요", "method": "방법이 달라요", "amount": "금액이 달라요", "value": "가치가 달라요"}
-
-
 def _b3(i):
     return f"""가족 구성원들이 각자 확인하고 공유한 요약과 가족 상황이다(대화 원문은 없다).
 같은 생각과 갈리는 쟁점을 정리해라. 쟁점은 1~4개(생각이 거의 같으면 1개도 된다).
 쟁점마다 구성원 한 사람씩 '그 사람의 입장'을 그 사람이 말한 뜻 그대로 한 줄(25자 안팎, "~하고 싶어요" 같은 말투)로 쓴다.
 입장을 숫자나 왼쪽·오른쪽·중간 같은 위치로 나누지 않는다. 생각이 꼭 둘로 갈리지 않아도 되고, 사람마다 다른 말을 해도 된다.
 구성원 모두가 stances에 나와야 한다. 그 쟁점에 별 의견이 없는 사람은 "크게 상관없어요"처럼 쓴다.
-kind는 차이의 종류 하나: "order"(무엇을 먼저 할지) / "method"(어떻게 할지) / "amount"(얼마나 할지) / "value"(무엇이 더 소중한지).
-shared는 그 쟁점에서도 모두가 함께 지키고 싶어 하는 것 한 줄(요약에서 찾는다. 정말 없으면 "서로 생각을 더 들어 봐야 해요").
 headline은 가족 전체를 한 문장으로("가고 싶은 곳은 같아요. 가는 순서가 다를 뿐이에요." 같은 톤).
 agreed_points(1~3개)는 '금융 목표·계획과 직접 관련된, 구성원 모두에게 해당하는 같은 생각'만 쓴다. 예: 목표 자체(목표 종류·시기·금액), 지켜야 할 생활 수준·안전자금, 가장 걱정되는 재무 위험(병원비, 대출 이자 등), 돈을 쓰는 우선순위, 위험을 얼마나 감수할지.
 "가족이 함께 정하고 싶어 해요", "각자 지키고 싶은 것이 있어요"처럼 금융과 상관없이 어느 가족에나 해당하는 말은 쓰지 않는다. 모두에게 해당하는 금융 관련 공통점이 정말 없으면 가족이 고른 목표와 요약에서 가장 가까운 공통점을 쓴다.
-출력 형식: {{"headline": "...", "agreed_points": ["이미 같은 생각", ...], "issues": [{{"title": "쟁점을 질문처럼(예: 집을 먼저 살까, 아이를 먼저 가질까)", "kind": "order", "stances": {{"구성원id": "그 사람의 한 줄 입장"}}, "shared": "함께 지키고 싶은 것"}}]}}
+출력 형식: {{"headline": "...", "agreed_points": ["이미 같은 생각", ...], "issues": [{{"title": "쟁점을 질문처럼(예: 집을 먼저 살까, 아이를 먼저 가질까)", "stances": {{"구성원id": "그 사람의 한 줄 입장"}}}}]}}
 
 구성원: {_dump(i['members'])}
 {("가족이 고른 목표: " + _dump(i['goal_details']) + chr(10)) if i.get('goal_details') else ""}가족 상황: {_dump(i['story_understanding'])}
@@ -271,11 +266,8 @@ def _c3(o, i):
         errs.append("'issues'는 1~4개여야 해요")
         return errs
     for n, it in enumerate(iss):
-        for k in ("title", "shared"):
-            if not isinstance(it.get(k), str) or not it[k].strip():
-                errs.append(f"issues[{n}].{k}가 비었어요")
-        if it.get("kind") not in ISSUE_KINDS:
-            errs.append(f"issues[{n}].kind는 {', '.join(ISSUE_KINDS)} 중 하나여야 해요")
+        if not isinstance(it.get("title"), str) or not it["title"].strip():
+            errs.append(f"issues[{n}].title가 비었어요")
         errs += _stances_errs(f"issues[{n}]", it.get("stances"), mids)
     return errs + _unknown_facts(o, set())
 
@@ -518,9 +510,8 @@ def _b4d(i):
     return f"""공동 목표 제안을 여러 번 고쳤는데도 가족의 의견이 모이지 않았다. AI는 결정을 대신하지 않는다.
 가족이 직접 이야기를 나눠야 할 부분을 정리해라. 누구 말이 맞는지 판단하거나 한쪽 편을 들지 않는다. 금융회사·상품 이름은 쓰지 않는다.
 - topics: 이야기가 필요한 부분 1~3개. 부분마다 구성원 한 사람씩 지금 그 사람이 바라는 것을 그 사람의 말 그대로 한 줄(25자 안팎)로 쓴다(stances, 구성원 모두).
-  shared는 그 부분에서도 함께 지키고 싶어 하는 것 한 줄. kind는 order/method/amount/value 중 하나.
 - message: 가족에게 하는 안내 한두 문장. "~에 대해 서로 이야기를 나눠 보면 좋겠어요"처럼, 이야기할 거리를 짚어 준다. 결정을 재촉하지 않는다.
-출력 형식: {{"message": "...", "topics": [{{"title": "이야기할 거리를 질문처럼", "kind": "value", "stances": {{"구성원id": "한 줄"}}, "shared": "함께 지키고 싶은 것"}}]}}
+출력 형식: {{"message": "...", "topics": [{{"title": "이야기할 거리를 질문처럼", "stances": {{"구성원id": "한 줄"}}}}]}}
 
 구성원: {_dump(i['members'])}
 요약: {_dump(i['summaries'])}
@@ -537,11 +528,8 @@ def _c4d(o, i):
         errs.append("'topics'는 1~3개여야 해요")
         return errs
     for n, t in enumerate(ts):
-        for k in ("title", "shared"):
-            if not isinstance(t.get(k), str) or not t[k].strip():
-                errs.append(f"topics[{n}].{k}가 비었어요")
-        if t.get("kind") not in ISSUE_KINDS:
-            errs.append(f"topics[{n}].kind는 {', '.join(ISSUE_KINDS)} 중 하나여야 해요")
+        if not isinstance(t.get("title"), str) or not t["title"].strip():
+            errs.append(f"topics[{n}].title가 비었어요")
         errs += _stances_errs(f"topics[{n}]", t.get("stances"), mids)
     return errs + _unknown_facts(o, _ids(i["facts"])) + stage_name_errors(o)
 
@@ -808,7 +796,7 @@ def _c6b(o, i):
 def _b7(i):
     return f"""가족이 반대 없이 고른 방법으로 합의안과 합의 리포트를 작성해라. 법적 효력이 있는 문서가 아니라 '가족이 함께 정한 내용을 남긴 기록'이다.
 - 숫자는 전부 facts의 {{{{fact:ID}}}}로만 쓴다. 금융회사·상품 이름은 쓰지 않는다. 상품은 다음 단계(조건 비교)에서 가족이 직접 본다.
-- contribution(나누는 방식): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}.
+- contribution(매달 모으는 돈): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}.
   매달 모이는 돈(agree.monthly_saving)을 용도별로 나눠 적고 싶으면 {{"label": "용도", "amount": 만원, "part_of": "agree.monthly_saving"}}로 쓰고,
   나눈 금액의 합은 매달 모이는 돈과 정확히 같아야 한다(나누지 않으면 fact_id 한 줄로).
   매달 모이는 돈에는 수입·지출·보태는 돈·아끼는 돈이 이미 다 들어 있다. 그래서 agree.monthly_saving을 쓰면 다른 항목(agree.item.*, agree.adj.*)을 함께 적지 않는다(겹친다). 누가 얼마를 맡는지 보이고 싶으면 매달 모이는 돈 대신 그 항목들만 적는다. 대출 더 갚기(agree.extra.*)는 따로 적어도 된다.

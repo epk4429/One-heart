@@ -187,7 +187,7 @@ def anchors(fam: dict, gi: dict, with_options: bool = False) -> dict:
             if y <= len(r["yearly"]):
                 end = r["yearly"][y - 1]["end"]
                 add(f"size.after_{y}y", end, "만원", won(end), f"지금처럼 모으면 {y}년 뒤", "", fixed=y in YEARS)
-        if gi["category"] == "baby":  # 육아 준비금의 기준: 휴직 동안 줄어드는 수입(2026-11-15 형님 결정, 목표 뜻 = 휴직이 끝날 때까지 비상금을 지키며 준비금 모으기)
+        if goals.is_baby(gi):  # 출산·육아 준비금의 기준: 휴직 동안 줄어드는 수입(2026-11-15 형님 결정, 목표 뜻 = 휴직이 끝날 때까지 비상금을 지키며 준비금 모으기)
             lg = _leave_gap(fam, raw)
             if lg:
                 gap, life = lg

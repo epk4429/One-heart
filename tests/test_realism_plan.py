@@ -58,7 +58,7 @@ def test_care_cost_starts_when_family_said():
 
 
 def test_baby_leave_replaces_that_members_wage():
-    fam = _fam("baby", {"when_years": 1, "leave_months": 6, "leave_member_id": "m1", "leave_income": 150, "target_amount": 3000})
+    fam = _fam("lump", {"purpose": "출산·육아", "within_years": 1, "leave_months": 6, "leave_member_id": "m1", "leave_income": 150, "target_amount": 3000})
     g, req, mo = _req(fam, {"type": "reach_target", "target_amount": 30000, "floor": 1000})
     w = lambda m: 1.02 ** ((m - 1) / 12)
     assert abs(mo[11]["inflow"] - 720 * w(12)) < 0.05                    # 12달째: 둘 다 월급

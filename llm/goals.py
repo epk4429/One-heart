@@ -21,7 +21,7 @@ CATEGORIES: dict[str, dict] = {
         {"key": "living", "label": "지금 사는 곳", "kind": CHOICE, "options": ["전세", "월세", "자가", "부모님 집"]},
     ]},
     "lump": {"label": "목돈 모으기", "engine": "reach_target", "goal_label": "목돈 모으기", "fields": [
-        {"key": "purpose", "label": "무엇을 위한 돈인가요", "kind": CHOICE, "options": ["결혼", "자녀 교육", "차량", "창업", "여행·기타"]},
+        {"key": "purpose", "label": "무엇을 위한 돈인가요", "kind": CHOICE, "options": ["결혼", "출산·육아", "자녀 교육", "차량", "창업", "여행·기타"]},
         {"key": "target_amount", "label": "모으고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True},
         {"key": "within_years", "label": "언제까지", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
     ]},
@@ -35,15 +35,6 @@ CATEGORIES: dict[str, dict] = {
         {"key": "monthly_need", "label": "은퇴 후 한 달에 필요한 돈", "kind": NUM, "unit": "만원", "min": 10, "max": 10_000, "decide": True},
         {"key": "pension_monthly", "label": "은퇴 후 받을 연금(예상)", "kind": NUM, "unit": "만원/월", "min": 0, "max": 10_000, "optional": True,
          "help": "국민연금·퇴직연금 등을 합친 대략의 금액이에요. 국민연금공단 '내 연금 알아보기'에서 예상액을 볼 수 있어요. 비우면 연금 없이 계산해요."},
-    ]},
-    "baby": {"label": "자녀 계획·육아", "engine": "reach_target", "goal_label": "육아 준비금 모으기", "fields": [
-        {"key": "when_years", "label": "아이를 갖고 싶은 때", "kind": NUM, "unit": "년 뒤", "min": 1, "max": 15},
-        {"key": "leave_months", "label": "육아휴직 예정 기간", "kind": NUM, "unit": "개월", "min": 0, "max": 36},
-        {"key": "leave_member_id", "label": "휴직하는 사람", "kind": MEMBER, "optional": True,
-         "help": "휴직 기간이 있으면 골라 주세요. 그분의 월급이 휴직 동안 아래 금액으로 바뀌어 계산돼요."},
-        {"key": "leave_income", "label": "휴직 중 한 달 수입", "kind": NUM, "unit": "만원/월", "min": 0, "max": 10_000, "optional": True,
-         "help": "휴직하는 분의 휴직 중 수입(육아휴직급여 등)이에요. 비우면 휴직 중 그분의 월급을 0원으로 계산해요."},
-        {"key": "target_amount", "label": "미리 준비해 두고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True},
     ]},
     "care": {"label": "부모님 부양·간병", "engine": "runway", "goal_label": "돌봄 비용을 감당하는 기간", "fields": [
         {"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER},
@@ -70,6 +61,24 @@ OTHER_EXTRA = {
 }
 
 
+# 목돈 모으기의 목적이 '출산·육아'일 때만 더 받는 값(2026-11-16 형님 결정: '자녀 계획·육아'는 별도 목표가 아니라 목돈 모으기에 속한다).
+# 휴직은 위 '언제까지'로 정한 때부터 시작한다고 계산한다. 휴직 기간을 비우거나 0이면 휴직 없이 목돈만 모은다.
+BABY_PURPOSE = "출산·육아"
+BABY_EXTRA = [
+    {"key": "leave_months", "label": "육아휴직 예정 기간", "kind": NUM, "unit": "개월", "min": 0, "max": 36, "optional": True,
+     "help": "위 '언제까지'로 정한 때부터 휴직한다고 계산해요. 휴직하지 않거나 모르면 비워 두세요."},
+    {"key": "leave_member_id", "label": "휴직하는 사람", "kind": MEMBER, "optional": True,
+     "help": "휴직 기간이 있으면 골라 주세요. 그분의 월급이 휴직 동안 아래 금액으로 바뀌어 계산돼요."},
+    {"key": "leave_income", "label": "휴직 중 한 달 수입", "kind": NUM, "unit": "만원/월", "min": 0, "max": 10_000, "optional": True,
+     "help": "휴직하는 분의 휴직 중 수입(육아휴직급여 등)이에요. 비우면 휴직 중 그분의 월급을 0원으로 계산해요."},
+]
+
+
+def is_baby(gi: dict | None) -> bool:
+    """목돈 모으기 중 '출산·육아'인 목표인지."""
+    return bool(gi) and gi.get("category") == "lump" and (gi.get("fields") or {}).get("purpose") == BABY_PURPOSE
+
+
 # 모든 목표 공통: 늘 남겨 둘 비상금(2026-11-15, 할 일 1-9 A1). 가족이 아는 값이라 짐작하지 않고 공동 목표 '숫자 정하기'에서 정한다.
 # 미래 계산의 모든 방법은 예금(주식 제외)이 이 선 아래로 내려가지 않아야 하고, 내 집 마련·목돈은 '예금 − 이 선'이 목표에 닿을 때 달성이다.
 FLOOR_FIELD = {"key": "emergency_floor", "label": "늘 남겨 둘 비상금", "kind": NUM, "unit": "만원", "min": 0, "max": 1_000_000, "decide": True,
@@ -81,13 +90,15 @@ class GoalInputError(ValueError):
 
 
 def fields_for(category: str, values: dict | None = None) -> list[dict]:
-    """그 카테고리에서 받아야 하는 필드 목록(기타는 고른 계산에 따라 더 받는다). 마지막에 공통 '늘 남겨 둘 비상금'."""
+    """그 카테고리에서 받아야 하는 필드 목록(기타는 고른 계산에, 목돈 모으기는 목적이 출산·육아인지에 따라 더 받는다). 마지막에 공통 '늘 남겨 둘 비상금'."""
     spec = CATEGORIES[category]
     out = list(spec["fields"])
     if category == "other":
         eng = OTHER_ENGINE.get((values or {}).get("engine_kind"))
         if eng:
             out += OTHER_EXTRA[eng]
+    if is_baby({"category": category, "fields": values or {}}):
+        out += BABY_EXTRA
     return out + [FLOOR_FIELD]
 
 
@@ -129,7 +140,7 @@ def validate_input(raw, member_ids: set[str]) -> dict | None:
             if len(s) > f["max"]:
                 raise GoalInputError(f"'{f['label']}'은(는) {f['max']}자까지예요")
             out[f["key"]] = s
-    if cat == "baby" and out.get("leave_months", 0) > 0 and not out.get("leave_member_id"):
+    if is_baby({"category": cat, "fields": out}) and out.get("leave_months", 0) > 0 and not out.get("leave_member_id"):
         raise GoalInputError("'휴직하는 사람'을 골라 주세요")
     return {"category": cat, "fields": out}
 
@@ -174,11 +185,11 @@ def derive_goal(gi: dict, members: list[dict]) -> dict:
     eng = spec["engine"] or OTHER_ENGINE[v["engine_kind"]]
     label = spec["goal_label"] or v["purpose_text"]
     if cat == "lump":
-        label = f"{v['purpose']} 목돈 모으기"
+        label = f"{v['purpose']} 준비금 모으기" if is_baby(gi) else f"{v['purpose']} 목돈 모으기"
     goal = {"type": eng, "label": label[:40], "target_amount": None, "within_months": None, "base_member_id": None, "target_note": None}
     if eng == "reach_target":
         goal["target_amount"] = v.get("target_amount")  # 비어 있으면 2단계에서 정한다
-    years = v.get("within_years") if cat != "baby" else v.get("when_years")
+    years = v.get("within_years")
     if years:
         goal["within_months"] = int(round(years * 12))
     if eng == "runway":
@@ -210,4 +221,5 @@ def public_config() -> dict:
     """화면에 내려 주는 정의(필드 목록·선택지·기타의 추가 필드)."""
     return {"categories": {k: {"label": c["label"], "fields": c["fields"] + [FLOOR_FIELD]} for k, c in CATEGORIES.items()},
             "other_engine": list(OTHER_ENGINE), "other_extra": {k: v for k, v in OTHER_EXTRA.items()},
-            "other_engine_map": OTHER_ENGINE, "floor_field": FLOOR_FIELD}
+            "other_engine_map": OTHER_ENGINE, "floor_field": FLOOR_FIELD,
+            "baby_purpose": BABY_PURPOSE, "baby_extra": BABY_EXTRA}
