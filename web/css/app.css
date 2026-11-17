@@ -522,3 +522,11 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .act-note{margin:8px 0 6px;font-size:13px;color:var(--muted);line-height:1.5}
 .diffline{margin-top:12px;padding:9px 12px;background:var(--green-soft);font-size:14px;color:var(--green-d)}
 .diffline b{font-weight:800}
+
+/* 합의 뒤 '다시 이야기 나누기' 확인 창(시안17) */
+.rt-opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;padding:14px 16px;margin-bottom:10px;border-radius:0}
+.rt-opt:hover{border-color:var(--green)}
+.rt-opt.rec{border-color:var(--green)}
+.rt-opt b{display:block;font-size:15px;margin-bottom:2px}
+.rt-opt span{display:block;font-size:13.5px;color:var(--ink2);line-height:1.6}
+.rt-fine{font-size:12.5px!important;color:var(--muted)!important;margin:4px 0 16px!important}

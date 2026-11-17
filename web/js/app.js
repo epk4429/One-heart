@@ -39,6 +39,20 @@ function ask(title, body, choices) {
     document.body.appendChild(el);
   });
 }
+// 합의 뒤 '다시 이야기 나누기' 확인 창(시안17): 선택지마다 '이럴 때'를 한 줄씩 붙여 둘 중 하나를 고른다. 취소하면 null
+function askRetalk(ver) {
+  return new Promise(res => {
+    const el = document.createElement("div");
+    el.className = "modal";
+    el.innerHTML = `<div class="mbox" role="dialog" aria-modal="true"><h3>어디서부터 다시 이야기할까요?</h3><p>목표는 그대로예요. 지금 합의안(Ver.${ver})은 지난 합의문으로 남고, 새 합의안은 Ver.${ver + 1}가 돼요.</p>
+      <button type="button" class="rt-opt rec" data-v="views"><b>각자의 생각부터 다시</b><span>가족의 생각이 달라졌어요. 각자 AI 상담사와 다시 이야기하고, 요약부터 새로 만들어요.</span></button>
+      <button type="button" class="rt-opt" data-v="goal"><b>공동 목표 설정부터 다시</b><span>생각은 그대로예요. 지금의 요약으로 서로 다른 생각을 다시 읽고, 제안·숫자·동의를 새로 받아요.</span></button>
+      <p class="rt-fine">우리 가족 이야기와 금융 정보는 그대로 남아요. 모든 구성원이 다시 서명해야 확정돼요.</p>
+      <div class="mrow"><button type="button" class="btn" data-v="">취소</button></div></div>`;
+    el.onclick = e => { const b = e.target.closest("button[data-v]"); if (!b && e.target !== el) return; el.remove(); res(b && b.dataset.v ? b.dataset.v : null); };
+    document.body.appendChild(el);
+  });
+}
 function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove("show"), 2200); }
 
 /* ---------- 상태 · 저장 ---------- */
@@ -321,6 +335,8 @@ function chatHtml(mid) {
   const me = t => `<div class="msg me">${av(mid, "sm")}<div><div class="who-l">${esc(m.name)}</div><div class="bub">${esc(t)}</div></div></div>`;
   const qs = ivQs(mid), qMsg = i => ai(esc(qText(mid, i)) + (qs[i].extra ? `<div class="cs">가족 이야기 속 “${esc(qs[i].from)}” 부분을 보고 ${esc(m.name)}님께 따로 여쭤봐요</div>` : ""));
   let h = ai(`${esc(m.name)}님, 안녕하세요. ${KNUM[qs.length] || qs.length} 가지만 여쭤볼게요. 이 대화는 ${esc(m.name)}님만 볼 수 있어요.`);
+  const pv = S().prevSum?.by?.[mid]; // '다시 이야기 나누기'로 온 경우: 지난 합의 때 본인이 확인한 요약을 참고로 보여 준다
+  if (pv) h += ai(`지난 합의(Ver.${S().prevSum.ver}) 때는 이렇게 정리했어요. 달라진 부분을 중심으로 말씀해 주세요.<div class="sumcard"><dl><dt>꼭 지키고 싶은 것</dt><dd>${esc(pv.keep)}</dd><dt>양보할 수 있는 것</dt><dd>${esc(pv.flexible)}</dd><dt>가장 큰 걱정</dt><dd>${esc(pv.worry)}</dd>${pv.details?.length ? `<dt>그 밖에 정한 것</dt><dd>${pv.details.map(esc).join(" · ")}</dd>` : ""}</dl></div>`);
   st.answers.forEach((a, i) => { h += qMsg(i) + me(a); });
   if (st.answers.length < qs.length) h += qMsg(st.answers.length);
   else if (!started(st.review) && st.review.status !== "error") h += `<div class="sysnote">질문에 모두 답했어요</div>`;
@@ -1269,7 +1285,7 @@ function s7() {
     <div class="g-sub">자세히 보기</div><div class="g-folds">${homeFolds}</div></div>
   </div><div class="stackv">
    ${calendar()}
-   <div class="card"><div class="ct" style="margin-bottom:10px">우리 가족 합의문</div><p class="cs" style="margin-bottom:12px">${f.members.length}명 서명 · Ver.${a.version}${s.signedAt ? ` · ${krDate(s.signedAt)} 확정` : ""}</p><div class="stack" style="margin-bottom:14px">${f.members.map(m => av(m.member_id, "sm")).join("")}</div><button class="btn sm" data-act="open-agree">합의문 보기</button>
+   <div class="card"><div class="ct" style="margin-bottom:10px">우리 가족 합의문</div><p class="cs" style="margin-bottom:12px">${f.members.length}명 서명 · Ver.${a.version}${s.signedAt ? ` · ${krDate(s.signedAt)} 확정` : ""}</p><div class="stack" style="margin-bottom:14px">${f.members.map(m => av(m.member_id, "sm")).join("")}</div><div class="row" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="open-agree">합의문 보기</button><button class="btn sm" data-act="retalk">다시 이야기 나누기</button></div><p class="cs" style="margin-top:10px">생각이 달라졌다면 지금 합의안은 기록으로 남기고 새 합의안을 만들어요.</p>
     ${hist.length ? `<p class="cs" style="margin-top:12px">지난 합의문: ${hist.map(h => `Ver.${h.version}(${esc(h.method)}${h.signedAt ? ", " + krDate(h.signedAt) : ""})`).join(" · ")}</p>` : ""}</div>
   </div></div>
   <section class="sec endsec"><h2 class="st">체험을 마치며</h2><div class="endnote">
@@ -1579,6 +1595,19 @@ const ACT = {
     reset("design");
     try { const g = await api("/api/goal/check", { family: F(), goal: s.goalForm }); s.goalChk = { status: "done", goal: g.goal }; go(4); toast(`Ver.${s.version}을 위해 미래 계산부터 다시 해요`); }
     catch (e) { s.goalChk = {}; s.approvals = {}; go(1); toast("바뀐 상황에서는 목표 값을 다시 정해야 해요: " + e.message); }
+  },
+  retalk: async () => { // 합의 뒤 '다시 이야기 나누기'(2026-11-17 형님 결정, 임의결정 98): 목표는 그대로 두고 각자의 생각 또는 공동 목표 설정부터 다시. 지금 합의안은 지난 합의문(Ver.N)으로 남긴다
+    const s = S(), a = s.draft && s.draft.result; if (!a) return;
+    const how = await askRetalk(a.version); if (!how) return;
+    (s.history = s.history || []).push({ version: a.version, method: a.method.display_label, signedAt: s.signedAt, agreement: a });
+    if (how === "views") { // 이전 요약은 3단계 대화에 참고로만 보여 준다(AI에게는 보내지 않는다)
+      s.prevSum = { ver: a.version, by: summariesOf() };
+      s.iv = {};
+    } else delete s.prevSum;
+    s.version = (s.version || 1) + 1; s.signedAt = null; s.reviewIn = {}; s.criterion = {}; s.actualIn = null;
+    reset("goal");
+    go(how === "views" ? 2 : 3);
+    toast(`Ver.${s.version} 합의안을 위해 ${how === "views" ? "각자의 생각부터" : "공동 목표 설정부터"} 다시 이야기해요`);
   },
   "cal-nav": b => { const c = S().cal; const [y, m] = c.view.split("-").map(Number); const t = new Date(y, m - 1 + +b.dataset.n, 1); c.view = `${t.getFullYear()}-${pad2(t.getMonth() + 1)}`; render(); },
   "cal-day": b => { S().cal.sel = b.dataset.d; render(); },
