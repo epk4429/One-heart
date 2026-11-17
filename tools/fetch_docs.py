@@ -24,7 +24,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "knowledge/sources/docs"
 INDEX = ROOT / "knowledge/sources/index.json"
-ALLOWED = {"www.hf.go.kr", "nhuf.molit.go.kr", "basicpension.mohw.go.kr", "www.law.go.kr", "www.fss.or.kr", "www.nhis.or.kr"}
+ALLOWED = {"www.hf.go.kr", "nhuf.molit.go.kr", "basicpension.mohw.go.kr", "www.law.go.kr", "www.fss.or.kr", "www.nhis.or.kr",
+           # 2026-11-17 형님이 내려받은 공식 자료(tools/import_downloads.py)
+           "www.fsb.or.kr", "portal.kfb.or.kr", "m.work24.go.kr", "www.bokjiro.go.kr", "www.nts.go.kr", "www.ccrs.or.kr", "fill4young.kinfa.or.kr", "www.kinfa.or.kr"}
 FSS_TIPS = {  # source_id 꼬리 → (제목, 게시글 주소). 금융감독원 '금융꿀팁 200선'. 본문은 첨부 한글(HWP) 파일이다. 재무 원리 카드(ontology/cards.json)의 출처
     "fss_tip_001": ("금융꿀팁 200선 (1) 현명한 신용관리요령", "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=34628&menuNo=200498"),
     "fss_tip_026": ("금융꿀팁 200선 (26) 은행거래 100% 활용법(2): 예적금 수익률 높이기", "https://www.fss.or.kr/fss/bbs/B0000173/view.do?nttId=34653&menuNo=200498"),

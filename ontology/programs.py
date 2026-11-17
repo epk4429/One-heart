@@ -75,7 +75,18 @@ def variables(family: dict) -> dict:
         "always": (True, False),
         "children": (children, False),
         "couple_65": (len(seniors) >= 2, False),
+        "youngest_child_age": (min((m["age"] for m in family["members"] if m["age"] < 19), default=99), False),  # 자녀(19세 미만) 중 가장 어린 나이, 없으면 99
+        "has_youth_19_34": (int(any(19 <= m["age"] <= 34 for m in family["members"])), False),  # 병역이행 기간은 모름(청년미래적금 나이 요건)
+        "loan_total": (tot("loan"), False),  # 가족이 넣은 대출 합계(만원)
     }
+
+
+def in_deficit(family: dict) -> bool:
+    """매달 수입 − 지출 − 대출 상환이 마이너스인가('gate: deficit' 제도를 보여 줄지 정한다, 2026-11-17 형님 결정).
+    연체 여부는 가족 정보에 없어 판정하지 않는다."""
+    from llm import family as F  # 늦게 불러 순환을 피한다
+    p = F.profile(family)
+    return p["income_total"] - p["expense_total"] - p["loan_payment_total"] < 0
 
 
 def _cmp(v, op: str, x) -> bool:

@@ -62,9 +62,9 @@ def test_law_addenda_are_left_out():
 
 
 def test_huge_law_is_limited_to_scoped_articles():
-    """조세특례제한법(원문 1.8MB)은 정한 조문(제87조·제88조의2)만 색인한다."""
+    """조세특례제한법(원문 1.8MB)은 정한 조문(제87조·제88조의2·제100조의2·제100조의3)만 색인한다."""
     arts = {c["article"] for c in R.load()["chunks"] if c["doc_key"] == "law_tax_special"}
-    assert arts == {"제87조", "제88조의2"}
+    assert arts == {"제87조", "제88조의2", "제100조의2", "제100조의3"}
 
 
 @pytest.mark.parametrize("q, doc_key, article", [

@@ -19,6 +19,7 @@ Thumbs.db
 .vscode/
 .idea/
 data/usage/
+data/rooms/
 
 # 큰 원본 파일(스냅샷 JSON에 sha256 기록)
 knowledge/raw/

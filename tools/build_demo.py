@@ -107,6 +107,7 @@ def build(out: Path = OUT) -> Path:
         html = html.replace(tag, "<style>\n" + (WEB / css).read_text(encoding="utf-8") + "\n</style>")
     html = html.replace('href="img/favicon.png"', f'href="{data_uri("img/favicon.png")}"')
     html = html.replace('src="img/logo.png"', f'src="{data_uri("img/logo.png")}"')
+    html = html.replace('\n<script src="js/room.js"></script>', "")  # 가족방(여러 기기)은 서버가 있어야 해서 mock 체험판에는 넣지 않는다(app.js는 ROOM이 없어도 동작)
     scripts = '<script src="js/config.js"></script>\n<script src="js/api.js"></script>\n<script src="js/app.js"></script>'
     assert scripts in html
     html = html.replace(scripts, "\n".join([

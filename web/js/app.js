@@ -89,6 +89,10 @@ function freshState(key, fam, scripts) {
   return s;
 }
 function save() {
+  if (typeof ROOM !== "undefined" && ROOM.active) { // 가족방(링크)으로 들어온 경우: 서버가 보관한다. 이 기기에는 단계만 기억한다(web/js/room.js)
+    try { localStorage.setItem("oneheart.step." + ROOM.id, String(step)); } catch (e) { }
+    ROOM.afterSave(); return;
+  }
   try { localStorage.setItem(STORE, JSON.stringify({ R, room, step })); } catch (e) { }
 }
 function load() {
@@ -102,7 +106,7 @@ function load() {
 
 /* ---------- 비동기 호출 ---------- */
 async function run(slot, path, body, after) {
-  slot.status = "loading"; delete slot.error; render();
+  slot.status = "loading"; slot.t0 = Date.now(); delete slot.error; render();
   try {
     const res = await api(path, body);
     Object.assign(slot, res); slot.status = "done";
@@ -134,8 +138,8 @@ function vbadge(v, calls) {
 }
 const prevBtn = () => step > 0 ? `<button class="btn" data-act="prev"><span aria-hidden="true">←</span> 이전 단계</button>` : "";
 const next = (label, dis, hint) => `<div class="next">${prevBtn()}<span class="pno">— ${step + 1} —</span>${dis && hint ? `<span class="hint">${hint}</span>` : ""}${label ? `<button class="btn primary" data-act="next" ${dis ? "disabled" : ""}>${label} <span aria-hidden="true">→</span></button>` : ""}</div>`;
-const turn = (list, what) => { const o = list.filter(m => m !== viewer()); return o.length ? `<div class="turn"><span>${o.map(m => esc(mem(m).name) + "님").join(", ")}의 ${what}${(c => c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? "이" : "가")(what.charCodeAt(what.length - 1))} 남았어요.</span><button class="btn sm" data-act="viewer" data-mid="${o[0]}">${esc(mem(o[0]).name)}님 차례로 바꾸기</button></div>` : ""; };
-const oneDevice = () => `<div class="onedev"><b>한 기기에서 가족이 돌아가며 입력해요</b><span>아래 검은 막대의 <b>보는 사람</b>을 바꾸면 그 사람의 화면이 돼요. 실제 서비스에서는 가족마다 자기 휴대폰에서 알림을 받고 직접 입력해요.</span></div>`;
+const turn = (list, what) => { const o = list.filter(m => m !== viewer()); return o.length ? `<div class="turn"><span>${o.map(m => esc(mem(m).name) + "님").join(", ")}의 ${what}${(c => c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? "이" : "가")(what.charCodeAt(what.length - 1))} 남았어요.</span>${(typeof ROOM !== "undefined" && ROOM.active) ? "" : `<button class="btn sm" data-act="viewer" data-mid="${o[0]}">${esc(mem(o[0]).name)}님 차례로 바꾸기</button>`}</div>` : ""; }; // 가족방(링크)에서는 사람을 바꾸는 버튼이 없다: 그 가족이 자기 화면에서 한다
+const oneDevice = () => (typeof ROOM !== "undefined" && ROOM.active) ? "" : `<div class="onedev"><b>한 기기에서 가족이 돌아가며 입력해요</b><span>아래 검은 막대의 <b>보는 사람</b>을 바꾸면 그 사람의 화면이 돼요. 실제 서비스에서는 가족마다 자기 휴대폰에서 알림을 받고 직접 입력해요.</span></div>`;
 const customOn = () => !CFG || CFG.custom_family !== false;
 const retOf = b => { const id = (b.source || "").startsWith("assumption:") ? b.source.slice(11) : ""; return (CFG?.assumptions?.returns || []).find(x => x.id === id); };
 const retSource = b => { const r = retOf(b); return r && (r.expected_return === b.value || (r.after_tax && Math.abs(r.expected_return * 0.846 - b.value) < 0.01)) ? r.source + (r.after_tax ? " · 계산에는 이자소득세 15.4%를 뺀 세후 값" : "") : ""; }; // 수익률 가정값의 출처(data/assumptions.json). 예전에 저장한 계산이라 값이 다르면 보이지 않는다
@@ -159,12 +163,12 @@ function s0() {
   if (s.setupDone) {
     const ivStarted = Object.values(s.iv).some(x => (x.answers || []).length);
     return `<div class="head"><div class="eyebrow">가족방 만들기</div><h1 class="h1">${esc(f.room.name)}</h1><p class="lead">${esc(mem(host).name)}님이 가족방을 만들었어요. 이제 가족의 이야기를 들어볼 차례예요.</p></div>
-    ${oneDevice()}
+    ${oneDevice()}${typeof roomCard === "function" ? roomCard() : ""}
     <div class="stackv">
      ${f.room.reason ? `<div class="card"><div class="ct">가족방을 만든 이유</div><p class="quote">${esc(f.room.reason)}</p><p class="qby">${esc(mem(host).name)} · ${esc(mem(host).role)}</p></div>` : ""}
      <div class="card"><div class="ct">참여한 가족 <span class="cs">${f.members.length}명</span></div>
       <div class="plist">${f.members.map(m => `<div class="prow">${av(m.member_id)}<div class="who"><div class="nm">${esc(m.name)} <span class="rl">· ${esc(m.role)} · ${m.age}세${WORK[m.work] ? " · " + WORK[m.work] : ""}</span></div><div class="rl">${m.member_id === host ? "가족방을 만들었어요" : m.easy_mode ? "큰 글씨·쉬운 말로 참여" : "참여"}</div></div><span class="pill ${m.member_id === host ? "brand" : m.easy_mode ? "warm" : "good"}">${m.member_id === host ? "방장" : m.easy_mode ? "간편 모드" : "참여"}</span></div>`).join("")}</div>
-      ${presetLocked() ? `<p class="cs" style="margin-top:12px">예시 가족이라 구성원은 정해져 있어요.</p>` : ivStarted ? `<p class="cs" style="margin-top:12px">각자의 생각을 듣기 시작해서 구성원은 바꿀 수 없어요. 바꾸려면 아래 검은 막대의 '처음부터'를 눌러 주세요.</p>` : `<button class="btn sm" style="margin-top:12px" data-act="edit-setup">구성원 고치기</button>`}</div>
+      ${presetLocked() ? `<p class="cs" style="margin-top:12px">예시 가족이라 구성원은 정해져 있어요.</p>` : (typeof ROOM !== "undefined" && ROOM.active) ? `<p class="cs" style="margin-top:12px">링크를 만든 뒤에는 구성원을 바꿀 수 없어요.</p>` : ivStarted ? `<p class="cs" style="margin-top:12px">각자의 생각을 듣기 시작해서 구성원은 바꿀 수 없어요. 바꾸려면 아래 검은 막대의 '처음부터'를 눌러 주세요.</p>` : `<button class="btn sm" style="margin-top:12px" data-act="edit-setup">구성원 고치기</button>`}</div>
     </div>${next("우리 가족 이야기 쓰기")}`;
   }
   const rows = f.members.map((m, i) => `<tr><td>${av(m.member_id, "sm")}</td>
@@ -384,7 +388,7 @@ function s2() {
   }).join("");
   const left = mids().filter(x => !ivState(x).confirmed);
   return `<div class="head"><div class="eyebrow">각자의 생각</div><h1 class="h1">가족 한 사람씩 AI 상담사와 따로 이야기해요</h1><p class="lead">AI 상담사가 가족 모두에게 같은 세 가지를 묻고, 가족 이야기를 보고 그 사람에게 필요한 질문을 한두 개 더 해요. 뜻이 분명하지 않은 말이 있으면 AI가 그 사람에게만 다시 여쭤봐요.</p></div>
-  <div class="privacy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" style="margin-top:2px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>대화 내용은 본인만 볼 수 있어요</b><span>가족에게는 AI가 정리하고 본인이 확인한 요약만 공유돼요. 이후 단계의 AI에도 원문 대화는 전달되지 않아요. 답할 때도 병명·계좌번호·전화번호 같은 정보는 쓰지 말아 주세요. 지금은 한 기기를 함께 쓰니, 다른 사람 차례에는 화면을 넘겨 주세요.</span></div></div>
+  <div class="privacy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" style="margin-top:2px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><div><b>대화 내용은 본인만 볼 수 있어요</b><span>가족에게는 AI가 정리하고 본인이 확인한 요약만 공유돼요. 이후 단계의 AI에도 원문 대화는 전달되지 않아요. 답할 때도 병명·계좌번호·전화번호 같은 정보는 쓰지 말아 주세요.${(typeof ROOM !== "undefined" && ROOM.active) ? "" : " 지금은 한 기기를 함께 쓰니, 다른 사람 차례에는 화면을 넘겨 주세요."}</span></div></div>
   <div class="cols keep2">
    <div class="chatwin"><div class="chatbar"><span class="aimark">${AIMARK}</span><div class="cb"><b>AI 상담사</b><span>${esc(m.name)}님과의 1:1 대화 · 나만 볼 수 있어요</span></div>${m.easy_mode ? `<span class="easy">간편 모드 · 큰 글씨</span>` : ""}</div>
     <div class="chat ${m.easy_mode ? "big" : ""}" id="chat">${chatHtml(vw)}</div>
@@ -990,6 +994,9 @@ const PROG_LAW = {
   PG_newborn_beotimmok: [["기금 대출 용도", "주택도시기금 전세자금 융자 임차", ["law_housing_fund"]]],
   PG_subscription: [["가입 조건", "주택청약종합저축 가입 입주자저축", ["law_housing_supply_rule"]], ["소득공제", "주택청약종합저축 소득공제 납입", ["law_tax_special"]]],
   PG_basic_pension: [["받는 사람", "기초연금 수급권자의 범위 65세 이상 소득인정액 선정기준액", ["law_basic_pension"]], ["받는 금액", "기초연금액 산정 기준연금액", ["law_basic_pension"]]],
+  PG_tax_free_savings: [["세금 없는 저축", "비과세종합저축 과세특례 이자소득", ["law_tax_special"]]],
+  PG_parental_leave: [["받는 금액", "육아휴직 급여 통상임금 상한액 지급", ["law_employment_insurance"]]],
+  PG_eitc: [["받는 조건", "근로장려금 신청자격 소득세 과세기간 근로소득", ["law_tax_special"]]],
 };
 function ragPanel(key, kind, label, preset) {
   // 법령 원문 찾기(rag/index.py): 판정이 아니라 설명·근거. 온톨로지와 독립이라 어떤 제도·상품인지와 상관없이 법령 전체에서 찾는다. 결과는 원문 그대로.
@@ -1072,7 +1079,7 @@ function fitCard(nid, cat, r, a, label) {
   const res = st.res.status === "done" ? st.res : null, loan = LOANS.includes(cat);
   const evS = x => { const e = x.evidence; return [`우대조건 원문\n${e.benefits.map(q => "· " + q).join("\n") || "· 없음"}`, e.join_member ? `가입대상: ${e.join_member}` : "",
     e.limit_quote ? `한도: ${e.limit_quote}` : "", e.caveats.length ? `유의: ${e.caveats.join(" / ")}` : ""]; };
-  const evL = x => { const t = x.evidence.texts, L = { loan_lmt: "한도", loan_limit: "한도", loan_limit_detl: "한도(세부)", erly_rpay_fee: "중도상환 수수료", loan_inci_expn: "부대비용", dly_rate: "연체 이자율", join_deny: "가입조건", join_deny_detl: "가입조건(세부)", spcl_rate: "우대금리", loan_term: "대출기간" };
+  const evL = x => { const t = x.evidence.texts, L = { loan_lmt: "한도", loan_limit: "한도", loan_limit_detl: "한도(세부)", erly_rpay_fee: "중도상환 수수료", loan_inci_expn: "부대비용", dly_rate: "연체 이자율", intro: "상품 소개", join_deny: "가입조건", join_deny_detl: "가입조건(세부)", spcl_rate: "우대금리", loan_term: "대출기간" };
     return Object.entries(t).map(([k, v]) => `${L[k] || k}: ${v}`); };
   const ev = x => [...(loan ? evL(x) : evS(x)), `출처: 금감원 금융상품 한눈에 공시(${x.evidence.as_of.slice(0, 4)}년 ${+x.evidence.as_of.slice(4)}월 기준)`].filter(Boolean).map(esc).join("\n\n");
   const meta = x => loan ? `${esc(x.provider)}${x.loan_kind ? " · " + esc(x.loan_kind) : ""}${x.rate_type ? " · " + (x.rate_type === "fixed" ? "고정" : "변동") : ""} · 연 ${x.rate_min.toFixed(2)}~${x.rate_max.toFixed(2)}%${x.limit_manwon ? ` · 한도 약 ${won(x.limit_manwon)}` : ""}`
@@ -1084,10 +1091,10 @@ function fitCard(nid, cat, r, a, label) {
     : `<span>내가 받을 금리</span><b>${x.my_rate.toFixed(2)}%</b>${x.money ? `<span>만기 약 ${wonK(x.money.total)}</span>` : ""}`;
   const row = (x, i) => `<div class="frow"><div class="rk">${i + 1}</div><div>
     <div class="fn">${esc(x.name)}</div><div class="fm">${meta(x)}</div><div class="ftags">${tags(x)}</div>
-    ${i === 0 || st.open[x.product_id] ? `<ul class="freason">${x.reasons.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+    ${i === 0 || (st.open || {})[x.product_id] ? `<ul class="freason">${x.reasons.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
     ${x.why_lower ? `<div class="flow">1번보다 아래인 이유: ${esc(x.why_lower)}</div>` : ""}
-    ${st.open[x.product_id] ? `<div class="fev">${ev(x)}</div>` : ""}
-    <button class="linkbtn" data-act="fit-open" data-need="${key}" data-pid="${x.product_id}">${st.open[x.product_id] ? "근거 닫기" : "근거 보기"}</button></div>
+    ${(st.open || {})[x.product_id] ? `<div class="fev">${ev(x)}</div>` : ""}
+    <button class="linkbtn" data-act="fit-open" data-need="${key}" data-pid="${x.product_id}">${(st.open || {})[x.product_id] ? "근거 닫기" : "근거 보기"}</button></div>
     <div class="rt">${right(x)}</div></div>`;
   let body;
   if (!res) body = pend(st.res.status ? st.res : { status: "loading" }, "상품 조건을 따져 보고 있어요", `fit-retry:${key}`);
@@ -1290,7 +1297,7 @@ function s7() {
   </div></div>
   <section class="sec endsec"><h2 class="st">체험을 마치며</h2><div class="endnote">
    <p><b>여기까지가 ONE-Heart 체험이에요. 함께해 주셔서 고마워요.</b></p>
-   <p>입력한 내용은 ONE-Heart에 따로 저장되지 않고 이 브라우저에만 남아 있어요. 다시 들어오면 이어서 볼 수 있어요.</p>
+   ${(typeof ROOM !== "undefined" && ROOM.active) ? "<p>가족방 링크로 다시 들어오면 이어서 볼 수 있어요. 가족방은 만든 날부터 30일 동안 보관돼요.</p>" : "<p>입력한 내용은 ONE-Heart에 따로 저장되지 않고 이 브라우저에만 남아 있어요. 다시 들어오면 이어서 볼 수 있어요.</p>"}
    <p>여러 사람이 같이 쓰는 컴퓨터라면, 브라우저 설정에서 이 사이트의 기록(쿠키 및 사이트 데이터)을 지워 주세요.</p>
    ${surveyUrl() ? `<p style="margin-top:6px"><a class="btn primary sm" href="${esc(surveyUrl())}" target="_blank" rel="noopener noreferrer">서비스 설문에 참여하기 →</a></p>` : ""}</div></section>
   ${next("", true, "")}`;
@@ -1319,6 +1326,7 @@ function chrome() {
 }
 function render() {
   if (view !== "app" || !S() || !CFG) return;
+  if (typeof ROOM !== "undefined" && ROOM.active && ROOM.memberId) S().viewer = ROOM.memberId; // 가족방 링크로 들어온 기기는 늘 그 구성원 화면
   chrome();
   const keep = document.activeElement && (document.activeElement.id || document.activeElement.dataset?.bind);
   if (needCode) { $("#main").innerHTML = `<div class="screen">${codeScreen(codeMsg)}</div>`; return; }
@@ -1349,7 +1357,7 @@ async function startApp(k) {
       else { const p = await api("/api/preset", { preset_id: k }); const sc = p.scripts; delete p.scripts; delete p._note; freshState(k, p, sc); }
     }
     step = R[k].step || 0;
-    needCode = HEALTH.access_required && !ACCESS.get();
+    needCode = HEALTH.access_required && !ACCESS.get() && !(typeof ROOM !== "undefined" && ROOM.active);
   } catch (e) {
     const dev = /^(localhost|127\.0\.0\.1)$/.test(location.hostname); // 개발 PC에서만 개발자용 안내
     const why = dev ? (e.code === "not_found" ? "서버가 예전 버전이에요. 서버를 껐다가(Ctrl+C) 다시 켜 주세요(python dev_server.py 8000)."
@@ -1469,7 +1477,18 @@ const ACT = {
   code: async () => { const v = ($("#codeIn").value || "").trim(); if (!v) return; ACCESS.set(v); try { await api("/api/access", { code: v }); needCode = false; codeMsg = ""; toast("확인했어요"); render(); } catch (e) { ACCESS.set(""); codeMsg = e.message; render(); } },
   "add-member": () => { const f = F(); f.members.push({ member_id: nextId(f.members, "member_id", "m"), name: "", role: "", age: null, easy_mode: false, work: "" }); render(); },
   "del-member": b => { const f = F(), m = f.members[+b.dataset.i]; f.members.splice(+b.dataset.i, 1); f.finance.forEach(x => { if (x.owner_id === m.member_id) x.owner_id = "joint"; }); if (f.room.host_member_id === m.member_id) f.room.host_member_id = f.members[0].member_id; delete S().iv[m.member_id]; if (S().viewer === m.member_id) S().viewer = f.members[0].member_id; render(); },
-  "setup-done": () => { const p = setupProblem(); if (p) { $("#setupHint").textContent = p; toast(p); return; } const s = S(); s.setupDone = true; s.fam.story.author_id = s.fam.room.host_member_id; s.viewer = s.fam.room.host_member_id; render(); },
+  "setup-done": async () => {
+    const p = setupProblem(); if (p) { $("#setupHint").textContent = p; toast(p); return; }
+    const s = S(); s.setupDone = true; s.fam.story.author_id = s.fam.room.host_member_id; s.viewer = s.fam.room.host_member_id;
+    // 가족방(링크) 방식: 직접 입력한 가족(파일럿 시작하기)은 서버에 방을 만들고 방장 링크로 옮겨 간다(2026-11-17, 임의결정 107). 서버가 방을 못 쓰면 예전처럼 이 기기에서.
+    if (!DEMO && room === "custom" && !presetLocked() && CFG && CFG.rooms && typeof ROOM !== "undefined" && !ROOM.active) {
+      const btn = document.querySelector('[data-act="setup-done"]'); if (btn) btn.disabled = true;
+      try { await ROOM.create(s); return; }
+      catch (e) { s.setupDone = false; if (btn) btn.disabled = false; toast("가족방을 만들지 못했어요: " + (e.message || "잠시 뒤 다시 해 주세요")); render(); return; }
+    }
+    render();
+  },
+  "copy-link": async b => { const u = ROOM.linkFor(ROOM.id, (ROOM.tokens || {})[b.dataset.mid] || ""); try { await navigator.clipboard.writeText(u); toast("링크를 복사했어요. 그 가족에게 보내 주세요"); } catch (e) { const el = b.parentElement.querySelector(".rm-url"); if (el) { const r = document.createRange(); r.selectNodeContents(el); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); } toast("아래 링크를 길게 눌러 복사해 주세요"); } },
   "edit-setup": () => { S().setupDone = false; render(); },
   "gapply": b => { const el = document.querySelector(`[data-gnum="${b.dataset.k}"]`); if (el) applyGnum(el, true); },
   "add-fin": b => { const f = F(), k = b.dataset.kind === "other" ? "transfer_out" : b.dataset.kind; const it = { item_id: nextId(f.finance, "item_id", "f"), owner_id: "joint", kind: k, label: "", amount: null }; if (k === "loan") Object.assign(it, { loan_type: "credit", rate: 5, payment: null }); f.finance.push(it); famEdited("finance"); render(); },
@@ -1478,7 +1497,7 @@ const ACT = {
   understand: async () => {
     const s = S();
     const pr = giProblem(); if (pr) { toast(pr); return; }
-    s.story = { status: "loading" }; render();
+    s.story = { status: "loading", t0: Date.now() }; render();
     try { const chk = await api("/api/family/check", { family: F() }); s.profile = chk.profile; }
     catch (e) { s.story = { status: "error", error: e }; render(); return; }
     s.story = {}; run(s.story, "/api/story/understand", { family: F() });
@@ -1559,7 +1578,7 @@ const ACT = {
   "retry-rec": () => { S().rec = {}; S().fit = {}; S().prog = {}; render(); },
   "fit-flag": b => { const st = S().fit[b.dataset.need], k = b.dataset.k; st.flags = st.flags.includes(k) ? st.flags.filter(x => x !== k) : [...st.flags, k]; st.res = {}; render(); },
   "fit-act": b => { const st = S().fit[b.dataset.need], k = b.dataset.k; st.actions = st.actions.includes(k) ? st.actions.filter(x => x !== k) : [...st.actions, k]; st.res = {}; render(); },
-  "fit-open": b => { const st = S().fit[b.dataset.need]; st.open[b.dataset.pid] = !st.open[b.dataset.pid]; render(); },
+  "fit-open": b => { const st = S().fit[b.dataset.need]; st.open = st.open || {}; st.open[b.dataset.pid] = !st.open[b.dataset.pid]; render(); },
   "rag-open": b => { const r = S().rag[b.dataset.k]; r.open = !r.open; if (r.open && r.preset && !r.q) ragSearch(b.dataset.k, r.preset[0][1]); else render(); },
   "rag-q": b => ragSearch(b.dataset.k, b.dataset.q),
   "prog-open": b => { const sl = S().prog[b.dataset.need]; sl.open = sl.open || {}; sl.open[b.dataset.pid] = !sl.open[b.dataset.pid]; render(); },
@@ -1614,7 +1633,8 @@ const ACT = {
   "cal-add": () => { const t = ($("#calTitle").value || "").trim(); if (!t) { toast("일정 이름을 적어 주세요"); return; } const c = S().cal; c.events.push({ id: "e" + Date.now(), date: c.sel, title: t.slice(0, 40) }); toast("일정을 더했어요"); render(); },
   "cal-del": b => { const c = S().cal; c.events = c.events.filter(e => e.id !== b.dataset.id); toast("일정을 지웠어요"); render(); },
   restart: async () => {
-    const how = await ask("처음부터 다시 할까요?", "이 가족방에서 진행한 내용은 이 브라우저에만 저장돼 있어요.", [
+    if (typeof ROOM !== "undefined" && ROOM.active && !ROOM.isHost) { toast("처음부터 다시 하는 건 방장만 할 수 있어요"); return; }
+    const how = await ask("처음부터 다시 할까요?", (typeof ROOM !== "undefined" && ROOM.active) ? "이 가족방은 가족 모두가 함께 쓰고 있어요. 처음부터 다시 하면 모든 가족의 화면에서 같이 바뀌어요." : "이 가족방에서 진행한 내용은 이 브라우저에만 저장돼 있어요.", (typeof ROOM !== "undefined" && ROOM.active) ? [{ label: "입력은 그대로 두고 다시 진행", value: "soft", primary: true }] : [
       { label: "입력은 그대로 두고 다시 진행", value: "soft", primary: true },
       { label: "모두 지우고 새로 시작", value: "hard" }]);
     if (!how) return;

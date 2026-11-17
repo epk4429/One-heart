@@ -7,6 +7,7 @@ async function api(path, body, method = "POST") {
   const headers = { "Content-Type": "application/json" };
   const code = ACCESS.get();
   if (code) headers["X-Access-Code"] = code;
+  if (typeof ROOM !== "undefined" && ROOM.active) { headers["X-Room-Id"] = ROOM.id; headers["X-Room-Token"] = ROOM.token; } // 가족방 링크로 들어온 구성원은 방 열쇠로 인증(체험 코드는 방을 만든 쪽 것을 씀)
   const opt = { method, headers };
   if (method === "POST") opt.body = JSON.stringify(body || {});
   let res;

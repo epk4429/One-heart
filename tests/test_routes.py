@@ -67,3 +67,13 @@ def test_config_exposes_routes(monkeypatch):
     monkeypatch.delenv("VERCEL", raising=False)
     cfg = dispatch("POST", "/api/config", b"{}", {}, "t")[1]
     assert set(cfg["need_routes"]) == set(load()["needs"]) and cfg["route_labels"]["none"]
+
+
+def test_programs_added_2026_11_17_are_reachable_from_needs():
+    """육아휴직급여·부모급여·청년미래적금·근로장려금·채무조정이 약속(필요)에서 제도 길로 이어진다(임의결정 104)."""
+    want = {"N_leave_fund": {"PG_parental_leave", "PG_parent_benefit"}, "N_goal_saving": {"PG_future_youth_savings"},
+            "N_emergency_fund": {"PG_eitc"}, "N_debt_repayment": {"PG_debt_adjustment"}}
+    cov = coverage()
+    for nid, pids in want.items():
+        got = {pid for r in cov[nid]["routes"] if r["route"] == "program" for pid in r["programs"]}
+        assert pids <= got, (nid, got)

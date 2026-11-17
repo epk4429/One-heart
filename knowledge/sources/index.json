@@ -1,6 +1,31 @@
 {
  "sources": [
   {
+   "source_id": "S_doc_bokjiro_parent_benefit_2026_20261117",
+   "kind": "document",
+   "publisher": "보건복지부(복지로)",
+   "title": "부모급여 지원(2026년 기준)",
+   "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004657&wlfareInfoReldBztpCd=01",
+   "fetched_at": "2026-11-17",
+   "sha256": "ee28218d082ed1a50d5b2a1fe4310d3f28d212449bf05879818dd53132526db9",
+   "file": "knowledge/sources/docs/S_doc_bokjiro_parent_benefit_2026_20261117.txt",
+   "doc_key": "bokjiro_parent_benefit_2026",
+   "dev_only": true,
+   "effective_date": "2026"
+  },
+  {
+   "source_id": "S_doc_ccrs_debt_adjustment_compare_20261117",
+   "kind": "document",
+   "publisher": "신용회복위원회",
+   "title": "채무조정제도 비교",
+   "url": "https://www.ccrs.or.kr/cms/com/index.do?MENU_ID=490",
+   "fetched_at": "2026-11-17",
+   "sha256": "f34c065b5cdc75e30cfeabadd8971c359889e2af8b1af225b3c0c0de16b5f195",
+   "file": "knowledge/sources/docs/S_doc_ccrs_debt_adjustment_compare_20261117.txt",
+   "doc_key": "ccrs_debt_adjustment_compare",
+   "dev_only": true
+  },
+  {
    "source_id": "S_doc_fss_tip_001_20261103",
    "kind": "document",
    "publisher": "금융감독원",
@@ -247,6 +272,19 @@
    "dev_only": true
   },
   {
+   "source_id": "S_doc_hf_bogeumjari_rates_2026_11_20261117",
+   "kind": "document",
+   "publisher": "한국주택금융공사",
+   "title": "보금자리론 금리안내(2026년 11월)",
+   "url": "https://www.hf.go.kr/ko/sub01/sub01_01_04.do",
+   "fetched_at": "2026-11-17",
+   "sha256": "c68a248aa86a41307f5d65a96cb7b01ab4ff1fc7399f250d5c04eb17301f41d7",
+   "file": "knowledge/sources/docs/S_doc_hf_bogeumjari_rates_2026_11_20261117.txt",
+   "doc_key": "hf_bogeumjari_rates_2026_11",
+   "dev_only": true,
+   "effective_date": "2026-11-09 공시"
+  },
+  {
    "source_id": "S_doc_hf_reverse_mortgage_20261103",
    "kind": "document",
    "publisher": "한국주택금융공사",
@@ -269,6 +307,45 @@
    "file": "knowledge/sources/docs/S_doc_hf_reverse_mortgage_payments_20261103.txt",
    "doc_key": "hf_reverse_mortgage_payments",
    "dev_only": true
+  },
+  {
+   "source_id": "S_doc_kfb_prepay_fee_credit_20261117",
+   "kind": "document",
+   "publisher": "전국은행연합회",
+   "title": "은행 대출 중도상환수수료율(신용, 2026년)",
+   "url": "https://portal.kfb.or.kr/compare/commission_loan_search.php",
+   "fetched_at": "2026-11-17",
+   "sha256": "4846be22df39296cb0dbde49c62d653c08614570b39e4f16045e8955fb91e97f",
+   "file": "knowledge/sources/docs/S_doc_kfb_prepay_fee_credit_20261117.txt",
+   "doc_key": "kfb_prepay_fee_credit",
+   "dev_only": true,
+   "effective_date": "2026년 기준"
+  },
+  {
+   "source_id": "S_doc_kinfa_counseling_20261117",
+   "kind": "document",
+   "publisher": "서민금융진흥원",
+   "title": "서민금융통합지원센터 상담과 햇살론일반",
+   "url": "https://www.kinfa.or.kr/counselingSupport/centerIntroduction.do",
+   "fetched_at": "2026-11-17",
+   "sha256": "5f2d85f5a9f38100b31f52541f77cd90cf89f443776ff07bbd0fb6be5d54806f",
+   "file": "knowledge/sources/docs/S_doc_kinfa_counseling_20261117.txt",
+   "doc_key": "kinfa_counseling",
+   "dev_only": true,
+   "effective_date": "2026-11-17"
+  },
+  {
+   "source_id": "S_doc_kinfa_future_youth_savings_20261117",
+   "kind": "document",
+   "publisher": "서민금융진흥원",
+   "title": "청년미래적금 상품 안내",
+   "url": "https://fill4young.kinfa.or.kr/yfs/main",
+   "fetched_at": "2026-11-17",
+   "sha256": "7e26947c1cc988a7691f3b3a17387a68cf980e8b6930172ecb7cf95e622742f8",
+   "file": "knowledge/sources/docs/S_doc_kinfa_future_youth_savings_20261117.txt",
+   "doc_key": "kinfa_future_youth_savings",
+   "dev_only": true,
+   "effective_date": "2026-11-17"
   },
   {
    "source_id": "S_doc_law_basic_pension_20261103",
@@ -295,6 +372,19 @@
    "doc_key": "law_depositor_protection",
    "dev_only": true,
    "effective_date": "2026-01-02"
+  },
+  {
+   "source_id": "S_doc_law_employment_insurance_20261117",
+   "kind": "document",
+   "publisher": "국가법령정보센터",
+   "title": "고용보험법",
+   "url": "https://www.law.go.kr/법령/고용보험법",
+   "fetched_at": "2026-11-17",
+   "sha256": "877abaa6bfd9cd725decfce4a663c1041477273b4a909151de5d8c46b2bf43e2",
+   "file": "knowledge/sources/docs/S_doc_law_employment_insurance_20261117.txt",
+   "doc_key": "law_employment_insurance",
+   "dev_only": true,
+   "effective_date": "2026-09-18"
   },
   {
    "source_id": "S_doc_law_hf_corp_20261103",
@@ -347,6 +437,19 @@
    "doc_key": "law_housing_supply_rule",
    "dev_only": true,
    "effective_date": "2026-06-15"
+  },
+  {
+   "source_id": "S_doc_law_income_tax_20261117",
+   "kind": "document",
+   "publisher": "국가법령정보센터",
+   "title": "소득세법",
+   "url": "https://www.law.go.kr/법령/소득세법",
+   "fetched_at": "2026-11-17",
+   "sha256": "0b04422636c70c7b6ed151931dd025e50440cc86cdbb62b12fd2292ea56c4d5e",
+   "file": "knowledge/sources/docs/S_doc_law_income_tax_20261117.txt",
+   "doc_key": "law_income_tax",
+   "dev_only": true,
+   "effective_date": "2026-07-01"
   },
   {
    "source_id": "S_doc_law_local_tax_20261108",
@@ -425,6 +528,19 @@
    "dev_only": true
   },
   {
+   "source_id": "S_doc_mohw_parent_benefit_2025_guide_20261117",
+   "kind": "document",
+   "publisher": "보건복지부",
+   "title": "2025년도 부모급여 사업안내(2025년 기준)",
+   "url": "https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=WLF00004657&wlfareInfoReldBztpCd=01",
+   "fetched_at": "2026-11-17",
+   "sha256": "95a08f999e51ba72ca8fec1c3e99eaf01d449dbb682667c5927d17b3f020b913",
+   "file": "knowledge/sources/docs/S_doc_mohw_parent_benefit_2025_guide_20261117.txt",
+   "doc_key": "mohw_parent_benefit_2025_guide",
+   "dev_only": true,
+   "effective_date": "2025"
+  },
+  {
    "source_id": "S_doc_nhis_ltc_cost_notice_20261108",
    "kind": "document",
    "publisher": "국민건강보험공단",
@@ -494,6 +610,30 @@
    "sha256": "58c4716b8b486531ca51ec049884fe4341246f6980d4382baae8bd536f997b24",
    "file": "knowledge/sources/docs/S_doc_nhuf_subscription_20261103.txt",
    "doc_key": "nhuf_subscription",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_nts_eitc_20261117",
+   "kind": "document",
+   "publisher": "국세청",
+   "title": "근로장려금 소개",
+   "url": "https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=2450&cntntsId=7781",
+   "fetched_at": "2026-11-17",
+   "sha256": "b94c039dd43d528213bbb77ba8400fc96db8d50f79dbe45b26021dd9f62ee7a9",
+   "file": "knowledge/sources/docs/S_doc_nts_eitc_20261117.txt",
+   "doc_key": "nts_eitc",
+   "dev_only": true
+  },
+  {
+   "source_id": "S_doc_work24_parental_leave_benefit_20261117",
+   "kind": "document",
+   "publisher": "고용24",
+   "title": "육아휴직급여(고용24 제도안내)",
+   "url": "https://m.work24.go.kr/cm/c/f/1100/selecSystInfo.do?systClId=SC00000251&systId=SI00000402",
+   "fetched_at": "2026-11-17",
+   "sha256": "49c954f1e6fcea571b259d4751c4c467a1787f1fa418e3af161f0dab9453bdec",
+   "file": "knowledge/sources/docs/S_doc_work24_parental_leave_benefit_20261117.txt",
+   "doc_key": "work24_parental_leave_benefit",
    "dev_only": true
   },
   {
@@ -861,6 +1001,141 @@
    "counts": {
     "products": 277,
     "options": 1353
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_fsb_checking_202611",
+   "kind": "table",
+   "publisher": "저축은행중앙회 소비자포털",
+   "url": "https://www.fsb.or.kr/ratanym_0100.act",
+   "title": "저축은행 입출금자유예금",
+   "fetched_at": "2026-11-17",
+   "effective_date": "공시 2026-11",
+   "sha256": "e64876658b7a2f3483f10e3d3f7c117968009da1e1576a6d0c8d4d99af082d6d",
+   "file": "knowledge/sources/S_fsb_checking_202611.json",
+   "counts": {
+    "rows": 159
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_fsb_credit_loan_202611",
+   "kind": "table",
+   "publisher": "저축은행중앙회 소비자포털",
+   "url": "https://www.fsb.or.kr/ratloanconf_0100.act",
+   "title": "저축은행 가계신용대출 · 상품별 금리현황",
+   "fetched_at": "2026-11-17",
+   "effective_date": "공시 2026-11",
+   "sha256": "a0917cda75115cd1f7b7d0598e1d2d0b96419fd10e6b8966d940a74a609adbfd",
+   "file": "knowledge/sources/S_fsb_credit_loan_202611.json",
+   "counts": {
+    "rows": 648
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_fsb_deposit_202611",
+   "kind": "table",
+   "publisher": "저축은행중앙회 소비자포털",
+   "url": "https://www.fsb.or.kr/ratedepo_0100.act",
+   "title": "저축은행 정기예금 현재금리",
+   "fetched_at": "2026-11-17",
+   "effective_date": "공시 2026-11",
+   "sha256": "ed5493f94fe55af561bb1352af8d2527e21a92a5bfeeb69bd9c1dfcc5e96c81b",
+   "file": "knowledge/sources/S_fsb_deposit_202611.json",
+   "counts": {
+    "rows": 316
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_fsb_prepay_fee_202611",
+   "kind": "table",
+   "publisher": "저축은행중앙회 소비자포털",
+   "url": "https://www.fsb.or.kr/ratlfeemdrp_0100.act",
+   "title": "저축은행 중도상환수수료율(저축은행별)",
+   "fetched_at": "2026-11-17",
+   "effective_date": "2026년 기준",
+   "sha256": "c8f4ff01d6b93b1a5516610b3b607ca3cfa17c425d18e07103875d2d9adcf3b6",
+   "file": "knowledge/sources/S_fsb_prepay_fee_202611.json",
+   "counts": {
+    "rows": 240
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_fsb_saving_202611",
+   "kind": "table",
+   "publisher": "저축은행중앙회 소비자포털",
+   "url": "https://www.fsb.or.kr/rateinst_0100.act",
+   "title": "저축은행 정기적금 현재금리",
+   "fetched_at": "2026-11-17",
+   "effective_date": "공시 2026-11",
+   "sha256": "b69528d4495f70cc2c0d2698340070b4d94735fd557171f971b84d55bdec2ec7",
+   "file": "knowledge/sources/S_fsb_saving_202611.json",
+   "counts": {
+    "rows": 249
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_kfb_deposit_202611",
+   "kind": "table",
+   "publisher": "전국은행연합회 소비자포털",
+   "url": "https://portal.kfb.or.kr/compare/receiving_deposit_3.php",
+   "title": "은행 예금금리(정기예금)",
+   "fetched_at": "2026-11-17",
+   "effective_date": "2026-11-17 조회",
+   "sha256": "e96c3113536e35016ef75705344e6dea411244e0f12d7aaa8fef1c5376cc6528",
+   "file": "knowledge/sources/S_kfb_deposit_202611.json",
+   "counts": {
+    "rows": 40
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_kfb_household_loan_202611",
+   "kind": "table",
+   "publisher": "전국은행연합회 소비자포털",
+   "url": "https://portal.kfb.or.kr/compare/loan_household_new.php",
+   "title": "은행 가계대출금리(신용점수별)",
+   "fetched_at": "2026-11-17",
+   "effective_date": "공시 2026-10",
+   "sha256": "7f6baa7c846ebd5148f87f9f1161018176e2b5ba94bd67aa270f238a389ba6db",
+   "file": "knowledge/sources/S_kfb_household_loan_202611.json",
+   "counts": {
+    "rows": 20
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_kfb_loan_fee_202611",
+   "kind": "table",
+   "publisher": "전국은행연합회 소비자포털",
+   "url": "https://portal.kfb.or.kr/compare/commission_loan.php",
+   "title": "은행 대출관련 제증명서 발급수수료",
+   "fetched_at": "2026-11-17",
+   "effective_date": "2026-11-17 조회",
+   "sha256": "0b21886fed0d2e59f8345cae66c72fd4c870bb0919774f9b4cfbae60fd7e9a67",
+   "file": "knowledge/sources/S_kfb_loan_fee_202611.json",
+   "counts": {
+    "rows": 20
+   },
+   "dev_only": true
+  },
+  {
+   "source_id": "S_kfb_sme_loan_202611",
+   "kind": "table",
+   "publisher": "전국은행연합회 소비자포털",
+   "url": "https://portal.kfb.or.kr/compare/loan_snmindustry.php",
+   "title": "은행 중소기업대출금리(신용대출 신용등급별)",
+   "fetched_at": "2026-11-17",
+   "effective_date": "공시 2026-10",
+   "sha256": "2ba7292b560e3f2d28a0c235a6810f32b83ed855a42907dfd9982a94bc621029",
+   "file": "knowledge/sources/S_kfb_sme_loan_202611.json",
+   "counts": {
+    "rows": 78
    },
    "dev_only": true
   }

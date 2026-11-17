@@ -117,3 +117,27 @@ def test_debt_repayment_shows_no_loan_product_cards(monkeypatch):
     out = P.recommend(fam, {"goal": "대출 갚기", "commitments": [{"commitment_id": "c1", "text": "신용대출 먼저 갚기"}]}, None)
     types = {r.get("product_type_id") for r in out["result"]["recommendations"] if r["need_id"] == "N_debt_repayment"}
     assert types == {"P_prepay_plan", "P_refinance_consult"}
+
+
+def test_debt_adjustment_card_only_for_families_in_monthly_deficit(monkeypatch):
+    """채무조정 카드는 매달 적자인 가족에게만(2026-11-17 형님 결정). 연체 여부는 가족 정보에 없어 판정하지 않는다."""
+    from llm.runner import RoleRun
+    from ontology.programs import in_deficit
+
+    def fake_run_role(role, inp, provider):
+        return RoleRun(role="8", output={"mappings": [{"commitment_id": "c1", "need_ids": ["N_debt_repayment"], "constraint_ids": []}]},
+                       ok=True, attempts=1)
+    monkeypatch.setattr(P, "run_role", fake_run_role)
+    fam = F.validate(F.preset("newly"))
+    fam["finance"].append({"item_id": "f90", "owner_id": "joint", "kind": "loan", "loan_type": "credit", "label": "신용대출",
+                           "amount": 3000, "rate": 6.0, "payment": 60})
+    assert not in_deficit(fam)
+
+    def types(f):
+        out = P.recommend(f, {"goal": "대출 갚기", "commitments": [{"commitment_id": "c1", "text": "신용대출 먼저 갚기"}]}, None)
+        return {r.get("product_type_id") for r in out["result"]["recommendations"] if r["need_id"] == "N_debt_repayment"}
+    assert "PP_debt_adjustment" not in types(fam)
+    poor = F.validate(F.preset("newly"))
+    poor["finance"].append({"item_id": "f91", "owner_id": "joint", "kind": "loan", "loan_type": "credit", "label": "신용대출",
+                            "amount": 3000, "rate": 6.0, "payment": 900})  # 매달 상환 900만원 → 적자
+    assert in_deficit(poor) and "PP_debt_adjustment" in types(poor)

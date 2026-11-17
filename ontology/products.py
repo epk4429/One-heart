@@ -14,7 +14,7 @@ import statistics
 from functools import lru_cache
 from pathlib import Path
 
-from . import conditions, loans
+from . import conditions, fsb, kfb, loans
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = ROOT / "knowledge/sources"
@@ -123,6 +123,9 @@ def build_files() -> dict[str, dict]:
             loan_products += loans.products_from(body, s)  # 대출: 금리 구간·한도·중도상환 수수료(ontology/loans.py)
         else:
             products += products_from(s)
+    # 저축은행 신용대출은 금감원 공시(회사마다 한 줄)가 아니라 저축은행중앙회 상품별 표에서 만든다(ontology/fsb.py, 2026-11-17)
+    loan_products = [p for p in loan_products if not (p['category'] == 'credit_loan' and p['group'] == '030300')] + fsb.products()
+    loan_products = kfb.apply(loan_products, loans)  # 은행 신용대출 중도상환 수수료는 은행연합회 표로(ontology/kfb.py, 2026-11-17)
     note = "개발용(dev_only). 금감원 금융상품 한눈에 공시 원본(knowledge/sources)에서 tools/build_products.py로 만든다. 직접 고치지 않는다."
     files = {}
     for cat in sorted({p["category"] for p in products}):

@@ -17,8 +17,8 @@
    "unsure": 27,
    "none": 36
   },
-  "product_rows": 57685,
-  "product_rows_with_checks_pct": 62.6,
+  "product_rows": 59953,
+  "product_rows_with_checks_pct": 64.1,
   "program_judgments": {
    "eligible": 14,
    "check": 37,
@@ -69,10 +69,10 @@
   },
   "F01_young_renters|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F01_young_renters|m0|busi_loan": {
@@ -117,10 +117,10 @@
   },
   "F01_young_renters|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F01_young_renters|m1|busi_loan": {
@@ -165,10 +165,10 @@
   },
   "F02_infant|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F02_infant|m0|busi_loan": {
@@ -213,10 +213,10 @@
   },
   "F02_infant|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F02_infant|m1|busi_loan": {
@@ -309,10 +309,10 @@
   },
   "F03_single_parent|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F03_single_parent|m0|busi_loan": {
@@ -453,10 +453,10 @@
   },
   "F04_multi_child_owner|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F04_multi_child_owner|m0|busi_loan": {
@@ -501,10 +501,10 @@
   },
   "F04_multi_child_owner|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F04_multi_child_owner|m1|busi_loan": {
@@ -693,10 +693,10 @@
   },
   "F05_pre_retire|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F05_pre_retire|m0|busi_loan": {
@@ -741,10 +741,10 @@
   },
   "F05_pre_retire|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F05_pre_retire|m1|busi_loan": {
@@ -789,10 +789,10 @@
   },
   "F05_pre_retire|m2|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F05_pre_retire|m2|busi_loan": {
@@ -837,10 +837,10 @@
   },
   "F06_elder_son_owner|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F06_elder_son_owner|m0|busi_loan": {
@@ -885,10 +885,10 @@
   },
   "F06_elder_son_owner|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F06_elder_son_owner|m1|busi_loan": {
@@ -933,10 +933,10 @@
   },
   "F06_elder_son_owner|m2|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F06_elder_son_owner|m2|busi_loan": {
@@ -1029,10 +1029,10 @@
   },
   "F07_elderly_couple_low|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F07_elderly_couple_low|m0|busi_loan": {
@@ -1077,10 +1077,10 @@
   },
   "F07_elderly_couple_low|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F07_elderly_couple_low|m1|busi_loan": {
@@ -1125,10 +1125,10 @@
   },
   "F07_elderly_couple_low|m2|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F07_elderly_couple_low|m2|busi_loan": {
@@ -1173,10 +1173,10 @@
   },
   "F08_self_employed_2homes|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F08_self_employed_2homes|m0|busi_loan": {
@@ -1221,10 +1221,10 @@
   },
   "F08_self_employed_2homes|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F08_self_employed_2homes|m1|busi_loan": {
@@ -1317,10 +1317,10 @@
   },
   "F09_heavy_debt|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F09_heavy_debt|m0|busi_loan": {
@@ -1365,10 +1365,10 @@
   },
   "F09_heavy_debt|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F09_heavy_debt|m1|busi_loan": {
@@ -1413,10 +1413,10 @@
   },
   "F10_rich_elder|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F10_rich_elder|m0|busi_loan": {
@@ -1461,10 +1461,10 @@
   },
   "F10_rich_elder|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F10_rich_elder|m1|busi_loan": {
@@ -1509,10 +1509,10 @@
   },
   "F10_rich_elder|m2|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F10_rich_elder|m2|busi_loan": {
@@ -1557,10 +1557,10 @@
   },
   "F11_border_ages|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F11_border_ages|m0|busi_loan": {
@@ -1605,10 +1605,10 @@
   },
   "F11_border_ages|m1|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F11_border_ages|m1|busi_loan": {
@@ -1653,10 +1653,10 @@
   },
   "F11_border_ages|m2|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F11_border_ages|m2|busi_loan": {
@@ -1701,10 +1701,10 @@
   },
   "F12_grandma_grandchild|m0|credit_loan": {
    "state": "unsure",
-   "rows": 110,
+   "rows": 194,
    "ok": 0,
-   "unsure": 110,
-   "with_checks": 110,
+   "unsure": 194,
+   "with_checks": 194,
    "excluded": 0
   },
   "F12_grandma_grandchild|m0|busi_loan": {

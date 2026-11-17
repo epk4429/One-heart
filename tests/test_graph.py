@@ -24,8 +24,8 @@ def test_counts_match_source_data():
     c = Counter(n["type"] for n in N.values())
     core = load_core()
     total = sum(len(load_products(cat)) for cat in ("deposit", "saving", "mortgage", "rent_loan", "credit_loan", "busi_loan"))
-    assert c["product"] == total == 2070
-    assert (c["need"], c["constraint"], c["ptype"], c["program"]) == (len(core["needs"]), len(core["constraints"]), len(core["types"]), 8)
+    assert c["product"] == total == 2163  # 저축은행 신용대출 36줄 → 저축은행중앙회 상품별 129개(2070-36+129)
+    assert (c["need"], c["constraint"], c["ptype"], c["program"]) == (len(core["needs"]), len(core["constraints"]), len(core["types"]), 15)  # 제도 8개 + 2026-11-17 더한 7개(육아휴직급여·부모급여·근로장려금·청년미래적금·채무조정·서민금융 상담·비과세종합저축)
     assert c["card"] == 0  # 재무 원리 카드는 없앴다(근거는 금융꿀팁 RAG)
     assert not [e for e in E if e["s"] not in N or e["t"] not in N]  # 끊어진 관계 없음
 
@@ -48,7 +48,7 @@ def test_shared_nodes_join_products_and_programs():
 
 
 def test_service_bridge_and_rules():
-    assert _out("need:N_leave_fund", "satisfiedBy") == {"ptype:P_installment_savings", "ptype:P_balanced_fund", "ptype:P_parking_account"}
+    assert _out("need:N_leave_fund", "satisfiedBy") == {"ptype:P_installment_savings", "ptype:P_balanced_fund", "ptype:P_parking_account", "ptype:PP_parental_support"}  # 2026-11-17 육아휴직급여·부모급여 연결
     protected = "attr:risk=원금보장"
     assert "constraint:C_principal_protected" in _in(protected, "requiresAttr")
     assert "ptype:P_installment_savings" in _in(protected, "hasAttr") and "ptype:P_balanced_fund" not in _in(protected, "hasAttr")

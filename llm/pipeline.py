@@ -12,6 +12,7 @@ from engine.api import tool_summary
 from engine.fmt import won
 from ontology import load as load_ontology
 from ontology import recommend as ontology_recommend
+from ontology.programs import in_deficit
 from ontology.search import retired_target
 from verify import VerificationRecord, check_agreement, check_refs, find_numbers, verify_texts
 
@@ -737,6 +738,9 @@ def recommend(fam: dict, agreement: dict, provider) -> dict:
     # ✅ 형님 결정(2026-11-15): '대출을 계획대로 빨리 갚기' 약속에는 대출 상품(주택담보·신용대출) 카드를 보여 주지 않는다.
     # 대출을 갚는 가족에게 새 대출이 추천처럼 보였다. 온톨로지 연결은 지우지 않고(CLAUDE.md 0절) 화면에 내보내지 않는다.
     raw = [r for r in raw if not (r["need_id"] == "N_debt_repayment" and r.get("product_type_id") in HIDDEN_DEBT_TYPES)]
+    # ✅ 형님 결정(2026-11-17): 채무조정 카드는 매달 적자인 가족에게만(연체 여부는 가족 정보에 없음). 제도 쪽 조건은 ontology/programs.in_deficit.
+    if not in_deficit(fam):
+        raw = [r for r in raw if r.get("product_type_id") != "PP_debt_adjustment"]
     has_product = {r["need_id"] for r in raw if r.get("product_type_id")}
     recs, seen = [], set()
     for r in raw:  # 여러 약속이 같은 필요·상품으로 이어지면 한 번만, 상품이 있는 필요에는 '연결 없음' 카드를 빼기

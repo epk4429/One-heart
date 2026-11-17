@@ -31,7 +31,8 @@ LAW_SCOPE = {  # 법령 → 색인할 조문. "*" = 모든 조문, "match" = 조
     "law_housing_fund": {"match": r"융자|대출|전세자금|구입자금|청약"},
     "law_housing_supply_rule": {"*": True},
     "law_depositor_protection": {"match": r"보험금|예금자등|보호되는"},
-    "law_tax_special": {"articles": ["제87조", "제88조의2"]},
+    "law_tax_special": {"articles": ["제87조", "제88조의2", "제100조의2", "제100조의3"]},  # 청약 소득공제·비과세종합저축·근로장려금(2026-11-17)
+    "law_employment_insurance": {"articles": ["제70조"]},  # 육아휴직 급여(2026-11-17)
 }
 TIP_PREFIX = "fss_tip_"  # 금융꿀팁 문서의 doc_key 머리
 KINDS = ("법령", "꿀팁")

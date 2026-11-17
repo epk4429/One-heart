@@ -29,7 +29,7 @@ class handler(BaseHTTPRequestHandler):
         elif origin in ALLOWED:
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Vary", "Origin")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type, X-Access-Code")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, X-Access-Code, X-Room-Id, X-Room-Token")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
 
     def _send(self, status: int, payload: dict) -> None:

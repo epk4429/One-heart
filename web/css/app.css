@@ -530,3 +530,14 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .rt-opt b{display:block;font-size:15px;margin-bottom:2px}
 .rt-opt span{display:block;font-size:13.5px;color:var(--ink2);line-height:1.6}
 .rt-fine{font-size:12.5px!important;color:var(--muted)!important;margin:4px 0 16px!important}
+/* 가족방(링크) 모드: 한 기기에서 사람을 바꾸는 막대는 없다(web/js/room.js) */
+body.remote .vw{display:none}
+/* 가족방 링크(시안 19) */
+.rm-link{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.rm-link .rm-url{grid-column:2 / -1;font-size:13px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line);padding:9px 12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;user-select:all}
+.rm-who b{display:block}.rm-who b span,.rm-who>span{font-size:13px;color:var(--muted);font-weight:400}
+.rm-st{font-size:13px;color:var(--muted);white-space:nowrap}.rm-st.on{color:var(--green);font-weight:600}
+.rm-me{border:1px solid var(--line);padding:16px 18px;margin:18px 0}.rm-me b{color:var(--green)}
+.rm-note{font-size:13px;color:var(--muted);margin:10px 0 0}
+@media(max-width:640px){.rm-link{grid-template-columns:auto 1fr}}
+

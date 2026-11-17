@@ -26,6 +26,8 @@ from ontology.fit import REAL as FIT_REAL
 from ontology.fit import compare as fit_compare
 from ontology.loans import LOAN as FIT_LOANS
 from ontology.programs import judge as judge_program
+from ontology.programs import in_deficit
+from ontology.programs import load as load_programs
 from ontology.routes import ROUTE_LABEL
 from ontology.routes import coverage as need_routes
 from ontology.products import load_products
@@ -35,8 +37,10 @@ from rag.index import laws as rag_laws
 from rag.index import search as rag_search
 
 from . import guard
+from . import rooms
 
 MAX_BODY = 256 * 1024
+MAX_ROOM_BODY = 1000 * 1024  # 가족방 상태 저장(server/rooms.py MAX_STATE_BYTES + 여유)
 
 
 class ApiError(Exception):
@@ -201,7 +205,7 @@ def r_access(b, _ctx):
 
 def r_config(_b, _ctx):
     a = F.assumptions()
-    return {"custom_family": custom_family_allowed(), "real_products": real_products_allowed(), "need_routes": need_routes(),
+    return {"custom_family": custom_family_allowed(), "real_products": real_products_allowed(), "need_routes": need_routes(), "rooms": rooms.available(),
             "rag": {"available": rag_available(), "topics": RAG_TOPICS},
             "route_labels": ROUTE_LABEL, "questions": F.QUESTIONS, "kinds": {k: v[2] for k, v in F.KINDS.items()},
             "monthly_kinds": [k for k, v in F.KINDS.items() if v[0] == "monthly"], "loan_types": F.LOAN_TYPES,
@@ -517,6 +521,9 @@ def r_programs_judge(b, _ctx):
     fam = _family(b)
     routes = need_routes().get(str(b["need_id"]), {}).get("routes", [])
     ids = [pid for r in routes if r["route"] == "program" for pid in r["programs"]]
+    deficit = in_deficit(fam)  # 매달 수입 − 지출 − 대출 상환이 마이너스
+    # 'gate: deficit' 제도(채무조정, 2026-11-17 형님 결정)는 매달 적자인 가족에게만 보여 준다. 연체 여부는 가족 정보에 없어 판정하지 않는다
+    ids = [pid for pid in ids if load_programs()[pid].get("gate") != "deficit" or deficit]
     out = [judge_program(pid, fam) for pid in dict.fromkeys(ids)]
     for g in out:  # 판정은 온톨로지, 금액은 계산엔진(2026-11-10, CLAUDE.md 5절)
         if g["program_id"] == "PG_reverse_mortgage" and g["status"] != "not_eligible":
@@ -586,6 +593,51 @@ def r_review_compare(b, _ctx):
             "return_before": rb["basis"][2]["value"], "return_after": ra["basis"][2]["value"], "compare": cmp_}
 
 
+def _room_args(b: dict) -> tuple[str, str]:
+    rid, tok = b.get("room_id"), b.get("token")
+    if not isinstance(rid, str) or not isinstance(tok, str):
+        raise ApiError("bad_request", "방 번호와 열쇠가 필요해요")
+    return rid, tok
+
+
+def r_room_create(b, ctx):
+    """가족방 만들기(방장). 체험 코드가 있어야 한다. 구성원마다 열쇠를 돌려준다(server/rooms.py)."""
+    _need(b, "state", "member_ids")
+    if not isinstance(b["member_ids"], list):
+        raise ApiError("bad_request", "member_ids는 목록이어야 해요")
+    try:
+        return rooms.create(b["state"], b["member_ids"], guard.check_code(ctx["headers"].get("x-access-code")))
+    except rooms.RoomError as e:
+        raise ApiError(e.code, e.message, e.status)
+
+
+def r_room_get(b, ctx):
+    rid, tok = _room_args(b)
+    try:
+        return rooms.get(rid, tok, b.get("since"))
+    except rooms.RoomError as e:
+        raise ApiError(e.code, e.message, e.status)
+
+
+def r_room_save(b, ctx):
+    rid, tok = _room_args(b)
+    _need(b, "base_version", "state")
+    try:
+        return rooms.save(rid, tok, int(b["base_version"]), b["state"])
+    except (rooms.RoomError, ValueError) as e:
+        if isinstance(e, rooms.RoomError):
+            raise ApiError(e.code, e.message, e.status)
+        raise ApiError("bad_request", "base_version이 숫자가 아니에요")
+
+
+def r_room_tokens(b, ctx):
+    rid, tok = _room_args(b)
+    try:
+        return rooms.tokens(rid, tok)
+    except rooms.RoomError as e:
+        raise ApiError(e.code, e.message, e.status)
+
+
 ROUTES = {
     ("GET", "/api/health"): r_health,
     ("POST", "/api/access"): r_access,
@@ -613,6 +665,10 @@ ROUTES = {
     ("POST", "/api/graph/stats"): r_graph_stats,
     ("POST", "/api/graph/node"): r_graph_node,
     ("POST", "/api/graph/search"): r_graph_search,
+    ("POST", "/api/room/create"): r_room_create,
+    ("POST", "/api/room/get"): r_room_get,
+    ("POST", "/api/room/save"): r_room_save,
+    ("POST", "/api/room/tokens"): r_room_tokens,
 }
 
 
@@ -623,13 +679,21 @@ def dispatch(method: str, path: str, raw_body: bytes, headers: dict | None = Non
         return 404, {"error": {"code": "not_found", "message": "없는 API예요"}}
     headers = {k.lower(): v for k, v in (headers or {}).items()}
     try:
-        if len(raw_body or b"") > MAX_BODY:
+        if len(raw_body or b"") > (MAX_ROOM_BODY if path.startswith("/api/room/") else MAX_BODY):
             raise ApiError("too_large", "보낸 내용이 너무 커요", 413)
         body = json.loads(raw_body or b"{}") if method == "POST" else {}
         if not isinstance(body, dict):
             raise ApiError("bad_json", "JSON 객체여야 해요")
-        ctx = {"code_key": "local"}
-        if path not in ("/api/health", "/api/access", "/api/config", "/api/preset") and not path.startswith("/api/graph/"):  # 그래프 보기는 읽기만, AI 없음
+        ctx = {"code_key": "local", "headers": headers}
+        # 가족방 참가자(링크로 들어온 구성원)는 체험 코드가 없다 → 방 열쇠가 맞으면 그 방을 만든 체험 코드를 쓴다(예산도 그 코드 몫)
+        rid, rtok = headers.get("x-room-id"), headers.get("x-room-token")
+        if rid and rtok and not headers.get("x-access-code"):
+            try:
+                headers = {**headers, "x-access-code": rooms.code_of(rid, rtok) if guard.access_required() else ""}
+            except rooms.RoomError as e:
+                raise ApiError(e.code, e.message, e.status)
+            ctx["headers"] = headers
+        if path not in ("/api/health", "/api/access", "/api/config", "/api/preset", "/api/room/get", "/api/room/save", "/api/room/tokens") and not path.startswith("/api/graph/"):  # 그래프 보기는 읽기만, AI 없음. 방 읽기·저장·링크 보기는 몇 초마다 부르고 방 열쇠가 있어야 해서 IP 호출 제한에서 제외(방 만들기만 제한)
             guard.check_rate(ip)
         if getattr(fn, "uses_llm", False):
             ctx["code_key"] = guard.check_code(headers.get("x-access-code"))
