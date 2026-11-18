@@ -604,12 +604,18 @@ const results = () => { const d = S().design; return d.simulation ? d.simulation
 const resultOf = i => { const s = S(), r = results()[i]; return s.override[i] || r; };
 const goalNow = () => S().goalChk.goal;
 const baseYear = () => +F().today.slice(0, 4);
+// 그래프에 쓸 목표: 집값 상승률 슬라이더를 움직였으면 그 값을 쓴다(엔진도 같은 값으로 계산한 결과)
+const chartGoal = (i, g) => { const hg = S().ovIn[i]?.hg; return hg == null ? g : { ...g, target_growth: hg }; };
 function chart(r, goal) {
   const W = 760, H = 340, L = 64, Rr = 96, T0 = 34, B = 44, horizon = goal.horizon_months, yrs = horizon / 12;
   const debt = goal.type === "debt_free";
   const p = debt ? [r.start_debt, ...r.yearly.map(y => y.debt_end)] : [r.yearly[0].start, ...r.yearly.map(y => y.end)];
   const target = goal.type === "reach_target" ? goal.target_amount : 0;
-  let mn = Math.min(0, ...p, target), mx = Math.max(...p, target, 1);
+  // 내 집 마련은 집값 상승률만큼 목표 금액도 해마다 오른다(엔진 target_at과 같은 식). 목표선을 평평하게 그리면 '닿는 점'이 선 위에서 어긋난다
+  const tg = goal.type === "reach_target" ? (+goal.target_growth || 0) : 0;
+  const tAt = t => tg ? target * Math.pow(1 + tg / 100, Math.max(0, t * 12 - 1) / 12) : target;
+  const tEnd = tAt(yrs);
+  let mn = Math.min(0, ...p, target), mx = Math.max(...p, target, tEnd, 1);
   const nice = x => { const q = Math.pow(10, Math.floor(Math.log10(x || 1))), f = x / q; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * q; };
   const st = nice((mx - mn) / 3); mn = Math.floor(mn / st) * st; mx = Math.ceil(mx / st) * st;
   const X = t => L + (W - L - Rr) * t / yrs, Y = v => T0 + (H - T0 - B) * (1 - (v - mn) / (mx - mn));
@@ -628,6 +634,11 @@ function chart(r, goal) {
     g += `<line x1="${x}" x2="${x}" y1="${T0 + 26}" y2="${H - B}" stroke="var(--ink2)" stroke-dasharray="2 4"/><text x="${x + 8}" y="${H - B - 14}" font-size="13.5" font-weight="600" fill="var(--ink2)">${esc(b.label)} ${esc(b.display)}</text>`;
   });
   const gy = Y(target), gc = goal.type === "runway" ? "var(--bad)" : "var(--green)";
+  if (tg) { // 집값이 오르는 만큼 오르는 목표선(오른쪽 끝 글은 끝 금액, 처음 금액은 작게 덧붙임)
+    const ts = []; for (let t = 0; t < yrs; t++) ts.push(t); ts.push(yrs);
+    const gd = ts.map((t, j) => `${j ? "L" : "M"}${X(t).toFixed(1)},${Y(tAt(t)).toFixed(1)}`).join("");
+    g += `<path d="${gd}" fill="none" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${Y(tEnd) + 5}" font-size="14" font-weight="700" fill="${gc}">목표 ${eokS(tEnd)}</text><text x="${W - Rr + 10}" y="${Y(tEnd) + 22}" font-size="12" fill="${gc}">(처음 ${eokS(target)})</text>`;
+  } else
   g += `<line x1="${L}" x2="${W - Rr}" y1="${gy}" y2="${gy}" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${gy + 5}" font-size="14" font-weight="700" fill="${gc}">${goal.type === "reach_target" ? "목표 " + eokS(target) : debt ? "대출 0원" : "예금 0원"}</text>`;
   // '지금' 금액 글: 선이 오르면(시작점 오른쪽 위로 지나감) 점 아래에, 내려가거나 평평하면 점 위에 둔다. 아래 칸이 모자라면 위에 두고 글 둘레를 하얗게 둘러 선과 겹쳐도 읽히게 한다
   const nowY = p.length > 1 && p[1] > p[0] && Y(p[0]) + 18 <= H - B - 4 ? Y(p[0]) + 18 : Y(p[0]) - 12;
@@ -637,7 +648,7 @@ function chart(r, goal) {
   const lx = X(p.length - 1), ly = Y(p[p.length - 1]);
   g += `<circle cx="${lx}" cy="${ly}" r="5" fill="var(--ink)"/><text x="${lx + 10}" y="${ly + 5}" font-size="14" font-weight="700" fill="var(--ink)">${eokS(p[p.length - 1])}원</text>`;
   if (r.goal_hit_month) {
-    const hx = X(r.goal_hit_month / 12), bw = 240, bh = 30;
+    const hx = X(r.goal_hit_month / 12), bw = 240, bh = 30, hy = tg ? Y(tAt(r.goal_hit_month / 12)) : gy; // 닿는 점은 그 달의 목표 위
     const lab = goal.type === "reach_target" ? `${r.goal_hit_display} 뒤 목표에 닿아요` : debt ? `${r.goal_hit_display} 뒤 다 갚아요` : `${ba + Math.floor(r.goal_hit_month / 12)}세쯤 예금이 바닥나요`;
     // 안내 상자는 선·'지금' 금액 글과 겹치지 않는 자리를 골라 둔다(왼쪽 위 → 오른쪽 아래 → 오른쪽 위 → 왼쪽 아래 차례). 다 안 되면 예전 자리
     const pts = []; for (let j = 0; j < p.length - 1; j++) for (let k = 0; k <= 24; k++) pts.push([X(j + k / 24), Y(p[j] + (p[j + 1] - p[j]) * k / 24)]);
@@ -645,10 +656,10 @@ function chart(r, goal) {
     const fits = (x0, y0) => x0 >= L + 2 && x0 + bw <= W - Rr - 2 && y0 >= T0 && y0 + bh <= H - B - 2
       && !pts.some(([x, y]) => x > x0 - 5 && x < x0 + bw + 5 && y > y0 - 5 && y < y0 + bh + 5)
       && !(x0 < nb[2] && x0 + bw > nb[0] && y0 < nb[3] && y0 + bh > nb[1]);
-    const low = Math.min(gy + 14, H - B - 2 - bh); // 아래 칸이 모자라면 바닥선에 붙여 올려 둔다(목표선을 덮지 않는 만큼만)
-    const pick = [[hx - 12 - bw, gy - 14 - bh], [hx + 12, low], [hx + 12, gy - 14 - bh], [hx - 12 - bw, low]].find(c => fits(c[0], c[1]) && (c[1] > gy + 5 || c[1] + bh < gy - 5))
-      || [Math.min(Math.max(hx - bw / 2, L + 2), W - Rr - 2 - bw), gy - 14 - bh];
-    g += `<circle cx="${hx}" cy="${gy}" r="8" fill="var(--paper)" stroke="${gc}" stroke-width="3"/><rect x="${pick[0]}" y="${pick[1]}" width="${bw}" height="${bh}" fill="var(--paper)" stroke="${gc}" stroke-width="1.5"/><text x="${pick[0] + bw / 2}" y="${pick[1] + 20}" text-anchor="middle" font-size="15" font-weight="700" fill="${gc}">${esc(lab)}</text>`;
+    const low = Math.min(hy + 14, H - B - 2 - bh); // 아래 칸이 모자라면 바닥선에 붙여 올려 둔다(목표선을 덮지 않는 만큼만)
+    const pick = [[hx - 12 - bw, hy - 14 - bh], [hx + 12, low], [hx + 12, hy - 14 - bh], [hx - 12 - bw, low]].find(c => fits(c[0], c[1]) && (c[1] > hy + 5 || c[1] + bh < hy - 5))
+      || [Math.min(Math.max(hx - bw / 2, L + 2), W - Rr - 2 - bw), hy - 14 - bh];
+    g += `<circle cx="${hx}" cy="${hy}" r="8" fill="var(--paper)" stroke="${gc}" stroke-width="3"/><rect x="${pick[0]}" y="${pick[1]}" width="${bw}" height="${bh}" fill="var(--paper)" stroke="${gc}" stroke-width="1.5"/><text x="${pick[0] + bw / 2}" y="${pick[1] + 20}" text-anchor="middle" font-size="15" font-weight="700" fill="${gc}">${esc(lab)}</text>`;
   }
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="연도별 금액">${g}</svg>`;
 }
@@ -743,7 +754,7 @@ function s4() {
    ${(d.assumptions || []).length ? `<div class="assume"><b>이렇게 가정했어요</b> ${d.assumptions.map(esc).join(" · ")}${g.type === "runway" ? "" : ` · 수익률 연 ${ret}%${retOf(r.basis.find(b => b.key === "return") || {})?.after_tax ? "(세후)" : "(세금 전)"}`}</div>` : ""}
    ${((d.growth_alt || {})[sp.option_id] || []).length ? `<p class="alt">${d.growth_alt[sp.option_id].map(x => `${esc(x.label)} <b>${esc(x.display)}</b>`).join(" · ")} <small class="cs">(보조 정보)</small></p>` : ""}
    ${d.deadline_note ? `<p class="cs" style="margin-top:6px">정한 기한에 대해: ${esc(d.deadline_note)}</p>` : ""}
-   <div class="livebox"><div class="chart-wrap" id="chartSlot">${chart(r, g)}</div>
+   <div class="livebox"><div class="chart-wrap" id="chartSlot">${chart(r, chartGoal(i, g))}</div>
    ${liveTuner(i, ret)}</div>
    <p class="readme">${g.type === "reach_target" ? "선이 올라갈수록 모인 돈이 많아요. 선이 점선(목표)에 닿는 때가 목표를 이루는 때예요." : g.type === "runway" ? "선은 예금에 남은 돈이에요. 아래 점선(0원)에 닿으면 예금을 다 쓴 거예요." : "선은 남은 대출이에요. 아래 점선(0원)에 닿으면 대출을 다 갚은 거예요."}</p>
    <div class="g-sub">자세히 보기</div><div class="g-folds">${folds}</div>
@@ -1436,7 +1447,7 @@ function bindInputs() {
       const i = s.pick, g = s.design.goal || goalNow(), r = resultOf(i), ret0 = s.design.simulation.results[i].basis.find(x => x.key === "return").value;
       const ret = (s.ovIn[i] ? s.ovIn[i].ret : ret0), d = s.ovIn[i] ? s.ovIn[i].delta : 0;
       const cs = $("#chartSlot"), ks = $("#kpiSlot"), nt = $("#ovNote");
-      if (cs) cs.innerHTML = chart(r, g);
+      if (cs) cs.innerHTML = chart(r, chartGoal(i, g));
       if (ks) ks.innerHTML = kpiHtml(r, g, kpiOk(r, g), ret);
       if (nt) nt.innerHTML = s.override[i] ? `직접 바꾼 값으로 계산했어요. <button class="btn sm" data-act="reset-ov">원래대로</button>` : "원래 값이에요.";
       $("#svOut").textContent = (d > 0 ? "+" : "") + d + "만원"; $("#rrOut").textContent = (+ret).toFixed(1) + "%";
