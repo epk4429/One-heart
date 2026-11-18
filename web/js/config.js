@@ -10,6 +10,6 @@
   };
   // 파일럿 설문 주소(외부 설문 도구, docs/01_파일럿_개요.md 5절). 비워 두면 가족 홈에 설문 링크가 나오지 않는다.
   // 설문은 아직 계획만(형님 결정). 만들면 여기에 https:// 주소를 넣는다.
-  const SURVEY_URL = "";
+  const SURVEY_URL = "https://docs.google.com/forms/d/e/1FAIpQLSe2ADlMzC2gxFwQQM5jqYOZXFj9MxWAxz_el1Gs1UvYQTohPw/viewform?usp=header";
   window.ONEHEART = { API_BASE: onPages ? VERCEL_API : "", HIDE, SURVEY_URL };
 })();
