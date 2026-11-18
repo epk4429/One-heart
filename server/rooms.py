@@ -160,3 +160,21 @@ def code_of(room_id: str, token: str) -> str:
     """방을 만든 체험 코드(참가 구성원이 AI를 쓸 때 이 코드의 예산으로 센다)."""
     d, _ = member_of(room_id, token)
     return d.get("code_key") or "local"
+
+
+def delete(room_id: str, token: str) -> dict:
+    """방장만: 가족방을 서버에서 지운다('모두 지우고 새로 시작'). 다른 가족의 링크도 함께 못 쓰게 된다."""
+    d, mid = member_of(room_id, token)
+    if mid != d["host"]:
+        raise RoomError("host_only", "방장만 지울 수 있어요", 403)
+    b = guard.backend()
+    if b == "upstash":
+        guard._upstash(["DEL", _key(room_id)])
+    elif b == "file":
+        try:
+            (DIR / f"{room_id}.json").unlink()
+        except OSError:
+            pass
+    else:
+        _mem.pop(room_id, None)
+    return {"deleted": True}

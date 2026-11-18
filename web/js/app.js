@@ -95,6 +95,9 @@ function save() {
   }
   try { localStorage.setItem(STORE, JSON.stringify({ R, room, step })); } catch (e) { }
 }
+function dropLocalCustom() { // 이 기기에 남은 파일럿 입력 초안을 지운다(가족방으로 옮겼거나 처음부터 다시 할 때)
+  try { const d = JSON.parse(localStorage.getItem(STORE) || "null"); if (d && d.R) { delete d.R.custom; if (d.room === "custom") d.room = null; localStorage.setItem(STORE, JSON.stringify(d)); } } catch (e) { }
+}
 function load() {
   try {
     const d = JSON.parse(localStorage.getItem(STORE) || "null");
@@ -157,6 +160,12 @@ function applyPublicMode(h) {
 const exampleBtn = (act, extra = "") => S().scripts ? `<button class="btn sm" data-act="${act}" ${extra}>예시 답 넣기</button>` : "";
 
 /* ---------- 화면 0: 가족방 만들기 ---------- */
+// 가족방 방장은 가족이 모두 링크로 들어온 뒤에 다음 단계로 간다(2026-11-18 형님 지적)
+function waitJoin() {
+  if (typeof ROOM === "undefined" || !ROOM.active || !ROOM.isHost) return { wait: false, hint: "" };
+  const ms = F().members, joined = ms.filter(m => (ROOM.seen || []).includes(m.member_id)).length;
+  return joined < ms.length || !ROOM.tokens ? { wait: true, hint: `가족이 모두 들어오면 열려요 (${ms.length}명 중 ${joined}명)` } : { wait: false, hint: "" };
+}
 function s0() {
   const s = S(), f = F(), host = f.room.host_member_id;
   if (presetLocked() && !s.setupDone) { s.setupDone = true; s.viewer = f.room.host_member_id; }
@@ -169,7 +178,7 @@ function s0() {
      <div class="card"><div class="ct">참여한 가족 <span class="cs">${f.members.length}명</span></div>
       <div class="plist">${f.members.map(m => `<div class="prow">${av(m.member_id)}<div class="who"><div class="nm">${esc(m.name)} <span class="rl">· ${esc(m.role)} · ${m.age}세${WORK[m.work] ? " · " + WORK[m.work] : ""}</span></div><div class="rl">${m.member_id === host ? "가족방을 만들었어요" : m.easy_mode ? "큰 글씨·쉬운 말로 참여" : "참여"}</div></div><span class="pill ${m.member_id === host ? "brand" : m.easy_mode ? "warm" : "good"}">${m.member_id === host ? "방장" : m.easy_mode ? "간편 모드" : "참여"}</span></div>`).join("")}</div>
       ${presetLocked() ? `<p class="cs" style="margin-top:12px">예시 가족이라 구성원은 정해져 있어요.</p>` : (typeof ROOM !== "undefined" && ROOM.active) ? `<p class="cs" style="margin-top:12px">링크를 만든 뒤에는 구성원을 바꿀 수 없어요.</p>` : ivStarted ? `<p class="cs" style="margin-top:12px">각자의 생각을 듣기 시작해서 구성원은 바꿀 수 없어요. 바꾸려면 아래 검은 막대의 '처음부터'를 눌러 주세요.</p>` : `<button class="btn sm" style="margin-top:12px" data-act="edit-setup">구성원 고치기</button>`}</div>
-    </div>${next("우리 가족 이야기 쓰기")}`;
+    </div>${next("우리 가족 이야기 쓰기", waitJoin().wait, waitJoin().hint)}`;
   }
   const rows = f.members.map((m, i) => `<tr><td>${av(m.member_id, "sm")}</td>
     <td><input data-bind="members.${i}.name" value="${esc(m.name)}" placeholder="이름" maxlength="20"></td>
@@ -1317,7 +1326,9 @@ function chrome() {
   const f = F();
   $("#roomName").textContent = f.room.name || "새 가족방";
   $("#stack").innerHTML = f.members.filter(m => m.name).map(m => av(m.member_id, "sm")).join("");
-  $("#rail").innerHTML = `<h3>목차</h3>` + STEPS.map((t, i) => `<button data-act="go" data-i="${i}" class="${i < step ? "done" : ""}" ${i === step ? 'aria-current="step"' : ""}><span>${t}</span><span class="dots"></span><span class="num">${i + 1}</span></button>`).join("");
+  document.body.classList.toggle("pilot", isPilot());
+  if (isPilot()) { const S_ = S(); S_.maxStep = Math.max(S_.maxStep || 0, step); try { localStorage.setItem("oneheart.max." + ((typeof ROOM !== "undefined" && ROOM.active) ? ROOM.id : "local"), String(S_.maxStep)); } catch (e) { } }
+  $("#rail").innerHTML = `<h3>목차</h3>` + STEPS.map((t, i) => `<button data-act="go" data-i="${i}" class="${i < step ? "done" : ""}" ${i === step ? 'aria-current="step"' : ""} ${canGo(i) ? "" : 'disabled aria-disabled="true"'}><span>${t}</span><span class="dots"></span><span class="num">${i + 1}</span></button>`).join("") + (isPilot() && (typeof ROOM === "undefined" || !ROOM.active || ROOM.isHost) && S().setupDone ? `<button class="rail-restart" data-act="restart">처음부터 다시</button>` : "");
   $("#pos").textContent = (step + 1) + " / " + STEPS.length;
   document.querySelector(".appgrid")?.classList.toggle("wide", step === 7); // 가족 홈만 본문을 넓게(2단이 좁지 않게)
   $("#viewer").innerHTML = f.members.map(m => `<option value="${m.member_id}" ${m.member_id === viewer() ? "selected" : ""}>${esc(m.name || "이름 없음")}</option>`).join("");
@@ -1338,6 +1349,10 @@ function render() {
   if (keep) { const el = document.getElementById(keep) || document.querySelector(`[data-bind="${keep}"]`); if (el) el.focus(); }
   save();
 }
+// 파일럿(직접 입력한 가족)은 실제 서비스처럼 지나온 단계까지만 목차·키보드로 이동할 수 있다. 예시 가족·mock 체험판은 하단바로 자유롭게 본다.
+const isPilot = () => !DEMO && room === "custom" && !!S();
+const canGo = i => !isPilot() || (S().setupDone ? i <= (S().maxStep || 0) : i === 0);
+function userGo(i) { if (!canGo(i)) return; go(i); }
 function go(i) { if (i < 0 || i >= STEPS.length) return; step = i; S().step = i; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
 
 async function ensureConfig() {
@@ -1460,7 +1475,7 @@ function setupProblem() {
 const ACT = {
   next: () => go(step + 1),
   prev: () => go(step - 1),
-  go: b => go(+b.dataset.i),
+  go: b => userGo(+b.dataset.i),
   "open-agree": () => { // 가족 홈에서 합의문을 팝업으로(합의안 단계로 이동하지 않는다). 서명 버튼은 읽기 전용
     const s = S(), a = s.draft && s.draft.result; if (!a) return;
     const el = document.createElement("div"); el.className = "modal";
@@ -1633,11 +1648,26 @@ const ACT = {
   "cal-add": () => { const t = ($("#calTitle").value || "").trim(); if (!t) { toast("일정 이름을 적어 주세요"); return; } const c = S().cal; c.events.push({ id: "e" + Date.now(), date: c.sel, title: t.slice(0, 40) }); toast("일정을 더했어요"); render(); },
   "cal-del": b => { const c = S().cal; c.events = c.events.filter(e => e.id !== b.dataset.id); toast("일정을 지웠어요"); render(); },
   restart: async () => {
-    if (typeof ROOM !== "undefined" && ROOM.active && !ROOM.isHost) { toast("처음부터 다시 하는 건 방장만 할 수 있어요"); return; }
-    const how = await ask("처음부터 다시 할까요?", (typeof ROOM !== "undefined" && ROOM.active) ? "이 가족방은 가족 모두가 함께 쓰고 있어요. 처음부터 다시 하면 모든 가족의 화면에서 같이 바뀌어요." : "이 가족방에서 진행한 내용은 이 브라우저에만 저장돼 있어요.", (typeof ROOM !== "undefined" && ROOM.active) ? [{ label: "입력은 그대로 두고 다시 진행", value: "soft", primary: true }] : [
+    const inRoom = typeof ROOM !== "undefined" && ROOM.active;
+    if (inRoom && !ROOM.isHost) { toast("처음부터 다시 하는 건 방장만 할 수 있어요"); return; }
+    const pilot = isPilot();
+    const how = await ask("처음부터 다시 할까요?", pilot
+      ? (inRoom ? "입력한 내용과 가족방이 모두 지워지고, 가족이 받은 링크도 못 쓰게 돼요. 가족방 만들기부터 다시 시작해요." : "입력한 내용이 모두 지워지고 가족방 만들기부터 다시 시작해요.")
+      : "이 가족방에서 진행한 내용은 이 브라우저에만 저장돼 있어요.", pilot ? [{ label: "모두 지우고 처음부터", value: "hard", primary: true }] : [
       { label: "입력은 그대로 두고 다시 진행", value: "soft", primary: true },
       { label: "모두 지우고 새로 시작", value: "hard" }]);
     if (!how) return;
+    if (how === "hard" && inRoom) { // 가족방: 서버의 방을 지우고 빈 가족방 만들기 화면으로
+      try { await api("/api/room/delete", { room_id: ROOM.id, token: ROOM.token }); }
+      catch (e) { toast("가족방을 지우지 못했어요: " + (e.message || "잠시 뒤 다시 해 주세요")); return; }
+      try { localStorage.removeItem("oneheart.step." + ROOM.id); localStorage.removeItem("oneheart.max." + ROOM.id); } catch (e) { }
+      clearInterval(ROOM.timer); clearTimeout(ROOM.push);
+      ROOM.id = ""; ROOM.token = ""; ROOM.memberId = ""; ROOM.isHost = false; ROOM.version = 0; ROOM.base = null; ROOM.tokens = null; ROOM.seen = []; ROOM.pendingApply = null;
+      history.replaceState(null, "", location.pathname);
+      document.body.classList.remove("remote");
+      dropLocalCustom(); load(); delete R.custom;
+      startApp("custom"); return;
+    }
     const k = room, old = R[k];
     delete R[k];
     if (how === "soft" && old) {  // 가족방·이야기·금융정보는 남기고 AI 단계부터 다시
@@ -1668,9 +1698,9 @@ document.querySelectorAll("[data-start]").forEach(b => b.onclick = () => startAp
 document.querySelectorAll("[data-scroll]").forEach(b => b.onclick = () => { if (view !== "landing") showLanding(); const t = document.getElementById(b.dataset.scroll); if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" }); });
 $("#logo").onclick = showLanding; $("#exit").onclick = showLanding;
 $("#viewer").onchange = e => { S().viewer = e.target.value; render(); };
-$("#prev").onclick = () => go(step - 1); $("#nextBtn").onclick = () => go(step + 1);
+$("#prev").onclick = () => userGo(step - 1); $("#nextBtn").onclick = () => userGo(step + 1);
 $("#restart").onclick = () => ACT.restart();
-document.addEventListener("keydown", e => { if (view !== "app" || ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return; if (e.key === "ArrowRight") go(step + 1); if (e.key === "ArrowLeft") go(step - 1); });
+document.addEventListener("keydown", e => { if (view !== "app" || ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return; if (e.key === "ArrowRight") userGo(step + 1); if (e.key === "ArrowLeft") userGo(step - 1); });
 const aimk = document.getElementById("aimk"); if (aimk) aimk.innerHTML = AIMARK;
 load();
 // 모델 이름은 화면에 보이지 않는다. 개발용 재생 모드일 때만 "실제 AI 아님"을 알려 준다(혼동 방지).

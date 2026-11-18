@@ -532,6 +532,11 @@ button.rb:hover{border-color:var(--green);color:var(--green)}
 .rt-fine{font-size:12.5px!important;color:var(--muted)!important;margin:4px 0 16px!important}
 /* 가족방(링크) 모드: 한 기기에서 사람을 바꾸는 막대는 없다(web/js/room.js) */
 body.remote .vw{display:none}
+/* 파일럿 체험: 실제 서비스처럼 하단 체험 막대를 두지 않고, 아직 못 가는 단계는 흐리게 */
+body.pilot .dock{display:none}
+.rail button:disabled{color:var(--muted);opacity:.45;cursor:default}
+.rail button:disabled:hover{color:var(--muted)}
+.rail .rail-restart{margin-top:18px;font-size:12.5px;text-decoration:underline;color:var(--muted)}
 /* 가족방 링크(시안 19) */
 .rm-link{display:grid;grid-template-columns:auto 1fr auto auto;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
 .rm-link .rm-url{grid-column:2 / -1;font-size:13px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line);padding:9px 12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;user-select:all}

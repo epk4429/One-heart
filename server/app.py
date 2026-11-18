@@ -638,6 +638,14 @@ def r_room_tokens(b, ctx):
         raise ApiError(e.code, e.message, e.status)
 
 
+def r_room_delete(b, ctx):
+    rid, tok = _room_args(b)
+    try:
+        return rooms.delete(rid, tok)
+    except rooms.RoomError as e:
+        raise ApiError(e.code, e.message, e.status)
+
+
 ROUTES = {
     ("GET", "/api/health"): r_health,
     ("POST", "/api/access"): r_access,
@@ -669,6 +677,7 @@ ROUTES = {
     ("POST", "/api/room/get"): r_room_get,
     ("POST", "/api/room/save"): r_room_save,
     ("POST", "/api/room/tokens"): r_room_tokens,
+    ("POST", "/api/room/delete"): r_room_delete,
 }
 
 

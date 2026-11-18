@@ -12,7 +12,7 @@ const ROOM = {
   link(token) { return `${location.origin}${location.pathname}?r=${encodeURIComponent(this.id)}&k=${encodeURIComponent(token)}`; },
 };
 // 서버로 보내지 않는 키(어느 깊이에 있어도). 화면 설정이라 기기마다 달라야 한다.
-ROOM.LOCAL = new Set(["viewer", "step", "rag", "fo", "open", "pgView", "cpView", "discDraft", "actualIn", "reviewIn", "backPending", "ovIn", "edit"]);
+ROOM.LOCAL = new Set(["viewer", "step", "maxStep", "rag", "fo", "open", "pgView", "cpView", "discDraft", "actualIn", "reviewIn", "backPending", "ovIn", "edit"]);
 
 const isObj = v => v && typeof v === "object" && !Array.isArray(v);
 const same = (a, b) => { // 값이 같은가(객체는 키 순서와 상관없이, undefined 값은 없는 것과 같게). 순서만 다른데 다르다고 보면 두 기기가 서로 되받아 쓰는 일이 끝나지 않는다
@@ -155,6 +155,7 @@ ROOM.boot = async function () { // 링크로 들어왔을 때(app.js 맨 끝에�
     R = { custom: g.state }; room = "custom";
     R.custom.viewer = g.member_id; this.ensureLocal(R.custom);
     try { R.custom.step = +localStorage.getItem("oneheart.step." + this.id) || 0; } catch (e) { R.custom.step = 0; }
+    try { R.custom.maxStep = +localStorage.getItem("oneheart.max." + this.id) || 0; } catch (e) { R.custom.maxStep = 0; }
     this.base = clone(shareState(g.state)); this.version = g.version;
     document.body.classList.add("remote");
     await startApp("custom");
@@ -174,7 +175,11 @@ ROOM.create = async function (s) { // '가족방 만들기'를 마친 직후: �
   const host = s.fam.room.host_member_id;
   const ids = [host, ...s.fam.members.map(m => m.member_id).filter(x => x !== host)]; // 서버는 첫 번째를 방장으로 본다
   const res = await api("/api/room/create", { state: shareState(s), member_ids: ids });
-  location.href = ROOM.linkFor(res.room_id, res.tokens[host]);
+  // 화면을 새로 불러오지 않고 방장 링크로 바꿔 끼운다(소개 화면이 잠깐 비치지 않게)
+  ROOM.id = res.room_id; ROOM.token = res.tokens[host];
+  history.replaceState(null, "", ROOM.linkFor(ROOM.id, ROOM.token));
+  dropLocalCustom();
+  await ROOM.boot();
   return true;
 };
 
@@ -203,7 +208,7 @@ function roomCard() { // 1단계(가족방 만들기를 마친 화면)에 들어
   }).join("");
   return `<div class="card"><div class="ct">가족에게 링크를 보내 주세요 <span class="cs">${f.members.length}명 중 ${joined}명 들어옴</span></div>
    <p class="cs" style="margin:0 0 6px">가족마다 한 개씩 보내 주세요. 링크를 열면 그 가족의 이름으로 바로 들어와요. 로그인은 필요 없어요.</p>${rows}
-   <p class="rm-note">링크는 그 사람 전용이에요. 다른 사람에게 전달하면 그 사람 이름으로 들어가니, 가족 각자에게 따로 보내 주세요. 가족이 아직 안 들어와도 먼저 진행할 수 있어요.</p></div>`;
+   <p class="rm-note">링크는 그 사람 전용이에요. 다른 사람에게 전달하면 그 사람 이름으로 들어가니, 가족 각자에게 따로 보내 주세요.</p></div>`;
 }
 
 if (ROOM.active) ROOM.boot(); // 링크로 들어왔으면 가족방을 불러와 시작한다

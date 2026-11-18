@@ -121,3 +121,14 @@ def test_room_save_and_get_are_not_ip_rate_limited(monkeypatch):
         assert st == 200 and out["conflict"] is False
         v = out["version"]
     guard._hits.clear()
+
+
+def test_only_host_can_delete_room():
+    r = make()
+    rid = r["room_id"]
+    st, no = call("/api/room/delete", {"room_id": rid, "token": r["tokens"]["m1"]})
+    assert st == 403 and no["error"]["code"] == "host_only"
+    st, ok = call("/api/room/delete", {"room_id": rid, "token": r["tokens"]["m0"]})
+    assert st == 200 and ok["deleted"] is True
+    st, gone = call("/api/room/get", {"room_id": rid, "token": r["tokens"]["m0"]})
+    assert st != 200
