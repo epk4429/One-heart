@@ -158,7 +158,7 @@ main.sheet{padding:52px 60px 36px;min-width:0}
 .side.ai{border-top:2px solid var(--terra);background:var(--terra-soft);padding:10px 12px}
 .side.ai b{color:var(--terra)}
 
-.screen{animation:in .35s ease both}
+.screen.enter{animation:in .35s ease both}
 @keyframes in{from{opacity:.001;transform:translateY(5px)}to{opacity:1;transform:none}}
 .head{margin-bottom:30px}
 .eyebrow{font-size:12.5px;font-weight:700;color:var(--terra);letter-spacing:.1em;margin-bottom:10px}

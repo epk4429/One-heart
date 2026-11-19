@@ -137,7 +137,8 @@ def _option(p: dict, term: int) -> dict | None:
     return sorted(opts, key=lambda o: (o["rsrv"] != "정액적립식", -(o["max_rate"] or o["base_rate"])))[0]  # 매달 같은 금액 = 정액적립식 먼저
 
 
-ELIG_CHECKS = {"자녀 수", "여러 대상 중 하나", "다른 상품 보유", "일부제한", "서민전용", "청년", "서민", "장애", "기초생활", "다자녀", "한부모", "외국인", "임직원", "학생",
+BRANCH_ONLY = "지점 한정(해당 지점에서만 가입)"
+ELIG_CHECKS = {BRANCH_ONLY, "자녀 수", "여러 대상 중 하나", "다른 상품 보유", "일부제한", "서민전용", "청년", "서민", "장애", "기초생활", "다자녀", "한부모", "외국인", "임직원", "학생",
                "군인", "사업자등록", "근로자", "자녀", "부모", "여성", "남성"}
 
 
@@ -213,6 +214,8 @@ def _savings(family: dict, need_id: str, cat: str, *, member_id: str, commitment
                  and (b["add_pp"] or 0) > 0]
         unknown_amt = [b for b in items if b["add_pp"] is None]
         checks = left
+        if re.search(r"[가-힣]{2,}지점", p["name"]) and not re.search(r"전\s?지점", p["name"]):  # 한 지점에서만 가입하는 상품(예: 정기예금_천안지점)은 다른 곳 가족이 가입 못 한다 → 가입 가능 여부 확인 필요로 뒤로
+            checks.append(BRANCH_ONLY)
         if rec["benefit_status"] == "needs_check":
             checks.append("우대조건(원문과 공시 숫자가 다르거나 금액이 없음)")
         if cat == "saving":

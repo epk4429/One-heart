@@ -132,3 +132,23 @@ def test_only_host_can_delete_room():
     assert st == 200 and ok["deleted"] is True
     st, gone = call("/api/room/get", {"room_id": rid, "token": r["tokens"]["m0"]})
     assert st != 200
+
+
+def test_member_cannot_write_other_members_slots():
+    """링크 주인은 자기 몫(의견·동의·서명·각자의 생각)만 쓸 수 있다. 남의 칸을 바꾸거나 넣은 부분은 서버 값으로 되돌린다(저장 자체는 막지 않는다. 2026-11-19)."""
+    r = make({"approvals": {}, "signed": {}, "pg": [{"replies": {}}], "iv": {}})
+    rid, t0, t1 = r["room_id"], r["tokens"]["m0"], r["tokens"]["m1"]
+    mine = {"approvals": {"m1": True}, "signed": {}, "pg": [{"replies": {"m1": {"v": "good"}}}], "iv": {"m1": {"answers": ["a"]}}}
+    st, out = call("/api/room/save", {"room_id": rid, "token": t1, "base_version": 1, "state": mine})
+    assert st == 200 and not out["conflict"], out
+    # m1이 방장(m0)의 동의·의견·각자의 생각을 써 넣으려 한다 → 저장은 되지만 남의 칸은 사라진다
+    bad = {"approvals": {"m1": True, "m0": True}, "signed": {}, "pg": [{"replies": {"m1": {"v": "good"}, "m0": {"v": "bad"}}}], "iv": {"m1": {"answers": ["a"]}, "m0": {"answers": []}}}
+    st, out = call("/api/room/save", {"room_id": rid, "token": t1, "base_version": 2, "state": bad})
+    assert st == 200, out
+    st, got = call("/api/room/get", {"room_id": rid, "token": t0})
+    assert got["state"] == mine, got["state"]
+    # 방장은 자기 몫을 쓸 수 있고, 남의 칸은 그대로 남는다
+    st, out = call("/api/room/save", {"room_id": rid, "token": t0, "base_version": 3, "state": {**mine, "approvals": {"m1": True, "m0": True}}})
+    assert st == 200 and not out["conflict"], out
+    st, got = call("/api/room/get", {"room_id": rid, "token": t1})
+    assert got["state"]["approvals"] == {"m1": True, "m0": True}
