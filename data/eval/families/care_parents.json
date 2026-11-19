@@ -1,0 +1,172 @@
+{
+ "_note": "노후 준비 가족 · 부모님 부양·간병. 50대 부부가 82세 어머니를 모시고 삶, 내년부터 간병비가 듦. 금액은 만원, 모두 가상값.",
+ "today": "2026-11",
+ "room": {
+  "name": "어머니 돌봄 계획",
+  "reason": "어머니가 요즘 기력이 많이 떨어지셔서 곧 장기요양을 알아봐야 할 것 같아요. 비용을 우리 가족이 어떻게 감당할지 정하고 싶어요.",
+  "host_member_id": "m1"
+ },
+ "members": [
+  {
+   "member_id": "m0",
+   "name": "정환",
+   "role": "아들",
+   "age": 54,
+   "easy_mode": false,
+   "work": "working"
+  },
+  {
+   "member_id": "m1",
+   "name": "은영",
+   "role": "며느리",
+   "age": 52,
+   "easy_mode": false,
+   "work": "working"
+  },
+  {
+   "member_id": "m2",
+   "name": "순례",
+   "role": "어머니",
+   "age": 82,
+   "easy_mode": true,
+   "work": "retired"
+  }
+ ],
+ "story": {
+  "author_id": "m1",
+  "text": "남편의 어머니가 저희와 함께 살고 계세요. 올해 82세이고 최근에 기력이 많이 떨어지셔서 내년부터는 주간보호센터와 방문요양, 경우에 따라 요양시설이 필요할 것 같아요. 비용이 한 달에 250만 원쯤 들 거라고 들었어요. 남편은 어머니를 집에서 모시는 게 도리라고 생각하지만, 저는 직장을 계속 다니고 싶어서 요양 서비스를 쓰고 비용을 계획적으로 쓰자는 쪽이에요. 어머니는 자식들 신세 지는 걸 가장 싫어하세요. 아직 주택담보대출이 7천만 원 남아 있어요. 간병비가 얼마나 들어서 몇 년을 버틸 수 있는지 알고 싶어요."
+ },
+ "finance": [
+  {
+   "item_id": "f1",
+   "owner_id": "m0",
+   "kind": "income",
+   "label": "남편 월급(세후)",
+   "amount": 480
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m1",
+   "kind": "income",
+   "label": "아내 월급(세후)",
+   "amount": 120
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "m2",
+   "kind": "income",
+   "label": "어머니 연금(국민연금·기초연금)",
+   "amount": 45
+  },
+  {
+   "item_id": "f4",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비(카드·관리비·통신 등)",
+   "amount": 380
+  },
+  {
+   "item_id": "f5",
+   "owner_id": "joint",
+   "kind": "deposit",
+   "label": "예금",
+   "amount": 7500
+  },
+  {
+   "item_id": "f6",
+   "owner_id": "m0",
+   "kind": "investment",
+   "label": "주식·펀드",
+   "amount": 2000
+  },
+  {
+   "item_id": "f7",
+   "owner_id": "m0",
+   "kind": "home",
+   "label": "아파트(시세 추정)",
+   "amount": 42000
+  },
+  {
+   "item_id": "f8",
+   "owner_id": "m0",
+   "kind": "loan",
+   "label": "주택담보대출",
+   "amount": 7000,
+   "loan_type": "mortgage",
+   "rate": 4.0,
+   "payment": 65
+  }
+ ],
+ "disclosure": {},
+ "scripts": {
+  "answers": {
+   "m0": [
+    "어머니가 마지막까지 편하게 지내시는 거요. 지키고 싶은 건 어머니를 집에서 모시는 거예요.",
+    "간병비가 생각보다 오래 들어서 노후 자금이 줄어드는 게 걱정이에요.",
+    "양보할 수 있는 건 요양 서비스를 쓰는 거예요. 양보하기 어려운 건 어머니가 시설에 가시지 않는 거예요."
+   ],
+   "m1": [
+    "어머니도 편하고 우리 부부 일도 지킬 수 있는 모습이요. 지키고 싶은 건 제 직장이에요.",
+    "제가 일을 그만두고 간병하게 될까 봐 걱정이에요. 그러면 소득이 확 줄어요.",
+    "양보할 수 있는 건 생활비를 줄이는 거예요. 양보하기 어려운 건 제가 일을 계속하는 거예요."
+   ],
+   "m2": [
+    "애들한테 짐 안 되는 거요.",
+    "내가 아파서 돈이 많이 들까 봐요.",
+    "집은 아무 데나 괜찮아요. 애들 고생시키지 않는 게 제일이에요."
+   ]
+  },
+  "replies": {
+   "m0": "숫자로 보고 같이 정하자.",
+   "m1": "좋아요. 요양 서비스 비용이 얼마나 드는지 같이 봐요.",
+   "m2": "그래, 너희들이 알아서 해라."
+  },
+  "goal_form": {
+   "type": "runway",
+   "base_member_id": "m2",
+   "label": "돌봄 비용을 감당하는 기간"
+  },
+  "rounds": [
+   {
+    "m0": {
+     "v": "cond",
+     "text": "괜찮아요, 단 어머니를 가능하면 집에서 모셨으면 해요."
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    },
+    "m2": {
+     "v": "good",
+     "text": ""
+    }
+   },
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    },
+    "m2": {
+     "v": "good",
+     "text": ""
+    }
+   }
+  ]
+ },
+ "goal_input": {
+  "category": "care",
+  "fields": {
+   "base_member_id": "m2",
+   "monthly_cost": 250,
+   "start_years": 1,
+   "care_years": 5,
+   "work_end_member_id": "m0",
+   "work_end_age": 60,
+   "emergency_floor": 1500
+  }
+ }
+}

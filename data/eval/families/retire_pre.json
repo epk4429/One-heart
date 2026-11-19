@@ -1,0 +1,147 @@
+{
+ "_note": "노후 준비 가족 · 노후·은퇴. 은퇴 4년 전 부부, 대출 없는 아파트 1채, 국민연금 예상 합계 월 170. 금액은 만원, 모두 가상값.",
+ "today": "2026-11",
+ "room": {
+  "name": "은퇴 후 우리 둘 살림",
+  "reason": "남편 은퇴가 4년 남았는데, 그때 연금으로 얼마나 버틸 수 있는지 한 번도 같이 계산해 본 적이 없어요.",
+  "host_member_id": "m1"
+ },
+ "members": [
+  {
+   "member_id": "m0",
+   "name": "성민",
+   "role": "남편",
+   "age": 58,
+   "easy_mode": false,
+   "work": "working"
+  },
+  {
+   "member_id": "m1",
+   "name": "미경",
+   "role": "아내",
+   "age": 56,
+   "easy_mode": false,
+   "work": "working"
+  }
+ ],
+ "story": {
+  "author_id": "m1",
+  "text": "남편이 58세로 62세에 은퇴할 계획이에요. 저는 56세이고 학교 급식실에서 일하고 있어서 조금 더 일할 수 있어요. 용인에 있는 아파트가 우리 집이고 대출은 없어요. 아들은 결혼해서 따로 살고 있어요. 은퇴하고 나서 국민연금이 둘이 합쳐 월 170만 원쯤 나온다는데, 생활비는 월 300만 원쯤 들 것 같아서 모자란 부분이 걱정이에요. 남편은 은퇴하면 여행도 다니고 싶어 하고, 저는 병원비가 늘어날 걸 생각하면 아껴야 한다고 생각해요. 집을 줄여서 가야 할지도 고민이에요."
+ },
+ "finance": [
+  {
+   "item_id": "f1",
+   "owner_id": "m0",
+   "kind": "income",
+   "label": "남편 월급(세후)",
+   "amount": 480
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m1",
+   "kind": "income",
+   "label": "아내 월급(세후)",
+   "amount": 220
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비(카드·관리비·통신 등)",
+   "amount": 330
+  },
+  {
+   "item_id": "f4",
+   "owner_id": "joint",
+   "kind": "deposit",
+   "label": "예금(정기예금·적금)",
+   "amount": 8000
+  },
+  {
+   "item_id": "f5",
+   "owner_id": "m0",
+   "kind": "investment",
+   "label": "퇴직연금(IRP)",
+   "amount": 9000
+  },
+  {
+   "item_id": "f6",
+   "owner_id": "m0",
+   "kind": "investment",
+   "label": "주식·펀드",
+   "amount": 3000
+  },
+  {
+   "item_id": "f7",
+   "owner_id": "m0",
+   "kind": "home",
+   "label": "아파트(시세 추정)",
+   "amount": 50000
+  },
+  {
+   "item_id": "f8",
+   "owner_id": "joint",
+   "kind": "transfer_out",
+   "label": "부모님 용돈(매달)",
+   "amount": 40
+  }
+ ],
+ "disclosure": {
+  "f5": "hide"
+ },
+ "scripts": {
+  "answers": {
+   "m0": [
+    "은퇴하고 나서 돈 때문에 자식들 눈치 안 보는 거요. 지키고 싶은 건 지금 사는 집이에요.",
+    "연금만으로는 생활비가 모자라는 거요. 물가가 오르면 더 그렇고요.",
+    "양보할 수 있는 건 해외여행 같은 거예요. 양보하기 어려운 건 이 집에서 계속 사는 거예요."
+   ],
+   "m1": [
+    "건강하게 오래 둘이 안 아프고 사는 거요. 지키고 싶은 건 병원비로 쓸 돈이에요.",
+    "은퇴하고 둘 다 아프기 시작하면 병원비가 많이 들까 봐 걱정이에요.",
+    "양보할 수 있는 건 집을 줄여서 가는 거예요. 양보하기 어려운 건 병원비 예비금이에요."
+   ]
+  },
+  "replies": {
+   "m0": "숫자로 보여 주면 이해하기 쉽겠어요.",
+   "m1": "좋아요. 병원비가 늘어나는 것도 반영해서 보고 싶어요."
+  },
+  "goal_form": {
+   "type": "runway",
+   "base_member_id": "m0",
+   "label": "은퇴 후 예금으로 지낼 수 있는 기간"
+  },
+  "rounds": [
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "cond",
+     "text": "괜찮아요, 단 병원비 예비금은 따로 지켜 주세요."
+    }
+   },
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    }
+   }
+  ]
+ },
+ "goal_input": {
+  "category": "retire",
+  "fields": {
+   "base_member_id": "m0",
+   "retire_age": 62,
+   "monthly_need": 300,
+   "pension_monthly": 170,
+   "emergency_floor": 2000
+  }
+ }
+}

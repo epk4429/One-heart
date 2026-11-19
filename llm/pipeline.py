@@ -588,7 +588,7 @@ def contribution_facts(fam: dict, spec: dict, result: dict) -> list[dict]:
     out = []
     if result["monthly_flow"] > 0:
         out.append(F._fact("agree.monthly_saving", result["monthly_flow"], "만원/월", "월 " + won(result["monthly_flow"]),
-                           "매달 모이는 돈"))
+                           "매달 남는 돈(정해진 대출 상환을 낸 뒤)" if result.get("extra_mode") else "매달 모이는 돈"))  # 대출 다 갚기는 이 돈이 대출로 더 간다. 이름을 '남는 돈'으로 통일(2026-11-20)
     over = {c["item_id"]: c["amount"] for c in spec["monthly_changes"]}
     for it in fam["finance"]:
         if it["kind"] in ("transfer_in", "transfer_out") and it["owner_id"] != "joint":
@@ -652,7 +652,12 @@ def agreement_draft(fam: dict, goal: dict, criterion: str, spec: dict, result: d
                                  "fact_id": c["fact_id"]})
     interval = o["review"]["interval_months"]
     agreement = {
-        "goal": rendered["goal"], "method": {"display_label": method_label, "monthly_flow": result["monthly_flow"]},
+        "goal": rendered["goal"], "method": {"display_label": method_label, "monthly_flow": result["monthly_flow"],
+                   # 기한이 있는 목표: 기한보다 몇 개월 빠른지(+)/늦은지(−). 합의문 결과 줄에 코드로 붙인다(2026-11-20, U5)
+                   **({"deadline_gap_months": goal["within_months"] - (result.get("debt_free_month") or result.get("goal_hit_month"))}
+                      if goal.get("within_months") and (result.get("debt_free_month") or result.get("goal_hit_month")) else {}),
+                   # 대출 다 갚기 + 남는 돈 규칙: 첫 달에 예금(비상금 선 위)과 남는 돈으로 한꺼번에 추가로 갚는 돈(엔진 값, 2026-11-20). 합의문 실행 계획 맨 위 한 줄에 쓴다
+                   **({"first_extra": round(result["monthly"][0]["extra"], 1), "floor": result.get("floor")} if result.get("extra_mode") and result.get("monthly") else {})},
         "target_amount": {"label": rendered["target_amount_label"],
                           **({"value": goal["target_amount"]} if goal["type"] == "reach_target" else {})},
         "contribution": contribution, "timing": {"text": rendered["timing"]},

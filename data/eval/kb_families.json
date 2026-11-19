@@ -161,9 +161,9 @@
                     {"item_id": "f4", "owner_id": "joint", "kind": "expense", "label": "생활비", "amount": 500}]},
       "person": {"kids": 0, "flags": []},
       "programs": {"PG_subscription": "eligible", "PG_didimdol": "unknown", "PG_newborn_didimdol": "not_eligible", "PG_bogeumjari": "unknown",
-                   "PG_beotimmok": "unknown", "PG_newborn_beotimmok": "not_eligible", "PG_reverse_mortgage": "unknown", "PG_basic_pension": "unknown"},
+                   "PG_beotimmok": "unknown", "PG_newborn_beotimmok": "not_eligible", "PG_reverse_mortgage": "unknown", "PG_basic_pension": "not_eligible"},
       "income_hint": {"PG_basic_pension": "over"},
-      "why": "시세 16억은 공시 12억 기준보다 높지만 공시가격은 모름 → 주택연금 unknown. 임대 수입 월 900만원 → 기초연금 소득 기준 넘음 쪽. 아들(55) 세대는 따로일 수 있음."
+      "why": "시세 16억은 공시 12억 기준보다 높지만 공시가격은 모름 → 주택연금 unknown. 임대 수입 월 900만원 → 기초연금 소득 기준(월 395.2만원)의 2배 넘음, 재산 환산은 더하기만 하므로 not_eligible(2026-11-20 정정, 전에는 unknown). 아들(55) 세대는 따로일 수 있음."
     },
     {
       "id": "F11_border_ages", "stage": "경계 나이(집주인 54세, 함께 사는 어머니 64세)",

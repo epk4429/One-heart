@@ -159,7 +159,7 @@ def test_programs_added_2026_11_17_match_official_pages():
     # 판정: 아이도 청년도 없는 가족은 해당 안 됨, 청년이 있으면 나이 조건은 충족(소득·가구 요건은 기관 확인), 소득은 추정이라 확인 필요
     assert P.judge("PG_parental_leave", newly)["status"] == "not_eligible"
     assert P.judge("PG_future_youth_savings", newly)["status"] == "eligible" and P.judge("PG_future_youth_savings", elder)["status"] == "not_eligible"
-    assert P.judge("PG_eitc", newly)["status"] == "check"
+    assert P.judge("PG_eitc", newly)["status"] == "not_eligible"  # 월 700 → 연 8,400만원은 기준 4,400의 1.9배(2026-11-20: 크게 넘으면 해당 안 됨)
     young_kid = {**newly, "members": newly["members"] + [{"member_id": "m9", "name": "아이", "age": 1, "role": "child"}]}
     assert P.variables(young_kid)["youngest_child_age"][0] == 1 and P.variables(young_kid)["newborn_2y"][0] is True
 
@@ -192,3 +192,31 @@ def test_bogeumjari_rate_from_monthly_notice():
     assert (r["min"], r["max"]) == (5.1, 5.4) and r["source"] == "hf_bogeumjari_rates_2026_11"
     _, text = P.source_text("hf_bogeumjari_rates_2026_11")
     assert r["quote"] in text and "공시일 : 2026년 11월 09일" in text
+
+
+def _inc_family(monthly, extra=()):
+    ms = [{"member_id": f"m{i}", "name": "x", "role": "x", "age": a, "easy_mode": False, "work": "working"} for i, a in enumerate((34, 32))]
+    return {"members": ms, "finance": [{"item_id": "i", "owner_id": "joint", "kind": "income", "label": "월급", "amount": monthly}, *extra]}
+
+
+def test_income_far_over_limit_is_not_eligible_but_near_limit_stays_unknown():
+    """추정 소득이 상한의 1.3배 이상이면 해당 안 됨, 그 아래는 확인 필요, 기준 안쪽도 확인 필요(2026-11-20)."""
+    assert P.judge("PG_eitc", _inc_family(750))["status"] == "not_eligible"   # 연 9,000 > 4,400×1.3
+    assert P.judge("PG_eitc", _inc_family(400))["status"] == "check"          # 연 4,800: 기준을 넘지만 1.3배(5,720) 미만
+    assert P.judge("PG_eitc", _inc_family(300))["status"] == "check"          # 연 3,600: 기준 안이어도 추정이라 확인 필요
+    # 가족 정보로 모르는 우대(신혼 7,500)까지 넣은 가장 큰 기준으로 비교한다: 연 7,680은 버팀목에서 확인 필요
+    f = _inc_family(640)
+    assert P.judge("PG_beotimmok", f)["status"] == "check"
+
+
+def test_programs_judge_api_hides_ineligible_programs():
+    """해당하지 않는 제도는 화면용 API에서 빠진다. 안 맞는 이유가 '출산하면'처럼 앞으로 바뀔 조건뿐이면 남는다."""
+    def api_fam(monthly):  # 서버 검사를 통과하도록 예시 가족의 금융 정보만 바꾼다
+        f = __import__("copy").deepcopy(F.preset("newly")); f["finance"] = [{"item_id": "f1", "owner_id": "joint", "kind": "income", "label": "월급", "amount": monthly}]; return f
+    fam = api_fam(750)
+    st, out = dispatch("POST", "/api/programs/judge", json.dumps({"family": fam, "need_id": "N_emergency_fund"}).encode(), {}, "t")
+    assert st == 200 and "PG_eitc" not in {g["program_id"] for g in out["programs"]}
+    st, out = dispatch("POST", "/api/programs/judge", json.dumps({"family": api_fam(300), "need_id": "N_emergency_fund"}).encode(), {}, "t")
+    assert "PG_eitc" in {g["program_id"] for g in out["programs"]}  # 기준 안쪽은 확인 필요로 남는다
+    st, out = dispatch("POST", "/api/programs/judge", json.dumps({"family": F.preset("newly"), "need_id": "N_rent_deposit"}).encode(), {}, "t")
+    assert all(g["status"] != "not_eligible" or all(c.get("future") for c in g["conditions"] if c["status"] == "not_met") for g in out["programs"])

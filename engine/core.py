@@ -36,6 +36,8 @@ class MonthRow:
     loan_payment: float = 0.0
     debt: float = 0.0
     swept: float = 0.0  # 이번 달 비상금 선을 넘어 대출을 더 갚은 돈(outflow·loan_payment에 들어 있음)
+    prepay: float = 0.0  # 이번 달 방법이 정한 일시 상환(집 팔고 갚기·예금으로 일시 상환)만, loan_payment에 들어 있음. 가족 홈 '모은 돈' 계획에서 뺀다(2026-11-20)
+    extra: float = 0.0  # 이번 달 정해진 상환 말고 '추가로 갚은 돈' 전부 = 방법이 정한 추가·일시 상환 + swept(loan_payment에 들어 있음, 2026-11-20)
 
 
 @dataclass
@@ -49,6 +51,8 @@ class Schedule:
     debt: list[float] = field(default_factory=list)  # 화면·목표에 쓰는 대출 잔액(달 말). 대출 다 갚기 목표에서는 이자만 내는 전세대출을 뺀다(만기에 보증금으로 정리하므로)
     debt_all: list[float] = field(default_factory=list)  # 목표 풀 밖 대출 잔액 전부(순자산 계산용)
     debt_free_month: int | None = None
+    extra: list[float] = field(default_factory=list)  # 달마다 추가로 갚은 돈(방법이 정한 추가·일시 상환), 양수
+    prepay: list[float] = field(default_factory=list)  # 달마다 일시 상환만, 양수
 
 
 @dataclass
@@ -120,16 +124,19 @@ def _factors(req: Request, m: int) -> tuple[float, float]:
     return infl, wage
 
 
-def _pay_loans(req: Request, option: Option, bal: dict, extra: dict, m: int) -> float:
-    """이번 달 대출 상환(정해진 상환 + 추가 상환 + 일시 상환). bal을 고치고 낸 돈(양수)을 돌려준다."""
+def _pay_loans(req: Request, option: Option, bal: dict, extra: dict, m: int) -> tuple[float, float, float]:
+    """이번 달 대출 상환(정해진 상환 + 추가 상환 + 일시 상환). bal을 고치고 (낸 돈 전부, 그중 추가·일시 상환으로 낸 돈)을 돌려준다(양수)."""
     paid = 0.0
+    added = 0.0
+    pre = 0.0
     for l in req.loans:
         b = bal[l.id]
         if b <= 0:
             continue
         interest = b * l.rate / 100 / 12
         add = sum(x.monthly for x in extra.get(l.id, []) if m >= x.from_month)
-        add += sum(x.amount for x in option.loan_prepayments if x.label == l.id and x.month == m)
+        once = sum(x.amount for x in option.loan_prepayments if x.label == l.id and x.month == m)
+        add += once
         if l.kind == "interest_only":
             principal = min(add, b)
             pay = interest + principal
@@ -140,7 +147,9 @@ def _pay_loans(req: Request, option: Option, bal: dict, extra: dict, m: int) -> 
                 principal, pay = b, b + interest
         bal[l.id] = b - principal
         paid += pay
-    return paid
+        added += min(add, pay)
+        pre += min(once, pay)
+    return paid, added, pre
 
 
 def _debts(req: Request, bal: dict) -> tuple[float, float]:
@@ -157,7 +166,7 @@ def schedule(req: Request, option: Option) -> Schedule:
         extra.setdefault(x.loan_id, []).append(x)
     for m in range(1, req.horizon_months + 1):
         inflow, outflow = month_flow(option, m, *_factors(req, m))
-        paid = _pay_loans(req, option, bal, extra, m)
+        paid, added, pre = _pay_loans(req, option, bal, extra, m)
         outflow -= paid
         debt, debt_all = _debts(req, bal)
         if sch.debt_free_month is None and req.loans and debt <= 0.005:
@@ -166,6 +175,8 @@ def schedule(req: Request, option: Option) -> Schedule:
         sch.outflow.append(outflow)
         sch.lump.append(month_lump(option, m))
         sch.loan_payment.append(paid)
+        sch.extra.append(added)
+        sch.prepay.append(pre)
         sch.debt.append(debt)
         sch.debt_all.append(debt_all)
     return sch
@@ -242,7 +253,7 @@ def run_deterministic(req: Request, option: Option, sch: Schedule | None = None)
             hit = m
         aux.step(m)
         rows.append(MonthRow(m, start, interest, sch.inflow[i], sch.outflow[i], sch.lump[i], pool,
-                             pool + aux.net() - sch.debt_all[i], sch.loan_payment[i], sch.debt[i]))
+                             pool + aux.net() - sch.debt_all[i], sch.loan_payment[i], sch.debt[i], 0.0, sch.prepay[i], sch.extra[i]))
     return DeterministicResult(option.option_id, hit, pool, rows, start_net_worth, sch.debt_free_month, _round(min_cash), breach, fill)
 
 
@@ -265,10 +276,13 @@ def _run_sweep(req: Request, option: Option) -> DeterministicResult:
         start = pool
         interest = max(pool - req.idle_pool, 0.0) * r
         inflow, outflow = month_flow(option, m, *_factors(req, m))
-        paid = _pay_loans(req, option, bal, extra, m)
+        paid, added, pre = _pay_loans(req, option, bal, extra, m)
         lump = month_lump(option, m)
         pool += interest + inflow + outflow - paid + lump
-        swept = _sweep(req, bal, req.cash(pool) - floor) if req.cash(pool) > floor else 0.0
+        if m in option.actual_extra:  # 가족이 그 달에 실제로 추가로 갚았다고 기록한 돈(2026-11-20): 계획의 남는 돈 규칙 대신 그 금액만 더 갚고 나머지는 예금에 남는다
+            swept = _sweep(req, bal, max(0.0, option.actual_extra[m] - added))
+        else:
+            swept = _sweep(req, bal, req.cash(pool) - floor) if req.cash(pool) > floor else 0.0
         pool -= swept
         paid += swept
         debt, debt_all = _debts(req, bal)
@@ -284,7 +298,7 @@ def _run_sweep(req: Request, option: Option) -> DeterministicResult:
         if hit is None and goal_reached(req.goal.type, pool, target_at(req, m), debt, floor, cash):
             hit = m
         aux.step(m)
-        rows.append(MonthRow(m, start, interest, inflow, outflow - paid, lump, pool, pool + aux.net() - debt_all, paid, debt, swept))
+        rows.append(MonthRow(m, start, interest, inflow, outflow - paid, lump, pool, pool + aux.net() - debt_all, paid, debt, swept, pre, added + swept))
     return DeterministicResult(option.option_id, hit, pool, rows, start_net_worth, debt_free, _round(min_cash), breach, fill)
 
 

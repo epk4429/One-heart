@@ -84,7 +84,7 @@ def test_family_validate_keeps_goal_input_and_it_is_optional():
         F.validate(raw)
 
 
-@pytest.mark.parametrize("key", ["newly", "elder", "single_parent", "mortgage_couple", "pre_retire", "grandma_grandchild"])
+@pytest.mark.parametrize("key", ["newly", "elder", "newly_debt", "newly_baby", "newly_rent", "retire_pre", "retire_mortgage", "care_parents"])
 def test_every_example_family_has_a_calculable_goal(key):
     fam = F.validate(load_family(key))
     goal = normalize_goal(fam, G.derive_goal(fam["goal_input"], fam["members"]))

@@ -60,7 +60,8 @@ def normalize_goal(family: dict, raw: dict) -> dict:
         goal["within_months"] = goal["horizon_months"]
     goal["base_age"] = base_age
     # 목표 풀: 목표를 이룰 때 쓸 수 있는 돈
-    if t == "reach_target":
+    lease_in_pool = (family.get("goal_input") or {}).get("category") not in ("lump", "other")  # 목돈·기타 목표는 살고 있는 집의 보증금을 쓰지 않는다(2026-11-20, 임의결정 113). 내 집 마련은 보증금을 돌려받아 집값에 보탠다
+    if t == "reach_target" and lease_in_pool:
         pool = p["liquid_total"] + p["lease_deposit_total"] - p["lease_loan_total"]
         parts = [f"예금·투자 {won(p['liquid_total'])}"]
         if p["lease_deposit_total"]:
@@ -102,6 +103,16 @@ def life_facts(family: dict, goal: dict) -> dict:
     gi = family.get("goal_input") or {}
     v, cat = gi.get("fields") or {}, gi.get("category")
     H = goal["horizon_months"]
+    out = _life_main(family, goal, gi, v, cat, H)
+    if cat != "retire" and v.get("work_end_member_id") and v.get("work_end_age"):  # 곧 은퇴(퇴직)하는 분의 월급을 그 나이부터 끊는다(2026-11-20)
+        who = next((m for m in family["members"] if m["member_id"] == v["work_end_member_id"]), None)
+        if who:
+            out = {**out, "work_end": {"member_id": who["member_id"], "age": v["work_end_age"], "pension": v.get("work_end_pension"),
+                                       "month": max(1, min(H, int(round((v["work_end_age"] - who["age"]) * 12)) + 1))}}
+    return out
+
+
+def _life_main(family: dict, goal: dict, gi: dict, v: dict, cat, H: int) -> dict:
     if cat == "retire" and v.get("retire_age") and v.get("base_member_id"):
         base_age = member(family, v["base_member_id"])["age"]
         return {"kind": "retire", "month": max(1, min(H, int(round((v["retire_age"] - base_age) * 12)) + 1)),
@@ -400,6 +411,11 @@ def engine_option(family: dict, goal: dict, spec: dict) -> dict:
         if life.get("kind") == "baby" and wage and it["owner_id"] == life["member_id"]:  # 휴직 동안 그분의 월급은 빠진다
             windows = [w for w in ((1, life["from"] - 1), (life["to"] + 1, 0)) if w[1] == 0 or w[1] >= w[0]]
             windows = [w for w in windows if w[0] <= goal["horizon_months"]]
+        we = life.get("work_end")
+        if we and wage and it["owner_id"] == we["member_id"]:  # 곧 은퇴(퇴직)하는 분의 월급은 그 달 직전까지만
+            end = we["month"] - 1
+            windows = [(f_m, end if t_m == 0 else min(t_m, end)) for f_m, t_m in windows]
+            windows = [w for w in windows if w[1] >= w[0]]
         for f_m, t_m in windows:
             cashflows.append({"label": it["label"], "amount": KINDS[it["kind"]][1] * amt, "category": _cat(it["kind"]),
                               "item_id": it["item_id"], "grows": wage, "from_month": f_m, "to_month": t_m})
@@ -477,6 +493,9 @@ def life_cashflows(goal: dict) -> list[dict]:
                     **({"to_month": life["to"]} if life.get("to") else {})})
     elif life.get("kind") == "baby" and life.get("income"):
         out.append({"label": "휴직 중 수입", "amount": life["income"], "category": "income", "from_month": life["from"], "to_month": life["to"]})
+    we = life.get("work_end")
+    if we and we.get("pension") and we["month"] > 1:  # 곧 은퇴하는 분이 받을 연금은 은퇴하는 달부터(2026-11-20)
+        out.append({"label": "은퇴 후 연금", "amount": we["pension"], "category": "income", "from_month": we["month"]})
     return out
 
 
@@ -507,10 +526,18 @@ def life_lines(family: dict, goal: dict) -> list[str]:
         who = member(family, life["member_id"])["name"]
         out.append(f"{today_label(family, life['from'] - 1)}부터 {life['to'] - life['from'] + 1}개월 {who}님 휴직 · 휴직 중 수입 "
                    + (f"월 {won(life['income'])}" if life.get("income") else "0원(입력하지 않음)"))
+    we = life.get("work_end")
+    if we:
+        who = member(family, we["member_id"])["name"]
+        out.append(f"{who}님이 {we['age']:g}세에 은퇴(퇴직)하면 그분의 월급은 그때부터 없어요" if we["month"] > 1 else f"{who}님은 이미 은퇴해서 월급 없이 계산했어요")
+        out.append(f"은퇴 뒤 {who}님 연금 월 {won(we['pension'])}" if we.get("pension") else f"은퇴 뒤 {who}님 연금은 입력하지 않아 연금 없이 계산했어요")
+    elif goal["type"] in ("debt_free", "runway") and (family.get("goal_input") or {}).get("category") != "retire" \
+            and any(m.get("work") in ("working", None) for m in family["members"]):
+        out.append("일하는 가족의 월급은 계산 기간 끝까지 이어진다고 봤어요(은퇴 시기를 입력하지 않음)")
     rd = goal.get("return_delta", 0.0)
     if rd:
         out.append(f"재점검에서 수익률을 {abs(rd):g}%포인트 {'낮췄어요' if rd < 0 else '높였어요'}(모든 방법에 적용)")
-    if goal["type"] == "debt_free":
+    if goal["type"] == "debt_free" and not goal.get("deficit"):  # 적자 상태에서는 예금을 대출에 쓰지 않는다(sweep 끔)
         out.append("예금이 비상금을 넘으면 금리가 높은 대출부터 더 갚아요")
     if goal.get("target_growth"):
         out.append(f"집값은 해마다 {goal['target_growth']:g}% 올라요")
@@ -572,7 +599,7 @@ def design_context(family: dict, goal: dict, cut_max: float | None = None) -> di
         "inflation": f"생활비 같은 지출에 연 {pct(a['inflation']['rate'])} 물가 상승률을 엔진이 자동으로 붙여요",
         "policies": policy_menu(family, goal),
         "floor": goal.get("floor", 0.0),
-        "deficit": ({"monthly_gap": goal["deficit"]["monthly_gap"], "note": "생활비를 한도까지 줄여도 비상금을 못 지키는 적자 상태예요"}
+        "deficit": ({"monthly_gap": goal["deficit"]["monthly_gap"], "note": ("은퇴(퇴직) 뒤에는 " if goal["deficit"].get("future_from_month") else "") + "생활비를 한도까지 줄여도 비상금을 못 지키는 적자 상태예요"}
                     if goal.get("deficit") else None),
         "monthly_spare": round(p["income_total"] - p["expense_total"] - p["loan_payment_total"], 1),  # 지금 한 달에 남는 돈(여유 지출을 늘릴 수 있는 한계의 참고)
         "auto_included": life_lines(family, goal),
@@ -599,7 +626,8 @@ def deficit_info(family: dict, goal: dict, cut: float | None = None) -> dict | N
     from engine import simulate
     p = profile(family)
     flow = round(p["income_total"] - p["expense_total"] - p["loan_payment_total"], 1)
-    if flow >= 0:
+    we = (goal.get("life") or {}).get("work_end")  # 곧 은퇴(퇴직)하는 분이 있으면, 지금은 흑자여도 그 뒤의 적자까지 본다(2026-11-20)
+    if flow >= 0 and not we:
         return None
     if cut is None:
         cut = round(sum(i["amount"] for i in _spend_items(family)) * assumptions()["limits_realism"]["expense_cut_ratio"], 1)
@@ -608,11 +636,15 @@ def deficit_info(family: dict, goal: dict, cut: float | None = None) -> dict | N
                                     **({"adjustments": [{"label": "생활비·용돈 줄이기(한도까지)", "amount": cut, "reason": "적자 판정"}]} if cut else {})})
     req = build_request(family, g, [spec])
     req["range"] = {"paths": 0, "seed": 1}
-    r = simulate(req, include_monthly=False)["results"][0]
+    r = simulate(req, include_monthly=bool(we))["results"][0]
     start_cash = goal["start_pool"] - goal.get("idle_pool", 0.0) - goal.get("illiquid", 0.0)
     need = min(goal.get("floor", 0.0), max(start_cash, 0.0))
     if r["min_cash"] is None or r["min_cash"] >= need - 0.5:
         return None
+    if flow >= 0:  # 지금은 흑자: 은퇴(퇴직) 뒤 첫 달 기준 적자를 보여 준다
+        row = r["monthly"][min(len(r["monthly"]) - 1, we["month"] - 1)]
+        return {"monthly_gap": round(max(-(row["inflow"] + row["outflow"]), 0.0), 1), "cut_max": cut, "best_breach_month": r.get("floor_breach_month"),
+                "income": round(row["inflow"], 1), "outflow": round(-row["outflow"], 1), "future_from_month": we["month"]}
     return {"monthly_gap": -flow, "cut_max": cut, "best_breach_month": r.get("floor_breach_month"),
             "income": p["income_total"], "outflow": round(p["expense_total"] + p["loan_payment_total"], 1)}
 

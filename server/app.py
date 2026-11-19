@@ -8,6 +8,7 @@ AI를 부르는 요청은 체험 코드·호출 제한·예산을 먼저 확인�
 from __future__ import annotations
 
 import json
+import re
 import os
 
 from engine import ENGINE_VERSION, compare, simulate
@@ -216,8 +217,15 @@ def r_config(_b, _ctx):
 
 
 def r_preset(b, _ctx):
+    pid = str(b.get("preset_id"))
+    if pid.startswith("eval:") and os.environ.get("LLM_PROVIDER") == "replay":  # 개발용 재생 모드에서만: 평가 가족(data/eval/families)을 입력칸 예시로 쓴다(2026-11-20)
+        key = pid[5:]
+        path = F.ROOT / "data/eval/families" / f"{key}.json"
+        if not re.fullmatch(r"[a-z_]+", key) or not path.exists():
+            raise ApiError("not_found", "없는 예시 가족이에요", 404)
+        return json.loads(path.read_text(encoding="utf-8"))
     try:
-        return F.preset(str(b.get("preset_id")))
+        return F.preset(pid)
     except F.FamilyError as e:
         raise ApiError("not_found", str(e), 404)
 
@@ -355,6 +363,10 @@ def _actuals(raw) -> dict[int, float]:
     return out
 
 
+def basis_extra(opt) -> bool:
+    return bool(opt.get("actual_extra"))
+
+
 def r_simulate(b, _ctx):
     """엔진만: 방법들을 다시 계산한다. override가 있으면 첫 방법의 월 저축·수익률·월급 상승률·집값 상승률만 바꿔 본다(슬라이더)."""
     fam = _family(b)
@@ -380,12 +392,21 @@ def r_simulate(b, _ctx):
         if "error" in plan:
             raise ApiError("bad_input", json.dumps(plan["error"], ensure_ascii=False))
         monthly = plan["results"][0]["monthly"]
-        basis = {"flow": {str(m): round(monthly[m - 1]["inflow"] + monthly[m - 1]["outflow"], 1) for m in actuals if m <= len(monthly)},
-                 "goal_hit_month": plan["results"][0].get("goal_hit_month"), "debt_free_month": plan["results"][0].get("debt_free_month")}
+        extra_mode = bool(plan["results"][0].get("extra_mode"))  # 대출 다 갚기: 기록하는 값이 '실제로 모은 돈'이 아니라 '그 달 추가로 갚은 돈'(2026-11-20)
+        basis = {"flow": {str(m): round(monthly[m - 1]["extra"] if extra_mode else monthly[m - 1]["inflow"] + monthly[m - 1]["outflow"] + monthly[m - 1].get("prepay", 0), 1) for m in actuals if m <= len(monthly)},
+                 "goal_hit_month": plan["results"][0].get("goal_hit_month"), "debt_free_month": plan["results"][0].get("debt_free_month"), "extra_mode": extra_mode}
+        if extra_mode:
+            for m in actuals:
+                if m > len(monthly):
+                    raise ApiError("bad_request", f"{m}개월 차는 계산 기간 밖이에요")
+            if any(v < 0 for v in actuals.values()):
+                raise ApiError("bad_request", "추가로 갚은 돈은 0원 이상으로 적어 주세요(안 갚았으면 0)")
+            opt["actual_extra"] = {str(m): v for m, v in actuals.items()}
+            actuals = {}
         for m, amount in sorted(actuals.items()):
             if m > len(monthly):
                 raise ApiError("bad_request", f"{m}개월 차는 계산 기간 밖이에요")
-            delta = round(amount - (monthly[m - 1]["inflow"] + monthly[m - 1]["outflow"]), 1)
+            delta = round(amount - (monthly[m - 1]["inflow"] + monthly[m - 1]["outflow"] + monthly[m - 1].get("prepay", 0)), 1)  # 일시 상환은 계획 그대로 두고 빼고 비교(2026-11-20)
             if abs(delta) > MAX_CASHFLOW:
                 raise ApiError("bad_request", f"{m}개월 차 금액이 계획과 너무 차이가 나요. 금액을 다시 확인해 주세요")
             if delta:
@@ -393,7 +414,7 @@ def r_simulate(b, _ctx):
     out = simulate(req)
     if "error" in out:
         raise ApiError("bad_input", json.dumps(out["error"], ensure_ascii=False))
-    if actuals:
+    if actuals or basis_extra(opt):
         out["actual_basis"] = basis  # 계획대로였다면의 그 달 모이는 돈·달성 시점(화면이 '계획보다 N만원 덜'을 보여 줄 때 쓴다)
     return out
 
@@ -525,6 +546,8 @@ def r_programs_judge(b, _ctx):
     # 'gate: deficit' 제도(채무조정, 2026-11-17 형님 결정)는 매달 적자인 가족에게만 보여 준다. 연체 여부는 가족 정보에 없어 판정하지 않는다
     ids = [pid for pid in ids if load_programs()[pid].get("gate") != "deficit" or deficit]
     out = [judge_program(pid, fam) for pid in dict.fromkeys(ids)]
+    # 해당하지 않는 제도는 화면에 보여 주지 않는다(2026-11-20 형님 결정). 단 '출산하면 신청할 수 있어요'처럼 안 맞는 이유가 앞으로 바뀔 수 있는 조건뿐이면 남긴다
+    out = [g for g in out if g["status"] != "not_eligible" or all(c.get("future") for c in g["conditions"] if c["status"] == "not_met")]
     for g in out:  # 판정은 온톨로지, 금액은 계산엔진(2026-11-10, CLAUDE.md 5절)
         if g["program_id"] == "PG_reverse_mortgage" and g["status"] != "not_eligible":
             m = reverse_mortgage_monthly(reverse_mortgage_age(fam["members"], fam["finance"]), F.profile(fam)["home_total"])

@@ -4,6 +4,8 @@
 - 가족 정보로 확실히 아는 값(나이, 집 수)은 그대로 판정한다.
 - 추정 값(연소득 = 매달 수입 × 12, 순자산 = 넣은 자산 − 대출, 공시가격은 모르고 시세만 앎)은 짐작해서 충족·불충족을 정하지 않고
   unknown으로 두되, "넣은 정보로 추정하면 기준 안이에요/넘어요"라는 방향(hint)을 붙인다(G8 보수적 기본값).
+  단 상한(<=, <)을 추정값이 OVER_MARGIN배 이상 크게 넘으면 not_met으로 판정한다(2026-11-20 형님 결정: 월 수입 750 → 연 9,000만원이 근로장려금 기준 4,400만원의 두 배인데도
+  '확인 필요'로 추천되던 문제). 기준 안쪽은 여전히 unknown이다.
 - unmodeled(세대주·신용·중복대출 등)는 가족 정보로 판정할 수 없어 늘 '기관 확인' 목록으로 보여 준다.
 전체 결과: not_met이 하나라도 있으면 해당 안 됨 / 모두 met이면 기본 조건 충족 / 나머지는 확인 필요.
 """
@@ -33,6 +35,8 @@ def source_text(key: str) -> tuple[str, str]:
     return s["source_id"], (ROOT / s["file"]).read_text(encoding="utf-8")
 
 
+OVER_MARGIN = 1.3  # (programs.json의 max_value: 신혼처럼 가족 정보로 모르는 우대까지 넣은 가장 큰 기준)
+# 추정값이 상한의 1.3배 이상이면 오차(상여·부수입·입력 누락)로도 뒤집히지 않는다고 보고 '해당 안 됨'(2026-11-20, 임의결정 111)
 SPOUSE_GAP = 20  # 집 주인과 나이 차이가 이 안인 55세 이상 가족은 배우자'일 수 있음'(관계는 가족 정보에 확실히 없다)
 
 
@@ -127,6 +131,9 @@ def judge(pid: str, family: dict) -> dict:
         elif c["var"] in ("home_count", "household_income_year", "net_assets") and multi and (c["var"] != "home_count" or var["home_count"][0])                 and pid != "PG_reverse_mortgage":
             status = "unknown"  # 여러 세대가 한 가족방: 신청하는 세대에 집·소득·자산이 얼마인지 모른다
             hint = "가족방에 여러 세대가 있어요. 신청하는 세대 기준으로 확인해야 해요"
+        elif est and not ok and c["op"] in ("<", "<=") and v >= max(x, c.get("max_value", x)) * OVER_MARGIN:  # max_value: 가족 정보로 알 수 없는 우대(신혼 등)까지 포함한 가장 큰 기준
+            status = "not_met"
+            hint = f"넣은 정보로 추정하면 기준을 크게 넘어요({_fmt(c['var'], v)})"
         elif est:
             status = "unknown"
             hint = ("넣은 정보로 추정하면 기준 안이에요" if ok else "넣은 정보로 추정하면 기준을 넘어요") + f"({_fmt(c['var'], v)})"
@@ -134,7 +141,7 @@ def judge(pid: str, family: dict) -> dict:
             status = "met" if ok else "not_met"
             if c["var"] == "newborn_2y" and not ok:
                 hint = "출산하면 2년 안에 신청할 수 있어요"
-        conds.append({"label": c["label"], "status": status, "hint": hint, "quote": c["quote"]})
+        conds.append({"label": c["label"], "status": status, "hint": hint, "quote": c["quote"], "future": c["var"] == "newborn_2y"})
     overall = "not_eligible" if any(c["status"] == "not_met" for c in conds) else \
         "eligible" if all(c["status"] == "met" for c in conds) else "check"
     out = {"program_id": pid, "label": p["label"], "publisher": p["publisher"], "kind": p["kind"], "summary": p["summary"],

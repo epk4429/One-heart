@@ -1,0 +1,162 @@
+{
+ "_note": "신혼부부 · 내 집 마련. 월세 거주 사회초년 맞벌이(월 570), 학자금대출 소액. 금액은 만원, 모두 가상값.",
+ "today": "2026-11",
+ "room": {
+  "name": "월세 탈출 7년 계획",
+  "reason": "월세로 사는 게 아깝다는 생각은 같은데, 언제 어떻게 집을 살지는 늘 의견이 달라서 한 번 정리해 보고 싶어요.",
+  "host_member_id": "m1"
+ },
+ "members": [
+  {
+   "member_id": "m0",
+   "name": "현우",
+   "role": "남편",
+   "age": 29,
+   "easy_mode": false,
+   "work": "working"
+  },
+  {
+   "member_id": "m1",
+   "name": "다은",
+   "role": "아내",
+   "age": 28,
+   "easy_mode": false,
+   "work": "working"
+  }
+ ],
+ "story": {
+  "author_id": "m1",
+  "text": "결혼 1년 차 맞벌이 부부예요. 보증금 5천만 원에 월세 70만 원짜리 투룸에 살고 있어요. 둘 다 직장 생활 4~5년 차라 월급이 아직 많지 않고, 남편은 학자금대출이 조금 남아 있어요. 7년쯤 뒤에 서울 외곽이나 경기도에 작은 아파트를 사고 싶어요. 남편은 되도록 빨리 사서 월세를 줄이자는 쪽이고, 저는 무리해서 대출을 많이 받기보다 청약과 저축으로 천천히 모으자는 쪽이에요. 아이는 집을 마련하고 나서 생각하려고 해요."
+ },
+ "finance": [
+  {
+   "item_id": "f1",
+   "owner_id": "m0",
+   "kind": "income",
+   "label": "남편 월급(세후)",
+   "amount": 300
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m1",
+   "kind": "income",
+   "label": "아내 월급(세후)",
+   "amount": 270
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "월세(관리비 포함)",
+   "amount": 75
+  },
+  {
+   "item_id": "f4",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비(식비·교통·통신 등)",
+   "amount": 230
+  },
+  {
+   "item_id": "f5",
+   "owner_id": "joint",
+   "kind": "deposit",
+   "label": "비상금·예금",
+   "amount": 2000
+  },
+  {
+   "item_id": "f6",
+   "owner_id": "m1",
+   "kind": "deposit",
+   "label": "청약저축",
+   "amount": 900
+  },
+  {
+   "item_id": "f7",
+   "owner_id": "m0",
+   "kind": "investment",
+   "label": "주식",
+   "amount": 500
+  },
+  {
+   "item_id": "f8",
+   "owner_id": "joint",
+   "kind": "lease_deposit",
+   "label": "월세 보증금",
+   "amount": 5000
+  },
+  {
+   "item_id": "f9",
+   "owner_id": "m0",
+   "kind": "loan",
+   "label": "학자금대출",
+   "amount": 800,
+   "loan_type": "credit",
+   "rate": 1.7,
+   "payment": 20
+  },
+  {
+   "item_id": "f10",
+   "owner_id": "joint",
+   "kind": "transfer_out",
+   "label": "양가 용돈(매달)",
+   "amount": 20
+  }
+ ],
+ "disclosure": {},
+ "scripts": {
+  "answers": {
+   "m0": [
+    "우리 이름으로 된 집에서 월세 걱정 없이 사는 거요. 지키고 싶은 건 내 집 마련 시기를 너무 늦추지 않는 거예요.",
+    "집값이 계속 오르면 영영 못 살까 봐 걱정이에요. 월세로 나가는 돈이 아까워요.",
+    "양보할 수 있는 건 집 크기나 지역이에요. 양보하기 어려운 건 7년을 넘기지 않는 거예요."
+   ],
+   "m1": [
+    "빚에 쫓기지 않고 편하게 사는 모습이요. 지키고 싶은 건 비상금이에요.",
+    "대출을 너무 많이 받아서 이자를 감당 못 할까 봐 걱정이에요. 아직 월급도 많이 오르지 않았고요.",
+    "양보할 수 있는 건 집을 사는 시기예요. 양보하기 어려운 건 월 상환이 월급의 3분의 1을 넘지 않는 거예요."
+   ]
+  },
+  "replies": {
+   "m0": "숫자로 보면 서로 납득하기 쉬울 것 같아요.",
+   "m1": "좋아요. 대출을 얼마까지 받을 수 있는지도 같이 봤으면 해요."
+  },
+  "goal_form": {
+   "type": "reach_target",
+   "target_amount": 25000,
+   "within_months": 84,
+   "label": "내 집 마련 자기자금"
+  },
+  "rounds": [
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "cond",
+     "text": "괜찮아요, 단 대출은 월 상환이 월급의 3분의 1을 넘지 않게 해 주세요."
+    }
+   },
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    }
+   }
+  ]
+ },
+ "goal_input": {
+  "category": "home",
+  "fields": {
+   "target_amount": 25000,
+   "within_years": 7,
+   "living": "월세",
+   "emergency_floor": 1000
+  }
+ }
+}

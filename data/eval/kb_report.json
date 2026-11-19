@@ -18,13 +18,13 @@
    "none": 36
   },
   "product_rows": 59953,
-  "product_rows_with_checks_pct": 64.1,
+  "product_rows_with_checks_pct": 64.3,
   "program_judgments": {
    "eligible": 14,
-   "check": 37,
-   "not_eligible": 45
+   "check": 36,
+   "not_eligible": 46
   },
-  "program_check_pct": 38.5
+  "program_check_pct": 37.5
  },
  "invalid_families": [],
  "unrouted": [],
@@ -40,15 +40,15 @@
    "rows": 315,
    "ok": 37,
    "unsure": 273,
-   "with_checks": 72,
+   "with_checks": 73,
    "excluded": 13
   },
   "F01_young_renters|m0|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F01_young_renters|m0|mortgage": {
@@ -88,15 +88,15 @@
    "rows": 317,
    "ok": 37,
    "unsure": 275,
-   "with_checks": 74,
+   "with_checks": 75,
    "excluded": 11
   },
   "F01_young_renters|m1|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F01_young_renters|m1|mortgage": {
@@ -136,15 +136,15 @@
    "rows": 315,
    "ok": 37,
    "unsure": 273,
-   "with_checks": 72,
+   "with_checks": 73,
    "excluded": 13
   },
   "F02_infant|m0|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F02_infant|m0|mortgage": {
@@ -184,15 +184,15 @@
    "rows": 317,
    "ok": 37,
    "unsure": 275,
-   "with_checks": 74,
+   "with_checks": 75,
    "excluded": 11
   },
   "F02_infant|m1|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F02_infant|m1|mortgage": {
@@ -232,15 +232,15 @@
    "rows": 301,
    "ok": 28,
    "unsure": 267,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 27
   },
   "F02_infant|m2|deposit": {
    "state": "ok",
    "rows": 344,
-   "ok": 30,
-   "unsure": 314,
-   "with_checks": 44,
+   "ok": 29,
+   "unsure": 315,
+   "with_checks": 47,
    "excluded": 19
   },
   "F02_infant|m2|mortgage": {
@@ -280,15 +280,15 @@
    "rows": 315,
    "ok": 37,
    "unsure": 273,
-   "with_checks": 72,
+   "with_checks": 73,
    "excluded": 13
   },
   "F03_single_parent|m0|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F03_single_parent|m0|mortgage": {
@@ -328,15 +328,15 @@
    "rows": 299,
    "ok": 28,
    "unsure": 265,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 29
   },
   "F03_single_parent|m1|deposit": {
    "state": "ok",
    "rows": 344,
-   "ok": 30,
-   "unsure": 314,
-   "with_checks": 44,
+   "ok": 29,
+   "unsure": 315,
+   "with_checks": 47,
    "excluded": 19
   },
   "F03_single_parent|m1|mortgage": {
@@ -376,15 +376,15 @@
    "rows": 299,
    "ok": 28,
    "unsure": 265,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 29
   },
   "F03_single_parent|m2|deposit": {
    "state": "ok",
    "rows": 344,
-   "ok": 30,
-   "unsure": 314,
-   "with_checks": 44,
+   "ok": 29,
+   "unsure": 315,
+   "with_checks": 47,
    "excluded": 19
   },
   "F03_single_parent|m2|mortgage": {
@@ -424,15 +424,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F04_multi_child_owner|m0|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F04_multi_child_owner|m0|mortgage": {
@@ -472,15 +472,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F04_multi_child_owner|m1|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F04_multi_child_owner|m1|mortgage": {
@@ -520,15 +520,15 @@
    "rows": 302,
    "ok": 33,
    "unsure": 263,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 26
   },
   "F04_multi_child_owner|m2|deposit": {
    "state": "ok",
    "rows": 347,
-   "ok": 30,
-   "unsure": 317,
-   "with_checks": 46,
+   "ok": 29,
+   "unsure": 318,
+   "with_checks": 49,
    "excluded": 16
   },
   "F04_multi_child_owner|m2|mortgage": {
@@ -568,15 +568,15 @@
    "rows": 299,
    "ok": 28,
    "unsure": 265,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 29
   },
   "F04_multi_child_owner|m3|deposit": {
    "state": "ok",
    "rows": 345,
-   "ok": 30,
-   "unsure": 315,
-   "with_checks": 45,
+   "ok": 29,
+   "unsure": 316,
+   "with_checks": 48,
    "excluded": 18
   },
   "F04_multi_child_owner|m3|mortgage": {
@@ -616,15 +616,15 @@
    "rows": 299,
    "ok": 28,
    "unsure": 265,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 29
   },
   "F04_multi_child_owner|m4|deposit": {
    "state": "ok",
    "rows": 344,
-   "ok": 30,
-   "unsure": 314,
-   "with_checks": 44,
+   "ok": 29,
+   "unsure": 315,
+   "with_checks": 47,
    "excluded": 19
   },
   "F04_multi_child_owner|m4|mortgage": {
@@ -664,15 +664,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F05_pre_retire|m0|deposit": {
    "state": "ok",
    "rows": 362,
-   "ok": 33,
-   "unsure": 329,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 330,
+   "with_checks": 51,
    "excluded": 1
   },
   "F05_pre_retire|m0|mortgage": {
@@ -712,15 +712,15 @@
    "rows": 313,
    "ok": 37,
    "unsure": 271,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 15
   },
   "F05_pre_retire|m1|deposit": {
    "state": "ok",
    "rows": 362,
-   "ok": 33,
-   "unsure": 329,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 330,
+   "with_checks": 51,
    "excluded": 1
   },
   "F05_pre_retire|m1|mortgage": {
@@ -760,15 +760,15 @@
    "rows": 315,
    "ok": 37,
    "unsure": 273,
-   "with_checks": 72,
+   "with_checks": 73,
    "excluded": 13
   },
   "F05_pre_retire|m2|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F05_pre_retire|m2|mortgage": {
@@ -808,15 +808,15 @@
    "rows": 313,
    "ok": 37,
    "unsure": 271,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 15
   },
   "F06_elder_son_owner|m0|deposit": {
    "state": "ok",
    "rows": 363,
-   "ok": 33,
-   "unsure": 330,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 331,
+   "with_checks": 51,
    "excluded": 0
   },
   "F06_elder_son_owner|m0|mortgage": {
@@ -856,15 +856,15 @@
    "rows": 310,
    "ok": 37,
    "unsure": 268,
-   "with_checks": 68,
+   "with_checks": 69,
    "excluded": 18
   },
   "F06_elder_son_owner|m1|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F06_elder_son_owner|m1|mortgage": {
@@ -904,15 +904,15 @@
    "rows": 313,
    "ok": 37,
    "unsure": 271,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 15
   },
   "F06_elder_son_owner|m2|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F06_elder_son_owner|m2|mortgage": {
@@ -952,15 +952,15 @@
    "rows": 302,
    "ok": 33,
    "unsure": 264,
-   "with_checks": 67,
+   "with_checks": 68,
    "excluded": 26
   },
   "F06_elder_son_owner|m3|deposit": {
    "state": "ok",
    "rows": 349,
-   "ok": 30,
-   "unsure": 319,
-   "with_checks": 46,
+   "ok": 29,
+   "unsure": 320,
+   "with_checks": 49,
    "excluded": 14
   },
   "F06_elder_son_owner|m3|mortgage": {
@@ -1000,15 +1000,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F07_elderly_couple_low|m0|deposit": {
    "state": "ok",
    "rows": 363,
-   "ok": 33,
-   "unsure": 330,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 331,
+   "with_checks": 51,
    "excluded": 0
   },
   "F07_elderly_couple_low|m0|mortgage": {
@@ -1048,15 +1048,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F07_elderly_couple_low|m1|deposit": {
    "state": "ok",
    "rows": 363,
-   "ok": 33,
-   "unsure": 330,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 331,
+   "with_checks": 51,
    "excluded": 0
   },
   "F07_elderly_couple_low|m1|mortgage": {
@@ -1096,15 +1096,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F07_elderly_couple_low|m2|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F07_elderly_couple_low|m2|mortgage": {
@@ -1144,15 +1144,15 @@
    "rows": 310,
    "ok": 37,
    "unsure": 268,
-   "with_checks": 68,
+   "with_checks": 69,
    "excluded": 18
   },
   "F08_self_employed_2homes|m0|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F08_self_employed_2homes|m0|mortgage": {
@@ -1192,15 +1192,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F08_self_employed_2homes|m1|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F08_self_employed_2homes|m1|mortgage": {
@@ -1240,15 +1240,15 @@
    "rows": 301,
    "ok": 33,
    "unsure": 262,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 27
   },
   "F08_self_employed_2homes|m2|deposit": {
    "state": "ok",
    "rows": 347,
-   "ok": 30,
-   "unsure": 317,
-   "with_checks": 46,
+   "ok": 29,
+   "unsure": 318,
+   "with_checks": 49,
    "excluded": 16
   },
   "F08_self_employed_2homes|m2|mortgage": {
@@ -1288,15 +1288,15 @@
    "rows": 314,
    "ok": 37,
    "unsure": 272,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 14
   },
   "F09_heavy_debt|m0|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F09_heavy_debt|m0|mortgage": {
@@ -1336,15 +1336,15 @@
    "rows": 316,
    "ok": 37,
    "unsure": 274,
-   "with_checks": 73,
+   "with_checks": 74,
    "excluded": 12
   },
   "F09_heavy_debt|m1|deposit": {
    "state": "ok",
    "rows": 360,
-   "ok": 33,
-   "unsure": 327,
-   "with_checks": 47,
+   "ok": 32,
+   "unsure": 328,
+   "with_checks": 50,
    "excluded": 3
   },
   "F09_heavy_debt|m1|mortgage": {
@@ -1384,15 +1384,15 @@
    "rows": 312,
    "ok": 37,
    "unsure": 270,
-   "with_checks": 70,
+   "with_checks": 71,
    "excluded": 16
   },
   "F10_rich_elder|m0|deposit": {
    "state": "ok",
    "rows": 363,
-   "ok": 33,
-   "unsure": 330,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 331,
+   "with_checks": 51,
    "excluded": 0
   },
   "F10_rich_elder|m0|mortgage": {
@@ -1432,15 +1432,15 @@
    "rows": 313,
    "ok": 37,
    "unsure": 271,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 15
   },
   "F10_rich_elder|m1|deposit": {
    "state": "ok",
    "rows": 363,
-   "ok": 33,
-   "unsure": 330,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 331,
+   "with_checks": 51,
    "excluded": 0
   },
   "F10_rich_elder|m1|mortgage": {
@@ -1480,15 +1480,15 @@
    "rows": 311,
    "ok": 37,
    "unsure": 269,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 17
   },
   "F10_rich_elder|m2|deposit": {
    "state": "ok",
    "rows": 362,
-   "ok": 33,
-   "unsure": 329,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 330,
+   "with_checks": 51,
    "excluded": 1
   },
   "F10_rich_elder|m2|mortgage": {
@@ -1528,15 +1528,15 @@
    "rows": 310,
    "ok": 37,
    "unsure": 268,
-   "with_checks": 68,
+   "with_checks": 69,
    "excluded": 18
   },
   "F11_border_ages|m0|deposit": {
    "state": "ok",
    "rows": 362,
-   "ok": 33,
-   "unsure": 329,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 330,
+   "with_checks": 51,
    "excluded": 1
   },
   "F11_border_ages|m0|mortgage": {
@@ -1576,15 +1576,15 @@
    "rows": 313,
    "ok": 37,
    "unsure": 271,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 15
   },
   "F11_border_ages|m1|deposit": {
    "state": "ok",
    "rows": 362,
-   "ok": 33,
-   "unsure": 329,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 330,
+   "with_checks": 51,
    "excluded": 1
   },
   "F11_border_ages|m1|mortgage": {
@@ -1624,15 +1624,15 @@
    "rows": 313,
    "ok": 37,
    "unsure": 271,
-   "with_checks": 71,
+   "with_checks": 72,
    "excluded": 15
   },
   "F11_border_ages|m2|deposit": {
    "state": "ok",
    "rows": 362,
-   "ok": 33,
-   "unsure": 329,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 330,
+   "with_checks": 51,
    "excluded": 1
   },
   "F11_border_ages|m2|mortgage": {
@@ -1672,15 +1672,15 @@
    "rows": 311,
    "ok": 37,
    "unsure": 269,
-   "with_checks": 69,
+   "with_checks": 70,
    "excluded": 17
   },
   "F12_grandma_grandchild|m0|deposit": {
    "state": "ok",
    "rows": 363,
-   "ok": 33,
-   "unsure": 330,
-   "with_checks": 48,
+   "ok": 32,
+   "unsure": 331,
+   "with_checks": 51,
    "excluded": 0
   },
   "F12_grandma_grandchild|m0|mortgage": {
@@ -1720,15 +1720,15 @@
    "rows": 297,
    "ok": 28,
    "unsure": 263,
-   "with_checks": 68,
+   "with_checks": 69,
    "excluded": 31
   },
   "F12_grandma_grandchild|m1|deposit": {
    "state": "ok",
    "rows": 345,
-   "ok": 30,
-   "unsure": 315,
-   "with_checks": 45,
+   "ok": 29,
+   "unsure": 316,
+   "with_checks": 48,
    "excluded": 18
   },
   "F12_grandma_grandchild|m1|mortgage": {

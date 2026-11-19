@@ -796,7 +796,7 @@ def _c6b(o, i):
 def _b7(i):
     return f"""가족이 반대 없이 고른 방법으로 합의안과 합의 리포트를 작성해라. 법적 효력이 있는 문서가 아니라 '가족이 함께 정한 내용을 남긴 기록'이다.
 - 숫자는 전부 facts의 {{{{fact:ID}}}}로만 쓴다. 금융회사·상품 이름은 쓰지 않는다. 상품은 다음 단계(조건 비교)에서 가족이 직접 본다.
-- contribution(매달 모으는 돈): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}.
+- contribution(매달 모으는 돈): contribution_facts에서 고른 항목은 {{"label": "...", "fact_id": "..."}}. 대출 다 갚기에서는 agree.monthly_saving이 정해진 대출 상환을 낸 뒤 남는 돈이니 '매달 남는 돈'이라고 부르고, '대출 갚기에 쓰는 돈'이라고 쓰지 않는다.
   매달 모이는 돈(agree.monthly_saving)을 용도별로 나눠 적고 싶으면 {{"label": "용도", "amount": 만원, "part_of": "agree.monthly_saving"}}로 쓰고,
   나눈 금액의 합은 매달 모이는 돈과 정확히 같아야 한다(나누지 않으면 fact_id 한 줄로).
   매달 모이는 돈에는 수입·지출·보태는 돈·아끼는 돈이 이미 다 들어 있다. 그래서 agree.monthly_saving을 쓰면 다른 항목(agree.item.*, agree.adj.*)을 함께 적지 않는다(겹친다). 누가 얼마를 맡는지 보이고 싶으면 매달 모이는 돈 대신 그 항목들만 적는다. 대출 더 갚기(agree.extra.*)는 따로 적어도 된다.

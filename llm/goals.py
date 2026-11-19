@@ -12,22 +12,35 @@ from __future__ import annotations
 
 CHOICE, NUM, TEXT, MEMBER = "choice", "number", "text", "member"
 
+# 대출 갚기·간병(·기타의 대출/예금 지내기)에서 더 받는 값(2026-11-20 형님 결정): 곧 은퇴·퇴직하는 분이 있으면 그분의 월급을 그 나이부터 끊는다.
+# 안 받으면 일하는 가족의 월급이 계산 기간 끝까지 이어진다고 보고, 그 가정을 미래 계산 화면에 밝힌다. 노후·은퇴 목표는 은퇴 나이 입력이 따로 있어 받지 않는다.
+WORK_END_EXTRA = [
+    {"key": "work_end_member_id", "label": "곧 은퇴(퇴직)하는 분", "kind": MEMBER, "optional": True,
+     "help": "일하는 분 중 가까운 때 은퇴하거나 퇴직하는 분이 있으면 골라 주세요. 그분의 월급이 그때부터 끝나는 것으로 계산해요. 없으면 비워 두세요."},
+    {"key": "work_end_age", "label": "은퇴(퇴직) 나이", "kind": NUM, "unit": "세", "min": 40, "max": 90, "optional": True,
+     "help": "위에서 고른 분이 은퇴(퇴직)하는 나이예요."},
+    {"key": "work_end_pension", "label": "은퇴 뒤 그분이 받을 연금(예상)", "kind": NUM, "unit": "만원/월", "min": 0, "max": 10_000, "optional": True,
+     "help": "국민연금·퇴직연금 등을 합친 대략의 금액이에요. 국민연금공단 '내 연금 알아보기'에서 예상액을 볼 수 있어요. 비우면 연금 없이 계산해요."},
+]
+
 # 필드: key, label, kind, unit, min, max, options(choice), help
 CATEGORIES: dict[str, dict] = {
     "home": {"label": "내 집 마련", "engine": "reach_target", "goal_label": "내 집 마련", "fields": [
         {"key": "target_amount", "label": "집 마련에 필요한 돈", "kind": NUM, "unit": "만원", "min": 1000, "max": 1_000_000, "decide": True,
-         "help": "집값 전체가 아니라, 우리가 모아야 할 금액이에요. 예: 집값 5억원 중 3억원을 모은다면 30000"},
+         "help": "집값 전체가 아니라, 집을 사는 데 쓸 수 있는 내 돈의 총액이에요. 지금 있는 예금·투자와 보증금(전세대출 뺀 몫)까지 합친 금액이에요. 예: 집값 5억원 중 3억원을 마련한다면 30000"},
         {"key": "within_years", "label": "언제까지", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
         {"key": "living", "label": "지금 사는 곳", "kind": CHOICE, "options": ["전세", "월세", "자가", "부모님 집"]},
     ]},
     "lump": {"label": "목돈 모으기", "engine": "reach_target", "goal_label": "목돈 모으기", "fields": [
         {"key": "purpose", "label": "무엇을 위한 돈인가요", "kind": CHOICE, "options": ["결혼", "출산·육아", "자녀 교육", "차량", "창업", "여행·기타"]},
-        {"key": "target_amount", "label": "모으고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True},
+        {"key": "target_amount", "label": "모으고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True,
+         "help": "지금 있는 예금·투자까지 합쳐서 그때 갖고 싶은 총 금액이에요(살고 있는 집의 보증금은 빼요). 예: 지금 5천만원이 있고 1억원을 만들고 싶다면 10000"},
         {"key": "within_years", "label": "언제까지", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
     ]},
     "debt": {"label": "대출 갚기", "engine": "debt_free", "goal_label": "대출 다 갚기", "fields": [
         {"key": "within_years", "label": "언제까지 다 갚고 싶나요", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
         {"key": "priority", "label": "가장 중요한 것", "kind": CHOICE, "options": ["이자 부담 줄이기", "빨리 끝내기", "생활이 흔들리지 않게 천천히"]},
+        *WORK_END_EXTRA,
     ]},
     "retire": {"label": "노후·은퇴 준비", "engine": "runway", "goal_label": "은퇴 후 예금으로 지낼 수 있는 기간", "fields": [
         {"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER},
@@ -42,6 +55,7 @@ CATEGORIES: dict[str, dict] = {
         {"key": "start_years", "label": "언제부터", "kind": NUM, "unit": "년 뒤(지금이면 0)", "min": 0, "max": 30},
         {"key": "care_years", "label": "간병이 이어질 것 같은 기간", "kind": NUM, "unit": "년", "min": 1, "max": 40, "optional": True,
          "help": "모르면 비워 두세요. 비우면 기준이 되는 분이 100세가 될 때까지 계속 든다고 계산해요."},
+        *WORK_END_EXTRA,
     ]},
     "other": {"label": "기타", "engine": None, "goal_label": "", "fields": [
         {"key": "purpose_text", "label": "목표를 한 줄로 적어 주세요", "kind": TEXT, "max": 30},
@@ -53,11 +67,12 @@ OTHER_ENGINE = {"목표 금액 모으기": "reach_target", "대출 다 갚기": 
 # 기타에서 고른 계산에 따라 더 받는 값
 OTHER_EXTRA = {
     "reach_target": [
-        {"key": "target_amount", "label": "모으고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True},
+        {"key": "target_amount", "label": "모으고 싶은 돈", "kind": NUM, "unit": "만원", "min": 100, "max": 1_000_000, "decide": True,
+         "help": "지금 있는 예금·투자까지 합쳐서 그때 갖고 싶은 총 금액이에요(살고 있는 집의 보증금은 빼요)."},
         {"key": "within_years", "label": "언제까지", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True},
     ],
-    "debt_free": [{"key": "within_years", "label": "언제까지 다 갚고 싶나요", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True}],
-    "runway": [{"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER}],
+    "debt_free": [{"key": "within_years", "label": "언제까지 다 갚고 싶나요", "kind": NUM, "unit": "년 안", "min": 1, "max": 30, "decide": True}, *WORK_END_EXTRA],
+    "runway": [{"key": "base_member_id", "label": "누구 나이를 기준으로 볼까요", "kind": MEMBER}, *WORK_END_EXTRA],
 }
 
 
@@ -142,6 +157,10 @@ def validate_input(raw, member_ids: set[str]) -> dict | None:
             out[f["key"]] = s
     if is_baby({"category": cat, "fields": out}) and out.get("leave_months", 0) > 0 and not out.get("leave_member_id"):
         raise GoalInputError("'휴직하는 사람'을 골라 주세요")
+    if out.get("work_end_pension") and not out.get("work_end_member_id"):
+        raise GoalInputError("'은퇴 뒤 그분이 받을 연금'을 쓰려면 '곧 은퇴(퇴직)하는 분'을 골라 주세요")
+    if bool(out.get("work_end_member_id")) != bool(out.get("work_end_age")):
+        raise GoalInputError("'곧 은퇴(퇴직)하는 분'과 '은퇴(퇴직) 나이'를 함께 적거나 둘 다 비워 주세요")
     return {"category": cat, "fields": out}
 
 

@@ -1,0 +1,166 @@
+{
+ "_note": "신혼부부 · 목돈 모으기(출산·육아). 맞벌이, 전세 2.8억(전세대출 2.4억), 아내가 1년 육아휴직 예정. 금액은 만원, 모두 가상값.",
+ "today": "2026-11",
+ "room": {
+  "name": "우리 아기 맞이 준비",
+  "reason": "내년에 아이를 가질 계획인데, 휴직하는 동안 생활이 어떻게 될지 숫자로 보고 싶어요.",
+  "host_member_id": "m1"
+ },
+ "members": [
+  {
+   "member_id": "m0",
+   "name": "준호",
+   "role": "남편",
+   "age": 33,
+   "easy_mode": false,
+   "work": "working"
+  },
+  {
+   "member_id": "m1",
+   "name": "서현",
+   "role": "아내",
+   "age": 31,
+   "easy_mode": false,
+   "work": "working"
+  }
+ ],
+ "story": {
+  "author_id": "m1",
+  "text": "결혼 2년 차 맞벌이 부부예요. 서울 외곽에 전세 2억 8천만 원으로 살고 있고, 전세대출이 2억 4천만 원 있어요. 내년에 아이를 갖고 싶은데 저는 아이가 태어나면 1년쯤 육아휴직을 쓰고 싶어요. 남편은 휴직 중에 생활비가 모자랄까 봐 걱정이고, 가능하면 휴직 기간을 줄이자는 쪽이에요. 출산비, 산후조리, 육아용품에 쓸 돈과 휴직 동안 줄어드는 월급을 어떻게 메울지 같이 정하고 싶어요. 양가에 매달 용돈을 조금씩 드리고 있어요."
+ },
+ "finance": [
+  {
+   "item_id": "f1",
+   "owner_id": "m0",
+   "kind": "income",
+   "label": "남편 월급(세후)",
+   "amount": 400
+  },
+  {
+   "item_id": "f2",
+   "owner_id": "m1",
+   "kind": "income",
+   "label": "아내 월급(세후)",
+   "amount": 320
+  },
+  {
+   "item_id": "f3",
+   "owner_id": "joint",
+   "kind": "expense",
+   "label": "생활비(카드·관리비·통신 등)",
+   "amount": 300
+  },
+  {
+   "item_id": "f4",
+   "owner_id": "joint",
+   "kind": "deposit",
+   "label": "비상금·예금",
+   "amount": 2500
+  },
+  {
+   "item_id": "f5",
+   "owner_id": "m0",
+   "kind": "deposit",
+   "label": "적금",
+   "amount": 1000
+  },
+  {
+   "item_id": "f6",
+   "owner_id": "m1",
+   "kind": "deposit",
+   "label": "청약저축",
+   "amount": 700
+  },
+  {
+   "item_id": "f7",
+   "owner_id": "m0",
+   "kind": "investment",
+   "label": "주식",
+   "amount": 800
+  },
+  {
+   "item_id": "f8",
+   "owner_id": "joint",
+   "kind": "lease_deposit",
+   "label": "전세 보증금",
+   "amount": 28000
+  },
+  {
+   "item_id": "f9",
+   "owner_id": "joint",
+   "kind": "loan",
+   "label": "전세자금대출",
+   "amount": 24000,
+   "loan_type": "lease",
+   "rate": 3.9
+  },
+  {
+   "item_id": "f10",
+   "owner_id": "joint",
+   "kind": "transfer_out",
+   "label": "양가 용돈(매달)",
+   "amount": 20
+  }
+ ],
+ "disclosure": {
+  "f6": "hide"
+ },
+ "scripts": {
+  "answers": {
+   "m0": [
+    "아이가 태어나도 돈 때문에 불안하지 않은 가족이요. 지키고 싶은 건 지금 사는 전셋집을 유지하는 거예요.",
+    "서현이 휴직하는 동안 월급이 확 줄어서 대출 이자랑 생활비를 감당할 수 있을지 걱정이에요.",
+    "양보할 수 있는 건 여행이나 외식이에요. 양보하기 어려운 건 전세대출 이자를 밀리지 않는 거예요."
+   ],
+   "m1": [
+    "아이가 한 살이 될 때까지는 내가 직접 키우고 싶어요. 지키고 싶은 건 1년 육아휴직이에요.",
+    "휴직하면 월급이 줄어서 남편한테 부담을 다 주게 될까 봐 걱정이에요. 복직하고 나서도 경력이 끊길까 봐 불안해요.",
+    "양보할 수 있는 건 휴직 기간을 조금 줄이는 거예요. 양보하기 어려운 건 아이가 태어난 첫 6개월은 쉬는 거예요."
+   ]
+  },
+  "replies": {
+   "m0": "휴직 기간이 얼마가 적당한지 숫자로 비교해 보면 좋겠어요.",
+   "m1": "좋아요. 휴직 기간을 바꿨을 때 어떻게 되는지 보고 싶어요."
+  },
+  "goal_form": {
+   "type": "reach_target",
+   "target_amount": 9000,
+   "within_months": 24,
+   "label": "출산·육아 준비금"
+  },
+  "rounds": [
+   {
+    "m0": {
+     "v": "cond",
+     "text": "괜찮아요, 단 휴직 중에도 전세대출 이자는 꼭 낼 수 있어야 해요."
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    }
+   },
+   {
+    "m0": {
+     "v": "good",
+     "text": ""
+    },
+    "m1": {
+     "v": "good",
+     "text": ""
+    }
+   }
+  ]
+ },
+ "goal_input": {
+  "category": "lump",
+  "fields": {
+   "purpose": "출산·육아",
+   "target_amount": 9000,
+   "within_years": 2,
+   "leave_months": 12,
+   "leave_member_id": "m1",
+   "leave_income": 190,
+   "emergency_floor": 1500
+  }
+ }
+}

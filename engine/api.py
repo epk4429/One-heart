@@ -68,7 +68,7 @@ def _basis(req: Request, opt: Option, det: DeterministicResult) -> list[dict]:
     rows = [
         {"key": "start", "label": "보유 자산", "value": req.start_pool, "display": fmt.won(req.start_pool),
          "detail": req.pool_label, "source": "financial_snapshot"},
-        {"key": "monthly_flow", "label": "이번 달 모이는 돈", "value": flow,  # 2026-11-15 형님 결정('매달'이 아니라 첫 달 값)
+        {"key": "monthly_flow", "label": "이번 달 남는 돈" if req.goal.type == "runway" else "이번 달 모이는 돈", "value": flow,  # 2026-11-15 형님 결정('매달'이 아니라 첫 달 값)
          "display": ("+" if flow > 0 else "") + fmt.won(flow), "detail": detail, "source": "option"},
         {"key": "return", "label": "수익률", "value": opt.expected_return,
          "display": "연 " + fmt.pct(opt.expected_return),
@@ -197,6 +197,8 @@ def simulate(raw: dict, *, include_monthly: bool = True) -> dict:
             # 계산 기간 동안 예금이 가장 적었던 때(노후처럼 '28년 이상'으로 같게 보이는 방법을 구분하려고, 1-5)
             **_min_pool(det),
             "monthly_flow": first_month_flow(det, opt),
+            "goal_type": req.goal.type,
+            "extra_mode": bool(req.sweep and req.goal.type == "debt_free"),  # 대출 다 갚기 + 남는 돈 규칙: 가족 홈에서 '추가로 갚은 돈'을 기록한다(2026-11-20)
             "debt_free_month": det.debt_free_month,
             "min_cash": det.min_cash,  # 비상금으로 셀 수 있는 예금이 가장 적을 때(목표 달성 전까지)
             "floor_breach_month": det.floor_breach_month,  # 예금이 처음으로 비상금 선 아래로 내려가는 달(없으면 None)
@@ -216,7 +218,7 @@ def simulate(raw: dict, *, include_monthly: bool = True) -> dict:
         if include_monthly:
             item["monthly"] = [{"m": r.m, "start": round(r.start, 1), "interest": round(r.interest, 1),
                                 "inflow": round(r.inflow, 1), "outflow": round(r.outflow, 1), "lump": r.lump,
-                                "loan_payment": round(r.loan_payment, 1), "debt": round(r.debt, 1),
+                                "loan_payment": round(r.loan_payment, 1), "prepay": round(r.prepay, 1), "extra": round(r.extra, 1), "debt": round(r.debt, 1),
                                 "end": round(r.end, 1), "net_worth": round(r.net_worth, 1)} for r in det.rows]
         results.append(item)
     return {

@@ -126,6 +126,7 @@ class Option:
     loan_prepayments: list[LumpSum] = field(default_factory=list)  # label 자리에 loan_id
     floor: float | None = None  # 이 방법이 지키는 비상금 선(가족이 정한 선 이상). 없으면 요청의 floor
     loan_payments: dict = field(default_factory=dict)  # 대출 id → 이 방법의 월 상환액(대출 기간 늘리기, 2026-11-15)
+    actual_extra: dict = field(default_factory=dict)  # 달 → 가족이 그 달에 실제로 추가로 갚은 돈(대출 다 갚기 가족 홈 기록, 2026-11-20)
 
     @property
     def monthly_flow(self) -> float:
@@ -282,7 +283,17 @@ def _parse_option(o: dict, i: int, horizon: int, aux_ids: set[str], loan_ids: se
         loan_prepayments=prepays,
         floor=_num(o, "floor", path, lo=0, hi=MAX_LUMP * 10) if o.get("floor") is not None else None,
         loan_payments=_loan_payments(o, path, loan_ids),
+        actual_extra=_actual_extra(o, path, horizon),
     )
+
+
+def _actual_extra(o: dict, path: str, horizon: int) -> dict:
+    out = {}
+    for k, v in (o.get("actual_extra") or {}).items():
+        if not str(k).isdigit() or not 1 <= int(k) <= horizon:
+            raise EngineInputError(f"{path}.actual_extra", "달은 1~계산 기간 안이어야 해요")
+        out[int(k)] = _num({"v": v}, "v", f"{path}.actual_extra.{k}", lo=0, hi=MAX_LUMP * 10)
+    return out
 
 
 def _loan_payments(o: dict, path: str, loan_ids: set | None) -> dict:

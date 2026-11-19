@@ -23,7 +23,7 @@
    "source": "nhuf_didimdol", "summary": "무주택 서민이 집을 살 때 기금에서 낮은 금리로 빌려주는 구입자금 대출이에요.",
    "eligibility": [
     {"label": "세대원 모두 무주택", "var": "home_count", "op": "==", "value": 0, "quote": "세대주를 포함한 세대원 전원이 무주택인 자"},
-    {"label": "부부합산 연소득 6천만원 이하(생애최초·2자녀 이상 7천만원, 신혼 8.5천만원)", "var": "household_income_year", "op": "<=", "value": 6000, "alt": [{"if": "children>=2", "value": 7000}], "quote": "부부합산 연소득 6천만원 이하"},
+    {"label": "부부합산 연소득 6천만원 이하(생애최초·2자녀 이상 7천만원, 신혼 8.5천만원)", "var": "household_income_year", "op": "<=", "value": 6000, "max_value": 8500, "alt": [{"if": "children>=2", "value": 7000}], "quote": "부부합산 연소득 6천만원 이하"},
     {"label": "순자산 5.11억원 이하", "var": "net_assets", "op": "<=", "value": 51100, "quote": "순자산가액 5.11억원 이하"}
    ],
    "unmodeled": [
@@ -79,7 +79,7 @@
    "source": "nhuf_beotimmok", "summary": "무주택 서민의 전세 보증금을 기금에서 낮은 금리로 빌려주는 대출이에요.",
    "eligibility": [
     {"label": "세대원 모두 무주택", "var": "home_count", "op": "==", "value": 0, "quote": "세대주를 포함한 세대원 전원이 무주택인 자"},
-    {"label": "부부합산 연소득 5천만원 이하(2자녀 이상 6천만원, 신혼 7.5천만원)", "var": "household_income_year", "op": "<=", "value": 5000, "alt": [{"if": "children>=2", "value": 6000}], "quote": "부부합산 연소득 5천만원 이하"},
+    {"label": "부부합산 연소득 5천만원 이하(2자녀 이상 6천만원, 신혼 7.5천만원)", "var": "household_income_year", "op": "<=", "value": 5000, "max_value": 7500, "alt": [{"if": "children>=2", "value": 6000}], "quote": "부부합산 연소득 5천만원 이하"},
     {"label": "순자산 3.45억원 이하", "var": "net_assets", "op": "<=", "value": 34500, "quote": "순자산가액 3.45억원 이하"}
    ],
    "unmodeled": [

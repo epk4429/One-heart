@@ -29,7 +29,7 @@ def test_target_must_exceed_money_already_saved():
 def test_debt_free_needs_repaying_loan():
     with pytest.raises(PlanError):
         normalize_goal(fam("newly"), {"type": "debt_free"})  # 전세대출은 이자만 내서 '다 갚기' 대상이 아니다
-    assert normalize_goal(fam("single_parent"), {"type": "debt_free"})["horizon_months"] % 12 == 0
+    assert normalize_goal(fam("retire_mortgage"), {"type": "debt_free"})["horizon_months"] % 12 == 0
 
 
 @pytest.mark.parametrize("bad, msg", [
@@ -78,7 +78,7 @@ def test_policy_amounts_come_from_code_not_ai():
 def test_lump_repayment_and_realism_checks():
     """현실성 검사(2026-11-15): 똑같은 방법 거부, 일시 상환은 예금에서 비상금 선을 남기는 만큼만, 가족이 정한 선보다 낮은 비상금 거부."""
     from llm.roles import _c5
-    f = fam("mortgage_couple")
+    f = fam("newly_debt")
     g = normalize_goal(f, {"type": "debt_free", "floor": 500})
     same = [{"option_id": o, "label": o, "return_id": "safe"} for o in "ABC"]
     assert any("똑같은 방법" in e for e in _c5({"options": same}, {"family": f, "goal_full": g}))
@@ -100,7 +100,7 @@ def test_lump_repayment_and_realism_checks():
 def test_unchanged_c_is_named_as_baseline():
     """C가 아무것도 바꾸지 않으면 '지금처럼(비교용)'으로 이름 붙인다(2026-11-15 형님 결정). A·B는 이름을 바꾸지 않는다."""
     from llm.plan import mark_baseline
-    f = fam("mortgage_couple")
+    f = fam("newly_debt")
     g = normalize_goal(f, {"type": "debt_free", "floor": 500})
     specs = [check_option(f, g, {"option_id": o, "label": f"{o} 원래 이름", "return_id": "safe"}) for o in "ABC"]
     out = mark_baseline(specs)
