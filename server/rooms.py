@@ -87,6 +87,37 @@ def _check_state(state) -> None:
         raise RoomError("too_large", "가족방 상태가 너무 커요", 413)
 
 
+# 구성원 몫(구성원 id로 칸이 나뉜 값). 저장하는 사람은 자기 칸만 새로 쓰거나 고칠 수 있다. 남의 칸을 바꾸거나 새로 넣은 부분은 서버 값으로 되돌린다(지우는 것은 '다시 이야기 나누기' 같은 되돌리기라 허용).
+MEMBER_MAPS = ("iv", "approvals", "r1", "sub1", "signed", "rd")
+
+
+def _strip_foreign(old: dict, new: dict, mid: str) -> list[str]:
+    """new에서 mid가 아닌 구성원의 칸이 old와 다르면 old 값으로 되돌린다(없던 칸이면 지운다). 되돌린 위치 이름을 돌려준다.
+    거절하지 않고 되돌리는 이유: 화면이 읽다가 빈 칸을 만들어 두는 일 같은 무해한 차이로 정상 저장까지 막히면 가족 화면이 서로 안 맞는다."""
+    fixed: list[str] = []
+
+    def fix(o, n, label):
+        if not isinstance(n, dict):
+            return
+        o = o if isinstance(o, dict) else {}
+        for k in list(n):
+            if k != mid and (k not in o or o[k] != n[k]):
+                if k in o:
+                    n[k] = o[k]
+                else:
+                    del n[k]
+                fixed.append(label)
+    for key in MEMBER_MAPS:
+        fix(old.get(key), new.get(key), key)
+    op, np_ = old.get("pg"), new.get("pg")
+    if isinstance(np_, list):
+        for i, page in enumerate(np_):
+            if isinstance(page, dict):
+                o = op[i] if isinstance(op, list) and i < len(op) and isinstance(op[i], dict) else {}
+                fix(o.get("replies"), page.get("replies"), "pg.replies")
+    return fixed
+
+
 def create(state: dict, member_ids: list[str], code_key: str) -> dict:
     """방을 만든다. 첫 번째 구성원(member_ids[0])이 방장이다. {room_id, version, tokens{member_id: 열쇠}}."""
     _check_state(state)
@@ -137,6 +168,7 @@ def save(room_id: str, token: str, base_version: int, state: dict) -> dict:
         d, mid = member_of(room_id, token)
         if int(base_version) != d["version"]:
             return {"conflict": True, "version": d["version"], "state": d["state"], "member_id": mid}
+        _strip_foreign(d.get("state") or {}, state, mid)  # 남의 칸을 바꾼 부분은 서버 값으로 되돌린다
         nd = {**d, "state": state, "version": d["version"] + 1}
         if guard.backend() == "upstash":  # 서버리스 인스턴스가 여럿이라 프로세스 잠금으로는 부족 → Redis 안에서 버전을 검사하고 쓴다
             res = guard._upstash(["EVAL", _CAS, "1", _key(room_id), str(int(base_version)), json.dumps(nd, ensure_ascii=False), str(TTL_SECONDS)])

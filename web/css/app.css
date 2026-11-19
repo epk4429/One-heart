@@ -546,3 +546,24 @@ body.pilot .dock{display:none}
 .rm-note{font-size:13px;color:var(--muted);margin:10px 0 0}
 @media(max-width:640px){.rm-link{grid-template-columns:auto 1fr}}
 
+.fr-row.bad input{border-color:var(--bad);background:#fdf4f1}
+.bad-in{border-color:var(--bad)!important;background:#fdf4f1!important}
+
+/* 휴대폰 폭 최소 대응(2026-11-19): 가족이 각자 휴대폰으로 링크로 들어올 수 있어, 헤더 이름이 잘리지 않고 목차가 첫 화면을 다 차지하지 않게 한다 */
+@media (max-width:640px){
+  #hApp{min-width:0;gap:8px!important}
+  #hApp .roomtxt{min-width:0;max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #hApp .stack{display:none}
+  .appgrid{padding:20px 14px 0}
+  main.sheet{padding:26px 16px 28px}
+  .rail{flex-direction:row;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .rail h3{display:none}
+  .rail button{width:auto;padding:5px 10px;border:1px solid var(--line);align-items:center}
+  .rail button .dots{display:none}
+  .rail button .num{order:-1;font-size:12px}
+  .rail button:not([aria-current="step"]) span:first-child{display:none}
+  .rail button[aria-current="step"]{border-color:var(--green)}
+  .rail button[aria-current="step"]::before{display:none}
+  .rail .rail-restart{border:0;width:auto;margin:0 0 0 auto}
+}
+.chart-more{margin:6px 0 0;min-height:0}

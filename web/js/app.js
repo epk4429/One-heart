@@ -142,7 +142,7 @@ function vbadge(v, calls) {
 const prevBtn = () => step > 0 ? `<button class="btn" data-act="prev"><span aria-hidden="true">←</span> 이전 단계</button>` : "";
 const next = (label, dis, hint) => `<div class="next">${prevBtn()}<span class="pno">— ${step + 1} —</span>${dis && hint ? `<span class="hint">${hint}</span>` : ""}${label ? `<button class="btn primary" data-act="next" ${dis ? "disabled" : ""}>${label} <span aria-hidden="true">→</span></button>` : ""}</div>`;
 const turn = (list, what) => { const o = list.filter(m => m !== viewer()); return o.length ? `<div class="turn"><span>${o.map(m => esc(mem(m).name) + "님").join(", ")}의 ${what}${(c => c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? "이" : "가")(what.charCodeAt(what.length - 1))} 남았어요.</span>${(typeof ROOM !== "undefined" && ROOM.active) ? "" : `<button class="btn sm" data-act="viewer" data-mid="${o[0]}">${esc(mem(o[0]).name)}님 차례로 바꾸기</button>`}</div>` : ""; }; // 가족방(링크)에서는 사람을 바꾸는 버튼이 없다: 그 가족이 자기 화면에서 한다
-const oneDevice = () => (typeof ROOM !== "undefined" && ROOM.active) ? "" : `<div class="onedev"><b>한 기기에서 가족이 돌아가며 입력해요</b><span>아래 검은 막대의 <b>보는 사람</b>을 바꾸면 그 사람의 화면이 돼요. 실제 서비스에서는 가족마다 자기 휴대폰에서 알림을 받고 직접 입력해요.</span></div>`;
+const oneDevice = () => (typeof ROOM !== "undefined" && ROOM.active) ? "" : isPilot() ? `<div class="onedev"><b>가족방을 만들면 가족마다 초대 링크가 만들어져요</b><span>가족은 각자 자기 휴대폰이나 컴퓨터에서 링크로 들어와 직접 입력해요.</span></div>` : `<div class="onedev"><b>한 기기에서 가족이 돌아가며 입력해요</b><span>아래 검은 막대의 <b>보는 사람</b>을 바꾸면 그 사람의 화면이 돼요. 실제 서비스에서는 가족마다 자기 휴대폰에서 알림을 받고 직접 입력해요.</span></div>`;
 const customOn = () => !CFG || CFG.custom_family !== false;
 const retOf = b => { const id = (b.source || "").startsWith("assumption:") ? b.source.slice(11) : ""; return (CFG?.assumptions?.returns || []).find(x => x.id === id); };
 const retSource = b => { const r = retOf(b); return r && (r.expected_return === b.value || (r.after_tax && Math.abs(r.expected_return * 0.846 - b.value) < 0.01)) ? r.source + (r.after_tax ? " · 계산에는 이자소득세 15.4%를 뺀 세후 값" : "") : ""; }; // 수익률 가정값의 출처(data/assumptions.json). 예전에 저장한 계산이라 값이 다르면 보이지 않는다
@@ -213,7 +213,7 @@ function finRow(it, i) {
   const d = (f.disclosure[it.item_id] || "share") === "share" ? "share" : "hide"; // 예전 '합계만'은 비공개로 읽는다
   const DT = { share: "공개", hide: "비공개" };
   const loan = it.kind === "loan";
-  return `<div class="fr-row">
+  return `<div class="fr-row ${FIN_BAD === it.item_id ? 'bad' : ''}" data-fid="${it.item_id}">
    <input ${ro} data-bind="finance.${i}.label" value="${esc(it.label)}" placeholder="이름(예: 월급)" maxlength="30" aria-label="이름">
    <div class="fr-amt"><input ${ro} data-bind="finance.${i}.amount" data-num value="${it.amount ?? ""}" inputmode="decimal" placeholder="0" aria-label="금액"><span>만원${CFG.monthly_kinds.includes(it.kind) ? "/월" : ""}</span></div>
    <select ${ro} data-bind="finance.${i}.owner_id" aria-label="구성원">${[["joint", "공동"], ...f.members.map(m => [m.member_id, m.name])].map(([v, l]) => `<option value="${v}" ${it.owner_id === v ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
@@ -223,6 +223,15 @@ function finRow(it, i) {
    ${loan ? `<div class="fr-ext"><span>대출 종류</span><select ${ro} data-bind="finance.${i}.loan_type" aria-label="대출 종류">${Object.entries(CFG.loan_types).map(([k, l]) => `<option value="${k}" ${it.loan_type === k ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>
      <label>금리 <input ${ro} data-bind="finance.${i}.rate" data-num value="${it.rate ?? ""}" inputmode="decimal">%</label>
      ${it.loan_type !== "lease" ? `<label>월 상환액 <input ${ro} data-bind="finance.${i}.payment" data-num value="${it.payment ?? ""}" inputmode="decimal">만원</label>` : ""}</div>` : ""}</div>`;
+}
+let FIN_BAD = null; // 비어 있어 표시할 금융 항목 id
+function finProblem() { // 이름·금액이 빈 금융 항목을 찾아 안내(없으면 null)
+  for (const it of F().finance) {
+    const nm = String(it.label || "").trim();
+    if (!nm) return { id: it.item_id, msg: "이름이 비어 있는 금융 항목이 있어요. 이름을 적거나 '−'로 빼 주세요" };
+    if (it.amount == null || it.amount === "" || isNaN(+it.amount)) return { id: it.item_id, msg: `'${nm}'의 금액을 적어 주세요(없으면 0)` };
+  }
+  return null;
 }
 function finTable() {
   const f = F(), locked = presetLocked();
@@ -305,7 +314,8 @@ function s1() {
 }
 
 /* ---------- 화면 2: 각자의 생각 ---------- */
-const ivState = mid => { const s = S(); return s.iv[mid] || (s.iv[mid] = { answers: [], review: {}, resolve: {}, clar: null, review2: {}, summary: null, confirmed: false }); };
+const blankIv = () => ({ answers: [], review: {}, resolve: {}, clar: null, review2: {}, summary: null, confirmed: false });
+const ivState = mid => { const s = S(); if (!s.iv[mid] && typeof ROOM !== "undefined" && ROOM.active && mid !== s.viewer) return blankIv(); /* 가족방: 남의 칸은 읽기만 하고 빈 칸을 만들어 두지 않는다(서버 상태와 어긋나 저장이 막힘) */ return s.iv[mid] || (s.iv[mid] = { answers: [], review: {}, resolve: {}, clar: null, review2: {}, summary: null, confirmed: false }); };
 // 질문 = 고정 3개 + 가족 이야기를 보고 AI가 만든 그 사람 맞춤 질문 0~2개(우리 가족 이야기 정리 때 함께 만듦). 대화를 시작하면 고정한다
 const ivQs = mid => { const st = ivState(mid); if (!st.qs || !st.answers.length) st.qs = [...CFG.questions.map(q => ({ text: q.text, easy: q.easy })), ...(S().story.result?.member_questions?.[mid] || []).map(q => ({ ...q, extra: true }))]; return st.qs; };
 const qText = (mid, i) => { const q = ivQs(mid)[i]; return mem(mid).easy_mode ? q.easy : q.text; };
@@ -606,10 +616,19 @@ const goalNow = () => S().goalChk.goal;
 const baseYear = () => +F().today.slice(0, 4);
 // 그래프에 쓸 목표: 집값 상승률 슬라이더를 움직였으면 그 값을 쓴다(엔진도 같은 값으로 계산한 결과)
 const chartGoal = (i, g) => { const hg = S().ovIn[i]?.hg; return hg == null ? g : { ...g, target_growth: hg }; };
-function chart(r, goal) {
-  const W = 760, H = 340, L = 64, Rr = 96, T0 = 34, B = 44, horizon = goal.horizon_months, yrs = horizon / 12;
+// 그래프 가로축(시안 20, 2026-11-19 형님 컨펌): 목표에 닿는 방법은 닿는 때의 1.6배(최소 6년, 짝수 해로 올림, 계산 기간 이내)까지만 보여 준다. 닿지 않는 방법은 전체 기간.
+// '20년 전체 보기'를 누르면 그 방법만 전체 기간(이 브라우저 메모리에만 둠).
+let CHART_FULL = {};
+function chartYears(r, goal) {
+  const all = goal.horizon_months / 12;
+  if (!r.goal_hit_month || CHART_FULL[S().pick]) return { yrs: all, short: false };
+  const y = Math.min(all, Math.max(6, Math.ceil(r.goal_hit_month / 12 * 1.6 / 2) * 2));
+  return { yrs: y, short: y < all };
+}
+const chartMoreHtml = (r, g) => chartYears(r, g).short || CHART_FULL[S().pick] ? `<button type="button" class="btn sm" data-act="chart-full">${CHART_FULL[S().pick] ? "처음 범위로 보기" : `${g.horizon_months / 12}년 전체 보기`}</button>` : "";
+function chart(r, goal) {  const W = 760, H = 340, L = 64, Rr = 96, T0 = 34, B = 44, horizon = goal.horizon_months, yrs = chartYears(r, goal).yrs;
   const debt = goal.type === "debt_free";
-  const p = debt ? [r.start_debt, ...r.yearly.map(y => y.debt_end)] : [r.yearly[0].start, ...r.yearly.map(y => y.end)];
+  const p = (debt ? [r.start_debt, ...r.yearly.map(y => y.debt_end)] : [r.yearly[0].start, ...r.yearly.map(y => y.end)]).slice(0, yrs + 1); // 보이는 기간까지만
   const target = goal.type === "reach_target" ? goal.target_amount : 0;
   // 내 집 마련은 집값 상승률만큼 목표 금액도 해마다 오른다(엔진 target_at과 같은 식). 목표선을 평평하게 그리면 '닿는 점'이 선 위에서 어긋난다
   const tg = goal.type === "reach_target" ? (+goal.target_growth || 0) : 0;
@@ -625,12 +644,12 @@ function chart(r, goal) {
   const xs = yrs <= 12 ? 2 : yrs <= 25 ? 5 : 10;
   for (let t = 0; t <= yrs; t += xs) g += `<text x="${X(t)}" y="${H - 14}" text-anchor="middle" font-size="14" fill="var(--ink2)">${t === 0 ? (ageAxis ? `지금 ${ba}세` : "지금") : ageAxis ? (ba + t) + "세" : (by + t) + "년"}</text>`;
   (r.basis || []).filter(b => b.key.startsWith("event:")).forEach(b => {
-    const m = /(\d+)~(\d+)/.exec(b.detail || ""); if (!m) return;
-    const x1 = X(+m[1] / 12), x2 = X(Math.min(+m[2], horizon) / 12);
+    const m = /(\d+)~(\d+)/.exec(b.detail || ""); if (!m) return; if (+m[1] / 12 >= yrs) return;
+    const x1 = X(+m[1] / 12), x2 = X(Math.min(+m[2], yrs * 12) / 12);
     g += `<rect x="${x1}" y="${T0}" width="${Math.max(2, x2 - x1)}" height="${H - T0 - B}" fill="var(--warm)" opacity=".1"/><text x="${x1 + 8}" y="${T0 + 18}" font-size="13.5" font-weight="600" fill="var(--warm)">${esc(b.label)}</text>`;
   });
   (r.basis || []).filter(b => b.key.startsWith("lump:")).forEach(b => {
-    const m = +(/\d+/.exec(b.detail) || [0])[0], x = X(m / 12);
+    const m = +(/\d+/.exec(b.detail) || [0])[0]; if (m / 12 > yrs) return; const x = X(m / 12);
     g += `<line x1="${x}" x2="${x}" y1="${T0 + 26}" y2="${H - B}" stroke="var(--ink2)" stroke-dasharray="2 4"/><text x="${x + 8}" y="${H - B - 14}" font-size="13.5" font-weight="600" fill="var(--ink2)">${esc(b.label)} ${esc(b.display)}</text>`;
   });
   const gy = Y(target), gc = goal.type === "runway" ? "var(--bad)" : "var(--green)";
@@ -754,7 +773,7 @@ function s4() {
    ${(d.assumptions || []).length ? `<div class="assume"><b>이렇게 가정했어요</b> ${d.assumptions.map(esc).join(" · ")}${g.type === "runway" ? "" : ` · 수익률 연 ${ret}%${retOf(r.basis.find(b => b.key === "return") || {})?.after_tax ? "(세후)" : "(세금 전)"}`}</div>` : ""}
    ${((d.growth_alt || {})[sp.option_id] || []).length ? `<p class="alt">${d.growth_alt[sp.option_id].map(x => `${esc(x.label)} <b>${esc(x.display)}</b>`).join(" · ")} <small class="cs">(보조 정보)</small></p>` : ""}
    ${d.deadline_note ? `<p class="cs" style="margin-top:6px">정한 기한에 대해: ${esc(d.deadline_note)}</p>` : ""}
-   <div class="livebox"><div class="chart-wrap" id="chartSlot">${chart(r, chartGoal(i, g))}</div>
+   <div class="livebox"><div class="chart-wrap" id="chartSlot">${chart(r, chartGoal(i, g))}</div><p class="chart-more" id="chartMore">${chartMoreHtml(r, g)}</p>
    ${liveTuner(i, ret)}</div>
    <p class="readme">${g.type === "reach_target" ? "선이 올라갈수록 모인 돈이 많아요. 선이 점선(목표)에 닿는 때가 목표를 이루는 때예요." : g.type === "runway" ? "선은 예금에 남은 돈이에요. 아래 점선(0원)에 닿으면 예금을 다 쓴 거예요." : "선은 남은 대출이에요. 아래 점선(0원)에 닿으면 대출을 다 갚은 거예요."}</p>
    <div class="g-sub">자세히 보기</div><div class="g-folds">${folds}</div>
@@ -1209,7 +1228,7 @@ function homeKpis(goal, r, m3, base) {
   const flow = goal.type === "runway" ? m3.inflow + m3.outflow : r.monthly_flow; // 모으기·대출은 합의안 '매달 모이는 돈'과 같은 값(첫 달)
   if (goal.type === "reach_target") return [
     k("목표까지", won(Math.max(0, goal.target_amount - m3.end)), `목표 ${won(goal.target_amount)}`),
-    k("이번 달 모이는 돈", signedWon(flow), `이자·수익 ${won(m3.interest)}은 따로`, flow < 0 ? "neg" : ""),
+    k("이번 달 모이는 돈", signedWon(flow), `합의안의 첫 달 기준 · 이자·수익 ${won(m3.interest)}은 따로`, flow < 0 ? "neg" : ""),
     k("목표 달성까지", when, gap, hit && within && hit > within ? "neg" : "")].join("");
   if (goal.type === "debt_free") return [
     k("지금까지 갚은 돈", won(Math.max(0, r.start_debt - m3.debt)), `처음 대출 ${won(r.start_debt)}`),
@@ -1217,7 +1236,7 @@ function homeKpis(goal, r, m3, base) {
     k("다 갚는 때", r.debt_free_month ? krMonth(addMonthsIso(base, r.debt_free_month)) : "계산 기간 안에는 어려워요", gap)].join("");
   return [
     k("지금 예금", won(mN.end), ""),
-    k("이번 달 모이는 돈", signedWon(flow), "이자·수익은 따로", flow < 0 ? "neg" : ""),
+    k("이번 달 모이는 돈", signedWon(flow), "합의안의 첫 달 기준 · 이자·수익은 따로", flow < 0 ? "neg" : ""),
     k("예금으로 지낼 수 있는 때", hit ? krMonth(addMonthsIso(base, hit)) + (r.age_at_hit ? ` · ${r.age_at_hit}세` : "") : "끝까지 지낼 수 있어요", "")].join("");
 }
 function homeMonths(r, base, idx, rec, basis) { // 달마다 한 줄: 월말 잔액을 크게, 수입·지출·일시금·이자·수익은 그 밑에(가로 스크롤 없이). rec: 가족이 기록한 달 {달: 실제 모은 돈}
@@ -1259,7 +1278,7 @@ function actualCard(a, planFlow, maxM) {
   const inp = locked ? String(v) : (S().actualIn ?? (has ? String(v) : ""));
   const btns = `<button type="button" class="btn sm primary" data-act="actual-apply" ${locked || end ? "disabled" : ""}>반영하기</button>`
     + (has ? (editing ? `<button type="button" class="btn sm" data-act="actual-cancel">수정 취소</button>` : `<button type="button" class="btn sm" data-act="actual-edit">수정하기</button>`) : "");
-  return `<div class="act-rows"><div class="act-hd"><b>${cur}개월째 실제로 모은 돈</b><span class="cs">계획은 ${planFlow < 0 ? signedWon(planFlow) : "월 " + won(planFlow)}이에요</span></div>
+  return `<div class="act-rows"><div class="act-hd"><b>${cur}개월째 실제로 모은 돈</b><span class="cs">계획은 ${planFlow < 0 ? signedWon(planFlow) : "월 " + won(planFlow)}이에요 · 월급 상승 등으로 달마다 조금씩 달라져요</span></div>
    <div class="act-row1"><div class="amt-in"><input data-actin value="${esc(inp)}" inputmode="decimal" placeholder="예: ${Math.round(planFlow)}" ${locked || end ? "readonly" : ""}><span>만원</span></div>${btns}</div>
    <p class="act-note">${end ? "계산 기간의 끝이라 더 기록할 수 없어요." : "그 달에 예금·적금으로 실제로 모은 돈(월급 − 쓴 돈 − 대출 상환)을 적어 주세요. 줄었으면 −로 적어요. 반영하면 위 숫자와 아래 돈의 흐름이 다시 계산돼요. 반영한 금액은 '수정하기'로 고치면 바뀌고, 더해지지 않아요. 달이 바뀌면 다음 달 칸이 저절로 열리고, 기록하지 않은 달은 계획대로 모았다고 봐요."}</p></div>`;
 }
@@ -1346,6 +1365,7 @@ function chrome() {
   $("#roomLabel").textContent = ROOMS[room];
   $("#prev").disabled = step === 0; $("#nextBtn").disabled = step === STEPS.length - 1;
 }
+let RENDER_KEY = "";
 function render() {
   if (view !== "app" || !S() || !CFG) return;
   if (typeof ROOM !== "undefined" && ROOM.active && ROOM.memberId) S().viewer = ROOM.memberId; // 가족방 링크로 들어온 기기는 늘 그 구성원 화면
@@ -1353,7 +1373,9 @@ function render() {
   const keep = document.activeElement && (document.activeElement.id || document.activeElement.dataset?.bind);
   if (needCode) { $("#main").innerHTML = `<div class="screen">${codeScreen(codeMsg)}</div>`; return; }
   const sc = (step > 0 && !S().setupDone) ? s0 : SCR[step];
-  $("#main").innerHTML = `<div class="screen">${sc()}</div>`;
+  const enterKey = room + "|" + step + "|" + viewer() + "|" + (S().setupDone ? 1 : 0); // 같은 화면 안에서 다시 그릴 때는 나타나는 효과를 끈다(깜빡임)
+  const enter = enterKey !== RENDER_KEY; RENDER_KEY = enterKey;
+  $("#main").innerHTML = `<div class="screen${enter ? " enter" : ""}">${sc()}</div>`;
   const eb = $("#main .head .eyebrow"); if (eb) eb.textContent = `제${step + 1}장 · ${eb.textContent}`;
   const ch = $("#chat"); if (ch) ch.scrollTop = ch.scrollHeight;
   bindInputs();
@@ -1448,6 +1470,7 @@ function bindInputs() {
       const ret = (s.ovIn[i] ? s.ovIn[i].ret : ret0), d = s.ovIn[i] ? s.ovIn[i].delta : 0;
       const cs = $("#chartSlot"), ks = $("#kpiSlot"), nt = $("#ovNote");
       if (cs) cs.innerHTML = chart(r, chartGoal(i, g));
+      const cm = $("#chartMore"); if (cm) cm.innerHTML = chartMoreHtml(r, g);
       if (ks) ks.innerHTML = kpiHtml(r, g, kpiOk(r, g), ret);
       if (nt) nt.innerHTML = s.override[i] ? `직접 바꾼 값으로 계산했어요. <button class="btn sm" data-act="reset-ov">원래대로</button>` : "원래 값이에요.";
       $("#svOut").textContent = (d > 0 ? "+" : "") + d + "만원"; $("#rrOut").textContent = (+ret).toFixed(1) + "%";
@@ -1472,18 +1495,21 @@ function bindInputs() {
   }
 }
 function nextId(list, key, prefix) { return prefix + (Math.max(-1, ...list.map(x => +String(x[key]).slice(1))) + 1); }
+let SETUP_BAD = ""; // 비어 있어 표시할 입력칸(data-bind 값)
 function setupProblem() {
-  const f = F();
-  if (!f.room.name.trim()) return "가족방 이름을 적어 주세요";
+  const f = F(); SETUP_BAD = "";
+  if (!f.room.name.trim()) { SETUP_BAD = "room.name"; return "가족방 이름을 적어 주세요"; }
   for (const m of f.members) {
-    if (!m.name || !m.name.trim()) return "가족 모두의 이름을 적어 주세요";
-    if (!m.role || !m.role.trim()) return `${m.name}님의 관계를 적어 주세요`;
-    if (!(m.age >= 1 && m.age <= 110)) return `${m.name}님의 나이를 적어 주세요`;
-    if (!WORK[m.work]) return `${m.name}님이 지금 하는 일을 골라 주세요`;
+    const mi = f.members.indexOf(m);
+    if (!m.name || !m.name.trim()) { SETUP_BAD = `members.${mi}.name`; return "가족 모두의 이름을 적어 주세요"; }
+    if (!m.role || !m.role.trim()) { SETUP_BAD = `members.${mi}.role`; return `${m.name}님의 관계를 적어 주세요`; }
+    if (!(m.age >= 1 && m.age <= 110)) { SETUP_BAD = `members.${mi}.age`; return `${m.name}님의 나이를 적어 주세요`; }
+    if (!WORK[m.work]) { SETUP_BAD = `members.${mi}.work`; return `${m.name}님이 지금 하는 일을 골라 주세요`; }
   }
   return "";
 }
 const ACT = {
+  "chart-full": () => { CHART_FULL[S().pick] = !CHART_FULL[S().pick]; render(); },
   next: () => go(step + 1),
   prev: () => go(step - 1),
   go: b => userGo(+b.dataset.i),
@@ -1504,7 +1530,7 @@ const ACT = {
   "add-member": () => { const f = F(); f.members.push({ member_id: nextId(f.members, "member_id", "m"), name: "", role: "", age: null, easy_mode: false, work: "" }); render(); },
   "del-member": b => { const f = F(), m = f.members[+b.dataset.i]; f.members.splice(+b.dataset.i, 1); f.finance.forEach(x => { if (x.owner_id === m.member_id) x.owner_id = "joint"; }); if (f.room.host_member_id === m.member_id) f.room.host_member_id = f.members[0].member_id; delete S().iv[m.member_id]; if (S().viewer === m.member_id) S().viewer = f.members[0].member_id; render(); },
   "setup-done": async () => {
-    const p = setupProblem(); if (p) { $("#setupHint").textContent = p; toast(p); return; }
+    const p = setupProblem(); if (p) { $("#setupHint").textContent = p; toast(p); document.querySelectorAll(".bad-in").forEach(x => x.classList.remove("bad-in")); const el = SETUP_BAD && document.querySelector(`[data-bind="${SETUP_BAD}"]`); if (el) { el.classList.add("bad-in"); el.scrollIntoView({ block: "center" }); el.focus(); } return; }
     const s = S(); s.setupDone = true; s.fam.story.author_id = s.fam.room.host_member_id; s.viewer = s.fam.room.host_member_id;
     // 가족방(링크) 방식: 직접 입력한 가족(파일럿 시작하기)은 서버에 방을 만들고 방장 링크로 옮겨 간다(2026-11-17, 임의결정 107). 서버가 방을 못 쓰면 예전처럼 이 기기에서.
     if (!DEMO && room === "custom" && !presetLocked() && CFG && CFG.rooms && typeof ROOM !== "undefined" && !ROOM.active) {
@@ -1523,6 +1549,7 @@ const ACT = {
   understand: async () => {
     const s = S();
     const pr = giProblem(); if (pr) { toast(pr); return; }
+    const fp = finProblem(); FIN_BAD = fp ? fp.id : null; if (fp) { render(); toast(fp.msg); setTimeout(() => { const el = document.querySelector(`.fr-row[data-fid="${fp.id}"]`); if (el) { el.scrollIntoView({ block: "center" }); const i = el.querySelector("input"); if (i) i.focus(); } }, 50); return; }
     s.story = { status: "loading", t0: Date.now() }; render();
     try { const chk = await api("/api/family/check", { family: F() }); s.profile = chk.profile; }
     catch (e) { s.story = { status: "error", error: e }; render(); return; }

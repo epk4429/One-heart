@@ -69,7 +69,7 @@ def _s(v, field: str, limit: int, *, required: bool = True) -> str:
         raise FamilyError(f"{field}: 글자여야 해요")
     v = v.strip()
     if required and not v:
-        raise FamilyError(f"{field}: 비어 있어요")
+        raise FamilyError(f"{field}을(를) 적어 주세요")
     if len(v) > limit:
         raise FamilyError(f"{field}: {limit}자까지 쓸 수 있어요")
     return v
