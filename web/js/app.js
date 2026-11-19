@@ -321,7 +321,7 @@ const ivQs = mid => { const st = ivState(mid); if (!st.qs || !st.answers.length)
 const qText = (mid, i) => { const q = ivQs(mid)[i]; return mem(mid).easy_mode ? q.easy : q.text; };
 const KNUM = ["", "한", "두", "세", "네", "다섯"];
 // 예시 가족의 예시 답: 고정 질문 3개는 scripts.answers, 맞춤 질문은 질문 글이 같을 때만 scripts.extra_answers(실제 AI가 다른 질문을 만들면 예시 답은 안 나온다)
-const exAns = (mid, i) => { const sc = S().scripts; if (!sc) return undefined; if (i < CFG.questions.length) return sc.answers?.[mid]?.[i]; const q = ivQs(mid)[i]; return q && sc.extra_answers?.[mid]?.[q.text]; };
+const exAns = (mid, i) => { const sc = S().scripts; if (!sc) return undefined; if (i < CFG.questions.length) return sc.answers?.[mid]?.[i]; const q = ivQs(mid)[i]; const v = q && sc.extra_answers?.[mid]?.[q.text]; return v || (S().key === "custom" && q ? "아직 정하지 못했어요. 가족과 같이 이야기해서 정하고 싶어요." : v); };
 function qaOf(mid) { return ivState(mid).answers.map((a, i) => [qText(mid, i), a]); }
 async function finishInterview(mid) {
   const st = ivState(mid);
@@ -388,7 +388,7 @@ function s2() {
     const ex = exAns(vw, st.answers.length);
     action = DEMO && !ex ? `<textarea id="ans" maxlength="500">아직 정하지 못했어요. 가족과 같이 정하고 싶어요.</textarea><div class="crow"><span class="cs" style="flex:1">맞춤 질문은 예시 답이 없어요. 고쳐 써도 돼요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
       : DEMO ? `<textarea id="ans" readonly>${esc(ex || "")}</textarea><div class="crow"><span class="cs" style="flex:1">체험판이라 예시 답 그대로 보내요</span><button class="btn primary sm" data-act="send-ans">보내기</button></div>`
-      : `<textarea id="ans" maxlength="500" placeholder="${esc(m.name)}님의 답을 적어 주세요">${esc(st.draft || "")}</textarea><div class="crow">${ex ? `<button class="btn sm" data-act="fill-ans">예시 답 넣기</button>` : ""}<button class="btn primary sm" data-act="send-ans">보내기</button></div>`;
+      : `<textarea id="ans" maxlength="500" placeholder="${esc(m.name)}님의 답을 적어 주세요">${esc(st.draft || (s.key === "custom" && ex) || "")}</textarea><div class="crow">${ex ? `<button class="btn sm" data-act="fill-ans">예시 답 넣기</button>` : ""}<button class="btn primary sm" data-act="send-ans">보내기</button></div>`;
   } else if (!started(st.review) && st.review.status !== "error") action = `<button class="btn primary" data-act="finish" data-mid="${vw}">대화 마치고 AI 요약 받기</button>`;
   else if (st.clar?.state === "asking" && DEMO) action = `<span class="cs">체험판이라 1번 답으로 이어가요</span>`;
   else if (st.clar?.state === "asking") action = `<input id="clarTxt" placeholder="또는 직접 적어 주세요" maxlength="200"><button class="btn sm" data-act="clar-text" data-mid="${vw}">보내기</button>`;
@@ -450,7 +450,9 @@ const replyList = pg => {
 };
 // 의견 남기기: 좋아요 / 괜찮아요, 단 … / 다른 의견이 있어요 (뒤의 둘은 내용을 꼭 적는다)
 function replyBox(n) {
-  const s = S(), vw = viewer(), d = s.rd[vw] || { v: null, text: "" }, ex = s.scripts?.rounds?.[n - 1]?.[vw];
+  const s = S(), vw = viewer(), ex = s.scripts?.rounds?.[n - 1]?.[vw];
+  if (!DEMO && s.key === "custom" && ex && !s.rd[vw]) s.rd[vw] = { ...ex }; // 재생 모드: 예시 의견을 미리 골라 둠
+  const d = s.rd[vw] || { v: null, text: "" };
   const head = `<div class="rl">${av(vw, "sm")}${esc(mem(vw).name)}님의 의견을 남겨 주세요</div>`;
   if (DEMO) {
     const e = ex || { v: "good", text: "" };
@@ -580,7 +582,7 @@ function s3() {
   const pager = N > 1 ? `<div class="pager"><button class="btn sm" data-act="pg-view" data-d="-1" ${view === 0 ? "disabled" : ""}>‹ 이전 제안</button><b>제안 ${view + 1}/${N}</b><button class="btn sm" data-act="pg-view" data-d="1" ${isLast ? "disabled" : ""}>다음 제안 ›</button></div>` : "";
   const stuckBox = () => { const st = s.stuck; return `<div class="stuck"><h3 class="st3">서로 이야기가 필요한 부분이에요</h3>${pend(st.status ? st : { status: "loading" }, "이야기가 필요한 부분을 정리하고 있어요", "retry-stuck")}
     ${st.result ? `<p class="q2">${esc(st.result.message)}</p>${st.result.topics.map(issueCard).join("")}
-     <div class="act"><div class="rl">가족끼리 이야기를 나눈 뒤, 나눈 내용을 적고 다시 제안받아요</div><textarea id="discTxt" maxlength="300" placeholder="예: 집은 지키되, 병원비가 모자라면 그때 다시 이야기하기로 했어요">${esc(s.discDraft || "")}</textarea>
+     <div class="act"><div class="rl">가족끼리 이야기를 나눈 뒤, 나눈 내용을 적고 다시 제안받아요</div><textarea id="discTxt" maxlength="300" placeholder="예: 집은 지키되, 병원비가 모자라면 그때 다시 이야기하기로 했어요">${esc(s.discDraft || (s.key === "custom" && s.scripts ? "집은 먼저 사되, 아이 계획은 1년 뒤에 다시 이야기하기로 했어요." : ""))}</textarea>
       ${pend(s.rev, "나눈 이야기를 반영해 다시 제안하고 있어요", "disc-go")}<div class="row"><span class="cs" style="flex:1">AI는 결정을 대신하지 않아요. 가족이 직접 이야기한 뒤에 눌러 주세요.</span><button class="btn primary sm" data-act="disc-go">이야기 나눴어요, 다시 제안받기</button></div></div>` : ""}</div>`; };
   const stepOne = `<section class="sec"><h2 class="st">AI의 제안</h2>
    ${pager}${propBox(pgv, view + 1)}${replyList(pgv)}
@@ -1392,6 +1394,16 @@ async function ensureConfig() {
   if (!CFG) CFG = await api("/api/config", {});
   if (!HEALTH) HEALTH = await api("/api/health", null, "GET");
 }
+// 개발용 재생 모드(--replay)에서만: '우리 가족'의 입력칸(가족방·이야기·목표·금융 정보)을 예시 가족(신혼부부) 값으로 미리 채우고,
+// 각자의 생각 답·공동 목표 의견도 입력칸에 예시로 채워 둔다(누르기만 하면 끝까지 감). 실제 Claude 모드·가족방(링크)에서는 채우지 않는다.
+async function replayExample() {
+  if (!HEALTH || HEALTH.provider !== "replay" || (typeof ROOM !== "undefined" && ROOM.active)) return null;
+  try {
+    const p = await api("/api/preset", { preset_id: "newly" });
+    const scripts = p.scripts; delete p.scripts; delete p._note; delete p.preset_id; p.today = nowYm();
+    return { fam: p, scripts };
+  } catch (e) { return null; }
+}
 async function startApp(k) {
   view = "app";
   $("#landing").hidden = true; $("#app").hidden = false; $("#gnb").hidden = true; $("#hLanding").hidden = true; $("#hApp").hidden = false;
@@ -1400,8 +1412,12 @@ async function startApp(k) {
   try {
     await ensureConfig();
     room = k;
+    if (k === "custom" && R[k] && HEALTH.provider === "replay") { // 재생 모드: 이 기기에 남은 빈 초안(아무것도 안 적은 상태)은 예시로 바꾼다
+      const o = R[k], blank = !o.setupDone && !o.fam.room.name && !o.fam.story.text && !(o.fam.finance || []).length && !o.fam.goal_input;
+      if (blank) delete R[k];
+    }
     if (!R[k]) {
-      if (k === "custom") freshState(k, blankFamily());
+      if (k === "custom") { const ex = await replayExample(); freshState(k, ex ? ex.fam : blankFamily(), ex ? ex.scripts : null); }
       else { const p = await api("/api/preset", { preset_id: k }); const sc = p.scripts; delete p.scripts; delete p._note; freshState(k, p, sc); }
     }
     step = R[k].step || 0;
@@ -1592,7 +1608,7 @@ const ACT = {
   },
   "reply-demo": () => { const s = S(), vw = viewer(), ex = s.scripts?.rounds?.[s.pg.length - 1]?.[vw] || { v: "good", text: "" }; s.pg[s.pg.length - 1].replies[vw] = { v: ex.v, text: ex.text || "" }; toast("의견을 보냈어요"); render(); },
   "disc-go": () => {
-    const s = S(), t = (s.discDraft || "").trim();
+    const s = S(), t = ($("#discTxt")?.value ?? s.discDraft ?? "").trim();
     if (t.length < 4) { toast("가족끼리 이야기 나눈 내용을 짧게 적어 주세요"); return; }
     run(s.rev, "/api/goal/revise", { family: F(), summaries: summariesOf(), analysis: analysisOf(), rounds: roundsOf(), clarifications: clarList(), discussion: t },
       res => { pushPage(res); s.stuck = {}; s.cycleStart = s.pg.length - 1; s.discDraft = ""; });
