@@ -209,11 +209,13 @@ const OTHER_KINDS = [["transfer_out", "가족에게 드리는 돈(매달)"], ["t
 const OTHER_KEYS = OTHER_KINDS.map(k => k[0]);
 const FIN_MAIN = ["income", "expense", "deposit", "loan", "home"]; // 값이 없어도 늘 보이는 묶음(+ 추가 버튼이 있는 것)
 const FIN_EMPTY = { home: "아직 없어요. 전세·자가가 있으면 추가해 주세요.", other: "위 묶음에 없는 것(가족에게 드리는 용돈, 가족이 보태 주는 돈, 주식·펀드, 전세 보증금)은 여기에 넣고 무엇인지 골라 주세요." };
+const hiddenFromMe = it => it.owner_id !== "joint" && it.owner_id !== viewer() && F().disclosure[it.item_id] === "hide";
 function finRow(it, i) {
   const f = F(), own = it.owner_id === viewer(), ro = presetLocked() ? "disabled" : "";
   const d = (f.disclosure[it.item_id] || "share") === "share" ? "share" : "hide"; // 예전 '합계만'은 비공개로 읽는다
   const DT = { share: "공개", hide: "비공개" };
   const loan = it.kind === "loan";
+  if (hiddenFromMe(it)) return ""; // 비공개 항목은 주인이 아닌 가족 화면에 아예 나오지 않는다(계산에는 들어감, docs/03 공개 범위)
   return `<div class="fr-row ${FIN_BAD === it.item_id ? 'bad' : ''}" data-fid="${it.item_id}">
    <input ${ro} data-bind="finance.${i}.label" value="${esc(it.label)}" placeholder="이름(예: 월급)" maxlength="30" aria-label="이름">
    <div class="fr-amt"><input ${ro} data-bind="finance.${i}.amount" data-num value="${it.amount ?? ""}" inputmode="decimal" placeholder="0" aria-label="금액"><span>만원${CFG.monthly_kinds.includes(it.kind) ? "/월" : ""}</span></div>
@@ -238,9 +240,9 @@ function finTable() {
   const f = F(), locked = presetLocked();
   const known = [...FIN_GROUPS.map(g => g[0]), ...OTHER_KEYS];
   const extra = [...new Set(f.finance.map(x => x.kind))].filter(k => !known.includes(k)).map(k => [k, (CFG.kinds && CFG.kinds[k]) || k]); // 목록에 없는 종류도 잃지 않게
-  const groups = [...FIN_GROUPS, ...extra].map(([k, title]) => ({ k, title, items: f.finance.map((it, i) => ({ it, i })).filter(x => x.it.kind === k) }))
+  const groups = [...FIN_GROUPS, ...extra].map(([k, title]) => ({ k, title, items: f.finance.map((it, i) => ({ it, i })).filter(x => x.it.kind === k && !hiddenFromMe(x.it)) }))
     .filter(g => g.items.length || (!locked && FIN_MAIN.includes(g.k)));
-  const others = f.finance.map((it, i) => ({ it, i })).filter(x => OTHER_KEYS.includes(x.it.kind));
+  const others = f.finance.map((it, i) => ({ it, i })).filter(x => OTHER_KEYS.includes(x.it.kind) && !hiddenFromMe(x.it));
   if (others.length || !locked) groups.push({ k: "other", title: "기타", items: others });  // 맨 아래
   return `<div class="fr-head"><span>이름</span><span>금액</span><span>구성원</span><span>가족 공개 여부</span><span></span></div>
    ${groups.map(g => `<div class="fr-grp"><div class="fr-gh"><b>${esc(g.title)}</b>${locked ? "" : `<button type="button" class="btn sm" data-act="add-fin" data-kind="${g.k}">+ 추가</button>`}</div>${g.items.length ? g.items.map(x => finRow(x.it, x.i)).join("") : `<div class="fr-empty">${FIN_EMPTY[g.k] || "아직 없어요."}</div>`}</div>`).join("")}`;
@@ -343,15 +345,29 @@ async function answerClar(mid, idx, text) {
   await run(st.resolve, "/api/interview/resolve", { family: F(), member_id: mid, detect: d, answer });
   if (st.resolve.status === "done" && st.resolve.result.resolved) {
     const word = d.ambiguous[0].word, meaning = st.resolve.result.meaning;
-    st.clar = { state: "done", choice: idx, answer, meaning, word };
+    // AI가 "~뜻이 맞을까요?"라고 되물으면 본인이 직접 답해야 한다(예전엔 '네, 맞아요.'를 화면이 대신 보냈음). 확인 전에는 요약을 만들지 않는다.
+    st.clar = { state: "confirming", choice: idx, answer, meaning, word, msg: st.resolve.result.confirm_message };
     st.confirmed = false;
-    await run(st.review2, "/api/interview/review", { family: F(), member_id: mid, qa: qaOf(mid), clarification: { word, meaning } });
-    if (st.review2.status === "done") st.summary = st.review2.result;
   } else if (st.resolve.status === "done") {
     st.clarTries = (st.clarTries || 0) + 1;
     if (st.clarTries >= 2) st.clar = { state: "later", choice: idx, answer };
     else { st.clar = { state: "asking", retry: true, lastAnswer: answer }; st.resolve = {}; }
   }
+  render();
+}
+async function summarizeClar(mid) { // 본인이 뜻을 확인한 뒤에 요약을 만든다
+  const st = ivState(mid), c = st.clar;
+  await run(st.review2, "/api/interview/review", { family: F(), member_id: mid, qa: qaOf(mid), clarification: { word: c.word, meaning: c.meaning } });
+  if (st.review2.status === "done") st.summary = st.review2.result;
+  render();
+}
+async function confirmClar(mid, ok) {
+  const st = ivState(mid), c = st.clar;
+  if (!c || c.state !== "confirming") return;
+  if (ok) { st.clar = { ...c, state: "done" }; render(); await summarizeClar(mid); return; }
+  st.clarTries = (st.clarTries || 0) + 1; // '아니에요'도 한 번 되묻기로 센다(2번까지)
+  st.resolve = {};
+  st.clar = st.clarTries >= 2 ? { state: "later", choice: c.choice, answer: c.answer } : { state: "asking", retry: true, denied: true, lastAnswer: c.answer, lastMsg: c.msg };
   render();
 }
 function chatHtml(mid) {
@@ -372,10 +388,11 @@ function chatHtml(mid) {
     h += ai(esc(d.easy_question));
     const picked = st.clar.choice;
     h += `<div class="choices">${d.choices.map((t, i) => `<button class="choice ${picked === i ? "on" : ""} ${i === d.choices.length - 1 ? "muted" : ""}" data-act="clar" data-mid="${mid}" data-i="${i}" ${st.clar.state !== "asking" || mid !== viewer() || (DEMO && i !== 0) ? "disabled" : ""}><span class="n">${i + 1}</span>${esc(t)}</button>`).join("")}</div>`;
-    if (st.clar.retry && st.clar.state === "asking") h += me(st.clar.lastAnswer) + ai("제가 잘 알아듣지 못했어요. 아래에서 가까운 것을 골라 주시거나, 조금 더 자세히 말씀해 주세요.");
+    if (st.clar.retry && st.clar.state === "asking") h += me(st.clar.lastAnswer) + (st.clar.denied ? ai(esc(st.clar.lastMsg || "")) + me("아니요, 달라요.") + ai("알겠어요. 아래에서 가까운 것을 골라 주시거나, 조금 더 자세히 말씀해 주세요.") : ai("제가 잘 알아듣지 못했어요. 아래에서 가까운 것을 골라 주시거나, 조금 더 자세히 말씀해 주세요."));
     if (st.clar.answer && st.clar.state !== "asking") h += me(st.clar.answer);
     h += pend(st.resolve, "AI가 답을 확인하고 있어요", `retry-resolve:${mid}`);
-    if (st.clar.state === "done") h += ai(esc(st.resolve.result.confirm_message)) + me("네, 맞아요.");
+    if (st.clar.state === "confirming") h += ai(esc(st.clar.msg));
+    if (st.clar.state === "done") h += ai(esc(st.clar.msg)) + me("네, 맞아요.");
     if (st.clar.state === "later") h += ai("괜찮아요. 편하실 때 다시 답해 주세요. 이 말의 뜻이 정해지기 전에는 AI가 짐작해서 계산하지 않아서, 요약도 그때 함께 공유해요.");
     h += pend(st.review2, "AI가 요약을 다시 만들고 있어요", `retry-review2:${mid}`);
   }
@@ -394,6 +411,7 @@ function s2() {
   } else if (!started(st.review) && st.review.status !== "error") action = `<button class="btn primary" data-act="finish" data-mid="${vw}">대화 마치고 AI 요약 받기</button>`;
   else if (st.clar?.state === "asking" && DEMO) action = `<span class="cs">체험판이라 1번 답으로 이어가요</span>`;
   else if (st.clar?.state === "asking") action = `<input id="clarTxt" placeholder="또는 직접 적어 주세요" maxlength="200"><button class="btn sm" data-act="clar-text" data-mid="${vw}">보내기</button>`;
+  else if (st.clar?.state === "confirming") action = `<div class="choices">${vw === s.viewer ? `<button class="btn primary" data-act="clar-yes" data-mid="${vw}">네, 맞아요</button><button class="btn" data-act="clar-no" data-mid="${vw}">아니요, 달라요</button>` : ""}</div>`;
   else if (st.clar?.state === "later") action = `<span class="cs">질문에 답해야 요약을 공유할 수 있어요. 다른 가족이 먼저 이야기해도 괜찮아요.</span><button class="btn primary sm" data-act="clar-resume" data-mid="${vw}">지금 답하기</button>`;
   else if (st.summary && !st.confirmed) action = `<button class="btn primary" data-act="confirm" data-mid="${vw}">요약 확인하고 가족에게 공유하기</button>`;
   else if (st.confirmed) action = `<span class="cs">✓ 요약을 가족에게 공유했어요</span>`;
@@ -636,9 +654,12 @@ function chart(r, goal) {  const W = 760, H = 340, L = 64, Rr = 96, T0 = 34, B =
   const target = goal.type === "reach_target" ? goal.target_amount : 0;
   // 내 집 마련은 집값 상승률만큼 목표 금액도 해마다 오른다(엔진 target_at과 같은 식). 목표선을 평평하게 그리면 '닿는 점'이 선 위에서 어긋난다
   const tg = goal.type === "reach_target" ? (+goal.target_growth || 0) : 0;
-  const tAt = t => tg ? target * Math.pow(1 + tg / 100, Math.max(0, t * 12 - 1) / 12) : target;
+  // 엔진은 '모인 돈 − 늘 남겨 둘 비상금 ≥ 목표'일 때 닿았다고 본다(engine/core.py goal_reached). 그래프의 선은 모인 돈 전체라서 목표선도 비상금만큼 올려 그려야 닿는 점이 두 선 위에 정확히 놓인다(2026-11-20)
+  const fl = goal.type === "reach_target" ? Math.max(0, +r.floor || 0) : 0;
+  const tAt = t => (tg ? target * Math.pow(1 + tg / 100, Math.max(0, t * 12 - 1) / 12) : target) + fl;
   const tEnd = tAt(yrs);
-  let mn = Math.min(0, ...p, target), mx = Math.max(...p, target, tEnd, 1);
+  const tShown = tEnd - fl; // 글자로는 비상금을 뺀 목표 금액을 보인다
+  let mn = Math.min(0, ...p, target + fl), mx = Math.max(...p, target + fl, tEnd, 1);
   const nice = x => { const q = Math.pow(10, Math.floor(Math.log10(x || 1))), f = x / q; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * q; };
   const st = nice((mx - mn) / 3); mn = Math.floor(mn / st) * st; mx = Math.ceil(mx / st) * st;
   const X = t => L + (W - L - Rr) * t / yrs, Y = v => T0 + (H - T0 - B) * (1 - (v - mn) / (mx - mn));
@@ -656,13 +677,13 @@ function chart(r, goal) {  const W = 760, H = 340, L = 64, Rr = 96, T0 = 34, B =
     const m = +(/\d+/.exec(b.detail) || [0])[0]; if (m / 12 > yrs) return; const x = X(m / 12);
     g += `<line x1="${x}" x2="${x}" y1="${T0 + 26}" y2="${H - B}" stroke="var(--ink2)" stroke-dasharray="2 4"/><text x="${x + 8}" y="${H - B - 14}" font-size="13.5" font-weight="600" fill="var(--ink2)">${esc(b.label)} ${esc(b.display)}</text>`;
   });
-  const gy = Y(target), gc = goal.type === "runway" ? "var(--bad)" : "var(--green)";
+  const gy = Y(target + fl), flTxt = y => fl ? `<text x="${W - Rr + 10}" y="${y}" font-size="12" fill="var(--green)">+ 비상금 ${eokS(fl)}</text>` : "", gc = goal.type === "runway" ? "var(--bad)" : "var(--green)";
   if (tg) { // 집값이 오르는 만큼 오르는 목표선(오른쪽 끝 글은 끝 금액, 처음 금액은 작게 덧붙임)
     const ts = []; for (let t = 0; t < yrs; t++) ts.push(t); ts.push(yrs);
     const gd = ts.map((t, j) => `${j ? "L" : "M"}${X(t).toFixed(1)},${Y(tAt(t)).toFixed(1)}`).join("");
-    g += `<path d="${gd}" fill="none" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${Y(tEnd) + 5}" font-size="14" font-weight="700" fill="${gc}">목표 ${eokS(tEnd)}</text><text x="${W - Rr + 10}" y="${Y(tEnd) + 22}" font-size="12" fill="${gc}">(처음 ${eokS(target)})</text>`;
+    g += `<path d="${gd}" fill="none" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${Y(tEnd) + 5}" font-size="14" font-weight="700" fill="${gc}">목표 ${eokS(tShown)}</text><text x="${W - Rr + 10}" y="${Y(tEnd) + 22}" font-size="12" fill="${gc}">(처음 ${eokS(target)})</text>${flTxt(Y(tEnd) + 38)}`;
   } else
-  g += `<line x1="${L}" x2="${W - Rr}" y1="${gy}" y2="${gy}" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${gy + 5}" font-size="14" font-weight="700" fill="${gc}">${goal.type === "reach_target" ? "목표 " + eokS(target) : debt ? "대출 0원" : "예금 0원"}</text>`;
+  g += `<line x1="${L}" x2="${W - Rr}" y1="${gy}" y2="${gy}" stroke="${gc}" stroke-dasharray="6 5" stroke-width="2"/><text x="${W - Rr + 10}" y="${gy + 5}" font-size="14" font-weight="700" fill="${gc}">${goal.type === "reach_target" ? "목표 " + eokS(target) : debt ? "대출 0원" : "예금 0원"}</text>${flTxt(gy + 22)}`;
   // '지금' 금액 글: 선이 오르면(시작점 오른쪽 위로 지나감) 점 아래에, 내려가거나 평평하면 점 위에 둔다. 아래 칸이 모자라면 위에 두고 글 둘레를 하얗게 둘러 선과 겹쳐도 읽히게 한다
   const nowY = p.length > 1 && p[1] > p[0] && Y(p[0]) + 18 <= H - B - 4 ? Y(p[0]) + 18 : Y(p[0]) - 12;
   const dd = p.map((v, j) => `${j ? "L" : "M"}${X(j).toFixed(1)},${Y(v).toFixed(1)}`).join("");
@@ -1505,6 +1526,7 @@ function bindInputs() {
     if (el.tagName === "SELECT" || el.type === "checkbox") el.onchange = () => {
       setPath(s.fam, path, val());
       if (/^finance\.\d+\.kind$/.test(path)) { const it = getPath(s.fam, path.replace(/\.kind$/, "")); if (it.kind === "loan") { it.loan_type = it.loan_type || "credit"; it.rate = it.rate ?? 5; } }
+      if (/^finance\.\d+\.owner_id$/.test(path)) { const it = getPath(s.fam, path.replace(/\.owner_id$/, "")); s.fam.disclosure[it.item_id] = it.owner_id === "joint" ? "share" : "hide"; } // 개인 몫으로 바꾸는 순간 비공개가 기본(공개는 주인이 직접 고른다)
       famEdited(path); render();
     };
     else el.oninput = () => {
@@ -1583,7 +1605,7 @@ const ACT = {
   viewer: b => { S().viewer = b.dataset.mid; toast(mem(b.dataset.mid).name + "님 화면이에요"); render(); window.scrollTo({ top: 0 }); },
   code: async () => { const v = ($("#codeIn").value || "").trim(); if (!v) return; ACCESS.set(v); try { await api("/api/access", { code: v }); needCode = false; codeMsg = ""; toast("확인했어요"); render(); } catch (e) { ACCESS.set(""); codeMsg = e.message; render(); } },
   "add-member": () => { const f = F(); f.members.push({ member_id: nextId(f.members, "member_id", "m"), name: "", role: "", age: null, easy_mode: false, work: "" }); render(); },
-  "del-member": b => { const f = F(), m = f.members[+b.dataset.i]; f.members.splice(+b.dataset.i, 1); f.finance.forEach(x => { if (x.owner_id === m.member_id) x.owner_id = "joint"; }); if (f.room.host_member_id === m.member_id) f.room.host_member_id = f.members[0].member_id; delete S().iv[m.member_id]; if (S().viewer === m.member_id) S().viewer = f.members[0].member_id; render(); },
+  "del-member": b => { const f = F(), m = f.members[+b.dataset.i]; f.members.splice(+b.dataset.i, 1); f.finance.forEach(x => { if (x.owner_id === m.member_id) { x.owner_id = "joint"; delete f.disclosure[x.item_id]; } }); if (f.room.host_member_id === m.member_id) f.room.host_member_id = f.members[0].member_id; delete S().iv[m.member_id]; if (S().viewer === m.member_id) S().viewer = f.members[0].member_id; render(); },
   "setup-done": async () => {
     const p = setupProblem(); if (p) { $("#setupHint").textContent = p; toast(p); document.querySelectorAll(".bad-in").forEach(x => x.classList.remove("bad-in")); const el = SETUP_BAD && document.querySelector(`[data-bind="${SETUP_BAD}"]`); if (el) { el.classList.add("bad-in"); el.scrollIntoView({ block: "center" }); el.focus(); } return; }
     const s = S(); s.setupDone = true; s.fam.story.author_id = s.fam.room.host_member_id; s.viewer = s.fam.room.host_member_id;
@@ -1617,6 +1639,8 @@ const ACT = {
   "clar-resume": b => { const st = ivState(b.dataset.mid); st.clar = { state: "asking" }; st.clarTries = 0; st.resolve = {}; render(); },
   confirm: b => { ivState(b.dataset.mid).confirmed = true; toast("요약을 가족에게 공유했어요"); render(); },
   clar: b => answerClar(b.dataset.mid, +b.dataset.i),
+  "clar-yes": b => confirmClar(b.dataset.mid, true),
+  "clar-no": b => confirmClar(b.dataset.mid, false),
   "clar-text": b => { const t = ($("#clarTxt").value || "").trim(); if (!t) return; answerClar(b.dataset.mid, -1, t); },
   reask: b => { const st = ivState(b.dataset.mid); S().viewer = b.dataset.mid; st.clar = { state: "asking" }; st.confirmed = false; st.summary = null; st.resolve = {}; st.review2 = {}; reset("goal"); toast(mem(b.dataset.mid).name + "님의 1:1 대화로 이동했어요"); go(2); },
   "retry-goal": () => { const s = S(); s.goal = {}; s.pg = []; s.pgView = null; s.rev = {}; s.stuck = {}; s.cycleStart = 0; render(); },
@@ -1785,7 +1809,7 @@ document.addEventListener("click", e => {
     const [kind, mid] = a.split(":"); const st = ivState(mid);
     if (kind === "retry-review") { st.review = {}; finishInterview(mid); }
     else if (kind === "retry-resolve") { st.resolve = {}; st.clar = { state: "asking" }; render(); }
-    else { st.review2 = {}; answerClar(mid, st.clar.choice ?? -1, st.clar.answer); }
+    else { st.review2 = {}; summarizeClar(mid); }
     return;
   }
   if (ACT[a]) ACT[a](b);
