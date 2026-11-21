@@ -341,7 +341,10 @@ def _r7(i):
             "report": {"reasons": ["반대한 사람 없이 모인 방법이에요.", "가족이 붙인 조건을 약속으로 남겼어요."],
                        "outcomes": [{"label": {"reach_target": "목표 달성까지", "runway": "예금으로 지낼 수 있는 기간", "debt_free": "대출을 다 갚는 때"}[i["goal"]["type"]],
                                      "fact_id": f"{oid}.goal_hit_years"}],
-                       "action_plan": [{"when": "이번 달", "what": "자동이체를 약속대로 설정해요."}]}}
+                       # 실제 AI는 여러 줄을 쓴다. 예시 답도 3줄(숫자 없이: 서버가 문장 속 숫자를 계산 결과와 대조하므로, 2026-11-22)
+                       "action_plan": [{"when": "이번 달", "what": "매달 모으기로 한 돈을 자동이체로 설정해요."},
+                                       {"when": "매달", "what": "정한 돈이 예정대로 모였는지 둘이 함께 확인해요."},
+                                       {"when": "정기 점검 때", "what": "수입·지출이 크게 바뀌었으면 합의안을 다시 정해요."}]}}
 
 
 def _goal_amount_text(goal: dict) -> str:
